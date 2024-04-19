@@ -1,0 +1,10 @@
+server:
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+    # url rewrite ?? ??
+    session:
+      tracking-modes: cookie
+  port: 8080
+

@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.finalproject.domain.user;
 
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpServletRequest;

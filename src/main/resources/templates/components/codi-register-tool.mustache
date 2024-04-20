@@ -1,0 +1,65 @@
+<!--코디 등록 ajax Tool / 시작 -->
+<script>
+    // 아이템 ROW - 반복되는 항목
+    function render(resp) {
+        var temp = `<tr>
+                                <td><input type="radio" id="item-checked" value="${resp}" name="itemGroup"></td>
+                                <td>${resp}</td>
+                                <td>컴패스 스몰로고 맨투맨</td>
+                                <td>59,000</td>
+                                <td>1</td>
+                            </tr>`
+        return temp;
+    }
+
+    // 상의항목 아이템 업데이트
+    function updateTopValue(newValue) {
+        $('#topInput').val(newValue);
+    }
+
+    // 하의항목 아이템 업데이트
+    function updatePantsValue(newValue) {
+        $('#pantsInput').val(newValue);
+    }
+
+    // 대분류, 소분류 선택해서 찾기
+    $(document).ready(function () {
+        $('#findButton').click(function () {
+            var mainId = $('#mainCategory').val();
+            var subId = $('#subCategory').val();
+
+            $.ajax({
+                url: '/api/codi-items/main-sub',
+                type: 'get',
+                data: {
+                    mainId: mainId,
+                    subId: subId
+                },
+            }).done((resp) => {
+                $('#items').empty();
+                console.log(resp)
+                resp.body.forEach(s => {
+                    //여기에 진짜 데이터가 리스트로 들어오면 됨
+                    let htmlContent = render(s);
+                    $('#items').append(htmlContent);
+                })
+            });
+        });
+    });
+
+    // 대분류, 소분류로 찾아서 등록하기 버튼클릭시 로직
+    $('#item-submit').click(function () {
+        var selectedItem = $('input[type="radio"][id^="item-checked"]:checked').val(); // 선택된 라디오 버튼 값
+        var mainId = $('#mainCategory').val();
+
+        console.log('선택된 아이템:', selectedItem);
+
+        if (mainId === '1') { // 상의 카테고리가 선택되었을 경우
+            updateTopValue(selectedItem);
+        } else if (mainId === '2') { // 하의 카테고리가 선택되었을 경우
+            updatePantsValue(selectedItem);
+        }
+    });
+
+</script>
+<!--코디 등록 ajax Tool / 끝 -->

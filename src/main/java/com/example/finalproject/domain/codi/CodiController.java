@@ -17,6 +17,7 @@ import java.util.List;
 public class CodiController {
     private final HttpServletRequest request;
 
+
     // 코디 등록 (상의와 하의가 같이 저장됨) - 작업중 //TODO
     @PostMapping("/api/codi-register")
     public void codiRegister(
@@ -37,8 +38,8 @@ public class CodiController {
         /*
         select i from Item i
         join i.categories c
-        join CategoryMap cm on c.id = cm.descendant
-        where cm.ancestor = :mainId
+        join CategoryMap cm on c.id = cm.childId
+        where cm.parentId = :mainId
         */
         System.out.println(mainId);
         List<Integer> numberList = new ArrayList<>();
@@ -48,6 +49,7 @@ public class CodiController {
         return ResponseEntity.ok(new ApiUtil<>(numberList));
     }
 
+
     // 코디 등록 페이지 카테고리 검색 - main과 sub가 주어졌을때 //TODO
     @GetMapping("/api/codi-items/main-sub")
     public ResponseEntity<?> findCodiItemsMainSub(
@@ -56,17 +58,19 @@ public class CodiController {
 
         //main과 sub값으로 아래와 같은 쿼리를 DB에 요청하면 됨
         /*
-         select i from Item i
+        select i from Item i
         join i.categories c
-        join CategoryMap cm on c.id = cm.descendant
-        where cm.ancestor = :subId
+        join CategoryMap cm on c.id = cm.childId
+        where cm.parentId = :subId
         and :mainId in (
-                select cm.ancestor from CategoryMap cm
-        where cm.descendant = :subId)
+                select cm.parentId from CategoryMap cm
+        where cm.childId = :subId)
         */
 
         System.out.println(mainId);
         System.out.println(subId);
+
+        //이건 테스트용 배열
         List<Integer> numberList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             numberList.add(i);

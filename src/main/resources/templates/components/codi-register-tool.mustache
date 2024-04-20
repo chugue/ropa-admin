@@ -1,6 +1,6 @@
 <!--코디 등록 ajax Tool / 시작 -->
 <script>
-    // 아이템 ROW - 반복되는 항목
+    // 아이템 row - 반복되는 항목
     function render(resp) {
         var temp = `<tr>
                                 <td><input type="radio" id="item-checked" value="${resp}" name="itemGroup"></td>
@@ -47,7 +47,7 @@
         });
     });
 
-    // 대분류, 소분류로 찾아서 등록하기 버튼클릭시 로직
+    // 대분류, 소분류로 찾아서 등록하기 버튼클릭시 칼럼을 업데이트 하는 로직
     $('#item-submit').click(function () {
         var selectedItem = $('input[type="radio"][id^="item-checked"]:checked').val(); // 선택된 라디오 버튼 값
         var mainId = $('#mainCategory').val();
@@ -56,7 +56,8 @@
 
         if (mainId === '1') { // 상의 카테고리가 선택되었을 경우
             updateTopValue(selectedItem);
-        } else if (mainId === '2') { // 하의 카테고리가 선택되었을 경우
+        }
+        if (mainId === '2') { // 하의 카테고리가 선택되었을 경우
             updatePantsValue(selectedItem);
         }
     });

@@ -1,0 +1,80 @@
+{{> /layout/header}}
+{{> /layout/navbar}}
+{{> /layout/sidebar}}
+
+<!-- 메인 화면 -->
+<div class="content">
+    <h2>상품 수정</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <form action="" method="post">
+                    <!-- 이미지 -->
+                    <div class="d-flex justify-content-center my-5">
+                        <div class="card" STYLE="width: 350PX">
+                            <img class="card-img-top" id="imgPreview" src="/images/shirt.jpg">
+                            <div class="input-group">
+                                <input type="file" class="form-control" name="imgFilename" value="{{imgFilename}}"
+                                       onchange="previewImage(this)">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 코디 등록 명 적는 테이블 -->
+                    <div class="card-body d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col">
+                                <!-- 코디 등록 input -->
+                                <div class="input-group">
+                                        <span class=" input-group-text"
+                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
+                                              id="basic-addon1">상품명</span>
+                                    <input type="text" class="form-control" placeholder="완준룩" aria-label="Username"
+                                           aria-describedby="basic-addon1">
+                                </div>
+                                <div class="input-group">
+                                        <span class="input-group-text"
+                                              style="display: inline-block; vertical-align: middle; line-height: normal;">카테고리</span>
+                                    <select style="width: 800px;">소분류
+                                        <option value="상의">셔츠</option>
+                                        <option value="상의">맨투맨</option>
+                                        <option value="상의">반팔</option>
+                                        <option value="하의">청바지</option>
+                                        <option value="하의">슬랙스</option>
+                                        <option value="하의">반바지</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                        <span class="input-group-text"
+                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
+                                              id="basic-addon1">판매가격</span>
+                                    <input type="text" class="form-control" placeholder="Username"
+                                           aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                <div class="input-group">
+                                        <span class="input-group-text"
+                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
+                                              id="basic-addon1">수량</span>
+                                    <input type="text" class="form-control" placeholder="Username"
+                                           aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                <div class="input-group mb-3">
+                                        <span class="input-group-text"
+                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
+                                              id="basic-addon1">설명</span>
+                                    <textarea type="text" class="form-control" placeholder="Username"
+                                              aria-label="Username" aria-describedby="basic-addon1">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 수정 -->
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">수정하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{> /layout/footer}}

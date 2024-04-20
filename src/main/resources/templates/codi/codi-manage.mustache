@@ -1,0 +1,64 @@
+{{> /layout/header}}
+{{> /layout/navbar}}
+{{> /layout/sidebar}}
+
+
+<!-- 메인 화면 -->
+<div class="content">
+    <h2>코디 목록</h2>
+    <div class="card">
+        <div class="card-body">
+            <a href="/api/codi-register-form">
+                <button class="btn btn-primary float-right mb-3">코디등록</button>
+            </a>
+            <div class="clearfix"></div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>코디번호</th>
+                    <th>코디명</th>
+                    <th>좋아요 수</th>
+                    <th>날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>데일리 코디</td>
+                    <td>50</td>
+                    <td>2024.04.18</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>오피스 룩</td>
+                    <td>30</td>
+                    <td>2024.04.19</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>캐주얼 스타일</td>
+                    <td>20</td>
+                    <td>2024.04.20</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- 페이징 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">다음</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{{> /layout/footer}}

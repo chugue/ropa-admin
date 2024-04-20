@@ -1,0 +1,91 @@
+{{> /layout/header}}
+{{> /layout/navbar}}
+{{> /layout/sidebar}}
+
+
+<!-- 메인 화면 -->
+<div class="content">
+    <h2>매출 관리</h2>
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post">
+                <div class="d-flex justify-content-between align-items-center">
+                    <!--매출-->
+                    <div class="input-group" style="margin-left: 30px; width: 300px; ">
+                            <span class="input-group-text"
+                                  style="display: inline-block; vertical-align: middle; line-height: normal;"
+                                  id="basic-addon1">총 매출</span>
+                        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                               aria-describedby="basic-addon1">
+                    </div>
+                    <!-- 날짜 조회 -->
+                    <div class="input-group" style="margin-right: 30px;  width: 500px;">
+                            <span class="input-group-text"
+                                  style="display: inline-block; vertical-align: middle; line-height: normal;"
+                                  id="basic-addon1">조회기간</span>
+                        <input type="date" class="form-control" id="date">
+                        <input type="date" class="form-control" id="date">
+                        <button type="submit" class="btn btn-primary ml-3">검색하기</button>
+                    </div>
+
+                </div>
+        </div>
+
+        <!--판매 목록-->
+        <div class=" ml-5 mr-5">
+            <table class=" table table-bordered table-sm">
+                <tbody>
+                <div class="clearfix">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>상품 주문번호</th>
+                            <th>상품명</th>
+                            <th>총 판매 금액</th>
+                            <th>판매 수량</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+
+                            <td>1111</td>
+                            <td>컴패스 스몰로고 맨투맨</td>
+                            <td>220,000</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+
+                            <td>2222</td>
+                            <td>유니온블루 세미 오버핏 셔츠</td>
+                            <td>250,000</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+
+                            <td>3333</td>
+                            <td>후러브스아트 유니게스 세미와이드 밴딩슬랙스</td>
+                            <td>165,000</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>4444</td>
+                            <td>리[22SS] 빅 트위치 로고 티셔츠 White</td>
+                            <td>225,000</td>
+                            <td>4</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </tbody>
+            </table>
+        </div>
+        <!-- 수정 -->
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">수정하기</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+{{> /layout/footer}}

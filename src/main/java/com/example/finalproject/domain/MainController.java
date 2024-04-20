@@ -1,4 +1,4 @@
-package com.example.finalproject.domain.codi;
+package com.example.finalproject.domain;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -8,20 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RequiredArgsConstructor
 @Controller
-public class CodiController {
+public class MainController {
     private final HttpServletRequest request;
     private final HttpSession session;
 
-    // 코디 관리 페이지
-    @GetMapping("/api/codi-manage")
-    public String codiManage() {
-        return "codi/codi-manage";
+    // 메인 페이지 (대쉬보드??)
+    @GetMapping("/")
+    public String index(){
+        return "index";
     }
 
-
-    // 코디 등록 페이지
-    @GetMapping("/api/codi-register-form")
-    public String codiRegisterForm() {
-        return "codi/codi-register-form";
+    // 매출 관리 페이지
+    @GetMapping("/api/sales-manage")
+    public String salesManage(){
+        return "sales/sales-manage";
     }
 }

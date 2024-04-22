@@ -1,4 +1,4 @@
-package com.example.finalproject.domain;
+package com.example.finalproject.domain.items;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @RequiredArgsConstructor
 @Controller
-public class ItemController {
+public class ItemsController {
     private final HttpServletRequest request;
     private final HttpSession session;
 

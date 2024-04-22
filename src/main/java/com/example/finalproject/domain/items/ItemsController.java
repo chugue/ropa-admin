@@ -1,4 +1,4 @@
-package com.example.finalproject.domain;
+package com.example.finalproject.domain.items;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

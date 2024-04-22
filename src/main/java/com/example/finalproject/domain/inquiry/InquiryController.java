@@ -18,4 +18,12 @@ public class InquiryController {
         return "inquiry/inquiry-manage";
     }
 
+//    /api/items-register-form
+
+    // 답변 하기 폼 페이지
+    @GetMapping("/api/inquiry-reply")
+    public String inquiryReply(){
+        return "inquiry/inquiry-reply-form";
+    }
+
 }

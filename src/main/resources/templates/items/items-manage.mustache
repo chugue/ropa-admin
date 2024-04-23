@@ -11,7 +11,20 @@
             <a href="/api/items-register-form">
                 <button class="btn btn-primary float-right mb-3">상품등록</button>
             </a>
-            <div class="clearfix"></div>
+            <form class="form-inline search-form float-right mb-3">
+                <div class="form-group mr-2">
+                    <select class="form-control">
+                        <option selected>상품번호</option>
+                        <option>상품명</option>
+                        <option>상품가격</option>
+                        <option>카테고리</option>
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" placeholder="검색명">
+                </div>
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
             <table class="table">
                 <thead>
                 <tr>

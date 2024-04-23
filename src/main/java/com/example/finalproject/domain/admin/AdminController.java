@@ -14,7 +14,8 @@ public class AdminController {
     private final AdminService adminService;
     private final HttpSession session;
 
-
+//    @PostMapping("login")
+//   public String login ()
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO, HttpServletRequest req){
         Admin admin = adminService.join(reqDTO);
@@ -22,6 +23,10 @@ public class AdminController {
         return "/admin/join-form";
     }
 
+    @GetMapping("/login")
+    public String loginForm(){
+        return "admin/login-form";
+    }
     @GetMapping("/joinForm")
     public String joinForm(){
         return "/admin/join-form";

@@ -14,12 +14,14 @@
 --         2024 - 04 - 18 11:20:00, 2023 - 01 - 19 08:30:00, null);
 --
 --
--- --관리자 테이블--
--- INSERT INTO `admin_tb` (`email`, `password`, `updatedAt`, `createdAt`)
--- VALUES
---     ('p4rksk@naver.com', '1234', NULL, 2023-01-10 08:30:00);
---
---
+  --관리자 테이블--
+INSERT INTO admin_tb (email, password, barndName, role, address, businessNum, updatedAt, createdAt)
+VALUES
+    ('Ropa@naver.com', '1234', 'Ropa', 'BRAND', '서울특별시 강남구', '827-546-7895', NULL, '2023-01-10 08:30:00'),
+    ('Ace@naver.com', '1234', 'Ace', 'BRAND', '서울특별시 종로구', '737-546-7196', NULL, '2023-01-10 08:30:00'),
+    ('BB@naver.com', '1234', 'BB', 'BRAND', '서울특별시 강동구', '657-546-2897', NULL, '2023-01-10 08:30:00'),
+    ('Admin@naver.com', '1234', null, 'ADMIN', '부산광역시 해운대구', '1234', NULL, '2023-01-10 08:30:00');
+
 --
 -- --
 --

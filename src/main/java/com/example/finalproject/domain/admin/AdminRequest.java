@@ -7,6 +7,13 @@ import java.time.LocalDateTime;
 
 public class AdminRequest {
 
+    //로그인
+    @Data
+    public static class LoginDTO {
+        private String email;
+        private String password;
+    }
+
     //회원가입
     @Data
     public static class JoinDTO {

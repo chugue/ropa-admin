@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
+
     Optional<Admin> findByEmail(@Param("email") String email);
 
 

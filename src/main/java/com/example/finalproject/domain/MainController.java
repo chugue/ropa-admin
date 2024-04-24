@@ -12,15 +12,21 @@ public class MainController {
     private final HttpServletRequest request;
     private final HttpSession session;
 
-    // 메인 페이지 (대쉬보드??)
-    @GetMapping("/")
-    public String index(){
-        return "index";
+//    // 메인 페이지 (대쉬보드??)
+//    @GetMapping("/")
+//    public String index() {
+//        return "index";
+//    }
+
+    // 관리자 매출관리 페이지
+    @GetMapping("/api/admin-sales-manage")
+    public String adminSalesManage() {
+        return "sales/admin-sales-manage";
     }
 
-    // 매출 관리 페이지
-    @GetMapping("/api/sales-manage")
-    public String salesManage(){
-        return "sales/sales-manage";
+    // 브랜드 매출관리 페이지
+    @GetMapping("/api/brand-sales-manage")
+    public String brandSalesManage() {
+        return "sales/admin-sales-manage";
     }
 }

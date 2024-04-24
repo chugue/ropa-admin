@@ -14,15 +14,13 @@ public class InquiryController {
 
     // 문의 관리 페이지
     @GetMapping("/api/inquiry-manage")
-    public String inquiryManage(){
+    public String inquiryManage() {
         return "inquiry/inquiry-manage";
     }
 
-//    /api/items-register-form
-
     // 답변 하기 폼 페이지
     @GetMapping("/api/inquiry-reply")
-    public String inquiryReply(){
+    public String inquiryReply() {
         return "inquiry/inquiry-reply-form";
     }
 

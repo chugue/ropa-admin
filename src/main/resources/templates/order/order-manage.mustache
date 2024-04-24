@@ -8,90 +8,99 @@
     <h2>주문 목록</h2>
     <div class="card">
         <div class="card-body">
-            <a>
-                <button class="btn btn-primary float-right mb-3">발주하기</button>
-            </a>
-            <div class="clearfix"></div>
+            <!-- 검색 폼 -->
+            <form class="form-inline search-form float-right mb-3">
+                <div class="form-group mr-2">
+                    <select class="form-control">
+                        <option selected>주문코드</option>
+                        <option>고객명</option>
+                        <option>연락처</option>
+                        <option>총 가격</option>
+                        <option>주문일자</option>
+                        <option>배송현황</option>
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" placeholder="검색명">
+                </div>
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+
             <table class="table">
                 <thead>
                 <tr>
-                    <th>상품코드</th>
-                    <th>상품명</th>
-                    <th>상품 금액</th>
-                    <th>개수</th>
-                    <th>총 가격</th>
+                    <th>주문코드</th>
                     <th>고객명</th>
                     <th>연락처</th>
+                    <th>총 가격</th>
                     <th>주문일자</th>
-                    <th>배송현황</th>
+                    <th> </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>59,000</td>
-                    <td>1</td>
-                    <td>59,000</td>
+                    <td>JN6TSU806KH001</td>
                     <td>김성훈</td>
                     <td>010-1234-5678</td>
+                    <td>59,000</td>
                     <td>2024.04.18</td>
-                    <td>상품 준비 중</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>59,000</td>
-                    <td>1</td>
-                    <td>59,000</td>
+                    <td>JN6TSU806KH001</td>
                     <td>김성훈</td>
                     <td>010-1234-5678</td>
+                    <td>59,000</td>
                     <td>2024.04.18</td>
-                    <td>상품 준비 중</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>59,000</td>
-                    <td>1</td>
-                    <td>59,000</td>
+                    <td>JN6TSU806KH001</td>
                     <td>김성훈</td>
                     <td>010-1234-5678</td>
+                    <td>59,000</td>
                     <td>2024.04.18</td>
-                    <td>상품 준비 중</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>59,000</td>
-                    <td>1</td>
-                    <td>59,000</td>
+                    <td>JN6TSU806KH001</td>
                     <td>김성훈</td>
                     <td>010-1234-5678</td>
+                    <td>59,000</td>
                     <td>2024.04.18</td>
-                    <td>상품 준비 중</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>59,000</td>
-                    <td>1</td>
-                    <td>59,000</td>
+                    <td>JN6TSU806KH001</td>
                     <td>김성훈</td>
                     <td>010-1234-5678</td>
+                    <td>59,000</td>
                     <td>2024.04.18</td>
-                    <td>상품 준비 중</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>59,000</td>
-                    <td>1</td>
-                    <td>59,000</td>
+                    <td>JN6TSU806KH001</td>
                     <td>김성훈</td>
                     <td>010-1234-5678</td>
+                    <td>59,000</td>
                     <td>2024.04.18</td>
-                    <td>상품 준비 중</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
+                </tr>
+                <tr>
+                    <td>JN6TSU806KH001</td>
+                    <td>김성훈</td>
+                    <td>010-1234-5678</td>
+                    <td>59,000</td>
+                    <td>2024.04.18</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
+                </tr>
+                <tr>
+                    <td>JN6TSU806KH001</td>
+                    <td>김성훈</td>
+                    <td>010-1234-5678</td>
+                    <td>59,000</td>
+                    <td>2024.04.18</td>
+                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 </tbody>
             </table>

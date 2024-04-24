@@ -1,0 +1,116 @@
+{{> /layout/header}}
+{{> /layout/navbar}}
+{{> /layout/sidebar}}
+
+<!-- 메인 화면 -->
+<div class="content">
+    <h2>매출 관리</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- 총 매출과 수수료 금액 확인 표 -->
+                <div class="mr-5">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th scope="row">총 매출</th>
+                            <td>2,220,000원</td>
+                            <th scope="row">수수료</th>
+                            <td>150,000원</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 검색 폼 -->
+                <form class="form-inline search-form float-right mb-3">
+                    <div class="form-group mr-2">
+                        <select class="form-control">
+                            <option selected>브랜드명</option>
+                            <option>연락처</option>
+                            <option>이메일</option>
+                        </select>
+                    </div>
+                    <div class="form-group mr-2">
+                        <input type="text" class="form-control" placeholder="검색명">
+                    </div>
+                    <button type="submit" class="btn btn-primary">검색</button>
+                </form>
+            </div>
+
+            <!--판매 목록-->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>브랜드명</th>
+                    <th>연락처</th>
+                    <th>이메일</th>
+                    <th>판매금액</th>
+                    <th>판매수수료</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>무신사 스탠다드</td>
+                    <td>010-1234-5678</td>
+                    <td>musinsa@gmail.com</td>
+                    <td>220,000</td>
+                    <td>22,000</td>
+                </tr>
+                <tr>
+                    <td>무신사 스탠다드</td>
+                    <td>010-1234-5678</td>
+                    <td>musinsa@gmail.com</td>
+                    <td>220,000</td>
+                    <td>22,000</td>
+                </tr>
+                <tr>
+                    <td>무신사 스탠다드</td>
+                    <td>010-1234-5678</td>
+                    <td>musinsa@gmail.com</td>
+                    <td>220,000</td>
+                    <td>22,000</td>
+                </tr>
+                <tr>
+                    <td>무신사 스탠다드</td>
+                    <td>010-1234-5678</td>
+                    <td>musinsa@gmail.com</td>
+                    <td>220,000</td>
+                    <td>22,000</td>
+                </tr>
+                <tr>
+                    <td>무신사 스탠다드</td>
+                    <td>010-1234-5678</td>
+                    <td>musinsa@gmail.com</td>
+                    <td>220,000</td>
+                    <td>22,000</td>
+                </tr>
+                <tr>
+                    <td>무신사 스탠다드</td>
+                    <td>010-1234-5678</td>
+                    <td>musinsa@gmail.com</td>
+                    <td>220,000</td>
+                    <td>22,000</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 페이징 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">다음</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+{{> /layout/footer}}

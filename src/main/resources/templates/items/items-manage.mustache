@@ -8,10 +8,22 @@
     <h2>상품 목록</h2>
     <div class="card">
         <div class="card-body">
-            <a href="/api/items-register-form">
-                <button class="btn btn-primary float-right mb-3">상품등록</button>
-            </a>
-            <div class="clearfix"></div>
+            <a href="/api/items-register-form" class="btn btn-primary mb-3">상품등록</a>
+            <!-- 검색 폼 -->
+            <form class="form-inline search-form float-right mb-3">
+                <div class="form-group mr-2">
+                    <select class="form-control">
+                        <option selected>상품번호</option>
+                        <option>상품명</option>
+                        <option>상품가격</option>
+                        <option>카테고리</option>
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" placeholder="검색명">
+                </div>
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
             <table class="table">
                 <thead>
                 <tr>
@@ -20,6 +32,7 @@
                     <th>상품가격</th>
                     <th>카테고리</th>
                     <th>재고수량</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,6 +42,7 @@
                     <td>59,000</td>
                     <td>의류</td>
                     <td>50</td>
+                    <td><a href="/api/items-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -36,6 +50,7 @@
                     <td>25,000</td>
                     <td>의류</td>
                     <td>100</td>
+                    <td><a href="/api/items-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -43,6 +58,7 @@
                     <td>59,000</td>
                     <td>의류</td>
                     <td>50</td>
+                    <td><a href="/api/items-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -50,6 +66,7 @@
                     <td>25,000</td>
                     <td>의류</td>
                     <td>100</td>
+                    <td><a href="/api/items-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
                     <td>1</td>
@@ -57,6 +74,7 @@
                     <td>59,000</td>
                     <td>의류</td>
                     <td>50</td>
+                    <td><a href="/api/items-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -64,6 +82,7 @@
                     <td>25,000</td>
                     <td>의류</td>
                     <td>100</td>
+                    <td><a href="/api/items-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
                 </tr>
                 </tbody>
             </table>

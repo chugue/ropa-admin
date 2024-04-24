@@ -1,0 +1,72 @@
+{{> /layout/header}}
+{{> /layout/navbar}}
+{{> /layout/sidebar}}
+
+
+<!-- 메인 화면 -->
+<div class="content">
+    <h2>상품 상세보기</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <!-- 상품 이미지 -->
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card m-3">
+                            <h4 class="card-header text-center">상품 이미지</h4>
+                            <div class="card-body">
+                                <img class="card-img-top" src="/images/shirt.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card m-3">
+                            <h4 class="card-header text-center">상품 설명</h4>
+                            <div class="card-body">
+                                <img class="card-img-top" src="/images/shirt.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 상품 정보 -->
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td class="align-middle" style="width: 30%;">상품명</td>
+                            <td>셔츠</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">카테고리</td>
+                            <td>상의</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">세부 카테고리</td>
+                            <td>맨투맨</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">판매가격</td>
+                            <td>30,000원</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">수량</td>
+                            <td>50개</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">설명</td>
+                            <td>이 상품은 셔츠입니다.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- 등록 버튼 -->
+            <div class="text-center">
+                <a href="/api/items-update-form" class="btn btn-primary">수정하기</a>
+                <a href="/api/items-manage" class="btn btn-outline-primary">이전</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> /layout/footer}}

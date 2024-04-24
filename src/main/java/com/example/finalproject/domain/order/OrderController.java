@@ -1,4 +1,4 @@
-package com.example.finalproject.domain;
+package com.example.finalproject.domain.order;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,8 +14,14 @@ public class OrderController {
 
     // 주문 관리 페이지
     @GetMapping("/api/order-manage")
-    public String orderManage(){
+    public String orderManage() {
         return "order/order-manage";
+    }
+
+    // 주문 상세 페이지
+    @GetMapping("/api/order-detail")
+    public String orderDetail() {
+        return "order/order-detail";
     }
 
 }

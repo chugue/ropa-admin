@@ -1,0 +1,78 @@
+{{> /layout/header}}
+{{> /layout/navbar}}
+{{> /layout/sidebar}}
+
+<!-- 메인 화면 -->
+<div class="content">
+    <h2>매출 관리</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- 총 매출과 수수료 금액 확인 표 -->
+                <div class="mr-5">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th scope="row">총 매출</th>
+                            <td>2,220,000원</td>
+                            <th scope="row">수수료</th>
+                            <td>150,000원</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 날짜 조회 -->
+                <div class="input-group" style="margin-right: 30px;  width: 500px;">
+                    <span class="input-group-text">조회기간</span>
+                    <input type="date" class="form-control" id="date">
+                    <input type="date" class="form-control" id="date">
+                    <button class="btn btn-primary ml-3">검색하기</button>
+                </div>
+            </div>
+
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>상품 주문번호</th>
+                    <th>상품명</th>
+                    <th>총 판매 금액</th>
+                    <th>수량</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+
+                    <td>1111</td>
+                    <td>컴패스 스몰로고 맨투맨</td>
+                    <td>220,000</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+
+                    <td>2222</td>
+                    <td>유니온블루 세미 오버핏 셔츠</td>
+                    <td>250,000</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+
+                    <td>3333</td>
+                    <td>후러브스아트 유니게스 세미와이드 밴딩슬랙스</td>
+                    <td>165,000</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>4444</td>
+                    <td>리[22SS] 빅 트위치 로고 티셔츠 White</td>
+                    <td>225,000</td>
+                    <td>1</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{> /layout/footer}}

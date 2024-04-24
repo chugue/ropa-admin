@@ -10,71 +10,98 @@
             <div class="justify-content-center">
                 <form action="" method="post">
                     <!-- 이미지 -->
-                    <div class="d-flex justify-content-center my-5">
-                        <div class="card" STYLE="width: 350PX">
-                            <img class="card-img-top" id="imgPreview" src="/images/cloth.png"  alt="">
-                            <div class="input-group">
-                                <input type="file" class="form-control" name="imgFilename" value=""
-                                       onchange="previewImage(this)">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card m-3">
+                                <h4 class="card-header text-center">상품 이미지</h4>
+                                <div class="card-body">
+                                    <img class="card-img-top" id="imgPreview1" src="/images/shirt.jpg">
+                                    <div class="input-group mt-3">
+                                        <input type="file" class="form-control" name="imgFilename1"
+                                               onchange="previewImage(this, 'imgPreview1')">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card m-3">
+                                <h4 class="card-header text-center">상품 설명</h4>
+                                <div class="card-body">
+                                    <img class="card-img-top" id="imgPreview2" src="/images/shirt.jpg">
+                                    <div class="input-group mt-3">
+                                        <input type="file" class="form-control" name="imgFilename2"
+                                               onchange="previewImage(this, 'imgPreview2')">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!-- 코디 등록 명 적는 테이블 -->
-                    <div class="card-body d-flex justify-content-center">
-                        <div class="row">
-                            <div class="col">
-                                <!-- 코디 등록 input -->
-                                <div class="input-group">
-                                        <span class=" input-group-text"
-                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
-                                              id="basic-addon1">상품명</span>
-                                    <input type="text" class="form-control" placeholder="완준룩" aria-label="Username"
-                                           aria-describedby="basic-addon1">
-                                </div>
-                                <div class="input-group">
-                                        <span class="input-group-text"
-                                              style="display: inline-block; vertical-align: middle; line-height: normal;">카테고리</span>
-                                    <select style="width: 800px;">소분류
-                                        <option value="상의">셔츠</option>
-                                        <option value="상의">맨투맨</option>
-                                        <option value="상의">반팔</option>
-                                        <option value="하의">청바지</option>
-                                        <option value="하의">슬랙스</option>
-                                        <option value="하의">반바지</option>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td class="align-middle" style="width: 30%;">상품명</td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="상품명"
+                                           aria-label="Username" aria-describedby="basic-addon1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">카테고리</td>
+                                <td>
+                                    <select class="form-select" style="width: 800px;">
+                                        <option value="상의">상의</option>
+                                        <option value="하의">하의</option>
                                     </select>
-                                </div>
-                                <div class="input-group">
-                                        <span class="input-group-text"
-                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
-                                              id="basic-addon1">판매가격</span>
-                                    <input type="text" class="form-control" placeholder="Username"
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">세부 카테고리</td>
+                                <td>
+                                    <select class="form-select" style="width: 800px;">
+                                        <option value="셔츠">셔츠</option>
+                                        <option value="맨투맨">맨투맨</option>
+                                        <option value="반팔">반팔</option>
+                                        <option value="청바지">청바지</option>
+                                        <option value="슬랙스">슬랙스</option>
+                                        <option value="반바지">반바지</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">판매가격</td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="판매가격"
                                            aria-label="Username" aria-describedby="basic-addon1">
-                                </div>
-                                <div class="input-group">
-                                        <span class="input-group-text"
-                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
-                                              id="basic-addon1">수량</span>
-                                    <input type="text" class="form-control" placeholder="Username"
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">수량</td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="수량"
                                            aria-label="Username" aria-describedby="basic-addon1">
-                                </div>
-                                <div class="input-group mb-3">
-                                        <span class="input-group-text"
-                                              style="display: inline-block; vertical-align: middle; line-height: normal;"
-                                              id="basic-addon1">설명</span>
-                                    <textarea type="text" class="form-control" placeholder="Username"
-                                              aria-label="Username" aria-describedby="basic-addon1">
-                                    </textarea>
-                                </div>
-                            </div>
-                        </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">설명</td>
+                                <td>
+                                    <textarea type="text" class="form-control" placeholder="아이템 설명"></textarea>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
+
                     <!-- 등록 -->
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">등록하기</button>
+                    <div class="text-center">
+                        <a href="/api/items-manage" class="btn btn-primary">등록하기</a>
+                        <a href="/api/items-manage" class="btn btn-outline-primary">이전</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 {{> /layout/footer}}

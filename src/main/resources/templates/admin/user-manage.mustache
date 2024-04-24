@@ -1,0 +1,132 @@
+{{> /layout/header}}
+{{> /layout/navbar}}
+{{> /layout/sidebar}}
+
+<!-- 메인 화면 -->
+<div class="content">
+    <h2>크리에이터 신청 목록</h2>
+    <div class="card">
+        <div class="card-body">
+            <!-- 검색 폼 -->
+            <form class="form-inline search-form float-right mb-3">
+                <div class="form-group mr-2">
+                    <select class="form-control">
+                        <option selected>이름</option>
+                        <option>아이디</option>
+                        <option>연락처</option>
+                        <option>이메일</option>
+                        <option>인스타그램</option>
+                    </select>
+                </div>
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" placeholder="검색명">
+                </div>
+                <button type="submit" class="btn btn-primary">검색</button>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>아이디</th>
+                    <th>연락처</th>
+                    <th>이메일</th>
+                    <th>인스타그램</th>
+                    <th>승인</th>
+                    <th>거절</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                <tr>
+                    <td>김성훈</td>
+                    <td>ks1234</td>
+                    <td>010-1234-5678</td>
+                    <td>ks1234@example.com</td>
+                    <td><button class="btn btn-info">@ks1234</button></td>
+                    <td><button class="btn btn-success disabled">승인</button></td>
+                    <td><button class="btn btn-danger">거절</button></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- 페이징 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">다음</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+{{> layout/footer}}

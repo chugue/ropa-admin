@@ -1,4 +1,4 @@
-package com.example.finalproject.domain;
+package com.example.finalproject.domain.delivery;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -14,7 +14,7 @@ public class DeliveryController {
 
     // 배송 관리 페이지
     @GetMapping("/api/delivery-manage")
-    public String deliveryManage(){
+    public String deliveryManage() {
         return "delivery/delivery-manage";
     }
 

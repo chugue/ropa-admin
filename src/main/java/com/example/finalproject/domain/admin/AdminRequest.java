@@ -24,7 +24,7 @@ public class AdminRequest {
         private Admin.AdminRole role; // 관리자 / 브랜드
         private String address; //주소
         private String businessNum; // 사업자 번호 (관리자, 브랜드)
-        private LocalDateTime createdAt; // 브랜드, 관리자 회원가입 시간
+        private Timestamp createdAt; // 브랜드, 관리자 회원가입 시간
 
         public Admin toAdminEntity(){
             return Admin.builder()

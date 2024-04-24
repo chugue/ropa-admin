@@ -3,6 +3,7 @@ package com.example.finalproject.domain.admin;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class AdminRequest {

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -20,6 +21,7 @@ public class Admin {
     private String email; //아이디
     private String password; //비밀번호
     private String brandName; //브랜드 명
+    @Enumerated(EnumType.STRING)
     private AdminRole role; // 관리자 / 브랜드
     enum AdminRole{
         ADMIN, BRAND

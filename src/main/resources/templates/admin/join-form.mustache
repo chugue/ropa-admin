@@ -16,7 +16,14 @@
                         </div>
                         <div class="form-group">
                             <label for="email">이메일 주소</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
+                            <div class="d-flex form-group">
+                                <div class="d-flex align-items-center">
+                                    <input type="email" class="form-control flex-grow-1 mr-2" id="email" name="email" style="width: 395px" placeholder="이메일을 입력하세요">
+                                </div>
+                                <div>
+                                    <button type="button" onclick="emailSameCheck()" class="btn btn-primary">중복 체크</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="password">비밀번호</label>
@@ -58,6 +65,47 @@
 
 <!-- 회원가입 -->
 <script>
+
+    <!--  아이디 중복체크  -->
+    let isSameCheck = false;
+
+    function valid() {
+        if (isSameCheck == false) {
+            alert("아이디 중복체크를 해야 합니다");
+        }
+        return isSameCheck;
+    }
+
+    function emailSameCheck() {
+        let email = $('#email').val();
+
+        if (email.trim() === "") {
+            if (password.trim() === "" ) {
+                if (address.trim() === "") {
+                    alert("아이디를 입력해야 합니다");
+                }
+            }
+        }
+
+        console.log(email);
+        $.ajax({
+            url: "/api/email-same-check?email=" + email,
+            type: "get"
+        }).done((res) => {
+            console.log(res);
+            if (res.body == true) {
+                isSameCheck = true;
+                alert("회원가입 가능한 아이디 입니다.");
+            } else {
+                isSameCheck = false;
+                alert("동일한 아이디가 존재합니다");
+            }
+        }).fail((res) => {
+            alert(res.responseJSON.msg);
+        });
+    }
+
+    <!--  유효성 검사  -->
     function valid() {
         // 이메일과 비밀번호 입력란의 값을 가져옵니다.
         var email = document.getElementById('email').value;

@@ -38,8 +38,12 @@ public class AdminService {
             admin = adminRepository.save(reqDTO.toBrandEntity());
         }
 
-
-
         return admin;
+    }
+
+    // 아이디 중복체크
+    public Optional<Admin> emailSameCheck(String email){
+        return adminRepository.findByEmail(email);
+
     }
 }

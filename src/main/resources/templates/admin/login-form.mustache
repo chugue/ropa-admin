@@ -9,7 +9,7 @@
                     로그인
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
                         <div class="form-group">
                             <label for="email">이메일 주소</label>
                             <input type="email" class="form-control" id="email" placeholder="이메일을 입력하세요">
@@ -18,10 +18,10 @@
                             <label for="password">비밀번호</label>
                             <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요">
                         </div>
-                        <a href="/api/admin-sales-manage" class="btn btn-primary btn-block">로그인</a>
+                        <button class="btn btn-primary btn-block">로그인</button>
                     </form>
                     <div class="text-center mt-3">
-                        <a href="/join">회원가입</a>
+                        <a href="/joinForm">회원가입</a>
                     </div>
                 </div>
             </div>

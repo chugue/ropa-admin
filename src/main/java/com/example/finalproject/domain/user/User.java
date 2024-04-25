@@ -16,31 +16,47 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String myName; //실명
-    private String nickName; //별명
-    private String height; //키
-    private String weight; //체중
-    private String address; //주소
-    private String mobile; // 전화번호
+    @Column(nullable = false)
     private String email; // 아이디
+
+    @Column(nullable = false)
     private String password; //비밀번호
+
+    @Column(nullable = false)
+    private String nickName; //별명
+
+    @Column(nullable = false)
+    private String myName; //실명
+
+    private String address; //주소
+
+    private String mobile; // 연락처
+
+    private String height; //키
+
+    private String weight; //체중
+
+    @Column(nullable = false)
     private Boolean blueChecked; //true -> 크리에이터, false -> 일반 회원
-    private Timestamp updateAt; // 회원 수정 시간
+
+    @Column(nullable = false)
     private Timestamp createdAt; //가입시간
 
+    private Timestamp updateAt; // 회원 수정 시간
+
     @Builder
-    public User(Integer id, String myName, String nickName, String height, String weight, String address, String mobile, String email, String password, Boolean blueChecked, Timestamp updateAt, Timestamp createdAt) {
+    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, Boolean blueChecked, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
-        this.myName = myName;
-        this.nickName = nickName;
-        this.height = height;
-        this.weight = weight;
-        this.address = address;
-        this.mobile = mobile;
         this.email = email;
         this.password = password;
+        this.nickName = nickName;
+        this.myName = myName;
+        this.address = address;
+        this.mobile = mobile;
+        this.height = height;
+        this.weight = weight;
         this.blueChecked = blueChecked;
-        this.updateAt = updateAt;
         this.createdAt = createdAt;
+        this.updateAt = updateAt;
     }
 }

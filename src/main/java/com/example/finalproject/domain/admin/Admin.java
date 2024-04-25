@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -17,18 +16,28 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String email; //아이디
+
+    @Column(nullable = false)
     private String password; //비밀번호
-    private String brandName; //브랜드 명
+
+    @Column(nullable = false)
+    private String brandName; //브랜드명
+
+    @Column(nullable = false)
     private AdminRole role; // 관리자 / 브랜드
-    enum AdminRole{
-        ADMIN, BRAND
-    }
+
+    @Column(nullable = false)
     private String address; //주소
+
+    @Column(nullable = false)
     private String businessNum; // 사업자 번호 (관리자, 브랜드)
-    private LocalDateTime updateAt; // 관리자 / 브랜드 수정 날짜
+
+    @Column(nullable = false)
     private LocalDateTime createdAt; // 브랜드, 관리자 회원가입 시간
 
+    private LocalDateTime updateAt; // 관리자 / 브랜드 수정 날짜
 
     @Builder
     public Admin(Integer id, String email, String password, String brandName, AdminRole role, String address, String businessNum, LocalDateTime updateAt, LocalDateTime createdAt) {
@@ -41,5 +50,10 @@ public class Admin {
         this.businessNum = businessNum;
         this.updateAt = updateAt;
         this.createdAt = createdAt;
+    }
+
+
+    enum AdminRole {
+        ADMIN, BRAND
     }
 }

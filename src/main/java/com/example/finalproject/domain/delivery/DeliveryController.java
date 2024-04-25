@@ -12,7 +12,7 @@ public class DeliveryController {
     private final HttpServletRequest request;
     private final HttpSession session;
 
-    // 배송 관리 페이지
+    // 배송 관리 페이지 (관리자)
     @GetMapping("/api/delivery-manage")
     public String deliveryManage() {
         return "delivery/delivery-manage";

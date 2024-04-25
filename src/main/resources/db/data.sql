@@ -1,10 +1,10 @@
--- -- -- --관리자 테이블--
--- insert into admin_tb(email, password, brand_name, role, address, business_num, update_at, created_at)
--- values ('Ropa@naver.com', '1234', 'Ropa', 'BRAND', '서울특별시 강남구', '827-546-7895', NULL, '2023-01-10');
---        ('Ace@naver.com', '1234', 'Ace', 'BRAND', '서울특별시 종로구', '737-546-7196', NULL, '2023-01-10 08:30:00'),
---        ('BB@naver.com', '1234', 'BB', 'BRAND', '서울특별시 강동구', '657-546-2897', NULL, '2023-01-10 08:30:00'),
---        ('Admin@naver.com', '1234', null, 'ADMIN', '부산광역시 해운대구', '1234', NULL, '2023-01-10 08:30:00');
---
+-- --관리자 테이블--
+insert into admin_tb(email, password, brand_name, role, address, business_num, update_at, created_at)
+values ('Ropa@naver.com', '1234', 'Ropa', 'BRAND', '서울특별시 강남구', '827-546-7895', NULL, now()),
+       ('Ace@naver.com', '1234', 'Ace', 'BRAND', '서울특별시 종로구', '737-546-7196', NULL, now()),
+       ('BB@naver.com', '1234', 'BB', 'BRAND', '서울특별시 강동구', '657-546-2897', NULL, now()),
+       ('Admin@naver.com', '1234', null, 'ADMIN', '부산광역시 해운대구', '1234', NULL, now());
+
 -- --
 -- -- --
 -- --

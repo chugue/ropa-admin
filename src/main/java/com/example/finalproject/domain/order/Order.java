@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -29,7 +30,7 @@ public class Order {
     @Column(nullable = false)
     private Integer totalOrderAmount; // 주문 전체 금액
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp orderDate; // 주문일자
 
     @Builder

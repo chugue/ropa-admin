@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -28,7 +29,7 @@ public class Inquiry {
     @Column(nullable = false)
     private String content; // 내용
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp inquiryTime; // 문의 시간
 
     @ManyToOne

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -31,12 +33,12 @@ public class Admin {
     @Column(nullable = false)
     private String address; //주소
 
-    @Column(nullable = false)
     private String businessNum; // 사업자 번호 (관리자, 브랜드)
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt; // 브랜드, 관리자 회원가입 시간
 
+    @UpdateTimestamp
     private LocalDateTime updateAt; // 관리자 / 브랜드 수정 날짜
 
     @Builder
@@ -51,7 +53,6 @@ public class Admin {
         this.updateAt = updateAt;
         this.createdAt = createdAt;
     }
-
 
     enum AdminRole {
         ADMIN, BRAND

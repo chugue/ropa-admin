@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -37,9 +39,10 @@ public class Items {
     @Column(nullable = false)
     private String stock; // 재고
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp createdAt; // 등록시간
 
+    @UpdateTimestamp
     private Timestamp updatedAt; // 수정시간
 
     @Builder

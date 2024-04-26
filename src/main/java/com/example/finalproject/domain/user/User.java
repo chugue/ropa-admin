@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -39,9 +41,10 @@ public class User {
     @Column(nullable = false)
     private Boolean blueChecked; //true -> 크리에이터, false -> 일반 회원
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp createdAt; //가입시간
 
+    @UpdateTimestamp
     private Timestamp updateAt; // 회원 수정 시간
 
     @Builder

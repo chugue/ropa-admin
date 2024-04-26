@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
@@ -29,7 +30,7 @@ public class Love {
     @Column(nullable = false)
     private Boolean isLoved; // 좋아요 상태
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp createdAt; // 생성시간
 
     @Builder

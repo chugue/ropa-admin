@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -26,9 +28,10 @@ public class Codi {
 
     private String description; // 코디 설명
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp createdAt; // 등록시간
 
+    @UpdateTimestamp
     private Timestamp updatedAt; // 수정시간
 
     @Builder

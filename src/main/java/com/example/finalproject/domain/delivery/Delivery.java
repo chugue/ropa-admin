@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -24,9 +26,10 @@ public class Delivery {
     @Column(nullable = false)
     private String status; // 배송 현황
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp startDate; // 배송시작일
 
+    @UpdateTimestamp
     private Timestamp endDate; // 배송도착일
 
     @Builder

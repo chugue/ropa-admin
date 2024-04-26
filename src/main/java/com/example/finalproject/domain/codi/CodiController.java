@@ -18,7 +18,6 @@ public class CodiController {
         return "codi/codi-manage";
     }
 
-
     // 코디 등록 페이지
     @GetMapping("/api/codi-register-form")
     public String codiRegisterForm() {

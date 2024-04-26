@@ -21,10 +21,4 @@ public class UserController {
     public String join() {
         return "admin/join-form";
     }
-
-    // 회원 관리 페이지
-    @GetMapping("/api/user-manage")
-    public String userManage() {
-        return "admin/user-manage";
-    }
 }

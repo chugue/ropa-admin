@@ -30,8 +30,12 @@ public class Order {
     @Column(nullable = false)
     private Integer totalOrderAmount; // 주문 전체 금액
 
+    private Double fee; // 주무 전체 수수료
+
     @CreationTimestamp
     private Timestamp orderDate; // 주문일자
+
+
 
     @Builder
     public Order(Integer id, User user, Delivery delivery, Integer totalOrderAmount, Timestamp orderDate) {

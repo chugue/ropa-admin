@@ -1,9 +1,9 @@
 -- --관리자 테이블--
-insert into admin_tb(email, password, brand_name, role, address, business_num, update_at, created_at)
-values ('Ropa@naver.com', '1234', 'Ropa', 'BRAND', '서울특별시 강남구', '827-546-7895', NULL, now()),
-       ('Ace@naver.com', '1234', 'Ace', 'BRAND', '서울특별시 종로구', '737-546-7196', NULL, now()),
-       ('BB@naver.com', '1234', 'BB', 'BRAND', '서울특별시 강동구', '657-546-2897', NULL, now()),
-       ('Admin@naver.com', '1234', null, 'ADMIN', '부산광역시 해운대구', '1234', NULL, now());
+insert into admin_tb(email, password, brand_name, role, phone, address, business_num, update_at, created_at)
+values ('Ropa@naver.com', '1234', 'Ropa', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
+       ('Ace@naver.com', '1234', 'Ace', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', NULL, now()),
+       ('BB@naver.com', '1234', 'BB', 'BRAND', '010-3333-3333','서울특별시 강동구', '657-546-2897', NULL, now()),
+       ('Admin@naver.com', '1234', null, 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', NULL, now());
 
 INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, blue_checked)
 VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', FALSE),
@@ -50,22 +50,22 @@ VALUES
     (3, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- 주문(Order) 더미 데이터 삽입
-INSERT INTO order_tb (user_id, delivery_id, total_order_amount, order_date)
+INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
 VALUES
-    (1, 1, 50000, CURRENT_TIMESTAMP),
-    (2, 2, 75000, CURRENT_TIMESTAMP),
-    (1, 3, 100000, CURRENT_TIMESTAMP);
+    (1, 1, 50000, 22.000, CURRENT_TIMESTAMP),
+    (2, 2, 75000, 22.000, CURRENT_TIMESTAMP),
+    (1, 3, 100000, 22.000, CURRENT_TIMESTAMP);
 
 -- OrderHistory 더미 데이터 삽입
-INSERT INTO orderhistory_tb (order_id, order_items_id, admin_id, total_quantity, total_price)
+INSERT INTO orderhistory_tb (order_id, order_items_id, admin_id, total_quantity, total_price, free)
 VALUES
     -- OrderHistory 1
-    (1, 1, 1, 2, 100000),
+    (1, 1, 1, 2, 100000, 22.000),
     -- OrderHistory 2
-    (2, 2, 2, 1, 75000),
+    (2, 2, 2, 1, 75000, 22.000),
     -- OrderHistory 3
-    (1, 3, 1, 3, 150000),
+    (1, 3, 1, 3, 150000, 22.000),
     -- OrderHistory 4
-    (2, 4, 2, 2, 100000),
+    (2, 4, 2, 2, 100000, 22.000),
     -- OrderHistory 5
-    (3, 5, 1, 1, 50000);
+    (3, 5, 1, 1, 50000, 22.000);

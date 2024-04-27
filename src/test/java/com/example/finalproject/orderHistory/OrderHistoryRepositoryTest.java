@@ -24,4 +24,15 @@ public class OrderHistoryRepositoryTest {
         //then
         orderHistoryList.forEach(System.out::println);
     }
+
+    @Test
+    public void findAll() {
+        //given
+
+        //when
+        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findAll();
+
+        //then
+        orderHistoryList.forEach(System.out::println);
+    }
 }

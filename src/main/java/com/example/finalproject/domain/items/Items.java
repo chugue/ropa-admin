@@ -34,7 +34,7 @@ public class Items {
     @Column(nullable = false)
     private String price; // 가격
 
-    private Integer diCountPrice; // 할인가
+    private Integer disCountPrice; // 할인가
 
     @Column(nullable = false)
     private String stock; // 재고
@@ -46,14 +46,14 @@ public class Items {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Items(Integer id, Admin admin, String name, String description, String size, String price, Integer diCountPrice, String stock, Timestamp createdAt, Timestamp updatedAt) {
+    public Items(Integer id, Admin admin, String name, String description, String size, String price, Integer disCountPrice, String stock, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;
         this.description = description;
         this.size = size;
         this.price = price;
-        this.diCountPrice = diCountPrice;
+        this.disCountPrice = disCountPrice;
         this.stock = stock;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

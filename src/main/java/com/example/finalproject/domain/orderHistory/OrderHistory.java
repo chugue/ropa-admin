@@ -1,4 +1,4 @@
-package com.example.finalproject.domain.orderDetail;
+package com.example.finalproject.domain.orderHistory;
 
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.items.Items;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "orderdetail_tb")
+@Table(name = "orderhistory_tb")
 @Data
-public class OrderDetail {
+public class OrderHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -35,8 +35,10 @@ public class OrderDetail {
     @Column(nullable = false)
     private Integer totalPrice; // 상품의 총 가격
 
+    private Double fee; //수수료
+
     @Builder
-    public OrderDetail(Integer id, Order order, Items orderItems, Admin admin, Integer totalQuantity, Integer totalPrice) {
+    public OrderHistory(Integer id, Order order, Items orderItems, Admin admin, Integer totalQuantity, Integer totalPrice) {
         this.id = id;
         this.order = order;
         this.orderItems = orderItems;

@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -26,12 +27,16 @@ public class Admin {
     @Column(nullable = false)
     private String password; //비밀번호
 
-    @Column(nullable = false)
 
     private String brandName; //브랜드 명
+
+
   
     @Enumerated(EnumType.STRING)
     private AdminRole role; // 관리자 / 브랜드
+    enum AdminRole {
+        ADMIN, BRAND
+    }
 
     @Column(nullable = false)
     private String address; //주소
@@ -40,11 +45,11 @@ public class Admin {
 
 
     @CreationTimestamp
-    private LocalDateTime createdAt; // 브랜드, 관리자 회원가입 시간
+    private Timestamp createdAt; // 브랜드, 관리자 회원가입 시간
 
 
     @UpdateTimestamp
-    private LocalDateTime updateAt; // 관리자 / 브랜드 수정 날짜
+    private Timestamp updateAt; // 관리자 / 브랜드 수정 날짜
 
     @Builder
     public Admin(Integer id, String email, String password, String brandName, AdminRole role, String address, String businessNum, Timestamp updateAt, Timestamp createdAt) {
@@ -59,7 +64,5 @@ public class Admin {
         this.createdAt = createdAt;
     }
 
-    enum AdminRole {
-        ADMIN, BRAND
-    }
+
 }

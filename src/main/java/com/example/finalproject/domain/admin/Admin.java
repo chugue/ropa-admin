@@ -30,6 +30,8 @@ public class Admin {
 
     private String brandName; //브랜드 명
 
+    private String phone; //브랜드 전화 번호
+
 
   
     @Enumerated(EnumType.STRING)

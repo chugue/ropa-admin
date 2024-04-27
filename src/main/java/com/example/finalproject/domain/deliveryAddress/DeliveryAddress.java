@@ -24,7 +24,7 @@ public class DeliveryAddress {
     private String recipient; // 수령인
 
     @Column(nullable = false)
-    private Integer postalCode; // 우편번호
+    private String postalCode; // 우편번호
 
     @Column(nullable = false)
     private String address; // 주소
@@ -34,7 +34,7 @@ public class DeliveryAddress {
     private String phoneNumber; // 연락처
 
     @Builder
-    public DeliveryAddress(Integer id, User user, String recipient, Integer postalCode, String address, String addressDetail, String phoneNumber) {
+    public DeliveryAddress(Integer id, User user, String recipient, String postalCode, String address, String addressDetail, String phoneNumber) {
         this.id = id;
         this.user = user;
         this.recipient = recipient;

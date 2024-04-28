@@ -43,6 +43,15 @@ public class AdminService {
         return totalSalesAmount;
     }
 
+    // 총 수수료를 계산
+    public double getTotalFee(List<OrderHistory> orderHistoryList) {
+        double totalFee = 0.0;
+        for (OrderHistory orderHistory : orderHistoryList) {
+            totalFee += orderHistory.getFee();
+        }
+        return totalFee;
+    }
+
 
     //로그인
     @Transactional

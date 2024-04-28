@@ -28,7 +28,7 @@ public class OrderController {
     // 주문 상세 페이지
     @GetMapping("/api/order-detail")
     public String orderDetail() {
-        return "order/order-detail";
+        return "order-history";
     }
 
 }

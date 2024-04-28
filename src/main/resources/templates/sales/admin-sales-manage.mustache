@@ -38,50 +38,45 @@
             </div>
 
             <!--판매 목록-->
-
             {{#orderHistoryList}}
-            <div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>{{admin.brandName}}</th>
-                        <th>{{admin.phone}}</th>
-                        <th>{{admin.email}}</th>
-                        <th>{{order.}}</th>
-                        <th>판매수수료</th>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>브랜드명</th>
+                    <th>연락처</th>
+                    <th>이메일</th>
+                    <th>판매금액</th>
+                    <th>판매수수료</th>
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>무신사 스탠다드</td>
-                        <td>010-1234-5678</td>
-                        <td>musinsa@gmail.com</td>
-                        <td>220,000</td>
-                        <td>22,000</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{admin.brandName}}</td>
+                    <td>{{admin.phone}}</td>
+                    <td>{{admin.email}}</td>
+                    <td>{{totalPrice}}</td>
+                    <td>{{formattedFee}}</td>
+                </tr>
+                </tbody>
+            </table>
             {{/orderHistoryList}}
 
-
-
-            <!-- 페이징 -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">다음</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        <!-- 페이징 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">다음</a>
+                </li>
+            </ul>
+        </nav>
     </div>
+</div>
 
 {{> /layout/footer}}

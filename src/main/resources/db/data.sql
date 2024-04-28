@@ -49,23 +49,23 @@ VALUES
     (2, '배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (3, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
--- 주문(Order) 더미 데이터 삽입
-INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
-VALUES
-    (1, 1, 50000, 22.000, CURRENT_TIMESTAMP),
-    (2, 2, 75000, 22.000, CURRENT_TIMESTAMP),
-    (1, 3, 100000, 22.000, CURRENT_TIMESTAMP);
+-- -- 주문(Order) 더미 데이터 삽입
+-- INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
+-- VALUES
+--     (1, 1, 50000, 22.000, CURRENT_TIMESTAMP),
+--     (2, 2, 75000, 22.000, CURRENT_TIMESTAMP),
+--     (1, 3, 100000, 22.000, CURRENT_TIMESTAMP);
 
--- OrderHistory 더미 데이터 삽입
-INSERT INTO orderhistory_tb (order_id, order_items_id, admin_id, total_quantity, total_price, fee)
-VALUES
-    -- OrderHistory 1
-    (1, 1, 1, 2, 100000, 22.000),
-    -- OrderHistory 2
-    (2, 2, 2, 1, 75000, 22.000),
-    -- OrderHistory 3
-    (1, 3, 1, 3, 150000, 22.000),
-    -- OrderHistory 4
-    (2, 4, 2, 2, 100000, 22.000),
-    -- OrderHistory 5
-    (3, 5, 1, 1, 50000, 22.000);
+-- -- OrderHistory 더미 데이터 삽입
+-- INSERT INTO orderhistory_tb (order_id, order_items_id, admin_id, total_quantity, total_price, fee)
+-- VALUES
+--     -- OrderHistory 1
+--     (1, 1, 1, 2, 100000, 22.000),
+--     -- OrderHistory 2
+--     (2, 2, 2, 1, 75000, 22.000),
+--     -- OrderHistory 3
+--     (1, 3, 1, 3, 150000, 22.000),
+--     -- OrderHistory 4
+--     (2, 4, 2, 2, 100000, 22.000),
+--     -- OrderHistory 5
+--     (3, 5, 1, 1, 50000, 22.000);

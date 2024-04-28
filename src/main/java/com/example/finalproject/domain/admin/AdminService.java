@@ -34,6 +34,15 @@ public class AdminService {
         return adminOrderHistoryList;
     }
 
+    //총 매출 계산
+    public double getTotalSalesAmount(List<OrderHistory> orderHistoryList) {
+        double totalSalesAmount = 0.0;
+        for (OrderHistory orderHistory : orderHistoryList) {
+            totalSalesAmount += orderHistory.getTotalPrice();
+        }
+        return totalSalesAmount;
+    }
+
 
     //로그인
     @Transactional

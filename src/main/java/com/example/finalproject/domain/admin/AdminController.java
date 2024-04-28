@@ -63,13 +63,15 @@ public class AdminController {
             // 포맷팅된 수수료를 double 형태로 변환하여 OrderHistory 객체에 설정
             double formattedFee = Double.parseDouble(formattedFeeString);
             orderHistory.setFormattedFee(formattedFee);
+
         }
-
-
-
+        //총 매출 메서드 불러오기
+        double totalSalesAmount = adminService.getTotalSalesAmount(orderHistoryList);
 
         // 모델에 포맷팅된 매출 목록을 추가하여 머스테치 템플릿에서 참조할 수 있도록 함
         req.setAttribute("orderHistoryList", orderHistoryList);
+
+        req.setAttribute("totalSalesAmount", totalSalesAmount);
 
         return "sales/admin-sales-manage";
     }

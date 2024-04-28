@@ -16,9 +16,10 @@ public class AdminController {
 
     //로그인
     @PostMapping("login")
-   public String login(AdminRequest.LoginDTO reqDTO, HttpServletRequest req){
-        Admin admin = adminService.login(reqDTO);
-        req.setAttribute("Admin", admin);
+    public String login(AdminRequest.LoginDTO reqDTO, HttpServletRequest req) {
+        Admin sessionAdmin = adminService.login(reqDTO);
+        session.setAttribute("sessionAdmin", sessionAdmin);
+        req.setAttribute("Admin", sessionAdmin);
         return "index";
     }
 
@@ -32,7 +33,7 @@ public class AdminController {
 
     // 회원가입 폼
     @GetMapping("/loginForm")
-    public String loginForm(){
+    public String loginForm() {
         return "admin/login-form";
     }
 

@@ -38,70 +38,80 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH001</td>
-                    <td>김성훈</td>
-                    <td>010-1234-5678</td>
-                    <td>59,000</td>
-                    <td>2024.04.18</td>
-                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
-                </tr>
+                {{#orderList}}
+                    <tr>
+                        <td>{{orderId}}</td>
+                        <td>{{userName}}</td>
+                        <td>{{userPhone}}</td>
+                        <td>{{totalOrderAmount}}</td>
+                        <td>{{orderDate}}</td>
+                        <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
+                    </tr>
+                {{/orderList}}
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>JN6TSU806KH001</td>-->
+<!--                    <td>김성훈</td>-->
+<!--                    <td>010-1234-5678</td>-->
+<!--                    <td>59,000</td>-->
+<!--                    <td>2024.04.18</td>-->
+<!--                    <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
+<!--                </tr>-->
                 </tbody>
             </table>
 

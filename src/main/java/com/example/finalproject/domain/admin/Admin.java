@@ -5,10 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 
 @NoArgsConstructor
@@ -26,10 +25,8 @@ public class Admin {
     @Column(nullable = false)
     private String password; //비밀번호
 
-    @Column(nullable = false)
-
     private String brandName; //브랜드 명
-  
+
     @Enumerated(EnumType.STRING)
     private AdminRole role; // 관리자 / 브랜드
 
@@ -38,13 +35,11 @@ public class Admin {
 
     private String businessNum; // 사업자 번호 (관리자, 브랜드)
 
-
     @CreationTimestamp
-    private LocalDateTime createdAt; // 브랜드, 관리자 회원가입 시간
-
+    private Timestamp createdAt; // 브랜드, 관리자 회원가입 시간
 
     @UpdateTimestamp
-    private LocalDateTime updateAt; // 관리자 / 브랜드 수정 날짜
+    private Timestamp updateAt; // 관리자 / 브랜드 수정 날짜
 
     @Builder
     public Admin(Integer id, String email, String password, String brandName, AdminRole role, String address, String businessNum, Timestamp updateAt, Timestamp createdAt) {

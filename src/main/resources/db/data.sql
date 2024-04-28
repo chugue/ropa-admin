@@ -57,7 +57,7 @@ VALUES
     (1, 3, 100000, 22.000, CURRENT_TIMESTAMP);
 
 -- OrderHistory 더미 데이터 삽입
-INSERT INTO orderhistory_tb (order_id, order_items_id, admin_id, total_quantity, total_price, free)
+INSERT INTO orderhistory_tb (order_id, order_items_id, admin_id, total_quantity, total_price, fee)
 VALUES
     -- OrderHistory 1
     (1, 1, 1, 2, 100000, 22.000),

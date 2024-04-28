@@ -30,12 +30,13 @@ public class OrderHistory {
     private Admin admin; // 관리자 고유번호
 
     @Column(nullable = false)
-    private Integer totalQuantity; // 상품의 총 개수
+    private Integer totalQuantity; // 하나의 상품의 총 개수
 
     @Column(nullable = false)
-    private Integer totalPrice; // 상품의 총 가격
+    private Integer totalPrice; // 하나의 상품의 총 가격
 
     private Double fee; //수수료
+    private Double formattedFee; // 포맷팅된 수수료를 저장할 변수 추가
 
     @Builder
     public OrderHistory(Integer id, Order order, Items orderItems, Admin admin, Integer totalQuantity, Integer totalPrice) {

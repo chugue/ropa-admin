@@ -13,14 +13,6 @@ public class OrderHistoryService {
 
     private final OrderHistoryRepository orderHistoryRepository;
 
-    //관리자가 로그인 했을 때 매출 목록 보기
-    public List<OrderHistory> adminOrderHistory(){
-      List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findAll();
-      if(adminOrderHistoryList == null){
-          throw  new Exception404("현재 주문내역이 존재 하지 않습니다.");
-      }
-      return adminOrderHistoryList;
-    }
 
 
 

@@ -2,19 +2,22 @@
 {{> /layout/navbar}}
 {{> /layout/sidebar}}
 
-
+{{#InquiryReply}}
 <!-- 메인 화면 -->
 <div class="content">
     <h2>문의내용 및 답변</h2>
     <div class="card">
         <div class="card-body">
             <div class="info mb-3">
-                <div><strong>문의 번호:</strong> 1</div>
-                <div><strong>문의 일자:</strong> 2024.04.18</div>
+
+
+
+                <div><strong>문의 번호:</strong> {{id}}</div>
+                <div><strong>문의 일자:</strong> {{createdAt}}</div>
             </div>
-            <p><strong>이름:</strong> 2조 일동</p>
-            <p><strong>제목:</strong> 제발,,,</p>
-            <p><strong>내용:</strong> 선규씨 이런 형태로 부탁드려요,,,</p>
+            <p><strong>이름:</strong> {{myName}}</p>
+            <p><strong>제목:</strong> {{title}}</p>
+            <p><strong>내용:</strong> {{content}}</p>
         </div>
     </div>
 
@@ -24,7 +27,8 @@
             <h5 class="card-title">답변하기</h5>
             <form>
                 <div class="form-group">
-                    <label for="answer1">답변 내용</label>
+                    <label for="answer1">{{comment}}</label>
+                    <label for="answer1">답변 일자 : {{commentedAt}}</label>
                     <textarea class="form-control" id="answer1" rows="3"></textarea>
                 </div>
                 <a href="/api/inquiry-manage" class="btn btn-primary float-right">답변 등록</a>
@@ -32,6 +36,6 @@
         </div>
     </div>
 </div>
-
+{{/InquiryReply}}
 
 {{> /layout/footer}}

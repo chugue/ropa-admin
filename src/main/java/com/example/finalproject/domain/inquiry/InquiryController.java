@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -27,8 +28,14 @@ public class InquiryController {
     }
 
     // 답변 하기 폼 페이지
-    @GetMapping("/api/inquiry-reply")
-    public String inquiryReply() {
+    @GetMapping("/api/inquiry-reply/{inquiryId}")
+    public String inquiryReply(@PathVariable(name = "inquiryId") Integer inquiryId,
+                               HttpServletRequest req) {
+
+        InquiryResponse.ReplyDTO respDTO =
+                inquiryService.findByInquiryId(inquiryId);
+
+        req.setAttribute("InquiryReply", respDTO);
         return "inquiry/inquiry-reply-form";
     }
 

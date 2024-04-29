@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.inquiry;
 
+import com.example.finalproject._core.error.exception.Exception404;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +25,15 @@ public class InquiryService {
         }
 
         return respList;
+    }
+
+    // 문의 내용 확인하기
+    public InquiryResponse.ReplyDTO findByInquiryId(Integer inquiryId) {
+        Inquiry inquiry = inquiryRepository.findByInquiryIdWithUser(inquiryId)
+                .orElseThrow(() -> new Exception404("해당 게시물을 찾을 수 없습니다."));
+
+        return new InquiryResponse.ReplyDTO(inquiry, inquiry.getUser());
+
+
     }
 }

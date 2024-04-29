@@ -29,30 +29,30 @@ public class Inquiry {
     @Column(nullable = false)
     private String content; // 내용
 
-    @CreationTimestamp
-    private Timestamp inquiryTime; // 문의 시간
-
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
     private Admin admin; // 관리자 고유번호
 
     private String comment; // 답변
 
-    private Timestamp commentTime; // 답변 시간
+    private Timestamp commentedAt; // 답변 시간
 
     @Column(nullable = false)
     private Boolean status; // 문의 상태
 
+    @CreationTimestamp
+    private Timestamp createdAt; // 문의 시간
+
     @Builder
-    public Inquiry(Integer id, User user, String title, String content, Timestamp inquiryTime, Admin admin, String comment, Timestamp commentTime, Boolean status) {
+    public Inquiry(Integer id, User user, String title, String content, Timestamp createdAt, Admin admin, String comment, Timestamp commentedAt, Boolean status) {
         this.id = id;
         this.user = user;
         this.title = title;
         this.content = content;
-        this.inquiryTime = inquiryTime;
+        this.createdAt = createdAt;
         this.admin = admin;
         this.comment = comment;
-        this.commentTime = commentTime;
+        this.commentedAt = commentedAt;
         this.status = status;
     }
 }

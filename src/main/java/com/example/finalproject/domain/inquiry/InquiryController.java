@@ -18,7 +18,7 @@ public class InquiryController {
     // 문의 관리 페이지 - 목록 조회
     @GetMapping("/api/inquiry-manage")
     public String inquiryManage(HttpServletRequest req) {
-        Admin sessionAdmin = (Admin) session.getAttribute("adminId");
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
         List<InquiryResponse.ListDTO> respList =
                 inquiryService.findAllInquiryWithUser(sessionAdmin.getId());
 

@@ -83,7 +83,7 @@ public class AdminController {
     // 브랜드 매출관리 페이지
     @GetMapping("/api/brand-sales-manage")
     public String brandSalesManage() {
-        return "sales/admin-sales-manage";
+        return "sales/brand-sales-manage";
     }
 
     // 회원 관리 페이지

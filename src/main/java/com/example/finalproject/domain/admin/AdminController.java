@@ -84,7 +84,7 @@ public class AdminController {
     @GetMapping("/api/brand-sales-manage")
     public String brandSalesManage() {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<OrderHistory> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getBrandName());
+        List<OrderHistory> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         return "sales/brand-sales-manage";
     }
 

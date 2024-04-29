@@ -22,9 +22,8 @@ public class AdminService {
 
 
     //브랜드가 로그인 했을 때 매출 목록보기
-
-    public List<OrderHistory> brandOrderHistory(String brandName) {
-         List<OrderHistory> brandOrderHistory= orderHistoryRepository.findItemsInfoByBrandName(brandName);
+    public List<OrderHistory> brandOrderHistory(int adminId) {
+         List<OrderHistory> brandOrderHistory= orderHistoryRepository.findByAdminId(adminId);
 
          if (brandOrderHistory == null){
              throw new Exception404("현재 주문 내역이 존재 하지 않습니다.");

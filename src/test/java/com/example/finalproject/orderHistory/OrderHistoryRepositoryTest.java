@@ -17,10 +17,10 @@ public class OrderHistoryRepositoryTest {
     @Test
     public void findByAdminIdTest() {
         //given
-        String brandName = "Ace";
+       int adminId = 1;
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findItemsInfoByBrandName(brandName);
+        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findByAdminId(adminId);
 
         //then
         orderHistoryList.forEach(System.out::println);

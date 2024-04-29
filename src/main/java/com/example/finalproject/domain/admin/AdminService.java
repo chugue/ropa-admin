@@ -20,6 +20,19 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final OrderHistoryRepository orderHistoryRepository;
 
+
+    //브랜드가 로그인 했을 때 매출 목록보기
+
+    public List<OrderHistory> brandOrderHistory(String brandName) {
+         List<OrderHistory> brandOrderHistory= orderHistoryRepository.findItemsInfoByBrandName(brandName);
+
+         if (brandOrderHistory == null){
+             throw new Exception404("현재 주문 내역이 존재 하지 않습니다.");
+         }
+
+        return brandOrderHistory;
+    }
+
     //관리자가 로그인 했을 때 매출 목록 보기
     public List<OrderHistory> adminOrderHistory(Integer adminId){
 

@@ -83,6 +83,8 @@ public class AdminController {
     // 브랜드 매출관리 페이지
     @GetMapping("/api/brand-sales-manage")
     public String brandSalesManage() {
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        List<OrderHistory> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getBrandName());
         return "sales/brand-sales-manage";
     }
 

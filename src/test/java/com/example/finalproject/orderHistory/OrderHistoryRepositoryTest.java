@@ -13,13 +13,14 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
+    //브랜드의 매출관리
     @Test
     public void findByAdminIdTest() {
         //given
-        int adminId = 1;
+        String brandName = "Ace";
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findByAdminId(adminId);
+        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findItemsInfoByBrandName(brandName);
 
         //then
         orderHistoryList.forEach(System.out::println);

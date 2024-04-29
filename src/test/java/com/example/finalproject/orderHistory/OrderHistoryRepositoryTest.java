@@ -13,10 +13,11 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
+    //브랜드의 매출관리
     @Test
     public void findByAdminIdTest() {
         //given
-        int adminId = 1;
+       int adminId = 1;
 
         //when
         List<OrderHistory>  orderHistoryList = orderHistoryRepository.findByAdminId(adminId);

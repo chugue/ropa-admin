@@ -52,7 +52,7 @@ public class AdminController {
         List<OrderHistory> orderHistoryList = adminService.adminOrderHistory(sessionAdmin.getId());
 
         // adminOrderHistory 메서드 내에서 DecimalFormat 객체 생성
-        DecimalFormat decimalFormat = new DecimalFormat("2.000");
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
         // 매출 목록을 순회하면서 각 OrderHistory의 수수료를 포맷팅하여 설정
         for (OrderHistory orderHistory : orderHistoryList) {
@@ -63,21 +63,31 @@ public class AdminController {
             // 포맷팅된 수수료를 double 형태로 변환하여 OrderHistory 객체에 설정
             double formattedFee = Double.parseDouble(formattedFeeString);
             orderHistory.setFormattedFee(formattedFee);
+
         }
+        //총 매출 메서드 불러오기
+        double totalSalesAmount = adminService.getTotalSalesAmount(orderHistoryList);
 
-
-
+        //총 수수료 계산 메서드 불러오기
+        double totalFee = adminService.getTotalFee(orderHistoryList);
 
         // 모델에 포맷팅된 매출 목록을 추가하여 머스테치 템플릿에서 참조할 수 있도록 함
         req.setAttribute("orderHistoryList", orderHistoryList);
+        req.setAttribute("totalSalesAmount", totalSalesAmount);
+        req.setAttribute("totalFee", totalFee);
 
         return "sales/admin-sales-manage";
     }
 
     // 브랜드 매출관리 페이지
     @GetMapping("/api/brand-sales-manage")
-    public String brandSalesManage() {
-        return "sales/admin-sales-manage";
+    public String brandSalesManage(HttpServletRequest req) {
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        List<AdminResponse.brandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
+        req.setAttribute("orderHistoryList", orderHistoryList);
+
+
+        return "sales/brand-sales-manage";
     }
 
     // 회원 관리 페이지

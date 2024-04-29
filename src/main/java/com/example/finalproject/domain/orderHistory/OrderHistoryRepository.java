@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
     //브랜드의 매출 목록
-    List<OrderHistory> findByAdminId(@Param("adminId") Integer adminId);
 
+    @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items WHERE oh.admin.id = :adminId")
+    List<OrderHistory> findByAdminIdWithItems(@Param("adminId") int adminId);
 }

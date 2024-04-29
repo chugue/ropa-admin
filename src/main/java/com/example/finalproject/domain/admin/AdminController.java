@@ -20,18 +20,17 @@ public class AdminController {
 
     //로그인
     @PostMapping("/login")
-    public String login(AdminRequest.LoginDTO reqDTO, HttpServletRequest req) {
+    public String login(AdminRequest.LoginDTO reqDTO) {
         Admin sessionAdmin = adminService.login(reqDTO);
         session.setAttribute("sessionAdmin", sessionAdmin);
-        req.setAttribute("Admin", sessionAdmin);
         return "index";
     }
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")
-    public String join(AdminRequest.JoinDTO reqDTO, HttpServletRequest req) {
+    public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
-        req.setAttribute("Admin", admin);
+        session.setAttribute("sessionAdmin", admin);
         return "/admin/join-form";
     }
 

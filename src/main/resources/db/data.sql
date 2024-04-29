@@ -1,6 +1,6 @@
 -- --관리자 테이블--
 insert into admin_tb(email, password, brand_name, role, phone, address, business_num, update_at, created_at)
-values ('Ropa@naver.com', '1234', 'Ropa', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
+values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
        ('Ace@naver.com', '1234', 'Ace', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', NULL, now()),
        ('BB@naver.com', '1234', 'BB', 'BRAND', '010-3333-3333','서울특별시 강동구', '657-546-2897', NULL, now()),
        ('Admin@naver.com', '1234', null, 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', NULL, now());
@@ -48,6 +48,15 @@ VALUES
     (1, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (2, '배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (3, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)
+VALUES
+    (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 3, 1, '2024-01-26 11:30:00', '2024-01-25 11:30:00'),
+    (true, '배송 문의', '주문한 상품이 아직 배송되지 않았습니다.', '평균 배송 2~3일 걸립니다!', 2, 1,  '2024-02-18 09:00:00', '2024-02-16 01:00:00'),
+    (false, '상품 문의', '배송중 상품 교환이 가능한가요?', '', 2, 1,  null, NOW()),
+    (false, '상품 문의', '반팔 카라티 모델이 차은우인가요?', '', 1, 1,  null, NOW()),
+    (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 1, 2,  null, NOW());
 
 -- 주문 상세(OrderDetail) 더미 데이터 삽입
 INSERT INTO order_history_tb (items_id, admin_id, total_quantity, total_price)

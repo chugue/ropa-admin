@@ -3,7 +3,7 @@ package com.example.finalproject.domain.inquiry;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class InquiryResponse {
 
@@ -14,14 +14,22 @@ public class InquiryResponse {
         private String myName;
         private String title;
         private Boolean status;
-        private Timestamp createdAt;
+        private String statusMsg;
+        private String createdAt;
 
         public ListDTO(Inquiry inquiry, User user) {
             this.id = inquiry.getId();
             this.myName = user.getMyName();
             this.title = inquiry.getTitle();
             this.status = inquiry.getStatus();
-            this.createdAt = inquiry.getCreatedAt();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            this.createdAt = dateFormat.format(inquiry.getCreatedAt());
+
+            if (inquiry.getStatus() == false){
+                this.statusMsg = "미응답";
+            }else{
+                this.statusMsg = "응답완료";
+            }
         }
     }
 }

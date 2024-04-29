@@ -17,9 +17,10 @@ public class InquiryService {
                 inquiryList.stream().map(inquiry ->
                         new InquiryResponse.ListDTO(inquiry, inquiry.getUser())).toList();
 
-
+        int a = 1;
         for (int i = respList.size(); i > 0; i--) {
-            respList.get(i-1).setNum(i);
+            respList.get(i-1).setNum(a);
+            a++;
         }
 
         return respList;

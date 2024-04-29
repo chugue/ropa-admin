@@ -30,5 +30,4 @@ public class OrderController {
     public String orderDetail() {
         return "order-history";
     }
-
 }

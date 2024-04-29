@@ -49,6 +49,20 @@ VALUES
     (2, '배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     (3, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- 주문 상세(OrderDetail) 더미 데이터 삽입
+INSERT INTO order_history_tb (items_id, admin_id, total_quantity, total_price)
+VALUES
+    (1, 1, 2, 100000),
+    (2, 2, 1, 75000),
+    (3, 3, 3, 300000);
+
+-- 주문(Order) 더미 데이터 삽입
+INSERT INTO order_tb (user_id, order_history_id, delivery_id, total_order_amount, order_date)
+VALUES
+    (1, 1, 1, 50000, CURRENT_TIMESTAMP),
+    (2, 1, 2, 75000, CURRENT_TIMESTAMP),
+    (1, 2, 3, 100000, CURRENT_TIMESTAMP);
+
 -- -- 주문(Order) 더미 데이터 삽입
 -- INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
 -- VALUES

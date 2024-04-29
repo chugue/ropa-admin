@@ -5,17 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 
 @NoArgsConstructor
 @Entity
-@Data
 @Table(name = "admin_tb")
+@Data
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +24,13 @@ public class Admin {
     @Column(nullable = false)
     private String password; //비밀번호
 
-
     private String brandName; //브랜드 명
 
     private String phone; //브랜드 전화 번호
 
-
-
     @Enumerated(EnumType.STRING)
     private AdminRole role; // 관리자 / 브랜드
+
     enum AdminRole {
         ADMIN, BRAND
     }
@@ -45,10 +40,8 @@ public class Admin {
 
     private String businessNum; // 사업자 번호 (관리자, 브랜드)
 
-
     @CreationTimestamp
     private Timestamp createdAt; // 브랜드, 관리자 회원가입 시간
-
 
     @UpdateTimestamp
     private Timestamp updateAt; // 관리자 / 브랜드 수정 날짜
@@ -65,6 +58,4 @@ public class Admin {
         this.updateAt = updateAt;
         this.createdAt = createdAt;
     }
-
-
 }

@@ -7,8 +7,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
-    @Query("select o from OrderHistory o where o.admin.id = ?1")
-    List<OrderHistory> findByAdminId(@Param("adminId") Integer id);
+    //브랜드의 매출 목록
 
-
+    @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items WHERE oh.admin.id = :adminId")
+    List<OrderHistory> findByAdminIdWithItems(@Param("adminId") int adminId);
 }

@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-
+            {{#orderHistoryList}}
             <table class="table">
                 <thead>
                 <tr>
@@ -38,39 +38,18 @@
                     <th>상품명</th>
                     <th>총 판매 금액</th>
                     <th>수량</th>
-
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-
-                    <td>1111</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>220,000</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-
-                    <td>2222</td>
-                    <td>유니온블루 세미 오버핏 셔츠</td>
-                    <td>250,000</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-
-                    <td>3333</td>
-                    <td>후러브스아트 유니게스 세미와이드 밴딩슬랙스</td>
-                    <td>165,000</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>4444</td>
-                    <td>리[22SS] 빅 트위치 로고 티셔츠 White</td>
-                    <td>225,000</td>
-                    <td>1</td>
+                    <td>{{itemsId}}</td>
+                    <td>{{itemsName}}</td>
+                    <td>{{totalPrice}}</td>
+                    <td>{{totalQuantity}}</td>
                 </tr>
                 </tbody>
             </table>
+            {{/orderHistoryList}}
         </div>
     </div>
 </div>

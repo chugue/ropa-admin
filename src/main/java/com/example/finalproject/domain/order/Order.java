@@ -21,15 +21,12 @@ public class Order {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
     private User user; // 사용자 고유번호
 
     @ManyToOne
-    @JoinColumn(name = "orderhistory_tb", nullable = false)
     private OrderHistory orderHistory; // 주문 상세 고유번호
 
     @OneToOne
-    @JoinColumn(name = "delivery_id", nullable = false)
     private Delivery delivery; // 배송 고유번호
 
     private Integer totalOrderAmount; // 주문 전체 금액
@@ -38,7 +35,6 @@ public class Order {
 
     @CreationTimestamp
     private Timestamp orderDate; // 주문일자
-
 
 
     @Builder

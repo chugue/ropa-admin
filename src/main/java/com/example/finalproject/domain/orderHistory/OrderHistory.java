@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "orderhistory_tb")
+@Table(name = "order_history_tb")
 @Data
 public class OrderHistory {
     @Id
@@ -19,9 +19,6 @@ public class OrderHistory {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Items items; // 아이템 고유번호
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin; // 관리자 고유번호
@@ -33,12 +30,12 @@ public class OrderHistory {
     private Integer totalPrice; // 하나의 상품의 총 가격
 
     private Double fee; //수수료
+
     private Double formattedFee; // 포맷팅된 수수료를 저장할 변수 추가
 
     @Builder
-    public OrderHistory(Integer id, Order order, Items items, Admin admin, Integer totalQuantity, Integer totalPrice) {
+    public OrderHistory(Integer id, Items items, Admin admin, Integer totalQuantity, Integer totalPrice) {
         this.id = id;
-        this.order = order;
         this.items = items;
         this.admin = admin;
         this.totalQuantity = totalQuantity;

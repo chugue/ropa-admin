@@ -6,7 +6,6 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -23,7 +22,7 @@ class AdminRepositoryTest {
     @Test
     public void findByEmailAndPassword_test() {
         // given
-        String email = "Ropa@naver.com";
+        String email = "nike@naver.com";
         String password = "1234";
         // when
         Optional<Admin> adminOP = adminRepository.findByEmailAndPassword(email,password);

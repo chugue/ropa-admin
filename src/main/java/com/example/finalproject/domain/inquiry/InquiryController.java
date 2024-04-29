@@ -5,8 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,16 +26,21 @@ public class InquiryController {
         return "inquiry/inquiry-manage";
     }
 
-    // 답변 하기 폼 페이지
+    // 문의 내용 답변 폼 페이지
     @GetMapping("/api/inquiry-reply/{inquiryId}")
-    public String inquiryReply(@PathVariable(name = "inquiryId") Integer inquiryId,
-                               HttpServletRequest req) {
+    public String inquiryReply(@PathVariable(name = "inquiryId") Integer inquiryId, HttpServletRequest req) {
+        InquiryResponse.ReplyDTO respDTO = inquiryService.findByInquiryId(inquiryId);
 
-        InquiryResponse.ReplyDTO respDTO =
-                inquiryService.findByInquiryId(inquiryId);
-
-        req.setAttribute("InquiryReply", respDTO);
+        req.setAttribute("inquiryReply", respDTO);
         return "inquiry/inquiry-reply-form";
     }
 
+    // 문의 답변 업데이트
+    @PostMapping("/api/inquiry-reply-update")
+    public String inquiryReplyUpdate (InquiryRequest.ReplyDTO reqDTO){
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+
+        inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
+        return "redirect:/api/inquiry-reply/"+ reqDTO.getInquiryId();
+    }
 }

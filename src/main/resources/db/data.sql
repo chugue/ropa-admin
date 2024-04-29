@@ -54,9 +54,9 @@ INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, comm
 VALUES
     (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 3, 1, '2024-01-26 11:30:00', '2024-01-25 11:30:00'),
     (true, '배송 문의', '주문한 상품이 아직 배송되지 않았습니다.', '평균 배송 2~3일 걸립니다!', 2, 1,  '2024-02-18 09:00:00', '2024-02-16 01:00:00'),
-    (false, '상품 문의', '배송중 상품 교환이 가능한가요?', null, 2, 1,  null, NOW()),
-    (false, '상품 문의', '반팔 카라티 모델이 차은우인가요?', null, 1, 1,  null, NOW()),
-    (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', null, 1, 2,  null, NOW());
+    (false, '상품 문의', '배송중 상품 교환이 가능한가요?', '', 2, 1,  null, NOW()),
+    (false, '상품 문의', '반팔 카라티 모델이 차은우인가요?', '', 1, 1,  null, NOW()),
+    (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 1, 2,  null, NOW());
 
 -- 주문 상세(OrderDetail) 더미 데이터 삽입
 INSERT INTO order_history_tb (items_id, admin_id, total_quantity, total_price)

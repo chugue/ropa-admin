@@ -55,4 +55,11 @@ public class Inquiry {
         this.commentedAt = commentedAt;
         this.status = status;
     }
+
+
+    void toReplyUpdate(InquiryRequest.ReplyDTO reqDTO){
+        this.setId(reqDTO.getInquiryId());
+        this.setComment(reqDTO.getComment());
+        this.setCommentedAt(reqDTO.getCommentedAt());
+    }
 }

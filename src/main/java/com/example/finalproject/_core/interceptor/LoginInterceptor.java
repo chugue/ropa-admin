@@ -16,11 +16,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         //TODO User엔티티가 구현되면 주석 풀기 - jwt 는 모든 기능 완성후에
         HttpSession session = request.getSession();
 
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        if(sessionAdmin == null){
-            throw new Exception401("로그인 하셔야 해요");
+        if(sessionBrand != null || sessionAdmin != null){
+            return true;
         }
-        return true;
+        throw new Exception401("로그인 하셔야 해요");
     }
 
 }

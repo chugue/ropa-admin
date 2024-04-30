@@ -18,9 +18,9 @@ public class InquiryController {
     // 문의 관리 페이지 - 목록 조회
     @GetMapping("/api/inquiry-manage")
     public String inquiryManage(HttpServletRequest req) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         List<InquiryResponse.ListDTO> respList =
-                inquiryService.findAllInquiryWithUser(sessionAdmin.getId());
+                inquiryService.findAllInquiryWithUser(sessionBrand.getId());
 
         req.setAttribute("inquiryList", respList);
         return "inquiry/inquiry-manage";
@@ -38,7 +38,7 @@ public class InquiryController {
     // 문의 답변 업데이트
     @PostMapping("/api/inquiry-reply-update")
     public String inquiryReplyUpdate (InquiryRequest.ReplyDTO reqDTO){
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
 
         inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
         return "redirect:/api/inquiry-reply/"+ reqDTO.getInquiryId();

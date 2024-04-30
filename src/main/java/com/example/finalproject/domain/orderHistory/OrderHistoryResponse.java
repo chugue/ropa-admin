@@ -37,7 +37,7 @@ public class OrderHistoryResponse {
         private String itemName;
         private Integer price;
         private Integer count;
-        private Integer totalPrice;
+        private Double totalPrice;
         private String orderDate;
 
         public orderListDTO(OrderHistory orderHistory, User user, Items items) {

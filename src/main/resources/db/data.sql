@@ -61,23 +61,23 @@ VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋�
        (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 1, 2, null, NOW());
 
 -- 주문(Order) 더미 데이터 삽입
-INSERT INTO order_tb (user_id, delivery_id, total_order_amount, order_date)
-VALUES (1, 1, 50000, CURRENT_TIMESTAMP),
-       (2, 2, 75000, CURRENT_TIMESTAMP),
-       (3, 3, 100000, CURRENT_TIMESTAMP);
+INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
+VALUES (1, 1, 50.000, 5.000, CURRENT_TIMESTAMP),
+       (2, 2, 75.000, 7.500, CURRENT_TIMESTAMP),
+       (3, 3, 100.000, 10.000, CURRENT_TIMESTAMP);
 
 -- 주문 상세(OrderHistory) 더미 데이터 삽입
-INSERT INTO order_history_tb (admin_id, order_id, items_id, total_quantity, total_price)
-VALUES (1, 2, 1, 2, 100000),
-       (2, 3, 2, 1, 75000),
-       (1, 1, 1, 3, 300000),
-       (3, 2, 3, 2, 150000),
-       (2, 1, 2, 4, 225000),
-       (3, 3, 3, 2, 200000),
-       (1, 1, 1, 1, 50000),
-       (2, 2, 2, 3, 75000),
-       (1, 3, 1, 4, 400000),
-       (3, 1, 3, 2, 200000);
+INSERT INTO order_history_tb (admin_id, order_id, items_id, total_quantity, total_price, fee)
+VALUES (1, 2, 1, 2, 100.000, 10.000),
+       (2, 3, 2, 1, 75.000, 7.500),
+       (1, 1, 1, 3, 300.000, 30.000),
+       (3, 2, 3, 2, 150.000, 15.000),
+       (2, 1, 2, 4, 225.000, 22.500),
+       (3, 3, 3, 2, 200.000, 20.000),
+       (1, 1, 1, 1, 50.000, 5.000),
+       (2, 2, 2, 3, 75.000, 7.500),
+       (1, 3, 1, 4, 400.000, 40.000),
+       (3, 1, 3, 2, 200.000, 20.000);
 
 -- -- 주문(Order) 더미 데이터 삽입
 -- INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)

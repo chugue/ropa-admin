@@ -49,20 +49,20 @@ public class AdminController {
     @GetMapping("/api/admin-sales-manage")
     public String adminSalesManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<OrderHistory> orderHistoryList = adminService.adminOrderHistory(sessionAdmin.getId());
+        List<AdminResponse.AdminSalesListDTO> orderHistoryList = adminService.adminOrderHistory(sessionAdmin.getId());
 
         // adminOrderHistory 메서드 내에서 DecimalFormat 객체 생성
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
         // 매출 목록을 순회하면서 각 OrderHistory의 수수료를 포맷팅하여 설정
-        for (OrderHistory orderHistory : orderHistoryList) {
+        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
             // 현재 수수료 값 가져오기
             double fee = orderHistory.getFee();
             // 수수료 포맷팅
             String formattedFeeString = decimalFormat.format(fee);
             // 포맷팅된 수수료를 double 형태로 변환하여 OrderHistory 객체에 설정
             double formattedFee = Double.parseDouble(formattedFeeString);
-            orderHistory.setFormattedFee(formattedFee);
+//            orderHistory.setFormattedFee(formattedFee);
 
         }
         //총 매출 메서드 불러오기
@@ -83,7 +83,7 @@ public class AdminController {
     @GetMapping("/api/brand-sales-manage")
     public String brandSalesManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<AdminResponse.brandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
+        List<AdminResponse.BrandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         req.setAttribute("orderHistoryList", orderHistoryList);
 
 

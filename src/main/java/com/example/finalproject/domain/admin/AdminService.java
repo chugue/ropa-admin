@@ -5,6 +5,7 @@ import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
+import com.example.finalproject.domain.orderHistory.OrderHistoryResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,15 +24,15 @@ public class AdminService {
 
 
     //브랜드가 로그인 했을 때 매출 목록보기
-    public List<AdminResponse.brandOrderHistoryListDTO> brandOrderHistory(int adminId) {
+    public List<AdminResponse.BrandOrderHistoryListDTO> brandOrderHistory(int adminId) {
         List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
         if (brandOrderHistory == null) {
             throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
         }
 
-        List<AdminResponse.brandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
-            return new AdminResponse.brandOrderHistoryListDTO(orderHistory);
+        List<AdminResponse.BrandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
+            return new AdminResponse.BrandOrderHistoryListDTO(orderHistory);
         }).collect(Collectors.toList());
 
         return respDTO;
@@ -39,31 +40,34 @@ public class AdminService {
 
 
     //관리자가 로그인 했을 때 매출 목록 보기
-    public List<OrderHistory> adminOrderHistory(Integer adminId) {
+    public List<AdminResponse.AdminSalesListDTO> adminOrderHistory(Integer adminId) {
 
-        List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findAll();
+        List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findOrderHistoryByAdminIdWithOrder(adminId);
 
         if (adminOrderHistoryList == null) {
             throw new Exception404("현재 주문내역이 존재 하지 않습니다.");
         }
 
+        List<AdminResponse.AdminSalesListDTO> respDTO = adminOrderHistoryList.stream().map(orderHistory -> {
+                    return new AdminResponse.AdminSalesListDTO(orderHistory);
+        }).collect(Collectors.toList());
 
-        return adminOrderHistoryList;
+        return respDTO;
     }
 
     //총 매출 계산
-    public double getTotalSalesAmount(List<OrderHistory> orderHistoryList) {
+    public double getTotalSalesAmount(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {
         double totalSalesAmount = 0.0;
-        for (OrderHistory orderHistory : orderHistoryList) {
+        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
             totalSalesAmount += orderHistory.getTotalPrice();
         }
         return totalSalesAmount;
     }
 
     // 총 수수료를 계산
-    public double getTotalFee(List<OrderHistory> orderHistoryList) {
+    public double getTotalFee(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {
         double totalFee = 0.0;
-        for (OrderHistory orderHistory : orderHistoryList) {
+        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
             totalFee += orderHistory.getFee();
         }
         return totalFee;

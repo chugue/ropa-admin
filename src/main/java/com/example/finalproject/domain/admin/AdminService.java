@@ -42,7 +42,7 @@ public class AdminService {
 
 
     //관리자가 로그인 했을 때 매출 목록 보기
-    public List<AdminResponse.AdminSalesListDTO> adminOrderHistory(Integer adminId) {
+    public List<AdminResponse.AdminSalesListDTO> adminOrderHistory(int adminId) {
 
         List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findOrderHistoryByAdminIdWithOrder(adminId);
 
@@ -57,14 +57,14 @@ public class AdminService {
         return respDTO;
     }
 
-    //총 매출 계산
-    public double getTotalSalesAmount(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {
-        double totalSalesAmount = 0.0;
-        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
-            totalSalesAmount += orderHistory.getTotalPrice();
-        }
-        return totalSalesAmount;
-    }
+//    //총 매출 계산
+//    public double getTotalSalesAmount(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {
+//        double totalSalesAmount = 0.0;
+//        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
+//            totalSalesAmount += orderHistory.getTotalPrice();
+//        }
+//        return totalSalesAmount;
+//    }
 
     // 총 수수료를 계산
     public double getTotalFee(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {

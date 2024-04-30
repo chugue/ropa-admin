@@ -30,7 +30,7 @@ public class OrderHistory {
     private Integer totalQuantity; // 하나의 상품의 총 개수
 
     @Column(nullable = false)
-    private Double totalPrice; // 하나의 상품의 총 가격
+    private Double totalPrice; // 하나의 상품의 총 판매 가격
 
     private Double fee; //수수료
 

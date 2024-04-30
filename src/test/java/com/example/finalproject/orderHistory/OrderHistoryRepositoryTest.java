@@ -13,6 +13,32 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
+    //브랜드의 총 수수료 금액
+    @Test
+    public void getTotalFeeForBrand_test() {
+        //given
+        int adminId= 1;
+
+        //when
+        Double orderHistoryList = orderHistoryRepository.getTotalFeeForBrand(adminId);
+
+        //then
+        System.out.println("여기" +orderHistoryList);
+    }
+
+    //브랜드의 총 판매 금액
+    @Test
+    public void getTotalSalesForBrand_test() {
+        //given
+        int adminId= 1;
+
+        //when
+        Double orderHistoryList = orderHistoryRepository.getTotalSalesForBrand(adminId);
+
+        //then
+        System.out.println("여기" +orderHistoryList);
+    }
+
     //관리자의 매출관리
     @Test
     public void findOrderHistoryByAdminIdWithOrder_test() {

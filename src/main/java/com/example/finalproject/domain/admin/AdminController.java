@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import java.text.DecimalFormat;
 import java.util.List;
+
 import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
 import static com.example.finalproject.domain.admin.Admin.AdminRole.BRAND;
 
@@ -17,15 +19,6 @@ import static com.example.finalproject.domain.admin.Admin.AdminRole.BRAND;
 public class AdminController {
     private final AdminService adminService;
     private final HttpSession session;
-
-
-    // 로파 관리자 매출관리 페이지
-    @GetMapping("/api/sales/admin-sales-manage")
-    public String adminSalesManage() {
-
-        adminService.totalBrandSalesManage();
-        return "sales/admin-sales-manage";
-    }
 
 
     //로그인
@@ -46,7 +39,7 @@ public class AdminController {
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
-        if(admin.getRole().equals(ADMIN)){
+        if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
             return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
@@ -58,7 +51,7 @@ public class AdminController {
 
     // 회원가입 폼
     @GetMapping("/loginForm")
-    public String loginForm(){
+    public String loginForm() {
         return "/admin/login-form";
     }
 
@@ -108,14 +101,15 @@ public class AdminController {
         List<AdminResponse.brandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         req.setAttribute("orderHistoryList", orderHistoryList);
 
+
         return "sales/brand-sales-manage";
     }
 
-
-
     // 회원 관리 페이지
-    @GetMapping("/api/admin/user-manage")
-    public String userManage() {
+    @GetMapping("/api/user-manage")
+    public String userManage(HttpServletRequest request) {
+        List<UserResponse.UserListDTO> userList = adminService.getUserList();
+        request.setAttribute("userList", userList);
         return "admin/user-manage";
     }
 

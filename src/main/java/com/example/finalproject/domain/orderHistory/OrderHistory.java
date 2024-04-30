@@ -17,12 +17,14 @@ public class OrderHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JoinColumn(name = "admin_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Admin admin; // 관리자 고유번호
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order; // 주문 고유번호
 
+    @JoinColumn(name = "items_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Items items; // 아이템 고유번호
 

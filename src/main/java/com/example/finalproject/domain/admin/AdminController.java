@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.admin;
 
 import com.example.finalproject.domain.orderHistory.OrderHistory;
+import com.example.finalproject.domain.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

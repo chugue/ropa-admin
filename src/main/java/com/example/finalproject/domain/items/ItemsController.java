@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 @Controller
 public class ItemsController {
-    private final HttpServletRequest request;
     private final HttpSession session;
+    private final ItemsService itemsService;
 
     // 상품 관리 페이지
     @GetMapping("/api/items-manage")
     public String itemsManage() {
+
         return "items/items-manage";
     }
 

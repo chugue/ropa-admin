@@ -34,9 +34,11 @@ public class User {
 
     private String mobile; // 연락처
 
-    private String height; //키
+    private String height; // 키
 
-    private String weight; //체중
+    private String weight; // 체중
+
+    private String instagram; // 인스타그램
 
     @Column(nullable = false)
     private Boolean blueChecked; //true -> 크리에이터, false -> 일반 회원
@@ -48,7 +50,7 @@ public class User {
     private Timestamp updateAt; // 회원 수정 시간
 
     @Builder
-    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, Boolean blueChecked, Timestamp createdAt, Timestamp updateAt) {
+    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, String instagram, Boolean blueChecked, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -58,6 +60,7 @@ public class User {
         this.mobile = mobile;
         this.height = height;
         this.weight = weight;
+        this.instagram = instagram;
         this.blueChecked = blueChecked;
         this.createdAt = createdAt;
         this.updateAt = updateAt;

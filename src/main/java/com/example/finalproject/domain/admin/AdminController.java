@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
+import static com.example.finalproject.domain.admin.Admin.AdminRole.BRAND;
+
 @RequiredArgsConstructor
 @Controller
 public class AdminController {
@@ -21,8 +24,14 @@ public class AdminController {
     //로그인
     @PostMapping("/login")
     public String login(AdminRequest.LoginDTO reqDTO) {
-        Admin sessionAdmin = adminService.login(reqDTO);
-        session.setAttribute("sessionAdmin", sessionAdmin);
+        Admin admin = adminService.login(reqDTO);
+        if(admin.getRole().equals(ADMIN)){
+            session.setAttribute("sessionAdmin", admin);
+            return "index";
+        } else if (admin.getRole().equals(BRAND)) {
+            session.setAttribute("sessionBrand", admin);
+            return "index";
+        }
         return "index";
     }
 
@@ -31,7 +40,14 @@ public class AdminController {
     public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
         session.setAttribute("sessionAdmin", admin);
-        return "/admin/join-form";
+        if(admin.getRole().equals(ADMIN)){
+            session.setAttribute("sessionAdmin", admin);
+            return "index";
+        } else if (admin.getRole().equals(BRAND)) {
+            session.setAttribute("sessionBrand", admin);
+            return "index";
+        }
+        return "index";
     }
 
     // 회원가입 폼

@@ -42,9 +42,9 @@ public class AdminService {
     }
 
     //관리자가 로그인했을 때 매출 목록보기
-    public List<AdminResponse.AdminSalesListDTO> adminSalesListDTOList() {
+    public List<AdminResponse.SalesListDTO> adminSalesListDTOList() {
 
-        List<AdminResponse.AdminSalesListDTO> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        List<AdminResponse.SalesListDTO> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
 
         return respDTO;
     }

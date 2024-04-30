@@ -10,10 +10,10 @@ import java.util.List;
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
 
 
-    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$AdminSalesListDTO(oh.admin ,SUM(oh.totalPrice), SUM(oh.fee)) " +
+    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesListDTO(oh.admin ,SUM(oh.totalPrice), SUM(oh.fee)) " +
             "FROM OrderHistory oh " +
             "GROUP BY oh.admin.id")
-    List<AdminResponse.AdminSalesListDTO> getTotalSalesAndFeePerBrand();
+    List<AdminResponse.SalesListDTO> getTotalSalesAndFeePerBrand();
 
 
     //관리자의 매출 목록

@@ -6,12 +6,12 @@ import lombok.Data;
 public class AdminResponse {
     //관리자의 브랜드별 매출 목록보기
     @Data
-    public static class AdminSalesListDTO {
+    public static class SalesListDTO {
         private AdminDTO admin;
         private Double totalPrice;
         private Double fee;
 
-        public AdminSalesListDTO(Admin admin, Double totalPrice, Double fee) {
+        public SalesListDTO(Admin admin, Double totalPrice, Double fee) {
             this.admin = new AdminDTO(admin);
             this.totalPrice = totalPrice;
             this.fee = fee;

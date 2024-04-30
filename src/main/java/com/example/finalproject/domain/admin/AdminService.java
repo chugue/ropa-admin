@@ -76,14 +76,14 @@ public class AdminService {
 //        return totalSalesAmount;
 //    }
 
-    // 총 수수료를 계산
-    public double getTotalFee(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {
-        double totalFee = 0.0;
-        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
-            totalFee += orderHistory.getFee();
-        }
-        return totalFee;
-    }
+//    // 총 수수료를 계산
+//    public double getTotalFee(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {
+//        double totalFee = 0.0;
+//        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
+//            totalFee += orderHistory.getFee();
+//        }
+//        return totalFee;
+//    }
 
 
     //로그인

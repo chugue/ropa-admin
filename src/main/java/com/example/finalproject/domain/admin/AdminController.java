@@ -83,8 +83,8 @@ public class AdminController {
         //총 매출 메서드 불러오기
 //        double totalSalesAmount = adminService.getTotalSalesAmount(orderHistoryList);
 
-        //총 수수료 계산 메서드 불러오기
-        double totalFee = adminService.getTotalFee(orderHistoryList);
+//        //총 수수료 계산 메서드 불러오기
+//        double totalFee = adminService.getTotalFee(orderHistoryList);
 
         // 모델에 포맷팅된 매출 목록을 추가하여 머스테치 템플릿에서 참조할 수 있도록 함
         req.setAttribute("orderHistoryList", orderHistoryList);

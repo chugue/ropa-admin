@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
+
 @Service
 @RequiredArgsConstructor
 public class AdminService {
@@ -92,15 +94,11 @@ public class AdminService {
 
         Admin admin = null;
 
-
-        if(reqDTO.getRole().equals(Admin.AdminRole.ADMIN)){
+        if(reqDTO.getRole().equals(ADMIN)){
             admin = adminRepository.save(reqDTO.toAdminEntity());
         } else if (reqDTO.getRole().equals(Admin.AdminRole.BRAND)) {
             admin = adminRepository.save(reqDTO.toBrandEntity());
         }
-
-
-
         return admin;
     }
 }

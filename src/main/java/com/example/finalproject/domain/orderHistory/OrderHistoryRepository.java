@@ -15,7 +15,6 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
     @Query("SELECT SUM(oh.fee) FROM OrderHistory oh WHERE oh.admin.id = :adminId")
     Double getTotalFeeForBrand(@Param("adminId") int adminId);
 
-
     //관리자의 매출 목록
     @Query("select oh from OrderHistory oh join FETCH oh.order where oh.admin.id = :adminId")
     List<OrderHistory> findOrderHistoryByAdminIdWithOrder(@Param("adminId") int adminId);

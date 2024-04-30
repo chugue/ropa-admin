@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,22 +41,31 @@ public class AdminService {
         return respDTO;
     }
 
+    // 브랜드의 총 매출과 총 수수료를 가져오는 메소드
+    public AdminResponse.AdminSalesListDTO getBrandSalesAndFee(int adminId) {
+        // 브랜드의 총 매출과 총 수수료를 가져옵니다.
+        Double totalSales = orderHistoryRepository.getTotalSalesForBrand(adminId);
+        Double totalFee = orderHistoryRepository.getTotalFeeForBrand(adminId);
 
-    //관리자가 로그인 했을 때 매출 목록 보기
-    public List<AdminResponse.AdminSalesListDTO> adminOrderHistory(int adminId) {
-
-        List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findOrderHistoryByAdminIdWithOrder(adminId);
-
-        if (adminOrderHistoryList == null) {
-            throw new Exception404("현재 주문내역이 존재 하지 않습니다.");
-        }
-
-        List<AdminResponse.AdminSalesListDTO> respDTO = adminOrderHistoryList.stream().map(orderHistory -> {
-                    return new AdminResponse.AdminSalesListDTO(orderHistory);
-        }).collect(Collectors.toList());
-
-        return respDTO;
+        // 총 매출과 총 수수료를 DTO로 변환하여 반환합니다.
+        return new AdminResponse.AdminSalesListDTO(totalSales, totalFee);
     }
+
+    // 관리자가 로그인 했을 때 매출 목록 보기
+    public List<AdminResponse.AdminSalesListDTO> adminOrderHistory(int adminId) {
+        // 브랜드의 총 매출과 총 수수료를 가져옵니다.
+        AdminResponse.AdminSalesListDTO brandSalesAndFee = getBrandSalesAndFee(adminId);
+
+        // 매출 목록을 반환합니다.
+        List<AdminResponse.AdminSalesListDTO> salesList = new ArrayList<>();
+        salesList.add(brandSalesAndFee);
+
+        return salesList;
+    }
+
+
+
+
 
 //    //총 매출 계산
 //    public double getTotalSalesAmount(List<AdminResponse.AdminSalesListDTO> orderHistoryList) {

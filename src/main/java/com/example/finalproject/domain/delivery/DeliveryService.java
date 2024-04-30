@@ -13,6 +13,7 @@ import java.util.List;
 public class DeliveryService {
     private final OrderHistoryRepository orderHistoryRepository;
 
+    // 브랜드 별 사용자가 구매한 아이템 배송 목록
     public List<OrderHistoryResponse.DeliveryListDTO> findByOrderHistoryItemsAdminAndDelivery(Integer adminId) {
         List<OrderHistory> orderDeliveryList = orderHistoryRepository.findByOrderHistoryItemsAdminAndDelivery(adminId);
         return orderDeliveryList.stream()

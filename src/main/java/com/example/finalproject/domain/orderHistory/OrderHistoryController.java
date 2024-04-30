@@ -20,8 +20,8 @@ public class OrderHistoryController {
     // 주문 목록 페이지
     @GetMapping("/api/order-manage")
     public String orderManage(HttpServletRequest request) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<OrderHistoryResponse.orderListDTO> orderHistoryList = orderHistoryService.findByOrderHistoryItemsAdmin(1);
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        List<OrderHistoryResponse.orderListDTO> orderHistoryList = orderHistoryService.findByOrderHistoryItemsAdmin(sessionBrand.getId());
         request.setAttribute("orderHistoryList", orderHistoryList);
         return "order/order-manage";
     }

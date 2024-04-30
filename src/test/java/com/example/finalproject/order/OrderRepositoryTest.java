@@ -13,11 +13,4 @@ public class OrderRepositoryTest {
     @Autowired
     private OrderRepository orderRepository;
 
-    @Test
-    public void findByOrderDetailItemsAdmin_test() {
-
-        List<Order> orderList = orderRepository.findByOrderDetailItemsAdmin(1);
-
-        orderList.forEach(System.out::println);
-    }
 }

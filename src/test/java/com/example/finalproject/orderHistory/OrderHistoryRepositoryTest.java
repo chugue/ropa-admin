@@ -13,6 +13,20 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
+    //관리자의 매출관리
+    @Test
+    public void findOrderHistoryByAdminIdWithOrderTest() {
+        //given
+        int adminId = 1;
+
+        //when
+        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findOrderHistoryByAdminIdWithOrder(adminId);
+
+        //then
+        orderHistoryList.forEach(System.out::println);
+    }
+
+
     //브랜드의 매출관리
     @Test
     public void findByAdminIdTest() {
@@ -20,7 +34,7 @@ public class OrderHistoryRepositoryTest {
        int adminId = 1;
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findByAdminId(adminId);
+        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
         //then
         orderHistoryList.forEach(System.out::println);

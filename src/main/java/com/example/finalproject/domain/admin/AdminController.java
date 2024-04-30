@@ -27,33 +27,32 @@ public class AdminController {
         Admin admin = adminService.login(reqDTO);
         if(admin.getRole().equals(ADMIN)){
             session.setAttribute("sessionAdmin", admin);
-            return "index";
+            return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
             session.setAttribute("sessionBrand", admin);
-            return "index";
+            return "index-brand";
         }
-        return "index";
+        return "index-brand";
     }
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
-        session.setAttribute("sessionAdmin", admin);
         if(admin.getRole().equals(ADMIN)){
             session.setAttribute("sessionAdmin", admin);
-            return "index";
+            return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
             session.setAttribute("sessionBrand", admin);
-            return "index";
+            return "index-brand";
         }
-        return "index";
+        return "index-brand";
     }
 
     // 회원가입 폼
     @GetMapping("/loginForm")
     public String loginForm(){
-        return "admin/login-form";
+        return "/admin/login-form";
     }
 
     @GetMapping("/joinForm")

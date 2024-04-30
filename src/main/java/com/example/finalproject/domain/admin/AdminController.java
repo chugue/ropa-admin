@@ -7,10 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.text.DecimalFormat;
 import java.util.List;
-
 import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
 import static com.example.finalproject.domain.admin.Admin.AdminRole.BRAND;
 
@@ -19,6 +17,15 @@ import static com.example.finalproject.domain.admin.Admin.AdminRole.BRAND;
 public class AdminController {
     private final AdminService adminService;
     private final HttpSession session;
+
+
+    // 로파 관리자 매출관리 페이지
+    @GetMapping("/api/sales/admin-sales-manage")
+    public String adminSalesManage() {
+
+        adminService.totalBrandSalesManage();
+        return "sales/admin-sales-manage";
+    }
 
 
     //로그인
@@ -101,12 +108,13 @@ public class AdminController {
         List<AdminResponse.brandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         req.setAttribute("orderHistoryList", orderHistoryList);
 
-
         return "sales/brand-sales-manage";
     }
 
+
+
     // 회원 관리 페이지
-    @GetMapping("/api/user-manage")
+    @GetMapping("/api/admin/user-manage")
     public String userManage() {
         return "admin/user-manage";
     }

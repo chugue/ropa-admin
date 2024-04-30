@@ -5,12 +5,10 @@ import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,6 +20,11 @@ import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
 public class AdminService {
     private final AdminRepository adminRepository;
     private final OrderHistoryRepository orderHistoryRepository;
+
+    // 로파 총 관리자가 각 브랜드별 당월 매출 확인하기
+    public void totalBrandSalesManage() {
+
+    }
 
 
     //브랜드가 로그인 했을 때 매출 목록보기
@@ -40,7 +43,7 @@ public class AdminService {
     }
 
 
-    //관리자가 로그인 했을 때 매출 목록 보기
+    //관리자가 로그인 했을 때 주문 목록 보기
     public List<OrderHistory> adminOrderHistory(Integer adminId) {
 
         List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findAll();
@@ -57,7 +60,7 @@ public class AdminService {
     public double getTotalSalesAmount(List<OrderHistory> orderHistoryList) {
         double totalSalesAmount = 0.0;
         for (OrderHistory orderHistory : orderHistoryList) {
-            totalSalesAmount += orderHistory.getTotalPrice();
+            totalSalesAmount += orderHistory.getOrderItemPrice();
         }
         return totalSalesAmount;
     }
@@ -97,4 +100,6 @@ public class AdminService {
         }
         return admin;
     }
+
+
 }

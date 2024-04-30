@@ -15,17 +15,21 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private String name; // 카테고리명
+    @Column
+    private String main; // 카테고리명
+
+    @Column
+    private String sub; // 카테고리명
 
     @ManyToOne
     @JoinColumn(name = "items_id", nullable = false)
     private Items items; // 아이템 고유번호
 
     @Builder
-    public Category(Integer id, String name, Items items) {
+    public Category(Integer id, String main, String sub, Items items) {
         this.id = id;
-        this.name = name;
+        this.main = main;
+        this.sub = sub;
         this.items = items;
     }
 }

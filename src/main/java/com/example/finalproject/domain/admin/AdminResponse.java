@@ -18,8 +18,8 @@ public class AdminResponse {
             this.orderHistoryId = orderHistory.getId();
             this.itemsId = orderHistory.getItems().getId();
             this.itemsName = orderHistory.getItems().getName();
-            this.totalPrice = orderHistory.getTotalPrice();
-            this.totalQuantity = orderHistory.getTotalQuantity();
+            this.totalPrice = orderHistory.getOrderItemPrice();
+            this.totalQuantity = orderHistory.getOrderItemQty();
         }
     }
 }

@@ -5,6 +5,9 @@ import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
+import com.example.finalproject.domain.user.User;
+import com.example.finalproject.domain.user.UserRepository;
+import com.example.finalproject.domain.user.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
 public class AdminService {
     private final AdminRepository adminRepository;
     private final OrderHistoryRepository orderHistoryRepository;
+    private final UserRepository userRepository;
 
 
     //브랜드가 로그인 했을 때 매출 목록보기
@@ -70,5 +74,11 @@ public class AdminService {
             admin = adminRepository.save(reqDTO.toBrandEntity());
         }
         return admin;
+    }
+
+    // 유저 크리에이터 인증 관리
+    public List<UserResponse.UserListDTO> getUserList() {
+        List<User> userList = userRepository.findAll();
+        return userList.stream().map(UserResponse.UserListDTO::new).toList();
     }
 }

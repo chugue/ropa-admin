@@ -74,4 +74,16 @@ public class OrderHistoryRepositoryTest {
         //then
         orderHistoryList.forEach(System.out::println);
     }
+
+    @Test
+    public void findByOrderHistoryItemsAdminAndDelivery_test() {
+        //given
+        int adminId = 1;
+
+        //when
+        List<OrderHistory> DeliveryList = orderHistoryRepository.findByOrderHistoryItemsAdminAndDelivery(adminId);
+
+        //then
+        DeliveryList.forEach(System.out::println);
+    }
 }

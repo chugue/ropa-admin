@@ -26,5 +26,8 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
 
     // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템 찾기
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
-    List<OrderHistory> findByOrderHistoryItemsAdmin(@Param("adminId") int adminId);
+    List<OrderHistory> findByOrderHistoryItemsAdmin(@Param("adminId") Integer adminId);
+
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch d.deliveryAddress da join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndDelivery(@Param("adminId") Integer adminId);
 }

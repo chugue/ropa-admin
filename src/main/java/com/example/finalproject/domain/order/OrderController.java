@@ -16,14 +16,6 @@ public class OrderController {
     private final HttpSession session;
     private final OrderService orderService;
 
-    // 주문 관리 페이지
-    @GetMapping("/api/order-manage")
-    public String orderManage(HttpServletRequest request) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<OrderResponse.orderListDTO> orderList = orderService.findByOrderDetailItemsAdmin(sessionAdmin.getId());
-        request.setAttribute("orderList", orderList);
-        return "order/order-manage";
-    }
 
     // 주문 상세 페이지
     @GetMapping("/api/order-detail")

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,18 +21,52 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final OrderHistoryRepository orderHistoryRepository;
 
+
+    //브랜드가 로그인 했을 때 매출 목록보기
+    public List<AdminResponse.brandOrderHistoryListDTO> brandOrderHistory(int adminId) {
+        List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
+
+        if (brandOrderHistory == null) {
+            throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
+        }
+
+        List<AdminResponse.brandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
+            return new AdminResponse.brandOrderHistoryListDTO(orderHistory);
+        }).collect(Collectors.toList());
+
+        return respDTO;
+    }
+
+
     //관리자가 로그인 했을 때 매출 목록 보기
-    public List<OrderHistory> adminOrderHistory(Integer adminId){
+    public List<OrderHistory> adminOrderHistory(Integer adminId) {
 
         List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findAll();
 
-        if(adminOrderHistoryList == null){
-            throw  new Exception404("현재 주문내역이 존재 하지 않습니다.");
+        if (adminOrderHistoryList == null) {
+            throw new Exception404("현재 주문내역이 존재 하지 않습니다.");
         }
 
 
-
         return adminOrderHistoryList;
+    }
+
+    //총 매출 계산
+    public double getTotalSalesAmount(List<OrderHistory> orderHistoryList) {
+        double totalSalesAmount = 0.0;
+        for (OrderHistory orderHistory : orderHistoryList) {
+            totalSalesAmount += orderHistory.getTotalPrice();
+        }
+        return totalSalesAmount;
+    }
+
+    // 총 수수료를 계산
+    public double getTotalFee(List<OrderHistory> orderHistoryList) {
+        double totalFee = 0.0;
+        for (OrderHistory orderHistory : orderHistoryList) {
+            totalFee += orderHistory.getFee();
+        }
+        return totalFee;
     }
 
 

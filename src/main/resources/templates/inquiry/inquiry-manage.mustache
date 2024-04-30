@@ -51,10 +51,10 @@
                         <td>{{createdAt}}</td>
                         <td>
                             {{#status}}
-                            <span class="btn btn-outline-secondary" disabled>{{statusMsg}}</span>
+                            <span class="btn btn-outline-secondary no-wrap-button" disabled>{{statusMsg}}</span>
                             {{/status}}
                             {{^status}}
-                                <span  class="btn btn-outline-primary" disabled>{{statusMsg}}</span>
+                                <span  class="btn btn-outline-primary no-wrap-button" disabled>{{statusMsg}}</span>
                             {{/status}}
                         </td>
                         <td><a href="/api/inquiry-reply/{{id}}">내용보기</a></td>

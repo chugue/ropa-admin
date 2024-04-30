@@ -15,4 +15,21 @@ public class OrderHistoryController {
 
     private final HttpSession session;
     private final OrderHistoryService orderHistoryService;
+
+
+    // 주문 목록 페이지
+    @GetMapping("/api/order-manage")
+    public String orderManage(HttpServletRequest request) {
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        List<OrderHistoryResponse.orderListDTO> orderHistoryList = orderHistoryService.findByOrderHistoryItemsAdmin(1);
+        request.setAttribute("orderHistoryList", orderHistoryList);
+        return "order/order-manage";
+    }
+
+    // 주문 상세 페이지
+    @GetMapping("/api/order-history")
+    public String orderHistory() {
+        return "order/order-history";
+    }
+
 }

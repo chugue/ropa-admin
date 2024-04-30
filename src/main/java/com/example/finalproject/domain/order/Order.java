@@ -27,10 +27,11 @@ public class Order {
 
     private Double totalOrderAmount; // 주문 전체 금액
 
-    private Double fee; // 주무 전체 수수료
+    private Double fee; // 주문 전체 수수료
 
     @CreationTimestamp
     private Timestamp orderDate; // 주문일자
+
 
     @Builder
     public Order(Integer id, User user, Delivery delivery, Double totalOrderAmount, Double fee, Timestamp orderDate) {

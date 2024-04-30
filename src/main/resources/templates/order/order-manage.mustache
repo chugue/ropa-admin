@@ -29,25 +29,31 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>주문코드</th>
                     <th>고객명</th>
                     <th>연락처</th>
-                    <th>총 가격</th>
-                    <th>주문일자</th>
-                    <th> </th>
+                    <th>아이템코드</th>
+                    <th>아이템명</th>
+                    <th>개당 가격</th>
+                    <th>구매 수량</th>
+                    <th>총 구매 금액</th>
+                    <th>구매 일자</th>
+<!--                    <th></th>-->
                 </tr>
                 </thead>
                 <tbody>
-                {{#orderList}}
+                {{#orderHistoryList}}
                     <tr>
-                        <td>{{orderId}}</td>
                         <td>{{userName}}</td>
                         <td>{{userPhone}}</td>
-                        <td>{{totalOrderAmount}}</td>
+                        <td>{{itemId}}</td>
+                        <td>{{itemName}}</td>
+                        <td>{{price}}</td>
+                        <td>{{count}}</td>
+                        <td>{{totalPrice}}</td>
                         <td>{{orderDate}}</td>
-                        <td><a href="/api/order-detail" class="btn btn-outline-primary btn-sm">상세보기</a></td>
+<!--                        <td><a href="/api/order-history" class="btn btn-outline-primary btn-sm">상세보기</a></td>-->
                     </tr>
-                {{/orderList}}
+                {{/orderHistoryList}}
 <!--                <tr>-->
 <!--                    <td>JN6TSU806KH001</td>-->
 <!--                    <td>김성훈</td>-->

@@ -15,7 +15,7 @@ public class OrderHistoryRepositoryTest {
 
     //관리자의 매출관리
     @Test
-    public void findOrderHistoryByAdminIdWithOrderTest() {
+    public void findOrderHistoryByAdminIdWithOrder_test() {
         //given
         int adminId = 1;
 
@@ -29,7 +29,7 @@ public class OrderHistoryRepositoryTest {
 
     //브랜드의 매출관리
     @Test
-    public void findByAdminIdTest() {
+    public void findByAdminId_test() {
         //given
        int adminId = 1;
 
@@ -41,11 +41,23 @@ public class OrderHistoryRepositoryTest {
     }
 
     @Test
-    public void findAll() {
+    public void findAll_test() {
         //given
 
         //when
         List<OrderHistory>  orderHistoryList = orderHistoryRepository.findAll();
+
+        //then
+        orderHistoryList.forEach(System.out::println);
+    }
+
+    @Test
+    public void findByOrderHistoryItemsAdmin_test() {
+        //given
+        int adminId = 1;
+
+        //when
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findByOrderHistoryItemsAdmin(adminId);
 
         //then
         orderHistoryList.forEach(System.out::println);

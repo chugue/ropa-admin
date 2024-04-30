@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.admin;
 
 import com.example.finalproject.domain.orderHistory.OrderHistory;
+import com.example.finalproject.domain.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AdminController {
     @PostMapping("/login")
     public String login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminService.login(reqDTO);
-        if(admin.getRole().equals(ADMIN)){
+        if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
             return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
@@ -39,7 +40,7 @@ public class AdminController {
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
-        if(admin.getRole().equals(ADMIN)){
+        if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
             return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
@@ -51,7 +52,7 @@ public class AdminController {
 
     // 회원가입 폼
     @GetMapping("/loginForm")
-    public String loginForm(){
+    public String loginForm() {
         return "/admin/login-form";
     }
 
@@ -107,8 +108,9 @@ public class AdminController {
 
     // 회원 관리 페이지
     @GetMapping("/api/user-manage")
-    public String userManage() {
+    public String userManage(HttpServletRequest request) {
+        List<UserResponse.UserListDTO> userList = adminService.getUserList();
+        request.setAttribute("userList", userList);
         return "admin/user-manage";
     }
-
 }

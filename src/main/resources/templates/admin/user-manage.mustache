@@ -1,6 +1,6 @@
 {{> /layout/header}}
 {{> /layout/navbar}}
-{{> /layout/sidebar-brand}}
+{{> /layout/sidebar-admin}}
 
 <!-- 메인 화면 -->
 <div class="content">
@@ -29,85 +29,40 @@
                     <th>이름</th>
                     <th>아이디</th>
                     <th>연락처</th>
-                    <th>이메일</th>
+                    <th>닉네임</th>
                     <th>인스타그램</th>
                     <th>승인</th>
                     <th>거절</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
-                <tr>
-                    <td>김성훈</td>
-                    <td>ks1234</td>
-                    <td>010-1234-5678</td>
-                    <td>ks1234@example.com</td>
-                    <td><button class="btn btn-info">@ks1234</button></td>
-                    <td><button class="btn btn-success disabled">승인</button></td>
-                    <td><button class="btn btn-danger">거절</button></td>
-                </tr>
+                {{#userList}}
+                    <tr>
+                        <td>{{myName}}</td>
+                        <td>{{email}}</td>
+                        <td>{{mobile}}</td>
+                        <td>{{nickName}}</td>
+                        <td>
+                            <button class="btn btn-info">{{instagram}}</button>
+                        </td>
+                        {{^isBlueChecked}}
+                            <td>
+                                <button class="btn btn-success">승인</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">거절</button>
+                            </td>
+                        {{/isBlueChecked}}
+                        {{#isBlueChecked}}
+                            <td>
+                                <button class="btn btn-success disabled">승인</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger disabled">거절</button>
+                            </td>
+                        {{/isBlueChecked}}
+                    </tr>
+                {{/userList}}
                 </tbody>
             </table>
 

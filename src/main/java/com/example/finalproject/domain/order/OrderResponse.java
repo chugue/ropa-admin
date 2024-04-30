@@ -10,7 +10,7 @@ public class OrderResponse {
         public Integer orderId;
         public String userName;
         public String userPhone;
-        public Integer totalOrderAmount;
+        public Double totalOrderAmount;
         public Timestamp orderDate;
 
         public orderListDTO(Order order) {

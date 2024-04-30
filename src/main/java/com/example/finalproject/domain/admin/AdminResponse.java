@@ -11,7 +11,7 @@ public class AdminResponse {
         private Integer orderHistoryId;
         private Integer itemsId;
         private String itemsName;
-        private Integer totalPrice;
+        private Double totalPrice;
         private Integer totalQuantity;
 
         public brandOrderHistoryListDTO(OrderHistory orderHistory) {

@@ -8,6 +8,4 @@ import java.util.List;
 
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    @Query("select o from Order o where o.orderHistory.items.admin.id = :adminId")
-    List<Order> findByOrderDetailItemsAdmin(@Param("adminId") Integer adminId);
 }

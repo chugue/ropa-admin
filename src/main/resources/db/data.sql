@@ -59,18 +59,18 @@ VALUES
     (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 1, 2,  null, NOW());
 
 -- 주문 상세(OrderDetail) 더미 데이터 삽입
-INSERT INTO order_history_tb (items_id, admin_id, total_quantity, total_price)
+INSERT INTO order_history_tb (items_id, admin_id, total_quantity, total_price, fee)
 VALUES
-    (1, 1, 2, 100000),
-    (2, 2, 1, 75000),
-    (3, 3, 3, 300000);
+    (1, 1, 2, 100.000, 10.000),
+    (2, 2, 1, 75.000, 7.500),
+    (3, 3, 3, 300.000, 30.000);
 
 -- 주문(Order) 더미 데이터 삽입
 INSERT INTO order_tb (user_id, order_history_id, delivery_id, total_order_amount, order_date)
 VALUES
-    (1, 1, 1, 50000, CURRENT_TIMESTAMP),
-    (2, 1, 2, 75000, CURRENT_TIMESTAMP),
-    (1, 2, 3, 100000, CURRENT_TIMESTAMP);
+    (1, 1, 1, 50.000, CURRENT_TIMESTAMP),
+    (2, 1, 2, 75.000, CURRENT_TIMESTAMP),
+    (1, 2, 3, 100.000, CURRENT_TIMESTAMP);
 
 -- -- 주문(Order) 더미 데이터 삽입
 -- INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)

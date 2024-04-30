@@ -1,6 +1,6 @@
 package com.example.finalproject.domain.admin;
 
-import com.example.finalproject.domain.orderHistory.OrderHistory;
+import com.example.finalproject._core.error.exception.Exception403;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
@@ -25,7 +24,7 @@ public class AdminController {
     @PostMapping("/login")
     public String login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminService.login(reqDTO);
-        if(admin.getRole().equals(ADMIN)){
+        if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
             return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
@@ -39,7 +38,7 @@ public class AdminController {
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
-        if(admin.getRole().equals(ADMIN)){
+        if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
             return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
@@ -51,7 +50,7 @@ public class AdminController {
 
     // 회원가입 폼
     @GetMapping("/loginForm")
-    public String loginForm(){
+    public String loginForm() {
         return "/admin/login-form";
     }
 
@@ -64,33 +63,12 @@ public class AdminController {
     @GetMapping("/api/admin-sales-manage")
     public String adminSalesManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<AdminResponse.AdminSalesListDTO> orderHistoryList = adminService.adminOrderHistory(sessionAdmin.getId());
-
-        // adminOrderHistory 메서드 내에서 DecimalFormat 객체 생성
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-
-        // 매출 목록을 순회하면서 각 OrderHistory의 수수료를 포맷팅하여 설정
-        for (AdminResponse.AdminSalesListDTO orderHistory : orderHistoryList) {
-            // 현재 수수료 값 가져오기
-            double fee = orderHistory.getFee();
-            // 수수료 포맷팅
-            String formattedFeeString = decimalFormat.format(fee);
-            // 포맷팅된 수수료를 double 형태로 변환하여 OrderHistory 객체에 설정
-            double formattedFee = Double.parseDouble(formattedFeeString);
-//            orderHistory.setFormattedFee(formattedFee);
-
+        if (sessionAdmin == null) {
+            throw new Exception403("잘못된 접근입니다.");
         }
-        //총 매출 메서드 불러오기
-//        double totalSalesAmount = adminService.getTotalSalesAmount(orderHistoryList);
+        List<AdminResponse.AdminSalesListDTO> orderHistoryList = adminService.adminSalesListDTOList();
 
-//        //총 수수료 계산 메서드 불러오기
-//        double totalFee = adminService.getTotalFee(orderHistoryList);
-
-        // 모델에 포맷팅된 매출 목록을 추가하여 머스테치 템플릿에서 참조할 수 있도록 함
         req.setAttribute("orderHistoryList", orderHistoryList);
-//        req.setAttribute("totalSalesAmount", totalSalesAmount);
-//        req.setAttribute("totalFee", totalFee);
-
         return "sales/admin-sales-manage";
     }
 

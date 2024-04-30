@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.orderHistory;
 
+import com.example.finalproject.domain.admin.AdminResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -7,13 +8,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
-    //브랜드의 총 매출 내역
-    @Query("SELECT SUM(oh.totalPrice) FROM OrderHistory oh WHERE oh.admin.id = :adminId")
-    Double getTotalSalesForBrand(@Param("adminId") int adminId);
 
-    //브랜드의 총 수수료 내역
-    @Query("SELECT SUM(oh.fee) FROM OrderHistory oh WHERE oh.admin.id = :adminId")
-    Double getTotalFeeForBrand(@Param("adminId") int adminId);
+
+    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$AdminSalesListDTO(oh.admin ,SUM(oh.totalPrice), SUM(oh.fee)) " +
+            "FROM OrderHistory oh " +
+            "GROUP BY oh.admin.id")
+    List<AdminResponse.AdminSalesListDTO> getTotalSalesAndFeePerBrand();
+
 
     //관리자의 매출 목록
     @Query("select oh from OrderHistory oh join FETCH oh.order where oh.admin.id = :adminId")

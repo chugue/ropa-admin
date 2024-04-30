@@ -7,22 +7,27 @@ public class AdminResponse {
     //관리자의 브랜드별 매출 목록보기
     @Data
     public static class AdminSalesListDTO {
-        private String brandName;
-        private String brandPhone;
-        private String brandEmail;
-        private Double totalOrderAmount;
+        private AdminDTO admin;
+        private Double totalPrice;
         private Double fee;
 
-
-        public AdminSalesListDTO(OrderHistory orderHistory) {
-            this.brandName = orderHistory.getAdmin().getBrandName();
-            this.brandPhone = orderHistory.getAdmin().getPhone();
-            this.brandEmail = orderHistory.getAdmin().getEmail();
+        public AdminSalesListDTO(Admin admin, Double totalPrice, Double fee) {
+            this.admin = new AdminDTO(admin);
+            this.totalPrice = totalPrice;
+            this.fee = fee;
         }
 
-        public AdminSalesListDTO(Double totalOrderAmount, Double fee) {
-            this.totalOrderAmount = totalOrderAmount;
-            this.fee = fee;
+        @Data
+        public class AdminDTO {
+            private String brandName;
+            private String brandPhone;
+            private String brandEmail;
+
+            public AdminDTO(Admin admin) {
+                this.brandName = admin.getBrandName();
+                this.brandPhone = admin.getPhone();
+                this.brandEmail = admin.getEmail();
+            }
         }
     }
 

@@ -38,7 +38,6 @@
             </div>
 
             <!--판매 목록-->
-            {{#orderHistoryList}}
             <table class="table">
                 <thead>
                 <tr>
@@ -51,16 +50,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{#orderHistoryList}}
                 <tr>
                     <td>{{admin.brandName}}</td>
-                    <td>{{admin.phone}}</td>
-                    <td>{{admin.email}}</td>
+                    <td>{{admin.brandPhone}}</td>
+                    <td>{{admin.brandEmail}}/td>
                     <td>{{totalPrice}}</td>
-                    <td>{{formattedFee}}</td>
+                    <td>{{fee}}</td>
                 </tr>
+                {{/orderHistoryList}}
                 </tbody>
             </table>
-            {{/orderHistoryList}}
 
         <!-- 페이징 -->
         <nav aria-label="Page navigation example">

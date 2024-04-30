@@ -1,5 +1,6 @@
 package com.example.finalproject.orderHistory;
 
+import com.example.finalproject.domain.admin.AdminResponse;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import org.junit.jupiter.api.Test;
@@ -13,30 +14,15 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
-    //브랜드의 총 수수료 금액
+    //브랜드별 매출 및 수수료
     @Test
-    public void getTotalFeeForBrand_test() {
-        //given
-        int adminId= 1;
+    public void getTotalSalesAndFeePerBrand_test() {
 
         //when
-        Double orderHistoryList = orderHistoryRepository.getTotalFeeForBrand(adminId);
+        List<AdminResponse.AdminSalesListDTO> orderHistoryList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
 
         //then
-        System.out.println("여기" +orderHistoryList);
-    }
-
-    //브랜드의 총 판매 금액
-    @Test
-    public void getTotalSalesForBrand_test() {
-        //given
-        int adminId= 1;
-
-        //when
-        Double orderHistoryList = orderHistoryRepository.getTotalSalesForBrand(adminId);
-
-        //then
-        System.out.println("여기" +orderHistoryList);
+        orderHistoryList.forEach(System.out::println);
     }
 
     //관리자의 매출관리
@@ -46,7 +32,7 @@ public class OrderHistoryRepositoryTest {
         int adminId = 1;
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findOrderHistoryByAdminIdWithOrder(adminId);
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findOrderHistoryByAdminIdWithOrder(adminId);
 
         //then
         orderHistoryList.forEach(System.out::println);
@@ -57,10 +43,10 @@ public class OrderHistoryRepositoryTest {
     @Test
     public void findByAdminId_test() {
         //given
-       int adminId = 1;
+        int adminId = 1;
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findByAdminIdWithItems(adminId);
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
         //then
         orderHistoryList.forEach(System.out::println);
@@ -71,7 +57,7 @@ public class OrderHistoryRepositoryTest {
         //given
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findAll();
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findAll();
 
         //then
         orderHistoryList.forEach(System.out::println);

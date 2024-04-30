@@ -18,10 +18,13 @@ public class OrderHistory {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Items items; // 아이템 고유번호
+    private Admin admin; // 관리자 고유번호
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Admin admin; // 관리자 고유번호
+    private Order order; // 주문 고유번호
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Items items; // 아이템 고유번호
 
     @Column(nullable = false)
     private Integer totalQuantity; // 하나의 상품의 총 개수
@@ -34,11 +37,14 @@ public class OrderHistory {
     private Double formattedFee; // 포맷팅된 수수료를 저장할 변수 추가
 
     @Builder
-    public OrderHistory(Integer id, Items items, Admin admin, Integer totalQuantity, Integer totalPrice) {
+    public OrderHistory(Integer id, Admin admin, Order order, Items items, Integer totalQuantity, Integer totalPrice, Double fee, Double formattedFee) {
         this.id = id;
-        this.items = items;
         this.admin = admin;
+        this.order = order;
+        this.items = items;
         this.totalQuantity = totalQuantity;
         this.totalPrice = totalPrice;
+        this.fee = fee;
+        this.formattedFee = formattedFee;
     }
 }

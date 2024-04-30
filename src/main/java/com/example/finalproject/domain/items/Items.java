@@ -32,7 +32,7 @@ public class Items {
     private String size; // 사이즈
 
     @Column(nullable = false)
-    private String price; // 가격
+    private Integer price; // 가격
 
     private Integer disCountPrice; // 할인가
 
@@ -46,7 +46,7 @@ public class Items {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Items(Integer id, Admin admin, String name, String description, String size, String price, Integer disCountPrice, String stock, Timestamp createdAt, Timestamp updatedAt) {
+    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer disCountPrice, String stock, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;

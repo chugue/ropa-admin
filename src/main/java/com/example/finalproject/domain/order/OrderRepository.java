@@ -8,6 +8,7 @@ import java.util.List;
 
 
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    @Query("select o from Order o where o.orderHistory.items.admin.id = :adminId")
-    List<Order> findByOrderDetailItemsAdmin(@Param("adminId") Integer adminId);
+    // 주문상세 내역에서 해당 브랜드가 등록한 아이템들 조회
+    @Query("select o from Order o join fetch o.orderHistory h join fetch h.items i where i.admin.id = :adminId")
+    List<Order> findByOrderHistoryItemsAdmin(@Param("adminId") Integer adminId);
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class OrderController {
-    private final HttpServletRequest request;
     private final HttpSession session;
     private final OrderService orderService;
 
@@ -20,14 +19,14 @@ public class OrderController {
     @GetMapping("/api/order-manage")
     public String orderManage(HttpServletRequest request) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<OrderResponse.orderListDTO> orderList = orderService.findByOrderDetailItemsAdmin(sessionAdmin.getId());
+        List<OrderResponse.orderListDTO> orderList = orderService.findByOrderHistoryItemsAdmin(1);
         request.setAttribute("orderList", orderList);
         return "order/order-manage";
     }
 
     // 주문 상세 페이지
-    @GetMapping("/api/order-detail")
-    public String orderDetail() {
-        return "order-history";
+    @GetMapping("/api/order-history")
+    public String orderHistory() {
+        return "order/order-history";
     }
 }

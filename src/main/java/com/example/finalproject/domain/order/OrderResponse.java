@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.order;
 
+import com.example.finalproject.domain.items.Items;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -7,17 +8,25 @@ import java.sql.Timestamp;
 public class OrderResponse {
     @Data
     public static class orderListDTO {
-        public Integer orderId;
-        public String userName;
-        public String userPhone;
-        public Integer totalOrderAmount;
-        public Timestamp orderDate;
+        private Integer orderId;
+        private String userName;
+        private String userPhone;
+        private Integer itemId;
+        private String itemName;
+        private String price;
+        private Integer count;
+        private Integer totalPrice;
+        private Timestamp orderDate;
 
-        public orderListDTO(Order order) {
+        public orderListDTO(Order order, Items items) {
             this.orderId = order.getId();
             this.userName = order.getUser().getMyName();
             this.userPhone = order.getUser().getMobile();
-            this.totalOrderAmount = order.getTotalOrderAmount();
+            this.itemId = items.getId();
+            this.itemName = items.getName();
+            this.price = items.getPrice();
+            this.count = order.getOrderHistory().getTotalQuantity();
+            this.totalPrice = order.getOrderHistory().getTotalPrice();
             this.orderDate = order.getOrderDate();
         }
     }

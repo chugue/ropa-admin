@@ -16,7 +16,7 @@ public class OrderRepositoryTest {
     @Test
     public void findByOrderDetailItemsAdmin_test() {
 
-        List<Order> orderList = orderRepository.findByOrderDetailItemsAdmin(1);
+        List<Order> orderList = orderRepository.findByOrderHistoryItemsAdmin(1);
 
         orderList.forEach(System.out::println);
     }

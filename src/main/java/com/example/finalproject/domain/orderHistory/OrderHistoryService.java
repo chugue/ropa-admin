@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class OrderHistoryService {
 
     private final OrderHistoryRepository orderHistoryRepository;

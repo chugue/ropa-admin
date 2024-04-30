@@ -29,95 +29,27 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>상품코드</th>
-                    <th>상품명</th>
-                    <th>수량</th>
-                    <th>주문일자</th>
-                    <th>도착일자</th>
+                    <th>주문번호</th>
+                    <th>구매자</th>
+                    <th>수령인</th>
+                    <th>수령인 연락처</th>
                     <th>배송현황</th>
+                    <th>도착일자</th>
+                    <th>도착일자</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
-                <tr>
-                    <td>JN6TSU806KH</td>
-                    <td>컴패스 스몰로고 맨투맨</td>
-                    <td>1</td>
-                    <td>2024.04.18</td>
-                    <td>2024.04.25</td>
-                    <td>상품 준비 중</td>
-                </tr>
+                {{#orderDeliveryList}}
+                    <tr>
+                        <td>{{orderId}}</td>
+                        <td>{{userName}}</td>
+                        <td>{{recipient}}</td>
+                        <td>{{recipientPhoneNumber}}</td>
+                        <td>{{status}}</td>
+                        <td>{{orderDate}}</td>
+                        <td>{{endDate}}</td>
+                    </tr>
+                {{/orderDeliveryList}}
                 </tbody>
             </table>
 

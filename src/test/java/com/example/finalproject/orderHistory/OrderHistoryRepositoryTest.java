@@ -13,25 +13,37 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
-    //브랜드의 매출관리
+    // 브랜드의 매출관리
     @Test
-    public void findByAdminIdTest() {
+    public void findByAdminId_test() {
         //given
-       int adminId = 1;
+        int adminId = 1;
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findByAdminId(adminId);
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
         //then
         orderHistoryList.forEach(System.out::println);
     }
 
     @Test
-    public void findAll() {
+    public void findAll_test() {
         //given
 
         //when
-        List<OrderHistory>  orderHistoryList = orderHistoryRepository.findAll();
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findAll();
+
+        //then
+        orderHistoryList.forEach(System.out::println);
+    }
+
+    @Test
+    public void findByOrderHistoryItemsAdmin_test() {
+        //given
+        int adminId = 1;
+
+        //when
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findByOrderHistoryItemsAdmin(adminId);
 
         //then
         orderHistoryList.forEach(System.out::println);

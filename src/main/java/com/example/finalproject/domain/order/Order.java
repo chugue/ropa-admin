@@ -25,16 +25,16 @@ public class Order {
     @OneToOne
     private Delivery delivery; // 배송 고유번호
 
-    private Double totalOrderAmount; // 주문 전체 금액
+    private Integer totalOrderAmount; // 주문 전체 금액
 
-    private Double fee; // 주문 전체 수수료
+    private Integer fee; // 주문 전체 수수료
 
     @CreationTimestamp
     private Timestamp orderDate; // 주문일자
 
 
     @Builder
-    public Order(Integer id, User user, Delivery delivery, Double totalOrderAmount, Double fee, Timestamp orderDate) {
+    public Order(Integer id, User user, Delivery delivery, Integer totalOrderAmount, Integer fee, Timestamp orderDate) {
         this.id = id;
         this.user = user;
         this.delivery = delivery;

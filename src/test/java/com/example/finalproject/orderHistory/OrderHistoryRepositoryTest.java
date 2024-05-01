@@ -19,7 +19,7 @@ public class OrderHistoryRepositoryTest {
     public void getTotalSalesAndFeePerBrand_test() {
 
         //when
-        List<AdminResponse.AdminSalesListDTO> orderHistoryList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        List<AdminResponse.SalesListDTO> orderHistoryList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
 
         //then
         orderHistoryList.forEach(System.out::println);

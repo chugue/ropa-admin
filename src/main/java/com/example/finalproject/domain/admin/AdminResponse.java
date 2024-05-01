@@ -8,10 +8,10 @@ public class AdminResponse {
     @Data
     public static class SalesListDTO {
         private AdminDTO admin;
-        private Double totalPrice;
+        private Integer totalPrice;
         private Double fee;
 
-        public SalesListDTO(Admin admin, Double totalPrice, Double fee) {
+        public SalesListDTO(Admin admin, Integer totalPrice, Double fee) {
             this.admin = new AdminDTO(admin);
             this.totalPrice = totalPrice;
             this.fee = fee;
@@ -45,7 +45,7 @@ public class AdminResponse {
             this.orderHistoryId = orderHistory.getId();
             this.itemsId = orderHistory.getItems().getId();
             this.itemsName = orderHistory.getItems().getName();
-            this.totalPrice = orderHistory.getOrderItemPrice();
+            this.totalPrice = orderHistory.getOrderItemPrice().doubleValue();
             this.totalQuantity = orderHistory.getOrderItemQty();
         }
     }

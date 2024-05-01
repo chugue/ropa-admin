@@ -91,5 +91,4 @@ public class AdminController {
         request.setAttribute("userList", userList);
         return "admin/user-manage";
     }
-
 }

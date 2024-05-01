@@ -48,7 +48,7 @@ public class OrderHistoryResponse {
             this.itemName = items.getName();
             this.price = items.getPrice();
             this.count = orderHistory.getOrderItemQty();
-            this.totalPrice = orderHistory.getOrderItemPrice();
+            this.totalPrice = orderHistory.getOrderItemPrice().doubleValue();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             this.orderDate = dateFormat.format(orderHistory.getOrder().getOrderDate());
         }

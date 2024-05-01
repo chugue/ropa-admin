@@ -21,7 +21,7 @@ public class Category {
     @Column
     private String sub; // 카테고리명
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "items_id", nullable = false)
     private Items items; // 아이템 고유번호
 

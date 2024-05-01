@@ -1,9 +1,12 @@
 package com.example.finalproject.domain.items;
 
+import com.example.finalproject.domain.admin.Admin;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -23,10 +26,23 @@ public class ItemsController {
         return "items/items-detail";
     }
 
-    // 상품 등록 폼
+    // 아이템 등록 폼
     @GetMapping("/api/items-register-form")
     public String itemsRegisterForm() {
         return "items/items-register-form";
+    }
+
+    // 아이템 등록
+    @PostMapping("/api/items-register")
+    public String itemsRegister(@RequestParam("mainCategory") String mainCategory,
+                                @RequestParam("subCategory") String subCategory,
+                                ItemsRequest.SaveDTO requestDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        requestDTO.setMainCategory(mainCategory);
+        requestDTO.setSubCategory(subCategory);
+        // 카테고리 리스트 설정
+        itemsService.saveItem(requestDTO, sessionBrand);
+        return "redirect:/api/items-manage";
     }
 
     // 상품 수정 폼

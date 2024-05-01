@@ -27,7 +27,6 @@ public class User {
     @Column(nullable = false)
     private String nickName; //별명
 
-    @Column(nullable = false)
     private String myName; //실명
 
     private String address; //주소
@@ -39,6 +38,8 @@ public class User {
     private String weight; // 체중
 
     private String instagram; // 인스타그램
+
+    private Integer mileage; // 크리에이터의 마일리지
 
     @Column(nullable = false)
     private Boolean blueChecked; //true -> 크리에이터, false -> 일반 회원

@@ -3,23 +3,24 @@ package com.example.finalproject.domain.user;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 public class UserRequest {
 
     //회원가입
     @Data
     public static class JoinDTO {
-        private String myName;
-        private String nickName;
-        private String height;
-        private String weight;
-        private String address;
-        private String mobile;
         private String email;
+        private String nickName;
         private String password;
-        private Boolean blueChecked;
-        private Timestamp updateAt;
         private Timestamp createdAt;
+
+        public JoinDTO(String email, String nickName, String password) {
+            this.email = email;
+            this.nickName = nickName;
+            this.password = password;
+            this.createdAt = Timestamp.from(Instant.now());;
+        }
     }
 
     // 앱용 로그인 요청

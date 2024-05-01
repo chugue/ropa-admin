@@ -29,4 +29,9 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
 
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch d.deliveryAddress da join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
     List<OrderHistory> findByOrderHistoryItemsAdminAndDelivery(@Param("adminId") Integer adminId);
+
+    // 각 아이템의 총 판매수량대로 정렬하여서 각 아이템의 id를 나열
+    @Query("SELECT oh.items.id FROM OrderHistory oh GROUP BY oh.items.id ORDER BY SUM(oh.orderItemQty) DESC")
+    List<Integer> findItemsIdByTotalSales();
+
 }

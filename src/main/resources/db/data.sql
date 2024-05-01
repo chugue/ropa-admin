@@ -13,6 +13,7 @@ VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실�
        ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
         TRUE);
 
+
 -- 아이템(Items) 더미 데이터 삽입
 INSERT INTO items_tb (admin_id, name, description, size, price, dis_count_price, stock)
 VALUES
@@ -38,6 +39,31 @@ VALUES
     (1, '아이템19', '이 아이템은 아주 좋습니다.', 'M', '50000', 45000, '100'),
     (2, '아이템20', '이 아이템은 더 좋습니다.', 'L', '75000', NULL, '50');
 
+-- 카테고리 테이블 더미
+INSERT INTO category_tb (main, sub, items_id) VALUES
+                                                  ('상의', '셔츠', 1),
+                                                  ('상의', '셔츠', 2),
+                                                  ('상의', '맨투맨', 3),
+                                                  ('상의', '맨투맨', 4),
+                                                  ('하의', '슬랙스', 5),
+                                                  ('하의', '슬랙스', 6),
+                                                  ('하의', '슬랙스', 7),
+                                                  ('하의', '반바지', 8),
+                                                  ('하의', '반바지', 9),
+                                                  ('상의', '맨투맨', 10),
+                                                  ('상의', '셔츠', 11),
+                                                  ('상의', '맨투맨', 12),
+                                                  ('하의', '슬랙스', 13),
+                                                  ('상의', '맨투맨', 14),
+                                                  ('하의', '반바지', 15),
+                                                  ('하의', '슬랙스', 16),
+                                                  ('상의', '셔츠', 17),
+                                                  ('하의', '반바지', 18),
+                                                  ('상의', '셔츠', 19),
+                                                  ('상의', '남방', 20);
+
+
+
 -- 배송 주소(DeliveryAddress) 더미 데이터 삽입
 INSERT INTO delivery_address_tb (user_id, recipient, postal_code, address, address_detail, phone_number)
 VALUES (1, '수령인1', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1111-1111'),
@@ -62,22 +88,22 @@ VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋�
 
 -- 주문(Order) 더미 데이터 삽입
 INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
-VALUES (1, 1, 50.000, 5.000, CURRENT_TIMESTAMP),
-       (2, 2, 75.000, 7.500, CURRENT_TIMESTAMP),
-       (3, 3, 100.000, 10.000, CURRENT_TIMESTAMP);
+VALUES (1, 1,  50000,  5000, CURRENT_TIMESTAMP),
+       (2, 2,  75000,  7500, CURRENT_TIMESTAMP),
+       (3, 3, 100000, 10000, CURRENT_TIMESTAMP);
 
 -- 주문 상세(OrderHistory) 더미 데이터 삽입
 INSERT INTO order_history_tb (admin_id, order_id, items_id, total_quantity, total_price, fee)
-VALUES (1, 2, 1, 2, 100.000, 10.000),
-       (2, 3, 2, 1, 75.000, 7.500),
-       (1, 1, 1, 3, 300.000, 30.000),
-       (3, 2, 3, 2, 150.000, 15.000),
-       (2, 1, 2, 4, 225.000, 22.500),
-       (3, 3, 3, 2, 200.000, 20.000),
-       (1, 1, 1, 1, 50.000, 5.000),
-       (2, 2, 2, 3, 75.000, 7.500),
-       (1, 3, 1, 4, 400.000, 40.000),
-       (3, 1, 3, 2, 200.000, 20.000);
+VALUES (1, 2, 1, 2, 100000, 10000),
+       (2, 3, 2, 1,  75000, 7500),
+       (1, 1, 1, 3, 300000, 30000),
+       (3, 2, 3, 2, 150000, 15000),
+       (2, 1, 2, 4, 225000, 22500),
+       (3, 3, 3, 2, 200000, 20000),
+       (1, 1, 1, 1,  50000, 5000),
+       (2, 2, 2, 3,  75000, 7500),
+       (1, 3, 1, 4, 400000, 40000),
+       (3, 1, 3, 2, 200000, 20000);
 
 -- -- 주문(Order) 더미 데이터 삽입
 -- INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)

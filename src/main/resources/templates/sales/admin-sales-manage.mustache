@@ -14,9 +14,7 @@
                         <tbody>
                         <tr>
                             <th scope="row">총 매출</th>
-                            <td>10000000</td>
-                            <th scope="row">수수료</th>
-                            <td>10000000</td>
+                            <td>{{totalSalesAmount}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -37,10 +35,11 @@
                 </form>
             </div>
 
-            <!--판매 목록-->
+            <!--브랜드별 매출 목록-->
             <table class="table">
                 <thead>
                 <tr>
+                    <th>브랜드 코드</th>
                     <th>브랜드명</th>
                     <th>연락처</th>
                     <th>이메일</th>
@@ -52,6 +51,7 @@
                 <tbody>
                 {{#orderHistoryList}}
                 <tr>
+                    <td>{{admin.id}}</td>
                     <td>{{admin.brandName}}</td>
                     <td>{{admin.brandPhone}}</td>
                     <td>{{admin.brandEmail}}</td>

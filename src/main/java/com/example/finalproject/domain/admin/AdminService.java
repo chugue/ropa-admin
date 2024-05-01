@@ -41,6 +41,18 @@ public class AdminService {
         return respDTO;
     }
 
+
+    //관리자가 로그인 했을 때 주문 목록 보기
+    public List<OrderHistory> adminOrderHistory(Integer adminId) {
+
+        List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findAll();
+
+        if (adminOrderHistoryList == null) {
+            throw new Exception404("현재 주문내역이 존재 하지 않습니다.");
+        }
+        return adminOrderHistoryList;
+    }
+
     //관리자가 로그인했을 때 매출 목록보기
     public List<AdminResponse.SalesListDTO> adminSalesListDTOList() {
 
@@ -81,4 +93,6 @@ public class AdminService {
         List<User> userList = userRepository.findAll();
         return userList.stream().map(UserResponse.UserListDTO::new).toList();
     }
+
+
 }

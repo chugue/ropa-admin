@@ -25,7 +25,7 @@ public class AdminController {
     @PostMapping("/login")
     public String login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminService.login(reqDTO);
-        if (admin.getRole().equals(ADMIN)) {
+        if(admin.getRole().equals(ADMIN)){
             session.setAttribute("sessionAdmin", admin);
             return "index-admin";
         } else if (admin.getRole().equals(BRAND)) {
@@ -91,4 +91,5 @@ public class AdminController {
         request.setAttribute("userList", userList);
         return "admin/user-manage";
     }
+
 }

@@ -14,12 +14,23 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
+
+    @Test
+    public void findItemsIdByTotalSales_test(){
+        // given
+
+        // when
+        List<Integer> respList = orderHistoryRepository.findItemsIdByTotalSales();
+        // then
+        respList.forEach(System.out::println);
+    }
+
     //브랜드별 매출 및 수수료
     @Test
     public void getTotalSalesAndFeePerBrand_test() {
 
         //when
-        List<AdminResponse.AdminSalesListDTO> orderHistoryList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        List<AdminResponse.SalesListDTO> orderHistoryList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
 
         //then
         orderHistoryList.forEach(System.out::println);

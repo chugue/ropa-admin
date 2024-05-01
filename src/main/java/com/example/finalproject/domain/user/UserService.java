@@ -1,21 +1,17 @@
 package com.example.finalproject.domain.user;
 
 import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject.domain.photo.Photo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-    // 앱] 메인 홈 화면
-    public void getHomeLists() {
-
-    }
-
-
 
     //회원가입
     @Transactional

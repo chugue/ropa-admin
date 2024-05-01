@@ -12,7 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,15 +27,15 @@ public class AdminService {
 
 
     //브랜드가 로그인 했을 때 매출 목록보기
-    public List<AdminResponse.brandOrderHistoryListDTO> brandOrderHistory(int adminId) {
+    public List<AdminResponse.BrandOrderHistoryListDTO> brandOrderHistory(int adminId) {
         List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
         if (brandOrderHistory == null) {
             throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
         }
 
-        List<AdminResponse.brandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
-            return new AdminResponse.brandOrderHistoryListDTO(orderHistory);
+        List<AdminResponse.BrandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
+            return new AdminResponse.BrandOrderHistoryListDTO(orderHistory);
         }).collect(Collectors.toList());
 
         return respDTO;
@@ -51,27 +50,15 @@ public class AdminService {
         if (adminOrderHistoryList == null) {
             throw new Exception404("현재 주문내역이 존재 하지 않습니다.");
         }
-
-
         return adminOrderHistoryList;
     }
 
-    //총 매출 계산
-    public double getTotalSalesAmount(List<OrderHistory> orderHistoryList) {
-        double totalSalesAmount = 0.0;
-        for (OrderHistory orderHistory : orderHistoryList) {
-            totalSalesAmount += orderHistory.getOrderItemPrice();
-        }
-        return totalSalesAmount;
-    }
+    //관리자가 로그인했을 때 매출 목록보기
+    public List<AdminResponse.SalesListDTO> adminSalesListDTOList() {
 
-    // 총 수수료를 계산
-    public double getTotalFee(List<OrderHistory> orderHistoryList) {
-        double totalFee = 0.0;
-        for (OrderHistory orderHistory : orderHistoryList) {
-            totalFee += orderHistory.getFee();
-        }
-        return totalFee;
+        List<AdminResponse.SalesListDTO> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+
+        return respDTO;
     }
 
 

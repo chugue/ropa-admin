@@ -34,17 +34,17 @@ public class OrderHistory {
     @Column(nullable = false)
     private Integer orderItemPrice; // 한 주문에서 한 상품의 총 판매 가격
 
-    private Double fee; //수수료
+    private Integer fee; //수수료
 
-    private Double formattedFee; // 포맷팅된 수수료를 저장할 변수 추가
+    private Integer formattedFee; // 포맷팅된 수수료를 저장할 변수 추가
 
     @Builder
-    public OrderHistory(Integer id, Admin admin, Order order, Items items, Integer totalQuantity, Integer orderItemPrice, Double fee, Double formattedFee) {
+    public OrderHistory(Integer id, Admin admin, Order order, Items items, Integer orderItemQty, Integer orderItemPrice, Integer fee, Integer formattedFee) {
         this.id = id;
         this.admin = admin;
         this.order = order;
         this.items = items;
-        this.orderItemQty = totalQuantity;
+        this.orderItemQty = orderItemQty;
         this.orderItemPrice = orderItemPrice;
         this.fee = fee;
         this.formattedFee = formattedFee;

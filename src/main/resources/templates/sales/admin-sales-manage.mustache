@@ -36,31 +36,31 @@
             </div>
 
             <!--브랜드별 매출 목록-->
-            {{#orderHistoryList}}
             <table class="table">
                 <thead>
                 <tr>
                     <th>브랜드 코드</th>
                     <th>브랜드명</th>
-                    <th>핸드폰번호</th>
+                    <th>연락처</th>
                     <th>이메일</th>
-                    <th>총 매출</th>
-                    <th>총 수수료</th>
+                    <th>판매금액</th>
+                    <th>판매수수료</th>
 
                 </tr>
                 </thead>
                 <tbody>
+                {{#orderHistoryList}}
                 <tr>
                     <td>{{admin.id}}</td>
                     <td>{{admin.brandName}}</td>
-                    <td>{{admin.phone}}</td>
-                    <td>{{admin.email}}</td>
+                    <td>{{admin.brandPhone}}</td>
+                    <td>{{admin.brandEmail}}</td>
                     <td>{{totalPrice}}</td>
-                    <td>{{formattedFee}}</td>
+                    <td>{{fee}}</td>
                 </tr>
+                {{/orderHistoryList}}
                 </tbody>
             </table>
-            {{/orderHistoryList}}
 
         <!-- 페이징 -->
         <nav aria-label="Page navigation example">

@@ -2,17 +2,18 @@ package com.example.finalproject.domain.admin;
 
 import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject._core.error.exception.Exception403;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import com.example.finalproject.domain.user.User;
 import com.example.finalproject.domain.user.UserRepository;
-import com.example.finalproject.domain.user.UserResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -101,8 +102,32 @@ public class AdminService {
     }
 
     // 유저 크리에이터 인증 관리
-    public List<UserResponse.UserListDTO> getUserList() {
+    public List<AdminResponse.UserListDTO> getUserList() {
         List<User> userList = userRepository.findAll();
-        return userList.stream().map(UserResponse.UserListDTO::new).toList();
+        return userList.stream().map(AdminResponse.UserListDTO::new).toList();
+    }
+
+
+    // 유저 크리에이터 신청 승인
+    public void approveCreatorStatus(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception400("잘못된 사용자 아이디입니다."));
+        if (Objects.equals(user.getStatus(), "신청 전")) {
+            throw new Exception403("사용자가 크리에이터 신청한 이력이 없습니다.");
+        }
+        user.setStatus("승인");
+        user.setBlueChecked(true);
+        userRepository.save(user);
+    }
+
+    // 유저 크리에이터 신청 거절
+    public void rejectCreatorStatus(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception400("잘못된 사용자 아이디입니다."));
+        if (Objects.equals(user.getStatus(), "신청 전")) {
+            throw new Exception403("사용자가 크리에이터 신청한 이력이 없습니다.");
+        }
+        user.setStatus("거절");
+        userRepository.save(user);
     }
 }

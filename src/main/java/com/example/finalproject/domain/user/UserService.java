@@ -7,10 +7,4 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-    //회원가입
-    public User join(){
-
-        return new User();
-    }
 }

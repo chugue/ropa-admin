@@ -1,12 +1,12 @@
 package com.example.finalproject.domain.admin;
 
 import com.example.finalproject.domain.orderHistory.OrderHistory;
-import com.example.finalproject.domain.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.text.DecimalFormat;
@@ -20,7 +20,6 @@ import static com.example.finalproject.domain.admin.Admin.AdminRole.BRAND;
 public class AdminController {
     private final AdminService adminService;
     private final HttpSession session;
-
 
     //로그인
     @PostMapping("/login")
@@ -51,7 +50,7 @@ public class AdminController {
     }
 
     // 회원가입 폼
-    @GetMapping("/loginForm")
+    @GetMapping({"/", "/loginForm"})
     public String loginForm() {
         return "/admin/login-form";
     }
@@ -109,8 +108,20 @@ public class AdminController {
     // 회원 관리 페이지
     @GetMapping("/api/user-manage")
     public String userManage(HttpServletRequest request) {
-        List<UserResponse.UserListDTO> userList = adminService.getUserList();
+        List<AdminResponse.UserListDTO> userList = adminService.getUserList();
         request.setAttribute("userList", userList);
         return "admin/user-manage";
+    }
+
+    @PostMapping("/approveCreator/{userId}")
+    public String approveCreatorStatus(@PathVariable Integer userId) {
+        adminService.approveCreatorStatus(userId);
+        return "redirect:/api/user-manage";
+    }
+
+    @PostMapping("/rejectCreator/{userId}")
+    public String rejectCreatorStatus(@PathVariable Integer userId) {
+        adminService.rejectCreatorStatus(userId);
+        return "redirect:/api/user-manage";
     }
 }

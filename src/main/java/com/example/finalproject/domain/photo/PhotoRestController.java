@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PhotoRestController {
     private final PhotoService  photoService;
 
-
     // 앱] 메인 화면 요청
     @GetMapping("/home-lists")
     public ResponseEntity<?> getHomeLists() {

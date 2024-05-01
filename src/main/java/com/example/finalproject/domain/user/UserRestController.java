@@ -15,7 +15,7 @@ public class UserRestController {
     private final UserService userService;
 
     // 앱용 로그인 요청
-    @PostMapping( "/app/login")
+    @PostMapping("/app/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
         UserResponse.LoginDTO respDTO = userService.login(reqDTO);
 

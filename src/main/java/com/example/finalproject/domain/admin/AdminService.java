@@ -26,7 +26,6 @@ public class AdminService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final UserRepository userRepository;
 
-
     //브랜드가 로그인 했을 때 매출 목록보기
     public List<AdminResponse.BrandOrderHistoryListDTO> brandOrderHistory(int adminId) {
         List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);

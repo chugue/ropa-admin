@@ -23,7 +23,7 @@ public class InquiryService {
 
         int a = 1;
         for (int i = respList.size(); i > 0; i--) {
-            respList.get(i-1).setNum(a);
+            respList.get(i - 1).setNum(a);
             a++;
         }
         return respList;
@@ -43,7 +43,7 @@ public class InquiryService {
         Inquiry inquiry = inquiryRepository.findById(reqDTO.getInquiryId())
                 .orElseThrow(() -> new Exception404("해당 게시글을 찾을 수 없습니다."));
 
-        if (inquiry.getAdmin().getId() != sessionAdmin.getId()){
+        if (inquiry.getAdmin().getId() != sessionAdmin.getId()) {
             throw new Exception401("권한이 없습니다.");
         }
         inquiry.toReplyUpdate(reqDTO);

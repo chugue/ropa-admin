@@ -1,7 +1,6 @@
 package com.example.finalproject.domain.items;
 
 import com.example.finalproject.domain.admin.Admin;
-import com.example.finalproject.domain.category.Category;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;

@@ -27,18 +27,19 @@ public class Photo {
     private String path; // 경로
 
     @Column(nullable = false)
-    private sort sort; // 구분 [사용자, 아이템, 코디]
+    @Enumerated(EnumType.STRING)
+    private Sort sort; // 구분 [사용자, 아이템, 코디]
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User user; // 사용자 고유번호
 
     @ManyToOne
-    @JoinColumn(name = "items_id", nullable = false)
+    @JoinColumn(name = "items_id")
     private Items items; // 아이템 고유번호
 
     @ManyToOne
-    @JoinColumn(name = "codi_id", nullable = false)
+    @JoinColumn(name = "codi_id")
     private Codi codi;
 
     @CreationTimestamp
@@ -47,7 +48,7 @@ public class Photo {
     @UpdateTimestamp
     private Timestamp updateAt;
 
-    public Photo(Integer id, String name, String path, Photo.sort sort, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
+    public Photo(Integer id, String name, String path, Photo.Sort sort, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
         this.name = name;
         this.path = path;
@@ -59,7 +60,7 @@ public class Photo {
         this.updateAt = updateAt;
     }
 
-    enum sort {
+    enum Sort {
         USER, ITEM, CODI
     }
 }

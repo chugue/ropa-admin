@@ -7,13 +7,39 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
 
 
 -- 앱 사용자 더미
-INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, blue_checked)
+INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, blue_checked, mileage)
 VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg',
-        '@instagram', FALSE),
+        '@instagram', TRUE, 2000),
        ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '60kg', '@twitter',
-        TRUE),
+        FALSE, 0),
        ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
-        TRUE);
+        TRUE, 3000),
+       ('user4@example.com', '1234', '사용자4의 별명', '사용자4의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
+        FALSE, 0),
+        ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
+        TRUE, 5000);
+
+-- 사진 테이블 더미
+-- 크리이터 사용자용
+insert into photo_tb (name, path, sort, user_id, codi_id, items_id, created_at)
+values ('사진1', '사진경로1', 'USER', 1, null, null, NOW()),
+       ('사진2', '사진경로2', 'USER', 2, null, null, NOW()),
+       ('사진3', '사진경로3', 'USER', 3, null, null, NOW()),
+       ('사진4', '사진경로4', 'USER', 4, null, null, NOW()),
+       ('사진5', '사진경로5', 'USER', 5, null, null, NOW());
+--        ('코디사진1', '코디사진경로1', 'CODI',  1, null, null,NOW()),
+--        ('코디사진2', '코디사진경로2', 'CODI',  1, null, null,NOW()),
+--        ('코디사진3', '코디사진경로3', 'CODI',  3, null, null,NOW()),
+--        ('코디사진4', '코디사진경로4', 'CODI',  5, null, null,NOW()),
+--        ('코디사진5', '코디사진경로5', 'CODI',  5, null, null,NOW());
+
+-- 코디 테이블 더미
+insert into codi_tb (user_id, title, description, created_at)
+values (1, '코디1', '좋은 코디입니다.', NOW()),
+       (1, '코디2', '좋은 코디입니다.', NOW()),
+       (3, '코디3', '좋은 코디입니다.', NOW()),
+       (3, '코디4', '좋은 코디입니다.', NOW()),
+       (5, '코디5', '좋은 코디입니다.', NOW());
 
 
 -- 아이템(Items) 더미 데이터 삽입
@@ -64,8 +90,6 @@ INSERT INTO category_tb (main, sub, items_id) VALUES
                                                   ('상의', '셔츠', 19),
                                                   ('상의', '남방', 20);
 
-
-
 -- 배송 주소(DeliveryAddress) 더미 데이터 삽입
 INSERT INTO delivery_address_tb (user_id, recipient, postal_code, address, address_detail, phone_number)
 VALUES (1, '수령인1', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1111-1111'),
@@ -106,6 +130,9 @@ VALUES (1, 2, 1, 2, 100000, 10000),
        (2, 2, 2, 3,  75000, 7500),
        (1, 3, 1, 4, 400000, 40000),
        (3, 1, 3, 2, 200000, 20000);
+
+
+
 
 -- -- 주문(Order) 더미 데이터 삽입
 -- INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)

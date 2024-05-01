@@ -95,7 +95,7 @@ VALUES (1, 1,  50000,  5000, CURRENT_TIMESTAMP),
        (3, 3, 100000, 10000, CURRENT_TIMESTAMP);
 
 -- 주문 상세(OrderHistory) 더미 데이터 삽입
-INSERT INTO order_history_tb (admin_id, order_id, items_id, total_quantity, total_price, fee)
+INSERT INTO order_history_tb (admin_id, order_id, items_id, order_item_qty, order_item_price, fee)
 VALUES (1, 2, 1, 2, 100000, 10000),
        (2, 3, 2, 1,  75000, 7500),
        (1, 1, 1, 3, 300000, 30000),

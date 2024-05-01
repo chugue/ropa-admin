@@ -8,22 +8,24 @@ public class AdminResponse {
     @Data
     public static class SalesListDTO {
         private AdminDTO admin;
-        private Double totalPrice;
+        private Long orderItemPrice;
         private Double fee;
 
-        public SalesListDTO(Admin admin, Double totalPrice, Double fee) {
+        public SalesListDTO(Admin admin, Long orderItemPrice, Double fee) {
             this.admin = new AdminDTO(admin);
-            this.totalPrice = totalPrice;
+            this.orderItemPrice = orderItemPrice;
             this.fee = fee;
         }
 
         @Data
         public class AdminDTO {
+            private Integer adminId;
             private String brandName;
             private String brandPhone;
             private String brandEmail;
 
             public AdminDTO(Admin admin) {
+                this.adminId = admin.getId();
                 this.brandName = admin.getBrandName();
                 this.brandPhone = admin.getPhone();
                 this.brandEmail = admin.getEmail();
@@ -38,7 +40,7 @@ public class AdminResponse {
         private Integer orderHistoryId;
         private Integer itemsId;
         private String itemsName;
-        private Double totalPrice;
+        private Integer totalPrice;
         private Integer totalQuantity;
 
         public BrandOrderHistoryListDTO(OrderHistory orderHistory) {

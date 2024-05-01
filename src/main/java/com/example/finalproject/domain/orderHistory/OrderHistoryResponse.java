@@ -10,24 +10,6 @@ import java.text.SimpleDateFormat;
 
 public class OrderHistoryResponse {
 
-    //브래드별 매출 목록보기
-    @Data
-    public static class SalesListDTO {
-        private String brandName;
-        private String b;
-        private String email;
-        private Integer totalPrice;
-        private Double fee;
-
-        public SalesListDTO(OrderHistory orderHistory) {
-            this.brandName = orderHistory.getAdmin().getBrandName();
-            this.b = b;
-            this.email = email;
-            this.totalPrice = totalPrice;
-            this.fee = fee;
-        }
-    }
-
     @Data
     public static class orderListDTO {
         private Integer orderId;
@@ -37,7 +19,7 @@ public class OrderHistoryResponse {
         private String itemName;
         private Integer price;
         private Integer count;
-        private Double totalPrice;
+        private Integer totalPrice;
         private String orderDate;
 
         public orderListDTO(OrderHistory orderHistory, User user, Items items) {

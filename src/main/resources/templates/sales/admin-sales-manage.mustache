@@ -14,7 +14,9 @@
                         <tbody>
                         <tr>
                             <th scope="row">총 매출</th>
-                            <td>{{totalSalesAmount}}</td>
+                            <td>5,000,000</td>
+                            <th scope="row">수수료</th>
+                            <td>500.000</td>
                         </tr>
                         </tbody>
                     </table>
@@ -51,11 +53,11 @@
                 <tbody>
                 {{#orderHistoryList}}
                 <tr>
-                    <td>{{admin.id}}</td>
+                    <td>{{admin.adminId}}</td>
                     <td>{{admin.brandName}}</td>
                     <td>{{admin.brandPhone}}</td>
                     <td>{{admin.brandEmail}}</td>
-                    <td>{{totalPrice}}</td>
+                    <td>{{orderItemPrice}}</td>
                     <td>{{fee}}</td>
                 </tr>
                 {{/orderHistoryList}}

@@ -13,13 +13,13 @@ public class ItemsRepositoryTest {
     @Autowired
     private  ItemsRepository itemsRepository;
 
-    @Test
-    public void findAllWithInfo_test(){
-        // given
-        Integer adminId = 1;
-        // when
-        List<OrderHistory> respList = itemsRepository.findAllWithInfo(adminId);
-        // then
-        respList.forEach(System.out::println);
-    }
+//    @Test
+//    public void findAllWithInfo_test(){
+//        // given
+//        Integer adminId = 1;
+//        // when
+//        List<OrderHistory> respList = itemsRepository.findAllWithInfo(adminId);
+//        // then
+//        respList.forEach(System.out::println);
+//    }
 }

@@ -21,4 +21,16 @@ public class UserRequest {
         private Timestamp updateAt;
         private Timestamp createdAt;
     }
+
+    // 앱용 로그인 요청
+    @Data
+    public static class LoginDTO {
+        private String email;
+        private String password;
+
+        public LoginDTO(String email, String password) {
+            this.email = email;
+            this.password = password;
+        }
+    }
 }

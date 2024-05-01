@@ -44,6 +44,9 @@ public class User {
     @Column(nullable = false)
     private Boolean blueChecked; //true -> 크리에이터, false -> 일반 회원
 
+    @Column(nullable = false)
+    private String status; // 신청 상태: "신청 전", "승인 대기", "승인", "거절" 중 하나로 설정됨
+
     @CreationTimestamp
     private Timestamp createdAt; //가입시간
 

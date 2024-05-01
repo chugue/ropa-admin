@@ -7,17 +7,17 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
 
 
 -- 앱 사용자 더미
-INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, blue_checked, mileage)
+INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, status, blue_checked, mileage)
 VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg',
-        '@instagram', TRUE, 2000),
+        '@instagram','신청 전',TRUE, 2000),
        ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '60kg', '@twitter',
-        FALSE, 0),
+       '승인 대기', FALSE, 0),
        ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
-        TRUE, 3000),
+        '승인', TRUE, 3000),
        ('user4@example.com', '1234', '사용자4의 별명', '사용자4의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
-        FALSE, 0),
+        '신청 전',FALSE, 0),
         ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
-        TRUE, 5000);
+         '신청 전', TRUE, 5000);
 
 
 -- 코디 테이블 더미
@@ -28,9 +28,13 @@ values (1, '코디1', '좋은 코디입니다.', NOW()),
        (3, '코디4', '좋은 코디입니다.', NOW()),
        (5, '코디5', '좋은 코디입니다.', NOW());
 
+INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, status, blue_checked)
+VALUES ('user1@example.com', '1234', '팀장', '김성훈', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '@instagram', '신청 전', FALSE),
+       ('user2@example.com', '1234', '부팀장', '김주혁', '경기도 분당구', '010-9876-5432', '168cm', '60kg', '@twitter', '승인 대기', FALSE),
+       ('user3@example.com', '1234', '실장', '박선규', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook', '승인', TRUE);
 
 -- 아이템(Items) 더미 데이터 삽입
-INSERT INTO items_tb (admin_id, name, description, size, price, dis_count_price, stock)
+INSERT INTO items_tb (admin_id, name, description, size, price, discount_price, stock)
 VALUES
     -- 아이템 1부터 10
     (1, '아이템1', '이 아이템은 아주 좋습니다.', 'M', 50000, 45000, '100'),

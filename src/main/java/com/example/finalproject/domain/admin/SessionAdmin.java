@@ -4,12 +4,12 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class SessionUser {
+public class SessionAdmin {
     private Integer id;
     private String username;
 
     @Builder
-    public SessionUser(Integer id, String username) {
+    public SessionAdmin(Integer id, String username) {
         this.id = id;
         this.username = username;
     }

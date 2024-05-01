@@ -15,6 +15,7 @@ public class UserRestController {
     @PostMapping( "/app/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
         UserResponse.LoginDTO respDTO = userService.login(reqDTO);
+
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
@@ -24,6 +25,4 @@ public class UserRestController {
         UserResponse.JoinDTO respDTO =userService.join(reqDTO);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
-
-
 }

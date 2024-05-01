@@ -24,7 +24,6 @@ public class UserService {
                 .blueChecked(false)
                 .build());
         return new UserResponse.JoinDTO(user);
-
     }
 
     // 앱 사용자 로그인
@@ -33,5 +32,4 @@ public class UserService {
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
         return new UserResponse.LoginDTO(user);
     }
-
 }

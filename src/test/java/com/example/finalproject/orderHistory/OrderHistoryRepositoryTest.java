@@ -1,5 +1,6 @@
 package com.example.finalproject.orderHistory;
 
+import com.example.finalproject.domain.admin.AdminResponse;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,32 @@ public class OrderHistoryRepositoryTest {
     @Autowired
     private OrderHistoryRepository orderHistoryRepository;
 
-    // 브랜드의 매출관리
+    //브랜드별 매출 및 수수료
+    @Test
+    public void getTotalSalesAndFeePerBrand_test() {
+
+        //when
+        List<AdminResponse.SalesListDTO> orderHistoryList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+
+        //then
+        orderHistoryList.forEach(System.out::println);
+    }
+
+    //관리자의 매출관리
+    @Test
+    public void findOrderHistoryByAdminIdWithOrder_test() {
+        //given
+        int adminId = 1;
+
+        //when
+        List<OrderHistory> orderHistoryList = orderHistoryRepository.findOrderHistoryByAdminIdWithOrder(adminId);
+
+        //then
+        orderHistoryList.forEach(System.out::println);
+    }
+
+
+    //브랜드의 매출관리
     @Test
     public void findByAdminId_test() {
         //given

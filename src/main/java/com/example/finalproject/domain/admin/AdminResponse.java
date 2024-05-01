@@ -7,22 +7,51 @@ import lombok.Data;
 import java.util.Objects;
 
 public class AdminResponse {
+    //관리자의 브랜드별 매출 목록보기
+    @Data
+    public static class SalesListDTO {
+        private AdminDTO admin;
+        private Long orderItemPrice;
+        private Double fee;
+
+        public SalesListDTO(Admin admin, Long orderItemPrice, Double fee) {
+            this.admin = new AdminDTO(admin);
+            this.orderItemPrice = orderItemPrice;
+            this.fee = fee;
+        }
+
+        @Data
+        public class AdminDTO {
+            private Integer adminId;
+            private String brandName;
+            private String brandPhone;
+            private String brandEmail;
+
+            public AdminDTO(Admin admin) {
+                this.adminId = admin.getId();
+                this.brandName = admin.getBrandName();
+                this.brandPhone = admin.getPhone();
+                this.brandEmail = admin.getEmail();
+            }
+        }
+    }
+
 
     //브랜드의 매출 목록
     @Data
-    public static class brandOrderHistoryListDTO {
+    public static class BrandOrderHistoryListDTO {
         private Integer orderHistoryId;
         private Integer itemsId;
         private String itemsName;
         private Integer totalPrice;
         private Integer totalQuantity;
 
-        public brandOrderHistoryListDTO(OrderHistory orderHistory) {
+        public BrandOrderHistoryListDTO(OrderHistory orderHistory) {
             this.orderHistoryId = orderHistory.getId();
             this.itemsId = orderHistory.getItems().getId();
             this.itemsName = orderHistory.getItems().getName();
-            this.totalPrice = orderHistory.getTotalPrice();
-            this.totalQuantity = orderHistory.getTotalQuantity();
+            this.totalPrice = orderHistory.getOrderItemPrice();
+            this.totalQuantity = orderHistory.getOrderItemQty();
         }
     }
 

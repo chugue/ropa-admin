@@ -28,22 +28,22 @@ public class AdminService {
 
 
     //브랜드가 로그인 했을 때 매출 목록보기
-    public List<AdminResponse.brandOrderHistoryListDTO> brandOrderHistory(int adminId) {
+    public List<AdminResponse.BrandOrderHistoryListDTO> brandOrderHistory(int adminId) {
         List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
         if (brandOrderHistory == null) {
             throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
         }
 
-        List<AdminResponse.brandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
-            return new AdminResponse.brandOrderHistoryListDTO(orderHistory);
+        List<AdminResponse.BrandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
+            return new AdminResponse.BrandOrderHistoryListDTO(orderHistory);
         }).collect(Collectors.toList());
 
         return respDTO;
     }
 
 
-    //관리자가 로그인 했을 때 매출 목록 보기
+    //관리자가 로그인 했을 때 주문 목록 보기
     public List<OrderHistory> adminOrderHistory(Integer adminId) {
 
         List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findAll();
@@ -51,32 +51,19 @@ public class AdminService {
         if (adminOrderHistoryList == null) {
             throw new Exception404("현재 주문내역이 존재 하지 않습니다.");
         }
-
-
         return adminOrderHistoryList;
     }
 
-    //총 매출 계산
-    public double getTotalSalesAmount(List<OrderHistory> orderHistoryList) {
-        double totalSalesAmount = 0.0;
-        for (OrderHistory orderHistory : orderHistoryList) {
-            totalSalesAmount += orderHistory.getTotalPrice();
-        }
-        return totalSalesAmount;
-    }
+    //관리자가 로그인했을 때 매출 목록보기
+    public List<AdminResponse.SalesListDTO> adminSalesListDTOList() {
 
-    // 총 수수료를 계산
-    public double getTotalFee(List<OrderHistory> orderHistoryList) {
-        double totalFee = 0.0;
-        for (OrderHistory orderHistory : orderHistoryList) {
-            totalFee += orderHistory.getFee();
-        }
-        return totalFee;
+        List<AdminResponse.SalesListDTO> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+
+        return respDTO;
     }
 
 
     //로그인
-    @Transactional
     public Admin login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
@@ -130,4 +117,6 @@ public class AdminService {
         user.setStatus("거절");
         userRepository.save(user);
     }
+
+
 }

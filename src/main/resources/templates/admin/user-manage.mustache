@@ -49,24 +49,24 @@
                         <td>{{status}}</td>
                         {{^isBlueChecked}}
                             <td>
-                                <form method="post" action="/approveCreator/{{userId}}">
+                                <form method="post" action="/approve-creators/{{userId}}">
                                     <button class="btn btn-success ui-state-disabled">승인</button>
                                 </form>
                             </td>
                             <td>
-                                <form method="post" action="/rejectCreator/{{userId}}">
+                                <form method="post" action="/reject-creators/{{userId}}">
                                     <button class="btn btn-danger ui-state-disabled">거절</button>
                                 </form>
                             </td>
                         {{/isBlueChecked}}
                         {{#isBlueChecked}}
                             <td>
-                                <form method="post" action="/approveCreator/{{userId}}">
+                                <form method="post" action="/approve-creators/{{userId}}">
                                     <button class="btn btn-success">승인</button>
                                 </form>
                             </td>
                             <td>
-                                <form method="post" action="/rejectCreator/{{userId}}">
+                                <form method="post" action="/reject-creators/{{userId}}">
                                     <button class="btn btn-danger">거절</button>
                                 </form>
                             </td>

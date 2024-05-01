@@ -50,12 +50,12 @@ public class AdminController {
     }
 
     // 회원가입 폼
-    @GetMapping({"/", "/loginForm"})
+    @GetMapping({"/", "/login-form"})
     public String loginForm() {
         return "/admin/login-form";
     }
 
-    @GetMapping("/joinForm")
+    @GetMapping("/join-form")
     public String joinForm() {
         return "/admin/join-form";
     }
@@ -113,13 +113,13 @@ public class AdminController {
         return "admin/user-manage";
     }
 
-    @PostMapping("/approveCreator/{userId}")
+    @PostMapping("/approve-creators/{userId}")
     public String approveCreatorStatus(@PathVariable Integer userId) {
         adminService.approveCreatorStatus(userId);
         return "redirect:/api/user-manage";
     }
 
-    @PostMapping("/rejectCreator/{userId}")
+    @PostMapping("/reject-creators/{userId}")
     public String rejectCreatorStatus(@PathVariable Integer userId) {
         adminService.rejectCreatorStatus(userId);
         return "redirect:/api/user-manage";

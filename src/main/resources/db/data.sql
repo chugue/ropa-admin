@@ -5,16 +5,10 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
        ('BB@naver.com', '1234', 'BB', 'BRAND', '010-3333-3333', '서울특별시 강동구', '657-546-2897', NULL, now()),
        ('Admin@naver.com', '1234', null, 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', NULL, now());
 
-
--- 앱 사용자 더미
-INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, blue_checked)
-VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg',
-        '@instagram', FALSE),
-       ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '60kg', '@twitter',
-        TRUE),
-       ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
-        TRUE);
-
+INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, status, blue_checked)
+VALUES ('user1@example.com', '1234', '팀장', '김성훈', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '@instagram', '신청 전', FALSE),
+       ('user2@example.com', '1234', '부팀장', '김주혁', '경기도 분당구', '010-9876-5432', '168cm', '60kg', '@twitter', '승인 대기', FALSE),
+       ('user3@example.com', '1234', '실장', '박선규', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook', '승인', TRUE);
 
 -- 아이템(Items) 더미 데이터 삽입
 INSERT INTO items_tb (admin_id, name, description, size, price, dis_count_price, stock)

@@ -16,7 +16,6 @@ public class OrderHistoryController {
     private final HttpSession session;
     private final OrderHistoryService orderHistoryService;
 
-
     // 주문 목록 페이지
     @GetMapping("/api/order-manage")
     public String orderManage(HttpServletRequest request) {

@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.items;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ public class ItemsController {
     // 상품 관리 페이지
     @GetMapping("/api/items-manage")
     public String itemsManage() {
-
         return "items/items-manage";
     }
 

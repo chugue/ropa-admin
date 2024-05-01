@@ -15,7 +15,6 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
             "GROUP BY oh.admin.id")
     List<AdminResponse.SalesListDTO> getTotalSalesAndFeePerBrand();
 
-
     //관리자의 매출 목록
     @Query("select oh from OrderHistory oh join FETCH oh.order where oh.admin.id = :adminId")
     List<OrderHistory> findOrderHistoryByAdminIdWithOrder(@Param("adminId") int adminId);

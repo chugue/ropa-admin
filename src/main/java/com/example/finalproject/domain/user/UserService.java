@@ -10,7 +10,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     //회원가입
-    public User join(){
+    public User join() {
 
         return new User();
     }

@@ -8,7 +8,7 @@ import java.time.Instant;
 public class InquiryRequest {
 
     @Data
-    public static class ReplyDTO{
+    public static class ReplyDTO {
         private Integer inquiryId;
         private String comment;
         private Timestamp commentedAt;

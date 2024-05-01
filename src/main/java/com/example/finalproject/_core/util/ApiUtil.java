@@ -4,19 +4,24 @@ import lombok.Data;
 
 @Data
 public class ApiUtil<T> {
+    private Boolean success;
+    private T response;
     private Integer status;
-    private String msg;
-    private T body;
+    private String errorMessage;
 
-    public ApiUtil(T body) {
+    // 성공시
+    public ApiUtil(T response) {
+        this.success = true;
+        this.response = response;
         this.status = 200;
-        this.msg = "성공";
-        this.body = body;
+        this.errorMessage = null;
     }
 
-    public ApiUtil(Integer status, String msg) {
+    // 실패시
+    public ApiUtil(Integer status, String errorMessage) {
+        this.success = false;
+        this.response = null;
         this.status = status;
-        this.msg = msg;
-        this.body = null;
+        this.errorMessage = errorMessage;
     }
 }

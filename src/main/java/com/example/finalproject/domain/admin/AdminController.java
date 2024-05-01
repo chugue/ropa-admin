@@ -80,7 +80,6 @@ public class AdminController {
         List<AdminResponse.BrandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         req.setAttribute("orderHistoryList", orderHistoryList);
 
-
         return "sales/brand-sales-manage";
     }
 

@@ -50,7 +50,7 @@ public class AdminController {
     }
 
     // 회원가입 폼
-    @GetMapping("/loginForm")
+    @GetMapping({"/", "/loginForm"})
     public String loginForm() {
         return "/admin/login-form";
     }

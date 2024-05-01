@@ -76,7 +76,7 @@ public class AdminController {
     // 브랜드 매출관리 페이지
     @GetMapping("/api/brand-sales-manage")
     public String brandSalesManage(HttpServletRequest req) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
         List<AdminResponse.BrandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         req.setAttribute("orderHistoryList", orderHistoryList);
 

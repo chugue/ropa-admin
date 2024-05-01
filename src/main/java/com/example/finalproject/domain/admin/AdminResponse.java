@@ -9,9 +9,9 @@ public class AdminResponse {
     public static class SalesListDTO {
         private AdminDTO admin;
         private Long orderItemPrice;
-        private Long fee;
+        private Double fee;
 
-        public SalesListDTO(Admin admin, Long orderItemPrice, Long fee) {
+        public SalesListDTO(Admin admin, Long orderItemPrice, Double fee) {
             this.admin = new AdminDTO(admin);
             this.orderItemPrice = orderItemPrice;
             this.fee = fee;

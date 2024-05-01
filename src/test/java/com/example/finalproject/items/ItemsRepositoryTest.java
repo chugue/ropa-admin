@@ -1,5 +1,6 @@
 package com.example.finalproject.items;
 
+import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import org.junit.jupiter.api.Test;
@@ -13,13 +14,13 @@ public class ItemsRepositoryTest {
     @Autowired
     private  ItemsRepository itemsRepository;
 
-//    @Test
-//    public void findAllWithInfo_test(){
-//        // given
-//        Integer adminId = 1;
-//        // when
-//        List<OrderHistory> respList = itemsRepository.findAllWithInfo(adminId);
-//        // then
-//        respList.forEach(System.out::println);
-//    }
+    @Test
+    public void findAllWithInfo_test(){
+        // given
+        int adminId = 1;
+        // when
+        List<Items> respList = itemsRepository.findItemsByAdminId(adminId);
+        // then
+        System.out.println(respList.size());
+    }
 }

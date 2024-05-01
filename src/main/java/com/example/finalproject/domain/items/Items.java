@@ -10,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -35,10 +37,10 @@ public class Items {
     @Column(nullable = false)
     private Integer price; // 가격
 
-    private Integer disCountPrice; // 할인가
+    private Integer discountPrice; // 할인가
 
     @Column(nullable = false)
-    private String stock; // 재고
+    private Integer stock; // 재고
 
     @CreationTimestamp
     private Timestamp createdAt; // 등록시간
@@ -47,14 +49,14 @@ public class Items {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer disCountPrice, String stock, Timestamp createdAt, Timestamp updatedAt) {
+    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;
         this.description = description;
         this.size = size;
         this.price = price;
-        this.disCountPrice = disCountPrice;
+        this.discountPrice = discountPrice;
         this.stock = stock;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

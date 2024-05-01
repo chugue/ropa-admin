@@ -11,7 +11,7 @@ VALUES ('user1@example.com', '1234', '팀장', '김성훈', '서울특별시 강
        ('user3@example.com', '1234', '실장', '박선규', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook', '승인', TRUE);
 
 -- 아이템(Items) 더미 데이터 삽입
-INSERT INTO items_tb (admin_id, name, description, size, price, dis_count_price, stock)
+INSERT INTO items_tb (admin_id, name, description, size, price, discount_price, stock)
 VALUES
     -- 아이템 1부터 10
     (1, '아이템1', '이 아이템은 아주 좋습니다.', 'M', '50000', 45000, '100'),

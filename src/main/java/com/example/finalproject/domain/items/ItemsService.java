@@ -19,24 +19,26 @@ public class ItemsService {
 
     // 아이템 저장
     @Transactional
-    public void saveItem(ItemsRequest.SaveDTO saveDTO, Admin sessionAdmin) {
+    public void saveItem(ItemsRequest.SaveDTO saveDTO, Admin sessionBrand) {
         // Admin 정보 조회
-        Admin admin = adminRepository.findById(sessionAdmin.getId())
+        Admin admin = adminRepository.findById(sessionBrand.getId())
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
-        // DTO를 엔티티로 변환하여 저장
         itemsRepository.save(saveDTO.toEntity(admin));
     }
 
     // 아이템 목록
-    public List<ItemsResponse.ItemsListDTO> findItemsByAdminId(int adminId) {
-        List<Items> item = itemsRepository.findItemsByAdminId(adminId);
-        List<ItemsResponse.ItemsListDTO> itemsList = item.stream().map(ItemsResponse.ItemsListDTO::new).toList();
-        return itemsList;
+    public List<ItemsResponse.listDTO> findItemsByAdminId(Admin sessionBrand) {
+        // Admin 정보 조회
+        Admin admin = adminRepository.findById(sessionBrand.getId())
+                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+
+        List<Items> item = itemsRepository.findItemsByAdminId(sessionBrand.getId());
+        return item.stream().map(ItemsResponse.listDTO::new).toList();
     }
 
     // 아이템 상세보기
-    public ItemsResponse.ItemsDetailDTO findItemsByAdminIdAndItemId(Admin sessionAdmin, int itemId) {
+    public ItemsResponse.DetailDTO findItemsByAdminIdAndItemId(Admin sessionAdmin, int itemId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionAdmin.getId())
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
@@ -44,6 +46,6 @@ public class ItemsService {
         // 아이템 정보 조회
         Items items = itemsRepository.findItemsByAdminIdAndItemId(admin.getId(), itemId)
                 .orElseThrow(() -> new Exception404("브랜드 아이템 정보를 찾을 수 없습니다."));
-        return new ItemsResponse.ItemsDetailDTO(items);
+        return new ItemsResponse.DetailDTO(items);
     }
 }

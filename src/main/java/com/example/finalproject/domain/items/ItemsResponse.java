@@ -6,14 +6,14 @@ public class ItemsResponse {
 
     //브랜드의 상품 목록 보기
     @Data
-    public static class ItemsListDTO{
+    public static class listDTO {
         private Integer itemId;
         private String itemName;
         private Integer price;
         private String mainCategory;
         private Integer stock;
 
-        public ItemsListDTO(Items items) {
+        public listDTO(Items items) {
             this.itemId = items.getId();
             this.itemName = items.getName();
             this.price = items.getPrice();
@@ -24,7 +24,7 @@ public class ItemsResponse {
 
     // 아이템 상세보기
     @Data
-    public static class ItemsDetailDTO{
+    public static class DetailDTO {
         private Integer itemId;
         private String name;
         private String description;
@@ -35,7 +35,7 @@ public class ItemsResponse {
         private String mainCategory;
         private String subCategory;
 
-        public ItemsDetailDTO(Items items) {
+        public DetailDTO(Items items) {
             this.itemId = items.getId();
             this.name = items.getName();
             this.description = items.getDescription();

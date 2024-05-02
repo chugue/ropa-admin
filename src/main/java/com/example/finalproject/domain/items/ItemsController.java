@@ -20,10 +20,10 @@ public class ItemsController {
 
     // 상품 관리 페이지
     @GetMapping("/api/items-manage")
-    public String itemsManage(HttpServletRequest req) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-        List<ItemsResponse.ItemsListDTO> itemsList = itemsService.findItemsByAdminId(sessionAdmin.getId());
-        req.setAttribute("itemsList", itemsList);
+    public String itemsManage(HttpServletRequest requestDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        List<ItemsResponse.listDTO> itemsList = itemsService.findItemsByAdminId(sessionBrand);
+        requestDTO.setAttribute("itemsList", itemsList);
         return "items/items-manage";
     }
 
@@ -31,7 +31,7 @@ public class ItemsController {
     @GetMapping("/api/items-detail/{itemId}")
     public String itemsDetail(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        ItemsResponse.ItemsDetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand, itemId);
+        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand, itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-detail";
     }

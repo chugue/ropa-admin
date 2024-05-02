@@ -21,7 +21,7 @@ public class JwtUtill {
                 // 토큰에 사용자의 정보(Claim) 설정
                 .withClaim("id", admin.getId()) // 사용자 ID
                 .withClaim("name", admin.getBrandName())
-                .withClaim("email", admin.getBrandName()) // 사용자 이메일
+                .withClaim("email", admin.getEmail()) // 사용자 이메일
                 .withClaim("role", (admin.getRole()).name())
                 // 토큰 서명(Sign) 설정 (암호화 알고리즘은 HMAC512 사용)
                 .sign(Algorithm.HMAC512("finalproject"));

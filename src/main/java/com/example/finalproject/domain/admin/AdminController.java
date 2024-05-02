@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.admin;
 
 import com.example.finalproject._core.error.exception.Exception403;
+import com.example.finalproject._core.utils.JwtUtill;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +24,19 @@ public class AdminController {
     //로그인
     @PostMapping("/login")
     public String login(AdminRequest.LoginDTO reqDTO) {
-        Admin admin = adminService.login(reqDTO);
-        if (admin.getRole().equals(ADMIN)) {
-            session.setAttribute("sessionAdmin", admin);
+        String jwt = adminService.login(reqDTO);
+        SessionAdmin sessionAdmin = JwtUtill.verify(jwt); // JWT 토큰을 사용하여 세션 관리자 정보 가져오기
+
+        if (sessionAdmin.getRole().equals("ADMIN")) {
+            session.setAttribute("sessionAdmin", sessionAdmin);
             return "index-admin";
-        } else if (admin.getRole().equals(BRAND)) {
-            session.setAttribute("sessionBrand", admin);
+        } else if (sessionAdmin.getRole().equals("BRAND")) {
+            session.setAttribute("sessionBrand", sessionAdmin);
             return "index-brand";
         }
-        return "index-brand";
+        return "index-brand"; // 기본값으로 설정
     }
+
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")

@@ -21,6 +21,7 @@ public class ItemsController {
     @GetMapping("/api/items-manage")
     public String itemsManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
+
        List<ItemsResponse.ItemsListDTO> itemsList = itemsService.findItemsByAdminId(sessionAdmin.getId());
        req.setAttribute("itemsList", itemsList);
         return "items/items-manage";

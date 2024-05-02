@@ -1,6 +1,7 @@
 package com.example.finalproject._core.utils;
 
 import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.SessionAdmin;
 import org.junit.jupiter.api.Test;
 
 public class JwtUtilTest {
@@ -17,5 +18,9 @@ public class JwtUtilTest {
 
         String jwt = JwtUtill.create(admin);
         System.out.println("jwt : "+jwt);
+
+        SessionAdmin sessionAdmin = JwtUtill.verify(jwt);
+
+        System.out.println(sessionAdmin);
     }
 }

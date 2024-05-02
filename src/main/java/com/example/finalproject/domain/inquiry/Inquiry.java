@@ -57,7 +57,7 @@ public class Inquiry {
     }
 
 
-    void toReplyUpdate(InquiryRequest.ReplyDTO reqDTO){
+    void toReplyUpdate(InquiryRequest.ReplyDTO reqDTO) {
         this.setId(reqDTO.getInquiryId());
         this.setComment(reqDTO.getComment());
         this.setCommentedAt(reqDTO.getCommentedAt());

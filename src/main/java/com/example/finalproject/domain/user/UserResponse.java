@@ -35,4 +35,16 @@ public class UserResponse {
             this.isBlueChecked = user.getBlueChecked();
         }
     }
+    @Data
+    public static class JoinDTO {
+        private Integer id;
+        private String nickName;
+        private String createdAt;
+
+        public JoinDTO(User user) {
+            this.id = user.getId();
+            this.nickName = user.getNickName();
+            this.createdAt = user.getCreatedAt().toString();
+        }
+    }
 }

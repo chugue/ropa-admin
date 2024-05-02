@@ -10,8 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -42,6 +40,10 @@ public class Items {
     @Column(nullable = false)
     private Integer stock; // 재고
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    private Category category; // 초기화
+
     @CreationTimestamp
     private Timestamp createdAt; // 등록시간
 
@@ -49,7 +51,7 @@ public class Items {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Timestamp createdAt, Timestamp updatedAt) {
+    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Category category, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;
@@ -58,6 +60,7 @@ public class Items {
         this.price = price;
         this.discountPrice = discountPrice;
         this.stock = stock;
+        this.category = category;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

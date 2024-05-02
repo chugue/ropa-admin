@@ -27,7 +27,6 @@ public class User {
     @Column(nullable = false)
     private String nickName; //별명
 
-    @Column(nullable = false)
     private String myName; //실명
 
     private String address; //주소
@@ -40,8 +39,13 @@ public class User {
 
     private String instagram; // 인스타그램
 
+    private Integer mileage; // 크리에이터의 마일리지
+
     @Column(nullable = false)
     private Boolean blueChecked; //true -> 크리에이터, false -> 일반 회원
+
+    @Column(nullable = false)
+    private String status; // 신청 상태: "신청 전", "승인 대기", "승인", "거절" 중 하나로 설정됨
 
     @CreationTimestamp
     private Timestamp createdAt; //가입시간

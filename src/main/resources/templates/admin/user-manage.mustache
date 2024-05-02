@@ -31,6 +31,7 @@
                     <th>연락처</th>
                     <th>닉네임</th>
                     <th>인스타그램</th>
+                    <th>상태</th>
                     <th>승인</th>
                     <th>거절</th>
                 </tr>
@@ -45,20 +46,29 @@
                         <td>
                             <button class="btn btn-info">{{instagram}}</button>
                         </td>
+                        <td>{{status}}</td>
                         {{^isBlueChecked}}
                             <td>
-                                <button class="btn btn-success">승인</button>
+                                <form method="post" action="/approve-creators/{{userId}}">
+                                    <button class="btn btn-success ui-state-disabled">승인</button>
+                                </form>
                             </td>
                             <td>
-                                <button class="btn btn-danger">거절</button>
+                                <form method="post" action="/reject-creators/{{userId}}">
+                                    <button class="btn btn-danger ui-state-disabled">거절</button>
+                                </form>
                             </td>
                         {{/isBlueChecked}}
                         {{#isBlueChecked}}
                             <td>
-                                <button class="btn btn-success disabled">승인</button>
+                                <form method="post" action="/approve-creators/{{userId}}">
+                                    <button class="btn btn-success">승인</button>
+                                </form>
                             </td>
                             <td>
-                                <button class="btn btn-danger disabled">거절</button>
+                                <form method="post" action="/reject-creators/{{userId}}">
+                                    <button class="btn btn-danger">거절</button>
+                                </form>
                             </td>
                         {{/isBlueChecked}}
                     </tr>

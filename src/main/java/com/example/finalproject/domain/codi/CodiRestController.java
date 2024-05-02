@@ -22,17 +22,19 @@ public class CodiRestController {
     @PostMapping("/api/codi-register")
     public void codiRegister(
             @RequestParam(name = "top") String topItem,
-            @RequestParam(name = "bottom") String bottomItem){
+            @RequestParam(name = "bottom") String bottomItem) {
 
         System.out.println(topItem);
         System.out.println(bottomItem);
-    };
+    }
+
+    ;
 
 
     // 코디 등록 페이지 카테고리 검색 - main만 주어졌을때 //TODO
     @GetMapping("/api/codi-items/main")
     public ResponseEntity<?> findCodiItemsByMain(
-            @RequestParam(name = "mainId") Integer mainId){
+            @RequestParam(name = "mainId") Integer mainId) {
 
         //main과 sub값으로 아래와 같은 쿼리를 DB에 요청하면 됨
         /*
@@ -54,7 +56,7 @@ public class CodiRestController {
     @GetMapping("/api/codi-items/main-sub")
     public ResponseEntity<?> findCodiItemsByMainSub(
             @RequestParam(name = "mainId") Integer mainId,
-            @RequestParam(name = "subId") Integer subId){
+            @RequestParam(name = "subId") Integer subId) {
 
         //main과 sub값으로 아래와 같은 쿼리를 DB에 요청하면 됨
         /*

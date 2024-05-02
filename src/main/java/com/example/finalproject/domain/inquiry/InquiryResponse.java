@@ -53,12 +53,12 @@ public class InquiryResponse {
             this.content = inquiry.getContent();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = Date.from(Instant.now());
-            if (inquiry.getComment().equals("")){
+            if (inquiry.getComment().equals("")) {
                 // 문의 답변이 없는 경우 해당 칸 비움
                 this.comment = "";
                 this.commentedAt = "";
                 this.isReplied = false;
-            }else{
+            } else {
                 // 답변이 있다면 화면에 출력
                 this.comment = inquiry.getComment();
                 this.commentedAt = dateFormat.format(date);

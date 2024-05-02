@@ -15,12 +15,12 @@ public class ItemsRepositoryTest {
     private  ItemsRepository itemsRepository;
 
     @Test
-    public void findAllWithInfo_test(){
+    public void findItemsByAdminId_test(){
         // given
         int adminId = 1;
         // when
         List<Items> respList = itemsRepository.findItemsByAdminId(adminId);
         // then
-        System.out.println(respList.size());
+        respList.forEach(System.out::println);
     }
 }

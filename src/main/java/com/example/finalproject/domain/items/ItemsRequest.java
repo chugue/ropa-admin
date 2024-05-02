@@ -33,7 +33,6 @@ public class ItemsRequest {
             Category category = Category.builder()
                     .main(mainCategory)
                     .sub(subCategory)
-                    .items(items)
                     .build();
             items.setCategory(category);
 

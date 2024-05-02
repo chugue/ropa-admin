@@ -18,11 +18,11 @@ public class ItemsResponse {
         private Integer stock;
 
 
-        public ItemsListDTO(Items items, Category category) {
+        public ItemsListDTO(Items items) {
             this.itemId = items.getId();
             this.itemName = items.getName();
             this.price = items.getPrice();
-            this.mainCategory = category.getMain();
+            this.mainCategory = items.getCategory().getMain();
             this.stock = items.getStock();
         }
     }

@@ -63,4 +63,12 @@ public class ItemsController {
         requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-update-form";
     }
+
+    // 아이템 수정
+    @PostMapping("/api/items-update/{itemId}")
+    public String itemsUpdate(@PathVariable("itemId") Integer itemId, ItemsRequest.UpdateDTO updateDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        itemsService.updateItem(itemId, updateDTO, sessionBrand);
+        return "redirect:/api/items-manage";
+    }
 }

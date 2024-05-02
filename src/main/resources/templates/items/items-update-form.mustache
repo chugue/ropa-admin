@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">
             <div class="justify-content-center">
-                <form action="" method="post">
+                <form action="/api/items-update/{{itemId}}" method="post">
                     <!-- 이미지 -->
                     <div class="row justify-content-center">
                         <div class="col-md-6">
@@ -115,7 +115,7 @@
 
                     <!-- 등록 -->
                     <div class="text-center">
-                        <a href="/api/items-manage" class="btn btn-primary">수정완료</a>
+                        <button class="btn btn-primary">수정완료</button>
                         <a href="/api/items-manage" class="btn btn-outline-primary">목록으로</a>
                     </div>
                 </form>

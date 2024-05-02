@@ -21,15 +21,10 @@ public class Category {
     @Column
     private String sub; // 카테고리명
 
-    @OneToOne
-    @JoinColumn(name = "items_id", nullable = false)
-    private Items items; // 아이템 고유번호
-
     @Builder
-    public Category(Integer id, String main, String sub, Items items) {
+    public Category(Integer id, String main, String sub) {
         this.id = id;
         this.main = main;
         this.sub = sub;
-        this.items = items;
     }
 }

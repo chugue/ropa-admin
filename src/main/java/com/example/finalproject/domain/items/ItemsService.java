@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ItemsService {
@@ -24,4 +26,14 @@ public class ItemsService {
         // DTO를 엔티티로 변환하여 저장
         itemsRepository.save(saveDTO.toEntity(admin));
     }
+
+    public List<ItemsResponse.ItemsListDTO> findItemsByAdminId(int adminId) {
+        List<Items> item = itemsRepository.findItemsByAdminId(adminId);
+
+        List<ItemsResponse.ItemsListDTO> itemsList = item.stream().map(ItemsResponse.ItemsListDTO::new).toList();
+
+
+        return itemsList;
+    }
+
 }

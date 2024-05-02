@@ -70,7 +70,9 @@
             </div>
             <!-- 등록 버튼 -->
             <div class="text-center">
-                <a href="/api/items-update-form" class="btn btn-primary">수정하기</a>
+                <form method="get" action="/api/items-update-form/{{itemsDetail.itemId}}" style="display: inline;">
+                    <button class="btn btn-primary mr-2">수정하기</button>
+                </form>
                 <a href="/api/items-manage" class="btn btn-outline-primary">이전</a>
             </div>
         </div>

@@ -18,7 +18,7 @@ public class ItemsController {
     private final HttpSession session;
     private final ItemsService itemsService;
 
-    // 상품 관리 페이지
+    // 아이템 관리 페이지
     @GetMapping("/api/items-manage")
     public String itemsManage(HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
@@ -27,7 +27,7 @@ public class ItemsController {
         return "items/items-manage";
     }
 
-    // 상품 상세 페이지
+    // 아이템 상세 페이지
     @GetMapping("/api/items-detail/{itemId}")
     public String itemsDetail(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
@@ -55,10 +55,12 @@ public class ItemsController {
         return "redirect:/api/items-manage";
     }
 
-    // 상품 수정 폼
-    @GetMapping("/api/items-update-form")
-    public String itemsUpdateForm() {
+    // 아이템 수정 폼
+    @GetMapping("/api/items-update-form/{itemId}")
+    public String itemsUpdateForm(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand, itemId);
+        requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-update-form";
     }
-
 }

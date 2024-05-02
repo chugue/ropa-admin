@@ -1,5 +1,7 @@
 package com.example.finalproject.domain.inquiry;
 
+import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.admin.SessionAdmin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,12 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller
 public class InquiryController {
     private final HttpSession session;
     private final InquiryService inquiryService;
+    private final AdminRepository adminRepository;
 
     // 문의 관리 페이지 - 목록 조회
     @GetMapping("/api/inquiry-manage")
@@ -41,8 +45,8 @@ public class InquiryController {
     @PostMapping("/api/inquiry-reply-update")
     public String inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO) {
         SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionBrand");
-
-        inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
+        Optional<Admin> admin = adminRepository.findById(sessionAdmin.getId());
+        inquiryService.inquiryReplyUpdate(reqDTO, admin.get());
         return "redirect:/api/inquiry-reply/" + reqDTO.getInquiryId();
     }
 }

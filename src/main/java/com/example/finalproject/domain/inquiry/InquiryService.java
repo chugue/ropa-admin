@@ -2,7 +2,7 @@ package com.example.finalproject.domain.inquiry;
 
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
-import com.example.finalproject.domain.admin.SessionAdmin;
+import com.example.finalproject.domain.admin.Admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +39,7 @@ public class InquiryService {
 
     // 문의 답변 등록 또는 수정
     @Transactional
-    public void inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO, SessionAdmin sessionAdmin) {
+    public void inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO, Admin sessionAdmin) {
         Inquiry inquiry = inquiryRepository.findById(reqDTO.getInquiryId())
                 .orElseThrow(() -> new Exception404("해당 게시글을 찾을 수 없습니다."));
 

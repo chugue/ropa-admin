@@ -6,15 +6,16 @@ import lombok.Data;
 @Data
 public class SessionUser {
     private Integer id;
-    private String username;
+    private String myName;
     private String email;
-    private Boolean role;
+    private Boolean blueChecked;
 
     @Builder
-    public SessionUser(Integer id, String username, String email, Boolean role) {
+
+    public SessionUser(Integer id, String myName, String email, Boolean blueChecked) {
         this.id = id;
-        this.username = username;
+        this.myName = myName;
         this.email = email;
-        this.role = role;
+        this.blueChecked = blueChecked;
     }
 }

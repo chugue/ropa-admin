@@ -1,6 +1,6 @@
 package com.example.finalproject._core.config;
 
-import com.example.finalproject._core.interceptor.AppInterceptor;
+
 import com.example.finalproject._core.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -15,12 +15,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/board/{id:\\d+}", "/user/login-form", "/user/login"
-                        , "/user/join-form", "/user/join", "/comp/join-form", "/comp/join"
-                        , "/comp/read-resume");
-
-        registry.addInterceptor(new AppInterceptor())
-                .addPathPatterns("/app/**")
                 .excludePathPatterns("/board/{id:\\d+}", "/user/login-form", "/user/login"
                         , "/user/join-form", "/user/join", "/comp/join-form", "/comp/join"
                         , "/comp/read-resume");

@@ -1,10 +1,6 @@
 package com.example.finalproject.domain.items;
 
-import com.example.finalproject.domain.category.Category;
 import lombok.Data;
-import org.hibernate.Hibernate;
-
-import java.util.List;
 
 public class ItemsResponse {
 
@@ -17,7 +13,6 @@ public class ItemsResponse {
         private String mainCategory;
         private Integer stock;
 
-
         public ItemsListDTO(Items items) {
             this.itemId = items.getId();
             this.itemName = items.getName();
@@ -27,4 +22,29 @@ public class ItemsResponse {
         }
     }
 
+    // 아이템 상세보기
+    @Data
+    public static class ItemsDetailDTO{
+        private Integer itemId;
+        private String name;
+        private String description;
+        private String size;
+        private Integer price;
+        private Integer discountPrice;
+        private Integer stock;
+        private String mainCategory;
+        private String subCategory;
+
+        public ItemsDetailDTO(Items items) {
+            this.itemId = items.getId();
+            this.name = items.getName();
+            this.description = items.getDescription();
+            this.size = items.getSize();
+            this.price = items.getPrice();
+            this.discountPrice = items.getDiscountPrice();
+            this.stock = items.getStock();
+            this.mainCategory = items.getCategory().getMain();
+            this.subCategory = items.getCategory().getSub();
+        }
+    }
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class ItemsController {
@@ -19,9 +21,8 @@ public class ItemsController {
     @GetMapping("/api/items-manage")
     public String itemsManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-//        List<ItemsResponse.ItemsListDTO> itemsList = itemsService.findItemsByAdminId(sessionAdmin.getId());
-//
-
+       List<ItemsResponse.ItemsListDTO> itemsList = itemsService.findItemsByAdminId(sessionAdmin.getId());
+       req.setAttribute("itemsList", itemsList);
         return "items/items-manage";
     }
 

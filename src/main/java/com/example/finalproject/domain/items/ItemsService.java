@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -28,11 +27,13 @@ public class ItemsService {
         itemsRepository.save(saveDTO.toEntity(admin));
     }
 
-    public void findItemsByAdminId(int adminId) {
+    public List<ItemsResponse.ItemsListDTO> findItemsByAdminId(int adminId) {
         List<Items> item = itemsRepository.findItemsByAdminId(adminId);
 
+        List<ItemsResponse.ItemsListDTO> itemsList = item.stream().map(ItemsResponse.ItemsListDTO::new).toList();
 
-        return ;
+
+        return itemsList;
     }
 
 }

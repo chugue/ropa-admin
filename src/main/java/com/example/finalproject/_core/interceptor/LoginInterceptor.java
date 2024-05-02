@@ -20,15 +20,14 @@ public class LoginInterceptor implements HandlerInterceptor {
         //TODO User엔티티가 구현되면 주석 풀기 - jwt 는 모든 기능 완성후에
         String jwt = request.getHeader("Authorization");
         jwt = jwt.replace("Bearer ", "");
+        HttpSession session = request.getSession();
 
         try {
             SessionAdmin sessionAdmin = JwtUtill.verify(jwt);
             if (sessionAdmin.getRole().equals("ADMIN")) {
-                HttpSession session = request.getSession();
                 session.setAttribute("sessionAdmin", sessionAdmin);
             }
             if (sessionAdmin.getRole().equals("BRAND")) {
-                HttpSession session = request.getSession();
                 session.setAttribute("sessionBrand", sessionAdmin);
             }
         } catch (TokenExpiredException e) {

@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body">
             <div class="justify-content-center">
-                <form action="" method="post">
+                <form action="/api/items-update/{{itemId}}" method="post">
                     <!-- 이미지 -->
                     <div class="row justify-content-center">
                         <div class="col-md-6">
@@ -43,23 +43,24 @@
                             <tr>
                                 <td class="align-middle" style="width: 30%;">상품명</td>
                                 <td>
-                                    <input type="text" class="form-control" placeholder="상품명"
-                                           aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" name="name" placeholder="상품명"
+                                           value="{{itemsDetail.name}}" aria-label="Username"
+                                           aria-describedby="basic-addon1">
                                 </td>
                             </tr>
                             <tr>
-                                <td class="align-middle">카테고리</td>
+                                <td class="align-middle">상위 카테고리</td>
                                 <td>
-                                    <select class="form-select" style="width: 800px;">
+                                    <select class="form-select" name="mainCategory" style="width: 800px;">
                                         <option value="상의">상의</option>
                                         <option value="하의">하의</option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="align-middle">세부 카테고리</td>
+                                <td class="align-middle">하위 카테고리</td>
                                 <td>
-                                    <select class="form-select" style="width: 800px;">
+                                    <select class="form-select" name="subCategory" style="width: 800px;">
                                         <option value="셔츠">셔츠</option>
                                         <option value="맨투맨">맨투맨</option>
                                         <option value="반팔">반팔</option>
@@ -70,23 +71,42 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="align-middle">판매가격</td>
+                                <td class="align-middle">사이즈</td>
                                 <td>
-                                    <input type="text" class="form-control" placeholder="판매가격"
-                                           aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" name="size" placeholder="판매가격"
+                                           value="{{itemsDetail.size}}" aria-label="Username"
+                                           aria-describedby="basic-addon1">
                                 </td>
                             </tr>
                             <tr>
-                                <td class="align-middle">수량</td>
+                                <td class="align-middle">판매가격</td>
                                 <td>
-                                    <input type="text" class="form-control" placeholder="수량"
-                                           aria-label="Username" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" name="price" placeholder="판매가격"
+                                           value="{{itemsDetail.price}}" aria-label="Username"
+                                           aria-describedby="basic-addon1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">할인가</td>
+                                <td>
+                                    <input type="text" class="form-control" name="discountPrice" placeholder="판매가격"
+                                           value="{{itemsDetail.discountPrice}}" aria-label="Username"
+                                           aria-describedby="basic-addon1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">재고</td>
+                                <td>
+                                    <input type="text" class="form-control" name="stock" placeholder="재고"
+                                           value="{{itemsDetail.stock}}" aria-label="Username"
+                                           aria-describedby="basic-addon1">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="align-middle">설명</td>
                                 <td>
-                                    <textarea type="text" class="form-control" placeholder="아이템 설명"></textarea>
+                                    <textarea type="text" class="form-control" name="description"
+                                              placeholder="아이템 설명">{{itemsDetail.description}}</textarea>
                                 </td>
                             </tr>
                             </tbody>
@@ -95,8 +115,8 @@
 
                     <!-- 등록 -->
                     <div class="text-center">
-                        <a href="/api/items-manage" class="btn btn-primary">수정완료</a>
-                        <a href="/api/items-detail" class="btn btn-outline-primary">이전</a>
+                        <button class="btn btn-primary">수정완료</button>
+                        <a href="/api/items-manage" class="btn btn-outline-primary">목록으로</a>
                     </div>
                 </form>
             </div>

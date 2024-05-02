@@ -32,17 +32,23 @@
                     <th>상품가격</th>
                     <th>카테고리</th>
                     <th>재고수량</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#itemsList}}
-                <tr>
-                    <td>{{itemId}}</td>
-                    <td>{{itemName}}</td>
-                    <td>{{price}}</td>
-                    <td>{{mainCategory}}</td>
-                    <td>{{stock}}</td>
-                </tr>
+                    <tr>
+                        <td>{{itemId}}</td>
+                        <td>{{itemName}}</td>
+                        <td>{{price}}</td>
+                        <td>{{mainCategory}}</td>
+                        <td>{{stock}}</td>
+                        <td>
+                            <form method="get" action="/api/items-detail/{{itemId}}">
+                                <button class="btn btn-outline-primary btn-sm">상세보기</button>
+                            </form>
+                        </td>
+                    </tr>
                 {{/itemsList}}
                 </tbody>
             </table>

@@ -34,27 +34,35 @@
                         <tbody>
                         <tr>
                             <td class="align-middle" style="width: 30%;">상품명</td>
-                            <td>셔츠</td>
+                            <td>{{itemsDetail.name}}</td>
                         </tr>
                         <tr>
                             <td class="align-middle">카테고리</td>
-                            <td>상의</td>
+                            <td>{{itemsDetail.mainCategory}}</td>
                         </tr>
                         <tr>
                             <td class="align-middle">세부 카테고리</td>
-                            <td>맨투맨</td>
+                            <td>{{itemsDetail.subCategory}}</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">사이즈</td>
+                            <td>{{itemsDetail.size}}</td>
                         </tr>
                         <tr>
                             <td class="align-middle">판매가격</td>
-                            <td>30,000원</td>
+                            <td>{{itemsDetail.price}}원</td>
                         </tr>
                         <tr>
-                            <td class="align-middle">수량</td>
-                            <td>50개</td>
+                            <td class="align-middle">할인가</td>
+                            <td>{{itemsDetail.discountPrice}}원</td>
+                        </tr>
+                        <tr>
+                            <td class="align-middle">재고</td>
+                            <td>{{itemsDetail.stock}}개</td>
                         </tr>
                         <tr>
                             <td class="align-middle">설명</td>
-                            <td>이 상품은 셔츠입니다.</td>
+                            <td>{{itemsDetail.description}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -62,7 +70,9 @@
             </div>
             <!-- 등록 버튼 -->
             <div class="text-center">
-                <a href="/api/items-update-form" class="btn btn-primary">수정하기</a>
+                <form method="get" action="/api/items-update-form/{{itemsDetail.itemId}}" style="display: inline;">
+                    <button class="btn btn-primary mr-2">수정하기</button>
+                </form>
                 <a href="/api/items-manage" class="btn btn-outline-primary">이전</a>
             </div>
         </div>

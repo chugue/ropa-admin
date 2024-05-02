@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,19 +18,21 @@ public class ItemsController {
     private final HttpSession session;
     private final ItemsService itemsService;
 
-    // 상품 관리 페이지
+    // 아이템 관리 페이지ㄴㅇ
     @GetMapping("/api/items-manage")
-    public String itemsManage(HttpServletRequest req) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-
-       List<ItemsResponse.ItemsListDTO> itemsList = itemsService.findItemsByAdminId(sessionAdmin.getId());
-       req.setAttribute("itemsList", itemsList);
+    public String itemsManage(HttpServletRequest requestDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        List<ItemsResponse.listDTO> itemsList = itemsService.findItemsByAdminId(sessionBrand);
+        requestDTO.setAttribute("itemsList", itemsList);
         return "items/items-manage";
     }
 
-    // 상품 상세 페이지
-    @GetMapping("/api/items-detail")
-    public String itemsDetail() {
+    // 아이템 상세 페이지
+    @GetMapping("/api/items-detail/{itemId}")
+    public String itemsDetail(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
+        requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-detail";
     }
 
@@ -48,14 +51,24 @@ public class ItemsController {
         requestDTO.setMainCategory(mainCategory);
         requestDTO.setSubCategory(subCategory);
         // 카테고리 리스트 설정
-        itemsService.saveItem(requestDTO, sessionBrand);
+        itemsService.saveItem(requestDTO, sessionBrand.getId());
         return "redirect:/api/items-manage";
     }
 
-    // 상품 수정 폼
-    @GetMapping("/api/items-update-form")
-    public String itemsUpdateForm() {
+    // 아이템 수정 폼
+    @GetMapping("/api/items-update-form/{itemId}")
+    public String itemsUpdateForm(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
+        requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-update-form";
     }
 
+    // 아이템 수정
+    @PostMapping("/api/items-update/{itemId}")
+    public String itemsUpdate(@PathVariable("itemId") Integer itemId, ItemsRequest.UpdateDTO updateDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        itemsService.updateItem(itemId, updateDTO, sessionBrand);
+        return "redirect:/api/items-manage";
+    }
 }

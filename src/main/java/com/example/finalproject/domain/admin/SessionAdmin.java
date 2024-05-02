@@ -17,4 +17,11 @@ public class SessionAdmin {
         this.email = email;
         this.role = role;
     }
+
+    public SessionAdmin(Admin admin) {
+        this.id = admin.getId();
+        this.username = admin.getBrandName();
+        this.email = admin.getEmail();
+        this.role = role;
+    }
 }

@@ -37,7 +37,6 @@ public class AdminController {
         return "index-brand"; // 기본값으로 설정
     }
 
-
     //회원가입 관리자/브랜드
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO) {

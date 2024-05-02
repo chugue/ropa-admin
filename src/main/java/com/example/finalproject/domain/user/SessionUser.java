@@ -11,11 +11,18 @@ public class SessionUser {
     private Boolean blueChecked;
 
     @Builder
-
     public SessionUser(Integer id, String myName, String email, Boolean blueChecked) {
         this.id = id;
         this.myName = myName;
         this.email = email;
         this.blueChecked = blueChecked;
+    }
+
+
+    public SessionUser(User user) {
+        this.id = user.getId();
+        this.myName = getMyName();
+        this.email = getEmail();
+        this.blueChecked = getBlueChecked();
     }
 }

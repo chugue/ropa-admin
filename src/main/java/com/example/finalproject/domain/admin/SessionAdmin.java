@@ -15,6 +15,6 @@ public class SessionAdmin {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.role = role; // AdminRole enum에서 문자열로 변환하여 할당
+        this.role = role;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.finalproject.domain.orderHistory;
 
-import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.SessionAdmin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class OrderHistoryController {
     // 주문 목록 페이지
     @GetMapping("/api/order-manage")
     public String orderManage(HttpServletRequest request) {
-        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
         List<OrderHistoryResponse.orderListDTO> orderHistoryList = orderHistoryService.findByOrderHistoryItemsAdmin(sessionBrand.getId());
         request.setAttribute("orderHistoryList", orderHistoryList);
         return "order/order-manage";

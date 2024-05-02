@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.inquiry;
 
 import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.SessionAdmin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class InquiryController {
     // 문의 관리 페이지 - 목록 조회
     @GetMapping("/api/inquiry-manage")
     public String inquiryManage(HttpServletRequest req) {
-        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
         List<InquiryResponse.ListDTO> respList =
                 inquiryService.findAllInquiryWithUser(sessionBrand.getId());
 
@@ -31,8 +32,8 @@ public class InquiryController {
     // 문의 내용 답변 폼 페이지
     @GetMapping("/api/inquiry-reply/{inquiryId}")
     public String inquiryReply(@PathVariable(name = "inquiryId") Integer inquiryId, HttpServletRequest req) {
+        SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionAdmin");
         InquiryResponse.ReplyDTO respDTO = inquiryService.findByInquiryId(inquiryId);
-
         req.setAttribute("inquiryReply", respDTO);
         return "inquiry/inquiry-reply-form";
     }
@@ -40,7 +41,7 @@ public class InquiryController {
     // 문의 답변 업데이트
     @PostMapping("/api/inquiry-reply-update")
     public String inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
+        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
 
         inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
         return "redirect:/api/inquiry-reply/" + reqDTO.getInquiryId();

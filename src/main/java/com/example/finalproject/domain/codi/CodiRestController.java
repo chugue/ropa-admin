@@ -16,9 +16,17 @@ import java.util.List;
 @RestController
 public class CodiRestController {
     private final HttpServletRequest request;
+    private final CodiService codiService;
+
+    // 앱] 크리에이터 보기 코디 목록 탭
+    @GetMapping("/app/find-codies/{creatorId}")
+    public void findCodies(){
+//        codiService.findCreatorCodies();
+    }
 
 
-    // 코디 등록 (상의와 하의가 같이 저장됨) - 작업중 //TODO
+
+    // 코디 등록 (상의와 하의가 같이 저장됨) - 웹에서 코디 등록 로직 사라짐..
     @PostMapping("/api/codi-register")
     public void codiRegister(
             @RequestParam(name = "top") String topItem,
@@ -28,10 +36,9 @@ public class CodiRestController {
         System.out.println(bottomItem);
     }
 
-    ;
 
 
-    // 코디 등록 페이지 카테고리 검색 - main만 주어졌을때 //TODO
+    // 코디 등록 페이지 카테고리 검색 - 웹에서 코디 등록 로직 사라짐..
     @GetMapping("/api/codi-items/main")
     public ResponseEntity<?> findCodiItemsByMain(
             @RequestParam(name = "mainId") Integer mainId) {
@@ -52,7 +59,7 @@ public class CodiRestController {
     }
 
 
-    // 코디 등록 페이지 카테고리 검색 - main과 sub가 주어졌을때 //TODO
+    // 코디 등록 페이지 카테고리 검색 - 웹에서 코디등록 로직 사라짐..
     @GetMapping("/api/codi-items/main-sub")
     public ResponseEntity<?> findCodiItemsByMainSub(
             @RequestParam(name = "mainId") Integer mainId,

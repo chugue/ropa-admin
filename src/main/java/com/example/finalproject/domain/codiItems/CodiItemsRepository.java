@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.codiItems;
 
-import com.example.finalproject.domain.items.Items;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

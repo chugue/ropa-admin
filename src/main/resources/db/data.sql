@@ -19,15 +19,6 @@ VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실�
         ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
          '신청 전', TRUE, 5000);
 
-
--- 코디 테이블 더미
-insert into codi_tb (user_id, title, description, created_at)
-values (1, '코디1', '좋은 코디입니다.', NOW()),
-       (1, '코디2', '좋은 코디입니다.', NOW()),
-       (3, '코디3', '좋은 코디입니다.', NOW()),
-       (3, '코디4', '좋은 코디입니다.', NOW()),
-       (5, '코디5', '좋은 코디입니다.', NOW());
-
 -- 카테고리 테이블 더미
 INSERT INTO category_tb (main, sub)
 VALUES ('상의', '셔츠'),
@@ -51,10 +42,10 @@ VALUES ('상의', '셔츠'),
        ('상의', '셔츠'),
        ('상의', '남방');
 
+
 -- 아이템(Items) 더미 데이터 삽입
 INSERT INTO items_tb (admin_id, name, description, size, price, discount_price, stock, category_id)
 VALUES
-    -- 아이템 1부터 10
     (1, '아이템1', '이 아이템은 아주 좋습니다.', 'M', 50000, 45000, '100', 1),
     (2, '아이템2', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, '50', 2),
     (3, '아이템3', '이 아이템은 제일 좋습니다.', 'XL', 100000, 90000, '200', 3),
@@ -76,6 +67,19 @@ VALUES
     (1, '아이템19', '이 아이템은 아주 좋습니다.', 'M', 50000, 45000, '100', 19),
     (2, '아이템20', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, '50', 20);
 
+
+-- 코디 테이블 더미
+insert into codi_tb (user_id, title, description, created_at)
+values (1, '코디1', '좋은 코디입니다.', NOW()),
+       (1, '코디2', '좋은 코디입니다.', NOW()),
+       (3, '코디3', '좋은 코디입니다.', NOW()),
+       (3, '코디4', '좋은 코디입니다.', NOW()),
+       (5, '코디5', '좋은 코디입니다.', NOW());
+
+
+
+
+-- 코디랑 아이템을 연결해주는 테이블
 insert into codi_items_tb (items_id, codi_id) values
                                                   (1,1),
                                                   (2,1),
@@ -86,6 +90,41 @@ insert into codi_items_tb (items_id, codi_id) values
                                                   (5,3),
                                                   (7,3),
                                                   (10,3);
+
+-- 사진 테이블 더미
+-- 크리이터 사용자용
+insert into photo_tb (name, path, sort, user_id, codi_id, items_id, created_at)
+values ('사진1', '사진경로1', 'USER', 1, null, null, NOW()),
+       ('사진2', '사진경로2', 'USER', 2, null, null, NOW()),
+       ('사진3', '사진경로3', 'USER', 3, null, null, NOW()),
+       ('사진4', '사진경로4', 'USER', 4, null, null, NOW()),
+       ('사진5', '사진경로5', 'USER', 5, null, null, NOW()),
+       ('아이템사진1', '아이템사진경로1', 'ITEM', null, null, 1, NOW()),
+       ('아이템사진2', '아이템사진경로2', 'ITEM', null, null, 2, NOW()),
+       ('아이템사진3', '아이템사진경로3', 'ITEM', null, null, 3, NOW()),
+       ('아이템사진4', '아이템사진경로4', 'ITEM', null, null, 4, NOW()),
+       ('아이템사진5', '아이템사진경로5', 'ITEM', null, null, 5, NOW()),
+       ('아이템사진6', '아이템사진경로6', 'ITEM', null, null, 6, NOW()),
+       ('아이템사진7', '아이템사진경로7', 'ITEM', null, null, 7, NOW()),
+       ('아이템사진8', '아이템사진경로8', 'ITEM', null, null, 8, NOW()),
+       ('아이템사진9', '아이템사진경로9', 'ITEM', null, null, 9, NOW()),
+       ('아이템사진10', '아이템사진경로10', 'ITEM', null, null, 10, NOW()),
+       ('아이템사진11', '아이템사진경로11', 'ITEM', null, null, 11, NOW()),
+       ('아이템사진12', '아이템사진경로12', 'ITEM', null, null, 12, NOW()),
+       ('아이템사진13', '아이템사진경로13', 'ITEM', null, null, 13, NOW()),
+       ('아이템사진14', '아이템사진경로14', 'ITEM', null, null, 14, NOW()),
+       ('아이템사진15', '아이템사진경로15', 'ITEM', null, null, 15, NOW()),
+       ('아이템사진16', '아이템사진경로16', 'ITEM', null, null, 16, NOW()),
+       ('아이템사진17', '아이템사진경로17', 'ITEM', null, null, 17, NOW()),
+       ('아이템사진18', '아이템사진경로18', 'ITEM', null, null, 18, NOW()),
+       ('코디사진1', '코디사진경로1', 'CODI', null, 1, null,  NOW()),
+       ('코디사진2', '코디사진경로2', 'CODI', null, 1, null,  NOW()),
+       ('코디사진3', '코디사진경로3', 'CODI', null, 1, null,  NOW()),
+       ('코디사진4', '코디사진경로4', 'CODI', null, 2, null,  NOW()),
+       ('코디사진5', '코디사진경로5', 'CODI', null, 2, null,  NOW()),
+       ('코디사진6', '코디사진경로6', 'CODI', null, 3, null,  NOW()),
+       ('코디사진7', '코디사진경로7', 'CODI', null, 3, null,  NOW());
+
 
 -- 배송 주소(DeliveryAddress) 더미 데이터 삽입
 INSERT INTO delivery_address_tb (user_id, recipient, postal_code, address, address_detail, phone_number)

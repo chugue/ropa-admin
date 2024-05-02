@@ -1,9 +1,8 @@
 package com.example.finalproject.domain.codi;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import com.example.finalproject._core.util.ApiUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +14,9 @@ public class CodiController {
 
     // 코디 보기 페이지 (페이지내 아이템 목록 코디목록있음)
     @GetMapping("/app/codi-pages/{codiId}")
-    public void codiPage(@PathVariable Integer codiId){
-        codiService.codiPage(codiId);
+    public ResponseEntity<?> codiPage(@PathVariable Integer codiId){
+        CodiResponse.MainViewDTO respDTO = codiService.codiPage(codiId);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 

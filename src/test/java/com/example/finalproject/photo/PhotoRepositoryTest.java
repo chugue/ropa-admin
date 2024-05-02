@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @DataJpaTest
@@ -30,10 +28,12 @@ public class PhotoRepositoryTest {
     @Test
     public void findByItemsIds_test(){
         // given
-        List<Integer> list = new ArrayList<>(Arrays.asList(2, 7, 3, 4, 5));
+        List<Integer> list = List.of(1, 2, 3);
         // when
         List<Photo> respList = photoRepository.findByItemsIds(list);
         // then
-        respList.forEach(System.out::println);
+        for (int i = 0; i < respList.size(); i++) {
+            System.out.println(respList.get(i));
+        }
     }
 }

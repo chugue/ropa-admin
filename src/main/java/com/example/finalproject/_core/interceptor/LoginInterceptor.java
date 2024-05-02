@@ -19,7 +19,13 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         //TODO User엔티티가 구현되면 주석 풀기 - jwt 는 모든 기능 완성후에
         String jwt = request.getHeader("Authorization");
-        jwt = jwt.replace("Bearer ", "");
+        if (jwt != null) {
+            jwt = jwt.replace("Bearer ", "");
+        } else {
+            // JWT가 없을 때 처리할 로직 작성
+            throw new Exception401("JWT가 요청 헤더에 없습니다.");
+        }
+
         HttpSession session = request.getSession();
 
         try {

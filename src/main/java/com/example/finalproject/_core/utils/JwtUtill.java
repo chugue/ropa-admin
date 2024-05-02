@@ -32,7 +32,6 @@ public class JwtUtill {
     // JWT 토큰 검증 및 복호화 메서드
     public static SessionAdmin verify(String jwt) {
         System.out.println(jwt); // 전달된 JWT 토큰 출력 (테스트 용도)
-
         // JWT 토큰 복호화 및 검증
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512("finalproject")).build().verify(jwt);
         // 토큰에서 사용자 정보(Claim) 추출

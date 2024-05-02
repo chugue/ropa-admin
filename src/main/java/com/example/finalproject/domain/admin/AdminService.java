@@ -67,7 +67,8 @@ public class AdminService {
     public String login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
-        String jwt  = JwtUtill.create(admin);
+        String jwt = JwtUtill.create(admin);
+        JwtUtill.verify(jwt);
         return jwt;
     }
 

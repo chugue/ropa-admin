@@ -77,8 +77,6 @@ values (1, '코디1', '좋은 코디입니다.', NOW()),
        (5, '코디5', '좋은 코디입니다.', NOW());
 
 
-
-
 -- 코디랑 아이템을 연결해주는 테이블
 insert into codi_items_tb (items_id, codi_id) values
                                                   (1,1),

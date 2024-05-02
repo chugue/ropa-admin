@@ -1,12 +1,15 @@
 package com.example.finalproject.domain.items;
 
 import com.example.finalproject.domain.admin.Admin;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -16,7 +19,10 @@ public class ItemsController {
 
     // 상품 관리 페이지
     @GetMapping("/api/items-manage")
-    public String itemsManage() {
+    public String itemsManage(HttpServletRequest req) {
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
+       List<ItemsResponse.ItemsListDTO> itemsList = itemsService.findItemsByAdminId(sessionAdmin.getId());
+       req.setAttribute("itemsList", itemsList);
         return "items/items-manage";
     }
 

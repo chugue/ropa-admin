@@ -45,12 +45,12 @@ public class CodiResponse {
         public class ItemsPhotoDTO{
             private Integer itemsPhotoId;
             private String itemsPhotoName;
-            private String mainPhotoPath;
+            private String itemsPhotoPath;
 
             public ItemsPhotoDTO(Photo photo) {
                 this.itemsPhotoId = photo.getId();
                 this.itemsPhotoName = photo.getName();
-                this.mainPhotoPath = photo.getPath();
+                this.itemsPhotoPath = photo.getPath();
             }
         }
 

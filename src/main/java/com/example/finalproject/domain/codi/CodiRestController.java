@@ -1,6 +1,6 @@
 package com.example.finalproject.domain.codi;
 
-import com.example.finalproject._core.util.ApiUtil;
+import com.example.finalproject._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

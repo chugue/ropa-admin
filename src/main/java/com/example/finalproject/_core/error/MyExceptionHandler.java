@@ -1,7 +1,7 @@
 package com.example.finalproject._core.error;
 
 import com.example.finalproject._core.error.exception.*;
-import com.example.finalproject._core.util.ApiUtil;
+import com.example.finalproject._core.utils.ApiUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

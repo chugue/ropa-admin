@@ -1,7 +1,7 @@
 package com.example.finalproject.domain.user;
 
 
-import com.example.finalproject._core.util.ApiUtil;
+import com.example.finalproject._core.utils.ApiUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -28,10 +28,6 @@ values (1, '코디1', '좋은 코디입니다.', NOW()),
        (3, '코디4', '좋은 코디입니다.', NOW()),
        (5, '코디5', '좋은 코디입니다.', NOW());
 
-INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, status, blue_checked)
-VALUES ('user1@example.com', '1234', '팀장', '김성훈', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '@instagram', '신청 전', FALSE),
-       ('user2@example.com', '1234', '부팀장', '김주혁', '경기도 분당구', '010-9876-5432', '168cm', '60kg', '@twitter', '승인 대기', FALSE),
-       ('user3@example.com', '1234', '실장', '박선규', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook', '승인', TRUE);
 
 -- 아이템(Items) 더미 데이터 삽입
 INSERT INTO items_tb (admin_id, name, description, size, price, discount_price, stock)

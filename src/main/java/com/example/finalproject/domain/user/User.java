@@ -37,6 +37,8 @@ public class User {
 
     private String weight; // 체중
 
+    private String introduction;
+
     private String instagram; // 인스타그램
 
     private Integer mileage; // 크리에이터의 마일리지

@@ -46,7 +46,7 @@ public class JwtUtill {
                 .id(id)
                 .username(username)
                 .email(email)
-                .role(role)
+                .role(Admin.AdminRole.valueOf(role))
                 .build();
     }
 }

@@ -8,10 +8,10 @@ public class SessionAdmin {
     private Integer id;
     private String username;
     private String email;
-    private String role;
+    private Admin.AdminRole role;
 
     @Builder
-    public SessionAdmin(Integer id, String username, String email, String role) {
+    public SessionAdmin(Integer id, String username, String email, Admin.AdminRole role) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -22,6 +22,6 @@ public class SessionAdmin {
         this.id = admin.getId();
         this.username = admin.getBrandName();
         this.email = admin.getEmail();
-        this.role = role;
+        this.role = admin.getRole();
     }
 }

@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.inquiry;
 
-import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.SessionAdmin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -41,7 +40,7 @@ public class InquiryController {
     // 문의 답변 업데이트
     @PostMapping("/api/inquiry-reply-update")
     public String inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO) {
-        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
+        SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionBrand");
 
         inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
         return "redirect:/api/inquiry-reply/" + reqDTO.getInquiryId();

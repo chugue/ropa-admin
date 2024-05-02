@@ -13,6 +13,5 @@ public interface ItemsRepository extends JpaRepository<Items, Integer> {
     @Query("SELECT i FROM Items i JOIN FETCH i.category WHERE i.admin.id = :adminId")
     List<Items> findItemsByAdminId(@Param("adminId") int adminId);
 
-
-
 }
+

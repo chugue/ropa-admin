@@ -76,6 +76,16 @@ VALUES
     (1, '아이템19', '이 아이템은 아주 좋습니다.', 'M', 50000, 45000, '100', 19),
     (2, '아이템20', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, '50', 20);
 
+insert into codi_items_tb (items_id, codi_id) values
+                                                  (1,1),
+                                                  (2,1),
+                                                  (3,1),
+                                                  (2,2),
+                                                  (3,2),
+                                                  (6,2),
+                                                  (5,3),
+                                                  (7,3),
+                                                  (10,3);
 
 -- 배송 주소(DeliveryAddress) 더미 데이터 삽입
 INSERT INTO delivery_address_tb (user_id, recipient, postal_code, address, address_detail, phone_number)

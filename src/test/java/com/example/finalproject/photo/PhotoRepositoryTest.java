@@ -16,6 +16,16 @@ public class PhotoRepositoryTest {
     @Autowired
     private PhotoRepository photoRepository;
 
+    @Test
+    public void findByUserIdWithCodiesAndPhoto_test(){
+        // given
+        Integer userId = 1;
+        // when
+        List<Photo> photoList = photoRepository.findByUserIdWithCodiesAndPhoto(userId);
+        // then
+        photoList.forEach(System.out::println);
+    }
+
 
     @Test
     public void findByItemsIds_test(){

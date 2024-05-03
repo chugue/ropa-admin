@@ -21,9 +21,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
 
-
-
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         WebMvcConfigurer.super.addResourceHandlers(registry);
@@ -37,5 +34,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
     }
-
 }

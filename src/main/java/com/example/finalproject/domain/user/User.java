@@ -37,7 +37,7 @@ public class User {
 
     private String weight; // 체중
 
-    private String introduction;
+    private String introMsg; // 크리에이터 한줄 자기소개
 
     private String instagram; // 인스타그램
 

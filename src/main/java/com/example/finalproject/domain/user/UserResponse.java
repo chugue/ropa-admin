@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.user;
 
+import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
 public class UserResponse {
@@ -48,6 +49,55 @@ public class UserResponse {
             this.id = user.getId();
             this.nickName = user.getNickName();
             this.createdAt = user.getCreatedAt().toString();
+        }
+    }
+
+    @Data
+    public static class SettingPageDTO {
+        private Integer id;
+        private String email;
+        private String myName;
+        private String nickName;
+        private String mobile;
+
+        public SettingPageDTO(User user) {
+            this.id = user.getId();
+            this.email = user.getEmail();
+            this.myName = user.getMyName();
+            this.nickName = user.getNickName();
+            this.mobile = user.getMobile();
+        }
+    }
+
+    @Data
+    public static class ProfilePageDTO {
+        private Integer userId;
+        private String email;
+        private String myName;
+        private String nickName;
+        private String mobile;
+        private PhotoDTO photoDTO;
+
+        public ProfilePageDTO(User user, PhotoDTO photoDTO) {
+            this.userId = user.getId();
+            this.email = user.getEmail();
+            this.myName = user.getMyName();
+            this.nickName = user.getNickName();
+            this.mobile = user.getMobile();
+            this.photoDTO = photoDTO;
+        }
+
+        @Data
+        public static class PhotoDTO {
+            private Integer id;
+            private String name;
+            private String path;
+
+            public PhotoDTO(Photo photo) {
+                this.id = photo.getId();
+                this.name = photo.getName();
+                this.path = photo.getPath();
+            }
         }
     }
 }

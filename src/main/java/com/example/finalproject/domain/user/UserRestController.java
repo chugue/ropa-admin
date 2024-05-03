@@ -39,4 +39,20 @@ public class UserRestController {
         UserResponse.JoinDTO respDTO = userService.join(reqDTO);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
+
+    // 앱 세팅 화면
+    @GetMapping("/app/setting")
+    public ResponseEntity<?> settingPage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.SettingPageDTO respDTO = userService.settingPage(sessionUser);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    // 앱 프로필 화면
+    @GetMapping("/app/profile")
+    public ResponseEntity<?> profilePage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.ProfilePageDTO respDTO = userService.profilePage(sessionUser);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
 }

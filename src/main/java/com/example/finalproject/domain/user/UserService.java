@@ -42,4 +42,18 @@ public class UserService {
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
         return new UserResponse.LoginDTO(user);
     }
+
+    // 앱 세팅 페이지
+    public UserResponse.SettingPageDTO settingPage(SessionUser sessionUser) {
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+        return new UserResponse.SettingPageDTO(user);
+    }
+
+    // 앱 사용자 프로필 페이지
+    public UserResponse.ProfilePageDTO profilePage(SessionUser sessionUser) {
+        User user = userRepository.findByUserIdWithPhoto(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+        return new UserResponse.ProfilePageDTO(user, new UserResponse.ProfilePageDTO.PhotoDTO(user.getPhoto()));
+    }
 }

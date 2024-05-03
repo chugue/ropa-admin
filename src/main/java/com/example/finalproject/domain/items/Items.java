@@ -2,6 +2,7 @@ package com.example.finalproject.domain.items;
 
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.category.Category;
+import com.example.finalproject.domain.photo.Photo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -46,6 +48,9 @@ public class Items {
 
     private Boolean status; // 삭제상태
 
+    @OneToMany(mappedBy = "items", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Photo> photos;
+
     @CreationTimestamp
     private Timestamp createdAt; // 등록시간
 
@@ -53,7 +58,7 @@ public class Items {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Category category, Boolean status, Timestamp createdAt, Timestamp updatedAt) {
+    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Category category, List<Photo> photos, Boolean status, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;
@@ -63,6 +68,7 @@ public class Items {
         this.discountPrice = discountPrice;
         this.stock = stock;
         this.category = category;
+        this.photos = photos;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.codi;
 
+import com.example.finalproject.domain.photo.Photo;
 import com.example.finalproject.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -9,6 +10,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -27,6 +30,9 @@ public class Codi {
     private String title; // 코디 제목
 
     private String description; // 코디 설명
+
+    @OneToMany(mappedBy = "codi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Photo> photos;
 
     @CreationTimestamp
     private Timestamp createdAt; // 등록시간

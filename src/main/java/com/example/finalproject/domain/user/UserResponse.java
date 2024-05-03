@@ -1,11 +1,57 @@
 package com.example.finalproject.domain.user;
 
+import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
-public class UserResponse {
+import java.util.List;
 
-    @Data  // 로그인 성공시 응답 DTO
+public class UserResponse {
+    @Data // 인기 크리에이터의 정보를 보여줄 때 사용되는 응답 DTO
+    public static class CreatorViewDTO {
+        private Integer userId;
+        private UserDTO userDTO;
+        private List<CodiListDTO> codiLIst;
+
+
+        @Data
+
+        public class UserDTO {
+            private Integer creatorId; //크리에이터 아이디
+            private Boolean blueChecked;    //true -> 크리에이터
+            private String photoName;   // 크리에이터 사진 이름
+            private String photoPath;   // 크리에이터 사진 경로
+            private String nickName;    //별명
+            private String height; //키
+            private String weight;  // 체중
+            private String job; //직업
+            private String introMsg; //자기소개
+
+            public UserDTO(User user, Photo photo) {
+                this.creatorId = user.getId();
+                this.blueChecked = user.getBlueChecked();
+                this.photoName = photo.getName();
+                this.photoPath = photo.getPath();
+                this.nickName = user.getNickName();
+                this.height = user.getHeight();
+                this.weight = user.getWeight();
+                this.job = user.getJob();
+                this.introMsg = user.getIntroMsg();
+            }
+        }
+
+        @Data
+        public class CodiListDTO {
+            private Integer codiId;
+            private String photoName;
+            private String photoPath;
+
+
+        }
+    }
+
+
+        @Data  // 로그인 성공시 응답 DTO
     public static class LoginDTO {
         private Integer id;
         private String email;

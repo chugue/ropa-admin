@@ -55,4 +55,12 @@ public class UserRestController {
         UserResponse.ProfilePageDTO respDTO = userService.profilePage(sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
+
+    // 앱 사용자 크리에이터 지원 페이지
+    @GetMapping("/app/creator-apply")
+    public ResponseEntity<?> creatorApply() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.CreatorApplyDTO respDTO = userService.creatorApply(sessionUser);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
 }

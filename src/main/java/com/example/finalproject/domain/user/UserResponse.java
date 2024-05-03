@@ -100,4 +100,21 @@ public class UserResponse {
             }
         }
     }
+
+    @Data
+    public static class CreatorApplyDTO {
+        private Integer id;
+        private String height;
+        private String weight;
+        private String instagram;
+        private String job;
+
+        public CreatorApplyDTO(User user) {
+            this.id = user.getId();
+            this.height = user.getHeight();
+            this.weight = user.getWeight();
+            this.instagram = user.getInstagram();
+            this.job = user.getJob();
+        }
+    }
 }

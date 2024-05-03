@@ -56,4 +56,11 @@ public class UserService {
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
         return new UserResponse.ProfilePageDTO(user, new UserResponse.ProfilePageDTO.PhotoDTO(user.getPhoto()));
     }
+
+    // 앱 사용자 크리에이터 지원 페이지
+    public UserResponse.CreatorApplyDTO creatorApply(SessionUser sessionUser) {
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+        return new UserResponse.CreatorApplyDTO(user);
+    }
 }

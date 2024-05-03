@@ -17,6 +17,7 @@ public class ItemsRequest {
         private Integer stock;
         private String mainCategory; // 메인 카테고리
         private String subCategory;  // 서브 카테고리
+        private Boolean status = true; // 삭제 상태
 
         public Items toEntity(Admin admin) {
             Items items = Items.builder()
@@ -27,6 +28,7 @@ public class ItemsRequest {
                     .price(price)
                     .discountPrice(discountPrice)
                     .stock(stock)
+                    .status(status)
                     .build();
 
             // 카테고리 생성

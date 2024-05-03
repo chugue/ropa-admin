@@ -44,7 +44,9 @@ public class Items {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    private Category category; // 초기화
+    private Category category;
+
+    private Boolean status; // 삭제상태
 
     @OneToMany(mappedBy = "items", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Photo> photos;
@@ -56,7 +58,7 @@ public class Items {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Category category, List<Photo> photos, Timestamp createdAt, Timestamp updatedAt) {
+    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Category category, List<Photo> photos, Boolean status, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;
@@ -67,6 +69,7 @@ public class Items {
         this.stock = stock;
         this.category = category;
         this.photos = photos;
+        this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

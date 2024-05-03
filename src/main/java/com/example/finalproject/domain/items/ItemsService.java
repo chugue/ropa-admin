@@ -78,4 +78,20 @@ public class ItemsService {
         itemsRepository.save(items);
     }
 
+    // 아이템 삭제
+    public void deleteItem(Integer itemId, Admin sessionAdmin) {
+        // Admin 정보 조회
+        Admin admin = adminRepository.findById(sessionAdmin.getId())
+                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+
+        // 아이템 정보 조회
+        Items items = itemsRepository.findById(itemId)
+                .orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
+
+        // 아이템 삭제 상태 업데이트
+        items.setStatus(false);
+
+        // 엔티티 저장
+        itemsRepository.save(items);
+    }
 }

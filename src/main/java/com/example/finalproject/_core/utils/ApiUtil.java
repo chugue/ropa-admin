@@ -1,4 +1,4 @@
-package com.example.finalproject._core.util;
+package com.example.finalproject._core.utils;
 
 import lombok.Data;
 

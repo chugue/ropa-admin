@@ -1,13 +1,10 @@
 package com.example.finalproject.domain.codi;
 
-import com.example.finalproject._core.util.ApiUtil;
+import com.example.finalproject._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +19,14 @@ public class CodiRestController {
     @GetMapping("/app/find-codies/{creatorId}")
     public void findCodies(){
 //        codiService.findCreatorCodies();
+    }
+
+
+    // 코디 보기 페이지 (페이지내 아이템 목록 코디목록있음)
+    @GetMapping("/app/codi-pages/{codiId}")
+    public ResponseEntity<?> codiPage(@PathVariable Integer codiId){
+        CodiResponse.MainViewDTO respDTO = codiService.codiPage(codiId);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 

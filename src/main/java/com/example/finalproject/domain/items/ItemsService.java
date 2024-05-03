@@ -20,28 +20,28 @@ public class ItemsService {
 
     // 아이템 저장
     @Transactional
-    public void saveItem(ItemsRequest.SaveDTO saveDTO, Admin sessionBrand) {
+    public void saveItem(ItemsRequest.SaveDTO saveDTO, Integer sessionBrandId) {
         // Admin 정보 조회
-        Admin admin = adminRepository.findById(sessionBrand.getId())
+        Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         itemsRepository.save(saveDTO.toEntity(admin));
     }
 
     // 아이템 목록
-    public List<ItemsResponse.listDTO> findItemsByAdminId(Admin sessionBrand) {
+    public List<ItemsResponse.listDTO> findItemsByAdminId(Integer sessionBrandId) {
         // Admin 정보 조회
-        Admin admin = adminRepository.findById(sessionBrand.getId())
+        Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
-        List<Items> item = itemsRepository.findItemsByAdminId(sessionBrand.getId());
+        List<Items> item = itemsRepository.findItemsByAdminId(sessionBrandId);
         return item.stream().map(ItemsResponse.listDTO::new).toList();
     }
 
     // 아이템 상세보기
-    public ItemsResponse.DetailDTO findItemsByAdminIdAndItemId(Admin sessionAdmin, int itemId) {
+    public ItemsResponse.DetailDTO findItemsByAdminIdAndItemId(Integer sessionAdminId, int itemId) {
         // Admin 정보 조회
-        Admin admin = adminRepository.findById(sessionAdmin.getId())
+        Admin admin = adminRepository.findById(sessionAdminId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         // 아이템 정보 조회
@@ -52,9 +52,9 @@ public class ItemsService {
 
     // 아이템 수정
     @Transactional
-    public void updateItem(Integer itemId, ItemsRequest.UpdateDTO updateDTO, Admin sessionAdmin) {
+    public void updateItem(Integer itemId, ItemsRequest.UpdateDTO updateDTO, Integer sessionBrandId) {
         // Admin 정보 조회
-        Admin admin = adminRepository.findById(sessionAdmin.getId())
+        Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         // 아이템 정보 조회

@@ -64,7 +64,7 @@ public class Photo {
         this.updateAt = updateAt;
     }
 
-    enum Sort {
+    public enum Sort {
         USER, ITEM, CODI
     }
 }

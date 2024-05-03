@@ -1,6 +1,6 @@
 package com.example.finalproject.domain.user;
 
-import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
@@ -12,10 +12,10 @@ public class UserResponse {
         private Integer userId;
         private UserDTO userDTO;
         private List<CodiListDTO> codiLIst;
+        private List<ItemListDTO> itemList;
 
 
         @Data
-
         public class UserDTO {
             private Integer creatorId; //크리에이터 아이디
             private Boolean blueChecked;    //true -> 크리에이터
@@ -27,11 +27,11 @@ public class UserResponse {
             private String job; //직업
             private String introMsg; //자기소개
 
-            public UserDTO(User user, Photo photo) {
+            public UserDTO(User user) {
                 this.creatorId = user.getId();
                 this.blueChecked = user.getBlueChecked();
-                this.photoName = photo.getName();
-                this.photoPath = photo.getPath();
+                this.photoName = user.getPhoto().getName();
+                this.photoPath = user.getPhoto().getPath();
                 this.nickName = user.getNickName();
                 this.height = user.getHeight();
                 this.weight = user.getWeight();
@@ -43,15 +43,43 @@ public class UserResponse {
         @Data
         public class CodiListDTO {
             private Integer codiId;
+            private Integer codiPhotoId;
+            private String photoName;
+            private String photoPath;
+            private Photo.Sort codiPhoto;
+
+
+            public CodiListDTO(CodiItems codiItems) {
+                this.codiId = codiItems.getId();
+                this.codiPhotoId = codiItems.getCodi().getPhotos().getFirst().getId();
+                this.photoName = codiItems.getCodi().getPhotos().getLast().getName();
+                this.photoPath = codiItems.getCodi().getPhotos().getFirst().getPath();
+                this.codiPhoto = codiItems.getCodi().getPhotos().getFirst().getSort();
+            }
+        }
+
+        @Data
+        public class ItemListDTO {
+            private Integer itemId;
+            private String name;
+            private String description;
+            private Integer price;
             private String photoName;
             private String photoPath;
 
-
+            public ItemListDTO(CodiItems codiItems) {
+                this.itemId = codiItems.getItems().getId();
+                this.name = codiItems.getItems().getName();
+                this.description = codiItems.getItems().getDescription();
+                this.price = items.getPrice();
+                this.photoName = items.getPhotos().get;
+                this.photoPath = photoPath;
+            }
         }
     }
 
 
-        @Data  // 로그인 성공시 응답 DTO
+    @Data  // 로그인 성공시 응답 DTO
     public static class LoginDTO {
         private Integer id;
         private String email;

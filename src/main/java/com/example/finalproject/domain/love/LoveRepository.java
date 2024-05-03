@@ -8,6 +8,6 @@ import java.util.List;
 public interface LoveRepository extends JpaRepository <Love, Integer> {
 
 
-    @Query("select l.codi , count(l) as loveCount from Love l where l.isLoved = true group by l.codi order by loveCount desc")
+    @Query("select l.codi.id , count(l) as loveCount from Love l where l.isLoved = true group by l.codi.id order by loveCount desc")
     List<Object[]> findAllSortByLoveCount();
 }

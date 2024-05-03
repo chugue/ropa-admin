@@ -90,7 +90,7 @@ insert into codi_items_tb (items_id, codi_id) values
 
 -- 사진 테이블 더미
 -- 크리이터 사용자용
-insert into photo_tb (name, path, sort, user_id, codi_id, items_id, created_at)
+insert into photo_tb (name, path, sort, use r_id, codi_id, items_id, created_at)
 values ('사용자사진1', '사용자경로1', 'USER', 1, null, null, NOW()),
        ('사용자사진2', '사용자경로2', 'USER', 2, null, null, NOW()),
        ('사용자사진3', '사용자경로3', 'USER', 3, null, null, NOW()),

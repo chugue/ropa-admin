@@ -1,6 +1,6 @@
 package com.example.finalproject.domain.items;
 
-import com.example.finalproject.domain.admin.SessionAdmin;
+import com.example.finalproject.domain.admin.Admin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class ItemsController {
     // 아이템 관리 페이지
     @GetMapping("/api/items-manage")
     public String itemsManage(HttpServletRequest requestDTO) {
-        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         List<ItemsResponse.listDTO> itemsList = itemsService.findItemsByAdminId(sessionBrand.getId());
         requestDTO.setAttribute("itemsList", itemsList);
         return "items/items-manage";
@@ -30,7 +30,7 @@ public class ItemsController {
     // 아이템 상세 페이지
     @GetMapping("/api/items-detail/{itemId}")
     public String itemsDetail(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
-        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-detail";
@@ -47,7 +47,7 @@ public class ItemsController {
     public String itemsRegister(@RequestParam("mainCategory") String mainCategory,
                                 @RequestParam("subCategory") String subCategory,
                                 ItemsRequest.SaveDTO requestDTO) {
-        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         requestDTO.setMainCategory(mainCategory);
         requestDTO.setSubCategory(subCategory);
         // 카테고리 리스트 설정
@@ -58,7 +58,7 @@ public class ItemsController {
     // 아이템 수정 폼
     @GetMapping("/api/items-update-form/{itemId}")
     public String itemsUpdateForm(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
-        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-update-form";
@@ -67,7 +67,7 @@ public class ItemsController {
     // 아이템 수정
     @PostMapping("/api/items-update/{itemId}")
     public String itemsUpdate(@PathVariable("itemId") Integer itemId, ItemsRequest.UpdateDTO updateDTO) {
-        SessionAdmin sessionBrand = (SessionAdmin) session.getAttribute("sessionBrand");
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         itemsService.updateItem(itemId, updateDTO, sessionBrand.getId());
         return "redirect:/api/items-manage";
     }

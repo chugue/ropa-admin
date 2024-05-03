@@ -4,7 +4,6 @@ import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception403;
 import com.example.finalproject._core.error.exception.Exception404;
-import com.example.finalproject._core.utils.JwtUtill;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import com.example.finalproject.domain.user.User;
@@ -64,12 +63,10 @@ public class AdminService {
 
 
     //로그인
-    public String login(AdminRequest.LoginDTO reqDTO) {
+    public Admin login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
                 .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
-        String jwt = JwtUtill.create(admin);
-        JwtUtill.verify(jwt);
-        return jwt;
+        return admin;
     }
 
     //회원가입

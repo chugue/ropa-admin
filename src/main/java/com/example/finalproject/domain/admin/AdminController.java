@@ -1,7 +1,6 @@
 package com.example.finalproject.domain.admin;
 
 import com.example.finalproject._core.error.exception.Exception403;
-import com.example.finalproject._core.utils.JwtUtill;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -24,17 +23,15 @@ public class AdminController {
     //로그인
     @PostMapping("/login")
     public String login(AdminRequest.LoginDTO reqDTO) {
-        String jwt = adminService.login(reqDTO);
-        SessionAdmin sessionAdmin = JwtUtill.verify(jwt); // JWT 토큰을 사용하여 세션 관리자 정보 가져오기
-
-        if (sessionAdmin.getRole().equals("ADMIN")) {
-            session.setAttribute("sessionAdmin", sessionAdmin);
+        Admin admin = adminService.login(reqDTO);
+        if (admin.getRole().equals(ADMIN)) {
+            session.setAttribute("sessionAdmin", admin);
             return "index-admin";
-        } else if (sessionAdmin.getRole().equals("BRAND")) {
-            session.setAttribute("sessionBrand", sessionAdmin);
+        } else if (admin.getRole().equals(BRAND)) {
+            session.setAttribute("sessionBrand", admin);
             return "index-brand";
         }
-        return "index-brand"; // 기본값으로 설정
+        return "index-brand";
     }
 
     //회원가입 관리자/브랜드
@@ -65,7 +62,7 @@ public class AdminController {
     // 관리자 매출관리 페이지
     @GetMapping("/api/admin-sales-manage")
     public String adminSalesManage(HttpServletRequest req) {
-        SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionAdmin");
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
         if (sessionAdmin == null) {
             throw new Exception403("잘못된 접근입니다.");
         }
@@ -78,7 +75,7 @@ public class AdminController {
     // 브랜드 매출관리 페이지
     @GetMapping("/api/brand-sales-manage")
     public String brandSalesManage(HttpServletRequest req) {
-        SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionBrand");
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
         List<AdminResponse.BrandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         req.setAttribute("orderHistoryList", orderHistoryList);
 
@@ -88,24 +85,19 @@ public class AdminController {
     // 회원 관리 페이지
     @GetMapping("/api/user-manage")
     public String userManage(HttpServletRequest request) {
-        SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionAdmin");
         List<AdminResponse.UserListDTO> userList = adminService.getUserList();
         request.setAttribute("userList", userList);
         return "admin/user-manage";
     }
 
-    //크리에이터 승인 거절
     @PostMapping("/approve-creators/{userId}")
-    public String approveCreatorStatus(@PathVariable int userId) {
-        SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionAdmin");
+    public String approveCreatorStatus(@PathVariable Integer userId) {
         adminService.approveCreatorStatus(userId);
         return "redirect:/api/user-manage";
     }
 
-
     @PostMapping("/reject-creators/{userId}")
     public String rejectCreatorStatus(@PathVariable Integer userId) {
-        SessionAdmin sessionAdmin = (SessionAdmin) session.getAttribute("sessionAdmin");
         adminService.rejectCreatorStatus(userId);
         return "redirect:/api/user-manage";
     }

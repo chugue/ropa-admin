@@ -26,6 +26,7 @@ public class UserRestController {
         return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO)); // header 문법
     }
 
+    // 앱} 로그아웃
     @GetMapping("/user/logout")
     public ResponseEntity<?> logout() {
         session.invalidate();

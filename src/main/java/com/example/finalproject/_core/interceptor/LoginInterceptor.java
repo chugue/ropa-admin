@@ -13,7 +13,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("preHandle............");
 
-        //TODO User엔티티가 구현되면 주석 풀기 - jwt 는 모든 기능 완성후에
         HttpSession session = request.getSession();
 
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
@@ -23,5 +22,4 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         throw new Exception401("로그인 하셔야 해요");
     }
-
 }

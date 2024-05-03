@@ -10,11 +10,13 @@ public class UserResponse {
         private Integer id;
         private String email;
         private String username;
+        private Boolean blueChecked;
 
         public LoginDTO(User user) {
             this.id = user.getId();
             this.email = user.getEmail();
             this.username = user.getMyName();
+            this.blueChecked = user.getBlueChecked();
         }
     }
 

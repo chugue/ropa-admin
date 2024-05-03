@@ -22,7 +22,7 @@ public class ItemsController {
     @GetMapping("/api/items-manage")
     public String itemsManage(HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        List<ItemsResponse.listDTO> itemsList = itemsService.findItemsByAdminId(sessionBrand);
+        List<ItemsResponse.listDTO> itemsList = itemsService.findItemsByAdminId(sessionBrand.getId());
         requestDTO.setAttribute("itemsList", itemsList);
         return "items/items-manage";
     }
@@ -31,7 +31,7 @@ public class ItemsController {
     @GetMapping("/api/items-detail/{itemId}")
     public String itemsDetail(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand, itemId);
+        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-detail";
     }
@@ -51,7 +51,7 @@ public class ItemsController {
         requestDTO.setMainCategory(mainCategory);
         requestDTO.setSubCategory(subCategory);
         // 카테고리 리스트 설정
-        itemsService.saveItem(requestDTO, sessionBrand);
+        itemsService.saveItem(requestDTO, sessionBrand.getId());
         return "redirect:/api/items-manage";
     }
 
@@ -59,7 +59,7 @@ public class ItemsController {
     @GetMapping("/api/items-update-form/{itemId}")
     public String itemsUpdateForm(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand, itemId);
+        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-update-form";
     }
@@ -68,7 +68,7 @@ public class ItemsController {
     @PostMapping("/api/items-update/{itemId}")
     public String itemsUpdate(@PathVariable("itemId") Integer itemId, ItemsRequest.UpdateDTO updateDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        itemsService.updateItem(itemId, updateDTO, sessionBrand);
+        itemsService.updateItem(itemId, updateDTO, sessionBrand.getId());
         return "redirect:/api/items-manage";
     }
 

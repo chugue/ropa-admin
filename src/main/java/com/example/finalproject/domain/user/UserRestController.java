@@ -5,10 +5,7 @@ import com.example.finalproject._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -58,9 +55,17 @@ public class UserRestController {
 
     // 앱 사용자 크리에이터 지원 페이지
     @GetMapping("/app/creator-apply")
-    public ResponseEntity<?> creatorApply() {
+    public ResponseEntity<?> creatorApplyPage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.CreatorApplyDTO respDTO = userService.creatorApply(sessionUser);
+        UserResponse.CreatorApplyDTO respDTO = userService.creatorApplyPage(sessionUser);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    // 앱 사용자 크리에이터 지원하기
+    @PutMapping("/app/creator-apply")
+    public ResponseEntity<?> creatorApply(@RequestBody UserRequest.CreatorApplyDTO creatorApplyDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.CreatorApplyDTO respDTO = userService.creatorApply(creatorApplyDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 }

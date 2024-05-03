@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,8 @@ public class UserRequest {
             this.email = email;
             this.nickName = nickName;
             this.password = password;
-            this.createdAt = Timestamp.from(Instant.now());;
+            this.createdAt = Timestamp.from(Instant.now());
+            ;
         }
     }
 
@@ -38,6 +40,23 @@ public class UserRequest {
         public LoginDTO(String email, String password) {
             this.email = email;
             this.password = password;
+        }
+    }
+
+    // 앱 크리에이터 지원 요청
+    @AllArgsConstructor
+    @Data
+    public static class CreatorApplyDTO {
+        private String height;
+        private String weight;
+        private String instagram;
+        private String job;
+
+        public CreatorApplyDTO(User user) {
+            this.height = user.getHeight();
+            this.weight = user.getWeight();
+            this.instagram = user.getInstagram();
+            this.job = user.getJob();
         }
     }
 }

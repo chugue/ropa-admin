@@ -20,6 +20,7 @@ public class UserResponse {
         }
     }
 
+    // 관리자 유저 목록 DTO
     @Data
     public static class UserListDTO {
         private String myName;
@@ -52,6 +53,7 @@ public class UserResponse {
         }
     }
 
+    // 앱 사용자 세팅 DTO
     @Data
     public static class SettingPageDTO {
         private Integer id;
@@ -69,6 +71,7 @@ public class UserResponse {
         }
     }
 
+    // 앱 사용자 프로필 DTO
     @Data
     public static class ProfilePageDTO {
         private Integer userId;
@@ -101,6 +104,7 @@ public class UserResponse {
         }
     }
 
+    // 앱 크리에이터 지원 DTO
     @Data
     public static class CreatorApplyDTO {
         private Integer id;

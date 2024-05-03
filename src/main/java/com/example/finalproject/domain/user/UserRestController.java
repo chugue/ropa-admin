@@ -5,7 +5,10 @@ import com.example.finalproject._core.utils.ApiUtil;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,16 +41,18 @@ public class UserRestController {
     }
 
     // 앱 세팅 화면
-    @GetMapping("/app/setting/{userId}")
-    public ResponseEntity<?> settingPage(@PathVariable Integer userId) {
-        UserResponse.SettingPageDTO respDTO = userService.settingPage(userId);
+    @GetMapping("/app/setting")
+    public ResponseEntity<?> settingPage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.SettingPageDTO respDTO = userService.settingPage(sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
     // 앱 프로필 화면
-    @GetMapping("/app/profile/{userId}")
-    public ResponseEntity<?> profilePage(@PathVariable Integer userId) {
-        UserResponse.ProfilePageDTO respDTO = userService.profilePage(userId);
+    @GetMapping("/app/profile")
+    public ResponseEntity<?> profilePage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.ProfilePageDTO respDTO = userService.profilePage(sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 }

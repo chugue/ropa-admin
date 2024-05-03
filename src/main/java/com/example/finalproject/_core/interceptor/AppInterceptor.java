@@ -23,12 +23,7 @@ public class AppInterceptor implements HandlerInterceptor {
 
         try {
             SessionUser sessionUser = AppJwtUtill.verify(jwt);
-            if (sessionUser.getBlueChecked() == true) {
-                session.setAttribute("sessionCreator", sessionUser);
-            }
-            if (sessionUser.getBlueChecked() == false) {
-                session.setAttribute("sessionUser", sessionUser);
-            }
+            session.setAttribute("sessionUser", sessionUser);
         } catch (TokenExpiredException e) {
             throw new Exception401("토큰 만료 시간이 지났습니다. 다시 로그인 하세요");
         } catch (JWTDecodeException e) {

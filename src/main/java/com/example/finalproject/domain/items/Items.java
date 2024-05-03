@@ -42,7 +42,9 @@ public class Items {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    private Category category; // 초기화
+    private Category category;
+
+    private Boolean status; // 삭제상태
 
     @CreationTimestamp
     private Timestamp createdAt; // 등록시간
@@ -51,7 +53,7 @@ public class Items {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Category category, Timestamp createdAt, Timestamp updatedAt) {
+    public Items(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, Category category, Boolean status, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.admin = admin;
         this.name = name;
@@ -61,6 +63,7 @@ public class Items {
         this.discountPrice = discountPrice;
         this.stock = stock;
         this.category = category;
+        this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

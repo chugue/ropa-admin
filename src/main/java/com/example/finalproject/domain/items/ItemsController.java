@@ -71,4 +71,12 @@ public class ItemsController {
         itemsService.updateItem(itemId, updateDTO, sessionBrand);
         return "redirect:/api/items-manage";
     }
+
+    // 아이템 삭제
+    @PostMapping("/api/items-delete/{itemId}")
+    public String itemsDelete(@PathVariable("itemId") Integer itemId) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        itemsService.deleteItem(itemId, sessionBrand);
+        return "redirect:/api/items-manage";
+    }
 }

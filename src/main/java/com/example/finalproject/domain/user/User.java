@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.user;
 
+import com.example.finalproject.domain.photo.Photo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,9 @@ public class User {
     private String address; //주소
 
     private String mobile; // 연락처
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Photo photo;
 
     private String height; // 키
 

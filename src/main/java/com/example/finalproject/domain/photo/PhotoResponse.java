@@ -22,6 +22,7 @@ public class PhotoResponse {
                     new ItemsPhotoDTO(photo, photo.getItems(), photo.getItems().getAdmin())).toList();
         }
 
+
         @Data
         public class CreatorPhotoDTO{
             private Integer photoId;

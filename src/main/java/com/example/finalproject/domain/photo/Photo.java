@@ -6,6 +6,7 @@ import com.example.finalproject.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,14 +31,17 @@ public class Photo {
     @Enumerated(EnumType.STRING)
     private Sort sort; // 구분 [사용자, 아이템, 코디]
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user; // 사용자 고유번호
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "items_id")
     private Items items; // 아이템 고유번호
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "codi_id")
     private Codi codi;

@@ -18,6 +18,7 @@ public class UserService {
                 .email(reqDTO.getEmail())
                 .password(reqDTO.getPassword())
                 .nickName(reqDTO.getNickName())
+                .status("신청전")
                 .createdAt(reqDTO.getCreatedAt())
                 .blueChecked(false)
                 .build());

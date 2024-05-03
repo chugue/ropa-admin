@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ItemsRepository extends JpaRepository<Items, Integer> {
 
     //브랜드의 아이템 목록
-    @Query("SELECT i FROM Items i JOIN FETCH i.category WHERE i.admin.id = :adminId")
+    @Query("SELECT i FROM Items i JOIN FETCH i.category WHERE i.status = true AND i.admin.id = :adminId")
     List<Items> findItemsByAdminId(@Param("adminId") int adminId);
 
     // 브랜드 아이템 상세보기

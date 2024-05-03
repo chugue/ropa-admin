@@ -73,6 +73,9 @@
                 <form method="get" action="/api/items-update-form/{{itemsDetail.itemId}}" style="display: inline;">
                     <button class="btn btn-primary mr-2">수정하기</button>
                 </form>
+                <form method="post" action="/api/items-delete/{{itemsDetail.itemId}}" style="display: inline;">
+                    <button class="btn btn-danger mr-2">삭제하기</button>
+                </form>
                 <a href="/api/items-manage" class="btn btn-outline-primary">이전</a>
             </div>
         </div>

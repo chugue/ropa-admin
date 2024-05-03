@@ -27,11 +27,11 @@ public class UserResponse {
             private String job; //직업
             private String introMsg; //자기소개
 
-            public UserDTO(User user, Photo photo) {
+            public UserDTO(User user) {
                 this.creatorId = user.getId();
                 this.blueChecked = user.getBlueChecked();
-                this.photoName = photo.getName();
-                this.photoPath = photo.getPath();
+                this.photoName = user.getPhoto().getName();
+                this.photoPath = user.getPhoto().getPath();
                 this.nickName = user.getNickName();
                 this.height = user.getHeight();
                 this.weight = user.getWeight();
@@ -43,10 +43,16 @@ public class UserResponse {
         @Data
         public class CodiListDTO {
             private Integer codiId;
+            private Integer codiPhotoId;
             private String photoName;
             private String photoPath;
 
-
+            public CodiListDTO(Codi codi, Photo photo) {
+                this.codiId = codi.getId();
+                this.codiPhotoId = codiPhotoId;
+                this.photoName = photoName;
+                this.photoPath = photoPath;
+            }
         }
     }
 

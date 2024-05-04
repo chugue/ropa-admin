@@ -14,6 +14,13 @@ public class UserResponse {
         private List<CodiListDTO> codiLIst;
         private List<ItemListDTO> itemList;
 
+        public CreatorViewDTO(User user, List<CodiListDTO> codiLIst, List<ItemListDTO> itemList) {
+            this.userId = user.getId();
+            this.userDTO = new UserDTO(user);
+            this.codiLIst = codiLIst;
+            this.itemList = itemList;
+        }
+
 
         @Data
         public class UserDTO {

@@ -68,4 +68,13 @@ public class UserRestController {
         UserResponse.CreatorApplyDTO respDTO = userService.creatorApply(creatorApplyDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
+
+    @GetMapping("/app/creator/{id}")
+    public ResponseEntity<?> creatorView(@PathVariable Integer id) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.CreatorViewDTO respDTO = userService.creatorView(sessionUser, id);
+
+
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
 }

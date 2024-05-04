@@ -54,7 +54,7 @@ public class UserResponse {
                 this.codiPhotoId = codiItems.getCodi().getPhotos().getFirst().getId();
                 this.photoName = codiItems.getCodi().getPhotos().getLast().getName();
                 this.photoPath = codiItems.getCodi().getPhotos().getFirst().getPath();
-                this.codiPhoto = codiItems.getCodi().getPhotos().getFirst().getSort();
+                this.codiPhoto = codiItems.getCodi().getPhotos().getLast().getSort();
             }
         }
 
@@ -71,9 +71,9 @@ public class UserResponse {
                 this.itemId = codiItems.getItems().getId();
                 this.name = codiItems.getItems().getName();
                 this.description = codiItems.getItems().getDescription();
-                this.price = items.getPrice();
-                this.photoName = items.getPhotos().get;
-                this.photoPath = photoPath;
+                this.price = codiItems.getItems().getPrice();
+                this.photoName = String.valueOf(codiItems.getItems().getPhotos().getClass());
+                this.photoPath = String.valueOf(codiItems.getItems().getPhotos().getClass());
             }
         }
     }

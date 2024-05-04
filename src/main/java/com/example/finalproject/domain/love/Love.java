@@ -12,7 +12,9 @@ import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Entity
-@Table(name = "love_tb")
+@Table(name = "love_tb", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "codi_id"})
+})
 @Data
 public class Love {
     @Id
@@ -27,7 +29,7 @@ public class Love {
     @JoinColumn(name = "codi_id", nullable = false)
     private Codi codi; // 코디 고유번호
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Boolean isLoved; // 좋아요 상태
 
     @CreationTimestamp

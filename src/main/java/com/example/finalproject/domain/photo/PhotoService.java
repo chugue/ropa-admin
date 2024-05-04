@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.photo;
 
-import com.example.finalproject.domain.orderHistory.OrderHistory;
+import com.example.finalproject.domain.love.LoveRepository;
+import com.example.finalproject.domain.love.LoveRequest;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,23 @@ import java.util.List;
 public class PhotoService {
     private final PhotoRepository photoRepository;
     private final OrderHistoryRepository orderHistoryRepository;
+    private final LoveRepository loveRepository;
 
     // 앱] 메인 홈 화면 요청
     public PhotoResponse.HomeDTO getHomeLists() {
-        // 인기 크리에이터 사진 조회 (마일리지를 많이 받은 순대로 나열)
-        List<Photo> popularCreatorsList = photoRepository.findByMileageWithPhoto();
-        // 인기 아이템의 id 조회 (총 판매량 순으로 아이템을 나열)
-        List<Integer> itemsId = orderHistoryRepository.findItemsIdByTotalSales();
-        // 인기 아이템으로 얻어진 id로 사진 가져오기
-        List<Photo> popularItemsList = photoRepository.findByItemsIds(itemsId);
+        // 코디의 좋아요의 합으로 인기크리에이터를 좋아요받은 순으로 나열 + 대표 사진까지 찾기
+        List<LoveRequest.UserLoveCount> userLoveCounts = loveRepository.findUserIdsSortedByLoveCount();
+        List<Integer> popularCreators = userLoveCounts.stream().map(userLoveCount -> userLoveCount.getUserId()).toList();
+        List<Photo> popularUserPhotos = photoRepository.findByUserId(popularCreators);
 
-        return new PhotoResponse.HomeDTO(popularCreatorsList, popularItemsList);
+        // 인기 아이템의 id 조회 (총 판매량 순으로 아이템을 나열) + 사진 가져오기
+        List<Integer> itemsId = orderHistoryRepository.findItemsIdByTotalSales();
+        List<Photo> popularItemsPhotos = photoRepository.findByItemsIds(itemsId);
+
+        // 인기 코디 좋아요 순으로 정렬
+        List<LoveRequest.CodiLoveCount> popularCodies = loveRepository.findCodiIdsSortedByLoveCount();
+        List<Integer> popularCodiIdes = popularCodies.stream().map(codiLoveCount -> codiLoveCount.getCodiId()).toList();
+        List<Photo> popularCodiPhotos = photoRepository.findByCodiIds(popularCodiIdes);
+        return new PhotoResponse.HomeDTO(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
     }
 }

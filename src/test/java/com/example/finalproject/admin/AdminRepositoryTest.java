@@ -2,7 +2,6 @@ package com.example.finalproject.admin;
 
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -12,12 +11,8 @@ import java.util.Optional;
 
 @DataJpaTest
 class AdminRepositoryTest {
-
     @Autowired
     private AdminRepository adminRepository;
-
-    @Autowired
-    private EntityManager em;
 
     @Test
     public void findByEmailAndPassword_test() {

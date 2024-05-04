@@ -1,7 +1,9 @@
 package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.utils.ApiUtil;
+import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 public class CodiRestController {
     private final HttpServletRequest request;
     private final CodiService codiService;
+    private final HttpSession session;
 
     // 앱] 크리에이터 보기 코디 목록 탭
     @GetMapping("/app/find-codies/{creatorId}")
@@ -21,15 +24,13 @@ public class CodiRestController {
 //        codiService.findCreatorCodies();
     }
 
-
     // 코디 보기 페이지 (페이지내 아이템 목록 코디목록있음)
     @GetMapping("/app/codi-pages/{codiId}")
     public ResponseEntity<?> codiPage(@PathVariable Integer codiId){
-        CodiResponse.MainViewDTO respDTO = codiService.codiPage(codiId);
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        CodiResponse.MainViewDTO respDTO = codiService.codiPage(codiId, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
-
-
 
     // 코디 등록 (상의와 하의가 같이 저장됨) - 웹에서 코디 등록 로직 사라짐..
     @PostMapping("/api/codi-register")
@@ -40,7 +41,6 @@ public class CodiRestController {
         System.out.println(topItem);
         System.out.println(bottomItem);
     }
-
 
 
     // 코디 등록 페이지 카테고리 검색 - 웹에서 코디 등록 로직 사라짐..

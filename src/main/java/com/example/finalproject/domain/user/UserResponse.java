@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.user;
 
 import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 

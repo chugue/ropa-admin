@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.user;
 
+import com.example.finalproject.domain.photo.Photo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -33,9 +34,14 @@ public class User {
 
     private String mobile; // 연락처
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Photo photo;
+
     private String height; // 키
 
     private String weight; // 체중
+
+    private String job; // 직업 (직장인/학생)
 
     private String introMsg; // 크리에이터 한줄 자기소개
 
@@ -56,7 +62,7 @@ public class User {
     private Timestamp updateAt; // 회원 수정 시간
 
     @Builder
-    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, String instagram, Integer mileage, Boolean blueChecked, String status, Timestamp createdAt, Timestamp updateAt) {
+    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, String job, String instagram, Integer mileage, Boolean blueChecked, String introMsg, String status, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -66,6 +72,8 @@ public class User {
         this.mobile = mobile;
         this.height = height;
         this.weight = weight;
+        this.job = job;
+        this.introMsg = introMsg;
         this.instagram = instagram;
         this.mileage = mileage;
         this.blueChecked = blueChecked;

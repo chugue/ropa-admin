@@ -31,9 +31,11 @@ public class Admin {
     @Enumerated(EnumType.STRING)
     private AdminRole role; // 관리자 / 브랜드
 
-    enum AdminRole {
-        ADMIN, BRAND
+    public enum AdminRole {
+        ADMIN, BRAND;
+
     }
+
 
     @Column(nullable = false)
     private String address; //주소

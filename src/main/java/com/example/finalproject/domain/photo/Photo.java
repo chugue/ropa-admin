@@ -32,7 +32,7 @@ public class Photo {
     private Sort sort; // 구분 [사용자, 아이템, 코디]
 
     @ToString.Exclude
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user; // 사용자 고유번호
 

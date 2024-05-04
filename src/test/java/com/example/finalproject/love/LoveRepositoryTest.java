@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Arrays;
 import java.util.List;
 
 @DataJpaTest
@@ -21,7 +22,7 @@ public class LoveRepositoryTest {
         // when
         List<Object[]> loveCodiList = loveRepository.findAllSortByLoveCount();
         // then
-        loveCodiList.forEach(System.out::println);
+        loveCodiList.forEach(objects -> System.out.println(Arrays.toString(objects)));
 
     }
 }

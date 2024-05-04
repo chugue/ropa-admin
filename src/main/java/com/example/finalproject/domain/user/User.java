@@ -43,7 +43,7 @@ public class User {
 
     private String job; // 직업 (직장인/학생)
 
-    private String introduction;
+    private String introMsg; // 크리에이터 한줄 자기소개
 
     private String instagram; // 인스타그램
 
@@ -62,7 +62,7 @@ public class User {
     private Timestamp updateAt; // 회원 수정 시간
 
     @Builder
-    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, String job, String instagram, Integer mileage, Boolean blueChecked, String status, Timestamp createdAt, Timestamp updateAt) {
+    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, String job, String instagram, Integer mileage, Boolean blueChecked, String introMsg, String status, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -73,6 +73,7 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.job = job;
+        this.introMsg = introMsg;
         this.instagram = instagram;
         this.mileage = mileage;
         this.blueChecked = blueChecked;

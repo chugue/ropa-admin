@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.codi;
 
+import com.example.finalproject.domain.love.Love;
 import com.example.finalproject.domain.photo.Photo;
 import com.example.finalproject.domain.user.User;
 import jakarta.persistence.*;
@@ -10,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -33,6 +33,9 @@ public class Codi {
 
     @OneToMany(mappedBy = "codi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Photo> photos;
+
+    @OneToMany(mappedBy = "codi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Love> loves;
 
     @CreationTimestamp
     private Timestamp createdAt; // 등록시간

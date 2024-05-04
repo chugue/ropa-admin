@@ -10,4 +10,7 @@ public class LoveRepositoryTest {
     @Autowired
     private LoveRepository loveRepository;
 
+
+
+
 }

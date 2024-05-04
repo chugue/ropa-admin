@@ -2,6 +2,8 @@ package com.example.finalproject.domain.user;
 
 
 import com.example.finalproject._core.utils.ApiUtil;
+import com.example.finalproject._core.utils.AppJwtUtill;
+import com.example.finalproject._core.utils.JwtVO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,10 @@ public class UserRestController {
     // 앱] 로그인 요청
     @PostMapping("/user/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
-        String jwt = userService.login(reqDTO);
-        UserResponse.LoginDTO respDTO = userService.loginByDTO(reqDTO);
-
-
-        return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(new ApiUtil<>(respDTO)); // header 문법
+        User user = userService.login(reqDTO);
+        UserResponse.LoginDTO respDTO = new UserResponse.LoginDTO(user);
+        String jwt = AppJwtUtill.create(user);
+        return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil<>(respDTO)); // header 문법
     }
 
     // 앱} 로그아웃
@@ -33,8 +34,10 @@ public class UserRestController {
     // 앱] 회원가입
     @PostMapping("/user/join")
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
-        UserResponse.JoinDTO respDTO = userService.join(reqDTO);
-        return ResponseEntity.ok(new ApiUtil(respDTO));
+        User user = userService.join(reqDTO);
+        String jwt = AppJwtUtill.create(user);
+        UserResponse.JoinDTO respDTO = new UserResponse.JoinDTO(user);
+        return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil(respDTO));
     }
 
     // 앱 세팅 화면

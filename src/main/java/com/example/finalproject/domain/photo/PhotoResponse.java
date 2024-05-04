@@ -20,7 +20,6 @@ public class PhotoResponse {
             this.popularCodiPhotos = popularCodiPhotos.stream().map(CodiesPhotoDTO::new).toList();
         }
 
-
         @Data
         public class CreatorPhotoDTO{
             private Integer photoId;

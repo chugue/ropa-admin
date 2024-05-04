@@ -4,21 +4,35 @@ import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserResponse {
     @Data // 인기 크리에이터의 정보를 보여줄 때 사용되는 응답 DTO
     public static class CreatorViewDTO {
         private Integer userId;
         private UserDTO userDTO;
-        private List<CodiListDTO> codiLIst;
+        private List<CodiListDTO> codiList;
         private List<ItemListDTO> itemList;
 
-        public CreatorViewDTO(User user, List<CodiListDTO> codiLIst, List<ItemListDTO> itemList) {
+        public CreatorViewDTO(User user, List<CodiItems> codiItems) {
             this.userId = user.getId();
             this.userDTO = new UserDTO(user);
-            this.codiLIst = codiLIst;
-            this.itemList = itemList;
+            this.codiList = codiItems.stream().map(CodiListDTO::new).collect(Collectors.toList());
+
+            // itemList 초기화
+            this.itemList = new ArrayList<>();
+
+            // 중복 아이템 제외하며 itemList 초기화
+            Set<Integer> uniqueItemIds = new HashSet<>();
+            for (CodiItems codiItem : codiItems) {
+                if (uniqueItemIds.add(codiItem.getItems().getId())) {
+                    this.itemList.add(new ItemListDTO(codiItem));
+                }
+            }
         }
 
 

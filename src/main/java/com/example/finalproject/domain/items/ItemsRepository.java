@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.items;
 
-import com.example.finalproject.domain.codiItems.CodiItems;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,9 +9,8 @@ import java.util.Optional;
 
 
 public interface ItemsRepository extends JpaRepository<Items, Integer> {
-
-    @Query("SELECT i FROM CodiItems ci JOIN FETCH ci.items i JOIN FETCH i.photos WHERE ci IN :codiItems")
-    List<Items> findItemsByCodiItems(@Param("codiItems") List<CodiItems> codiItems);
+    @Query("SELECT ci.items FROM CodiItems ci join fetch ci.items.photos  WHERE ci.codi.id = :codiId")
+    List<Items> findItemsByCodiId(@Param("codiId") int codiId);
 
 
     //브랜드의 아이템 목록

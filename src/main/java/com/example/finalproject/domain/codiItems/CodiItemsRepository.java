@@ -7,9 +7,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CodiItemsRepository extends JpaRepository<CodiItems, Integer> {
-    //해당크리에이터 뷰에 해당 되는 크리에이터 정보, 코디 정보, 아이템 정보 가져오는 쿼리
-    @Query("SELECT ci FROM CodiItems ci LEFT JOIN FETCH ci.codi c LEFT JOIN FETCH c.user u LEFT JOIN FETCH ci.items i LEFT JOIN FETCH ci.codi.photos p LEFT JOIN FETCH i.photos WHERE u.id = :userId")
-    List<CodiItems> findByUserWithCodiLIstItemsList(@Param("userId") Integer userId);
+    @Query("SELECT ci FROM CodiItems ci JOIN FETCH ci.items WHERE ci.codi.id IN :codiIds")
+    List<CodiItems> findCodiItemsByCodiIdIn(@Param("codiIds") List<Integer> codiIds);
 
     @Query("SELECT ci FROM CodiItems ci LEFT JOIN FETCH ci.codi c LEFT JOIN FETCH c.user u WHERE u.id = :userId")
     List<CodiItems> findCodiItemsByUserId(@Param("userId") Integer userId);

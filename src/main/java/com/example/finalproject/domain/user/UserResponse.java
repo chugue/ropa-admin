@@ -66,6 +66,7 @@ public class UserResponse {
             private Integer price;
             private String photoName;
             private String photoPath;
+            private Photo.Sort itemPhoto;
 
             public ItemListDTO(CodiItems codiItems) {
                 this.itemId = codiItems.getItems().getId();
@@ -74,6 +75,8 @@ public class UserResponse {
                 this.price = codiItems.getItems().getPrice();
                 this.photoName = String.valueOf(codiItems.getItems().getPhotos().getClass());
                 this.photoPath = String.valueOf(codiItems.getItems().getPhotos().getClass());
+                this.itemPhoto = codiItems.getItems().getPhotos().get(2).getSort();
+
             }
         }
     }

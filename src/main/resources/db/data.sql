@@ -7,16 +7,22 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
 
 
 -- 앱 사용자 더미
-INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, job, intro_msg, instagram, status, blue_checked, mileage)
-VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인', '어깨 넓은 보통 체형',
-    '@instagram','신청 전',TRUE, 2000),
-       ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구',  '010-9876-5432', '168cm', '56kg', '학생', '키작고 마른 체형', '@twitter',
+INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, job, intro_msg, instagram,
+                     status, blue_checked, mileage)
+VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
+        '어깨 넓은 보통 체형',
+        '@instagram', '신청 전', TRUE, 2000),
+       ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
+        '키작고 마른 체형', '@twitter',
         '승인 대기', FALSE, 0),
-       ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555',  '180cm', '75kg', '직장인', '연예인 체형', '@facebook',
-           '승인', TRUE, 3000),
-       ('user4@example.com', '1234', '사용자4의 별명', '사용자4의 실명', '인천광역시 남동구',  '010-5555-5555',  '180cm', '70kg','학생', '키크고 마른 체형', '@facebook',
-        '신청 전',FALSE, 0),
-       ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555',  '180cm', '85kg', '학생', '키크고 덩치가 있는 체형','@facebook',
+       ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '직장인',
+        '연예인 체형', '@facebook',
+        '승인', TRUE, 3000),
+       ('user4@example.com', '1234', '사용자4의 별명', '사용자4의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '70kg', '학생',
+        '키크고 마른 체형', '@facebook',
+        '신청 전', FALSE, 0),
+       ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '85kg', '학생',
+        '키크고 덩치가 있는 체형', '@facebook',
         '신청 전', TRUE, 5000);
 
 -- 카테고리 테이블 더미
@@ -77,16 +83,16 @@ values (1, '코디1', '좋은 코디입니다.', NOW()),
 
 
 -- 코디랑 아이템을 연결해주는 테이블
-insert into codi_items_tb (items_id, codi_id) values
-                                                  (1,1),
-                                                  (2,1),
-                                                  (3,1),
-                                                  (2,2),
-                                                  (3,2),
-                                                  (6,2),
-                                                  (5,3),
-                                                  (7,3),
-                                                  (10,3);
+INSERT INTO codi_items_tb (items_id, codi_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1),
+       (2, 2),
+       (3, 2),
+       (6, 2),
+       (5, 3),
+       (7, 3),
+       (10, 3);
 
 -- 사진 테이블 더미
 -- 크리이터 사용자용
@@ -114,15 +120,13 @@ values ('사용자사진1', '사용자경로1', 'USER', 1, null, null, NOW()),
        ('아이템사진16', '아이템사진경로16', 'ITEM', null, null, 16, NOW()),
        ('아이템사진17', '아이템사진경로17', 'ITEM', null, null, 17, NOW()),
        ('아이템사진18', '아이템사진경로18', 'ITEM', null, null, 18, NOW()),
-       ('코디사진1', '코디사진경로1', 'CODI', null, 1, null,  NOW()),
-       ('코디사진2', '코디사진경로2', 'CODI', null, 1, null,  NOW()),
-       ('코디사진3', '코디사진경로3', 'CODI', null, 1, null,  NOW()),
-       ('코디사진4', '코디사진경로4', 'CODI', null, 2, null,  NOW()),
-       ('코디사진5', '코디사진경로5', 'CODI', null, 2, null,  NOW()),
-       ('코디사진6', '코디사진경로6', 'CODI', null, 3, null,  NOW()),
-       ('코디사진7', '코디사진경로7', 'CODI', null, 3, null,  NOW());
-
-
+       ('코디사진1', '코디사진경로1', 'CODI', null, 1, null, NOW()),
+       ('코디사진2', '코디사진경로2', 'CODI', null, 1, null, NOW()),
+       ('코디사진3', '코디사진경로3', 'CODI', null, 1, null, NOW()),
+       ('코디사진4', '코디사진경로4', 'CODI', null, 2, null, NOW()),
+       ('코디사진5', '코디사진경로5', 'CODI', null, 2, null, NOW()),
+       ('코디사진6', '코디사진경로6', 'CODI', null, 3, null, NOW()),
+       ('코디사진7', '코디사진경로7', 'CODI', null, 3, null, NOW());
 
 
 -- 좋아요 기능
@@ -168,16 +172,15 @@ VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP),
 -- 주문 상세(OrderHistory) 더미 데이터 삽입
 INSERT INTO order_history_tb (admin_id, order_id, items_id, order_item_qty, order_item_price, fee)
 VALUES (1, 2, 1, 2, 100000, 10000),
-       (2, 3, 2, 1,  75000, 7500),
+       (2, 3, 2, 1, 75000, 7500),
        (1, 1, 1, 3, 300000, 30000),
        (3, 2, 3, 2, 150000, 15000),
        (2, 1, 5, 8, 225000, 22500),
        (3, 3, 3, 2, 200000, 20000),
-       (1, 1, 6, 1,  50000, 5000),
-       (2, 2, 2, 3,  75000, 7500),
+       (1, 1, 6, 1, 50000, 5000),
+       (2, 2, 2, 3, 75000, 7500),
        (1, 3, 7, 4, 400000, 40000),
        (3, 1, 10, 2, 200000, 20000);
-
 
 
 

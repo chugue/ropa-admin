@@ -15,7 +15,18 @@ public class CodiItemsRepositoryTest {
     private CodiItemsRepository codiItemsRepository;
 
     @Test
-    public void findByCodiWithItems_test(){
+    public void findByUserWithCodiLIstItemsList_test() {
+        // given
+        Integer userId = 1;
+        // when
+        List<CodiItems> codiItems = codiItemsRepository.findByUserWithCodiLIstItemsList(userId);
+        // then
+        System.out.println(codiItems.size());
+
+    }
+
+    @Test
+    public void findByCodiWithItems_test() {
         // given
         Integer codiId = 1;
         // when

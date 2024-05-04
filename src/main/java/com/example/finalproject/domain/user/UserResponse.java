@@ -73,9 +73,9 @@ public class UserResponse {
                 this.name = codiItems.getItems().getName();
                 this.description = codiItems.getItems().getDescription();
                 this.price = codiItems.getItems().getPrice();
-                this.photoName = String.valueOf(codiItems.getItems().getPhotos().getClass());
-                this.photoPath = String.valueOf(codiItems.getItems().getPhotos().getClass());
-                this.itemPhoto = codiItems.getItems().getPhotos().get(2).getSort();
+                this.photoName = codiItems.getItems().getPhotos().getFirst().getName();
+                this.photoPath = codiItems.getItems().getPhotos().getFirst().getPath();
+                this.itemPhoto = codiItems.getItems().getPhotos().getFirst().getSort();
 
             }
         }

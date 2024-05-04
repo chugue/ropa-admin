@@ -3,6 +3,8 @@ package com.example.finalproject.domain.user;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.codiItems.CodiItemsRepository;
+import com.example.finalproject.domain.items.Items;
+import com.example.finalproject.domain.items.ItemsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final CodiItemsRepository codiItemsRepository;
+    private final ItemsRepository itemsRepository;
 
     //회원가입
     @Transactional
@@ -76,17 +79,21 @@ public class UserService {
 
     //크리에이터 뷰 페이지
     public UserResponse.CreatorViewDTO creatorView(SessionUser sessionUser, Integer id) {
+        // 1. 세션에서 사용자 정보 가져오기
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
+        // 2. 선택된 크리에이터의 정보와 관련된 코디 아이템을 가져오기
+        List<CodiItems> codiItemsList = codiItemsRepository.findCodiItemsByUserId(id);
 
-        // 2. 선택된 크리에이터의 정보와 관련된 코디 및 아이템을 가져오기
-        List<CodiItems> codiItemsList = codiItemsRepository.findByUserWithCodiLIstItemsList(id);
+        // 3. 코디 아이템을 기반으로 아이템 리스트 가져오기
+        List<Items> itemsList = itemsRepository.findItemsByCodiItems(codiItemsList);
 
-        // 3. DTO로 매핑하기
-        UserResponse.CreatorViewDTO respDTO = new UserResponse.CreatorViewDTO(user, codiItemsList);
+        // 4. DTO로 매핑하기
+        UserResponse.CreatorViewDTO respDTO = new UserResponse.CreatorViewDTO(user, codiItemsList, itemsList);
 
         return respDTO;
     }
+
 
 }

@@ -97,7 +97,7 @@ public class UserService {
 
         // 3. DTO로 매핑하기
         List<UserResponse.CreatorViewDTO> respDTO = codiItemsList.stream().map(codiItems -> {
-            return new UserResponse.CreatorViewDTO(ｕｓｅｒ);
+            return new UserResponse.CreatorViewDTO(user, codiItemsList, ite);
         }).toList();
 
         return respDTO;

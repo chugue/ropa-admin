@@ -50,11 +50,11 @@ public class UserResponse {
 
 
             public CodiListDTO(CodiItems codiItems) {
-                this.codiId = codiItems.getId();
+                this.codiId = codiItems.getCodi().getId();
                 this.codiPhotoId = codiItems.getCodi().getPhotos().getFirst().getId();
-                this.photoName = codiItems.getCodi().getPhotos().getLast().getName();
+                this.photoName = codiItems.getCodi().getPhotos().getFirst().getName();
                 this.photoPath = codiItems.getCodi().getPhotos().getFirst().getPath();
-                this.codiPhoto = codiItems.getCodi().getPhotos().getLast().getSort();
+                this.codiPhoto = codiItems.getCodi().getPhotos().getFirst().getSort();
             }
         }
 

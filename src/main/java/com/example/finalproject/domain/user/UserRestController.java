@@ -24,7 +24,7 @@ public class UserRestController {
         return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil<>(respDTO)); // header 문법
     }
 
-    // 앱} 로그아웃
+    // 앱] 로그아웃
     @GetMapping("/user/logout")
     public ResponseEntity<?> logout() {
         session.invalidate();
@@ -57,7 +57,7 @@ public class UserRestController {
     }
 
     // 앱 사용자 크리에이터 지원 페이지
-    @GetMapping("/app/creator-apply")
+    @GetMapping("/app/creator-apply-form")
     public ResponseEntity<?> creatorApplyPage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.CreatorApplyDTO respDTO = userService.creatorApplyPage(sessionUser);

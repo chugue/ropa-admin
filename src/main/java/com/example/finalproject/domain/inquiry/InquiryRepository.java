@@ -13,6 +13,11 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Integer> {
     @Query("select i from Inquiry i join fetch i.user u where i.admin.id = :adminId order by i.createdAt desc")
     List<Inquiry> findAllByAdminIdWithUser(@Param("adminId") Integer adminId);
 
+    // 문의 번호로 문의와 사용자 정보 가져오기
     @Query("select i from Inquiry i join fetch i.user u where i.id = :inquiryId")
     Optional<Inquiry> findByInquiryIdWithUser(@Param("inquiryId") Integer inquiryId);
+
+    // 사용자 아이디로 검색되는 모든 문의 조회
+    @Query("select i from Inquiry i where i.user.id = :userId")
+    List<Inquiry> findAllByUserId(@Param("userId") Integer userId);
 }

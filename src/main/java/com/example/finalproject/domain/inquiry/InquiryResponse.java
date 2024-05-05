@@ -3,11 +3,29 @@ package com.example.finalproject.domain.inquiry;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
 public class InquiryResponse {
+
+    @Data // 문의 저장후 확인 데이터
+    public static class SaveDTO {
+        private Integer inquiryId;
+        private Integer userId;
+        private Integer brandId;
+        private String title;
+        private Timestamp createdAt;
+
+        public SaveDTO(Inquiry inquiry) {
+            this.inquiryId = inquiry.getId();
+            this.userId = inquiry.getUser().getId();
+            this.brandId = inquiry.getAdmin().getId();
+            this.title = inquiry.getTitle();
+            this.createdAt = inquiry.getCreatedAt();
+        }
+    }
 
 
     @Data   // 앱 문의화면에서 뿌려지는 문의 목록 DTO
@@ -94,4 +112,6 @@ public class InquiryResponse {
         }
 
     }
+
+
 }

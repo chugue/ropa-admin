@@ -19,4 +19,19 @@ public class InquiryRequest {
             this.commentedAt = Timestamp.from(Instant.now());
         }
     }
+
+    @Data
+    public static class SaveDTO {
+        private Integer brandId;
+        private String title;
+        private String content;
+        private Timestamp createdAt;
+
+        public SaveDTO(Integer brandId, String title, String content) {
+            this.brandId = brandId;
+            this.title = title;
+            this.content = content;
+            this.createdAt = Timestamp.from(Instant.now());
+        }
+    }
 }

@@ -56,7 +56,6 @@ public class Inquiry {
         this.status = status;
     }
 
-
     void toReplyUpdate(InquiryRequest.ReplyDTO reqDTO) {
         this.setId(reqDTO.getInquiryId());
         this.setComment(reqDTO.getComment());

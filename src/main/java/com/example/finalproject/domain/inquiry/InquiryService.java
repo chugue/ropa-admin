@@ -3,6 +3,9 @@ package com.example.finalproject.domain.inquiry;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.AdminRepository;
+import com.example.finalproject.domain.user.User;
+import com.example.finalproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +16,28 @@ import java.util.List;
 @Service
 public class InquiryService {
     private final InquiryRepository inquiryRepository;
+    private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
+
+    // 문의 등록
+    @Transactional
+    public InquiryResponse.SaveDTO saveInquiry(InquiryRequest.SaveDTO reqDTO, Integer userId) {
+        Admin admin = adminRepository.findById(reqDTO.getBrandId())
+                .orElseThrow(() -> new Exception404("업체를 찾을 수 없습니다."));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("등록되지 않은 사용자 입니다."));
+
+        Inquiry savedInquiry = inquiryRepository.save(Inquiry.builder()
+                .user(user)
+                .admin(admin)
+                .title(reqDTO.getTitle())
+                .content(reqDTO.getContent())
+                .createdAt(reqDTO.getCreatedAt())
+                .status(false).build());
+
+        return new InquiryResponse.SaveDTO(savedInquiry);
+
+    }
 
     // 브랜드 관리자 ID로 모든 문의 조회
     public List<InquiryResponse.ListDTO> findAllInquiryWithUser(Integer adminId) {
@@ -55,4 +80,8 @@ public class InquiryService {
 
         return inquiries.stream().map(inquiry -> new InquiryResponse.UserPageDTO(inquiry)).toList();
     }
+
+
+
+
 }

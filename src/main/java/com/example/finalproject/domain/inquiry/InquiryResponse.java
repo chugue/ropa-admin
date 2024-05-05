@@ -9,16 +9,42 @@ import java.util.Date;
 
 public class InquiryResponse {
 
+
+    @Data   // 앱 문의화면에서 뿌려지는 문의 목록 DTO
+    public static class UserPageDTO {
+        private Integer inquiryId;
+        private Boolean isReplied;
+        private String title;
+        private String content;
+        private String createdAt;
+
+        public UserPageDTO(Inquiry inquiry) {
+            this.inquiryId = inquiry.getId();
+            this.isReplied = inquiry.getStatus();
+            this.title = inquiry.getTitle();
+            this.content = inquiry.getContent();
+            this.createdAt = formatDate(inquiry.getCreatedAt());
+        }
+
+        // TimeStamp를 특정 포맷으로 변환 : 여기선 2024-02-21 15:30 형태
+        private String formatDate(Date date) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            return dateFormat.format(date);
+        }
+    }
+
+
     @Data
     public static class ListDTO {
+
         private Integer id; // 문의 PK
         private Integer num; // 문의게시물 개수 연산
         private String myName;
         private String title;
         private Boolean status;
         private String statusMsg;
-        private String createdAt;
 
+        private String createdAt;
         public ListDTO(Inquiry inquiry, User user) {
             this.id = inquiry.getId();
             this.myName = user.getMyName();
@@ -33,8 +59,8 @@ public class InquiryResponse {
                 this.statusMsg = "응답완료";
             }
         }
-    }
 
+    }
     @Data
     public static class ReplyDTO {
         private Integer id;
@@ -44,8 +70,8 @@ public class InquiryResponse {
         private String comment;
         private String createdAt;
         private Boolean isReplied;
-        private String commentedAt;
 
+        private String commentedAt;
         public ReplyDTO(Inquiry inquiry, User user) {
             this.id = inquiry.getId();
             this.myName = user.getMyName();
@@ -66,5 +92,6 @@ public class InquiryResponse {
             }
             this.createdAt = dateFormat.format(inquiry.getCreatedAt());
         }
+
     }
 }

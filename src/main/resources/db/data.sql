@@ -9,15 +9,15 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
 -- 앱 사용자 더미
 INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, instagram, status, blue_checked, mileage)
 VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg',
-        '@instagram','신청 전',TRUE, 2000),
+        '@instagram','신청전',FALSE, 2000),
        ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '60kg', '@twitter',
-       '승인 대기', FALSE, 0),
+       '승인대기', FALSE, 0),
        ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
         '승인', TRUE, 3000),
        ('user4@example.com', '1234', '사용자4의 별명', '사용자4의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
-        '신청 전',FALSE, 0),
+        '신청전',FALSE, 0),
         ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '@facebook',
-         '신청 전', TRUE, 5000);
+         '신청전', FALSE, 5000);
 
 -- 카테고리 테이블 더미
 INSERT INTO category_tb (main, sub)
@@ -151,13 +151,17 @@ VALUES (1, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 
 
 INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)
-VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 3, 1,
+VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 1, 1,
         '2024-01-26 11:30:00', '2024-01-25 11:30:00'),
-       (true, '배송 문의', '주문한 상품이 아직 배송되지 않았습니다.', '평균 배송 2~3일 걸립니다!', 2, 1, '2024-02-18 09:00:00',
+       (true, '배송 문의', '주문한 상품이 아직 배송되지 않았습니다.', '평균 배송 2~3일 걸립니다!', 1, 1, '2024-02-18 09:00:00',
         '2024-02-16 01:00:00'),
-       (false, '상품 문의', '배송중 상품 교환이 가능한가요?', '', 2, 1, null, NOW()),
-       (false, '상품 문의', '반팔 카라티 모델이 차은우인가요?', '', 1, 1, null, NOW()),
-       (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 1, 2, null, NOW());
+       (false, '상품 문의', '배송중 상품 교환이 가능한가요?', '', 1, 1, null, NOW()),
+       (false, '상품 문의', '반팔 카라티 모델이 차은우인가요?', '', 3, 2, null, NOW()),
+       (false, '옷 사이즈 질문드립니다', '총 기장과 가슴 폭좀 알려주세요', '', 2, 2, null, NOW()),
+       (false, '혀가 거짓말을 하면?', '전혀 아니에요..', '', 4, 1, null, NOW()),
+       (false, '스님이 공중부양 하면?', '어중이 떠중이', '', 5, 1, null, NOW()),
+       (false, '여자 : 좋은 소식과 나쁜 소식이 있어. 우리 헤어지자.', '남자 : 그럼 나쁜 소식은?', '', 1, 3, null, NOW()),
+       (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 3, 2, null, NOW());
 
 -- 주문(Order) 더미 데이터 삽입
 INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)

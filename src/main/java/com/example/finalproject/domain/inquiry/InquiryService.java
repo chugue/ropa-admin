@@ -48,4 +48,11 @@ public class InquiryService {
         }
         inquiry.toReplyUpdate(reqDTO);
     }
+
+    // 문의 페이지 모든 문희 조회
+    public List<InquiryResponse.UserPageDTO> inquiryPage(Integer userId) {
+        List<Inquiry> inquiries = inquiryRepository.findAllByUserId(userId);
+
+        return inquiries.stream().map(inquiry -> new InquiryResponse.UserPageDTO(inquiry)).toList();
+    }
 }

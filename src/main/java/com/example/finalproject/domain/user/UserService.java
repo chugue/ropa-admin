@@ -3,7 +3,6 @@ package com.example.finalproject.domain.user;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiRepository;
-import com.example.finalproject.domain.codiItems.CodiItemsRepository;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import jakarta.transaction.Transactional;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final CodiItemsRepository codiItemsRepository;
     private final CodiRepository codiRepository;
     private final ItemsRepository itemsRepository;
 

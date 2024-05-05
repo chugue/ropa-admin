@@ -9,9 +9,10 @@ import java.util.Optional;
 
 
 public interface ItemsRepository extends JpaRepository<Items, Integer> {
-    @Query("SELECT ci.items FROM CodiItems ci join fetch ci.items.photos  WHERE ci.codi.id = :codiId")
-    List<Items> findItemsByCodiId(@Param("codiId") int codiId);
 
+    // 여러 코디에 대한 아이템과 포토 정보를 가져오는 쿼리
+    @Query("SELECT ci.items FROM CodiItems ci join fetch ci.items.photos WHERE ci.codi.id IN :codiIds")
+    List<Items> findItemsByCodiIds(@Param("codiIds") List<Integer> codiIds);
 
     //브랜드의 아이템 목록
     @Query("SELECT i FROM Items i JOIN FETCH i.category WHERE i.status = true AND i.admin.id = :adminId")

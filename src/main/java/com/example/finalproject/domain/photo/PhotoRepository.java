@@ -6,7 +6,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface PhotoRepository extends JpaRepository <Photo, Integer> {
+public interface PhotoRepository extends JpaRepository<Photo, Integer> {
+    @Query("SELECT ci.items.photos FROM CodiItems ci WHERE ci.codi.id IN :codiIds")
+    List<Photo> findPhotosByCodiIds(@Param("codiIds") List<Integer> codiIds);
+
 
     // 아이템 아이디들로 사진조회하는 쿼리
     @Query("select p from Photo p where p.items.id in :itemsIds")

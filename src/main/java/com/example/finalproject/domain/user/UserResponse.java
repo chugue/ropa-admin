@@ -6,7 +6,6 @@ import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserResponse {
     @Data
@@ -16,22 +15,14 @@ public class UserResponse {
         private List<CodiListDTO> codiList;
         private List<ItemListDTO> itemList;
 
-        public CreatorViewDTO(User user, List<Codi> codis, List<Items> itemsList) {
-            this.userId = user.getId();
-            this.userDTO = new UserDTO(user);
-            // 코디 아이템 리스트 매핑
-            this.codiList = codis.stream()
-                    .map(CodiListDTO::new)
-                    .collect(Collectors.toList());
-
-            // itemList 초기화
-            // 아이템 리스트 매핑
-            this.itemList = itemsList.stream()
-                    .map(ItemListDTO::new)
-                    .distinct() // 중복 아이템 제거
-                    .collect(Collectors.toList());
+        public CreatorViewDTO(UserDTO userDTO, List<CodiListDTO> codiList, List<ItemListDTO> itemList) {
+            this.userDTO = userDTO;
+            this.codiList = codiList;
+            this.itemList = itemList;
+            this.userId = userDTO.getCreatorId(); // userDTO에서 userId 가져오기
         }
     }
+
 
     @Data
     public static class UserDTO {
@@ -68,10 +59,14 @@ public class UserResponse {
 
         public CodiListDTO(Codi codi) {
             this.codiId = codi.getId();
-            this.codiPhotoId = codi.getPhotos().getFirst().getId();
-            this.photoName = codi.getPhotos().iterator().next().getName();
-            this.photoPath = codi.getPhotos().iterator().next().getPath();
-            this.codiPhoto = codi.getPhotos().iterator().next().getSort();
+            List<Photo> codiPhotos = codi.getPhotos();
+            if (codiPhotos != null && !codiPhotos.isEmpty()) {
+                Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
+                this.codiPhotoId = codiPhoto.getId();
+                this.photoName = codiPhoto.getName();
+                this.photoPath = codiPhoto.getPath();
+                this.codiPhoto = codiPhoto.getSort();
+            }
         }
     }
 
@@ -81,8 +76,9 @@ public class UserResponse {
         private String name;
         private String description;
         private Integer price;
-        private String photoName;
-        private String photoPath;
+        private Integer itemPhotoId;
+        private String itemPhotoName;
+        private String itemPhotoPath;
         private Photo.Sort itemPhoto;
 
         public ItemListDTO(Items items) {
@@ -90,10 +86,12 @@ public class UserResponse {
             this.name = items.getName();
             this.description = items.getDescription();
             this.price = items.getPrice();
-            if (!items.getPhotos().isEmpty()) {
-                Photo itemPhoto = items.getPhotos().iterator().next();
-                this.photoName = itemPhoto.getName();
-                this.photoPath = itemPhoto.getPath();
+            List<Photo> itemPhotos = items.getPhotos();
+            if (itemPhotos != null && !itemPhotos.isEmpty()) {
+                Photo itemPhoto = itemPhotos.get(0); // 첫 번째 포토만 사용
+                this.itemPhotoId = itemPhoto.getId();
+                this.itemPhotoName = itemPhoto.getName();
+                this.itemPhotoPath = itemPhoto.getPath();
                 this.itemPhoto = itemPhoto.getSort();
             }
         }

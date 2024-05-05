@@ -10,10 +10,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -88,25 +86,31 @@ public class UserService {
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
-        // 2. 선택된 크리에이터의 정보와 관련된 코디 목록과 아이템 리스트 가져오기
-        List<Codi> codis = codiRepository.findCodiAndPhotosByUserId(userId);
+        // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
+        List<Codi> codis = codiRepository.findCodiByUserId(userId);
 
-        // 아이템 리스트를 가져오는 과정에서 아이템과 그에 대한 포토 정보가 함께 가져와짐
-        List<Items> itemsList = new ArrayList<>();
-        for (Codi codi : codis) {
-            itemsList.addAll(itemsRepository.findItemsByCodiId(codi.getId()));
-        }
+        // 3. 코디에 연결된 아이템 및 포토 정보 가져오기
+        List<Items> itemsList = itemsRepository.findItemsByCodiIds(
+                codis.stream().map(Codi::getId).collect(Collectors.toList()));
 
-        // 중복된 아이템 제거
-        Set<Integer> itemIds = new HashSet<>();
-        itemsList.removeIf(item -> !itemIds.add(item.getId()));
+        // 4. DTO로 매핑하기
+        List<UserResponse.CodiListDTO> codiDTOs = codis.stream()
+                .map(UserResponse.CodiListDTO::new)
+                .collect(Collectors.toList());
 
-        // 3. DTO로 매핑하기
-        UserResponse.CreatorViewDTO respDTO = new UserResponse.CreatorViewDTO(user, codis, itemsList);
+        List<UserResponse.ItemListDTO> itemDTOs = itemsList.stream()
+                .map(UserResponse.ItemListDTO::new)
+                .distinct()
+                .collect(Collectors.toList());
 
-        return respDTO;
+        UserResponse.UserDTO userDTO = new UserResponse.UserDTO(user);
+
+        return new UserResponse.CreatorViewDTO(userDTO, codiDTOs, itemDTOs);
     }
+
 }
+
+
 
 
 

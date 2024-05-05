@@ -1,9 +1,102 @@
 package com.example.finalproject.domain.user;
 
+import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
+import java.util.List;
+
 public class UserResponse {
+    @Data
+    public static class CreatorViewDTO {
+        private Integer userId;
+        private UserDTO userDTO;
+        private List<CodiListDTO> codiList;
+        private List<ItemListDTO> itemList;
+
+        public CreatorViewDTO(UserDTO userDTO, List<CodiListDTO> codiList, List<ItemListDTO> itemList) {
+            this.userDTO = userDTO;
+            this.codiList = codiList;
+            this.itemList = itemList;
+            this.userId = userDTO.getCreatorId(); // userDTO에서 userId 가져오기
+        }
+    }
+
+
+    @Data
+    public static class UserDTO {
+        private Integer creatorId; //크리에이터 아이디
+        private Boolean blueChecked;    //true -> 크리에이터
+        private String photoName;   // 크리에이터 사진 이름
+        private String photoPath;   // 크리에이터 사진 경로
+        private String nickName;    //별명
+        private String height; //키
+        private String weight;  // 체중
+        private String job; //직업
+        private String introMsg; //자기소개
+
+        public UserDTO(User user) {
+            this.creatorId = user.getId();
+            this.blueChecked = user.getBlueChecked();
+            this.photoName = user.getPhoto().getName();
+            this.photoPath = user.getPhoto().getPath();
+            this.nickName = user.getNickName();
+            this.height = user.getHeight();
+            this.weight = user.getWeight();
+            this.job = user.getJob();
+            this.introMsg = user.getIntroMsg();
+        }
+    }
+
+    @Data
+    public static class CodiListDTO {
+        private Integer codiId;
+        private Integer codiPhotoId;
+        private String photoName;
+        private String photoPath;
+        private Photo.Sort codiPhoto;
+
+        public CodiListDTO(Codi codi) {
+            this.codiId = codi.getId();
+            List<Photo> codiPhotos = codi.getPhotos();
+            if (codiPhotos != null && !codiPhotos.isEmpty()) {
+                Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
+                this.codiPhotoId = codiPhoto.getId();
+                this.photoName = codiPhoto.getName();
+                this.photoPath = codiPhoto.getPath();
+                this.codiPhoto = codiPhoto.getSort();
+            }
+        }
+    }
+
+    @Data
+    public static class ItemListDTO {
+        private Integer itemId;
+        private String name;
+        private String description;
+        private Integer price;
+        private Integer itemPhotoId;
+        private String itemPhotoName;
+        private String itemPhotoPath;
+        private Photo.Sort itemPhoto;
+
+        public ItemListDTO(Items items) {
+            this.itemId = items.getId();
+            this.name = items.getName();
+            this.description = items.getDescription();
+            this.price = items.getPrice();
+            List<Photo> itemPhotos = items.getPhotos();
+            if (itemPhotos != null && !itemPhotos.isEmpty()) {
+                Photo itemPhoto = itemPhotos.get(0); // 첫 번째 포토만 사용
+                this.itemPhotoId = itemPhoto.getId();
+                this.itemPhotoName = itemPhoto.getName();
+                this.itemPhotoPath = itemPhoto.getPath();
+                this.itemPhoto = itemPhoto.getSort();
+            }
+        }
+    }
+
 
     @Data  // 로그인 성공시 응답 DTO
     public static class LoginDTO {
@@ -122,3 +215,4 @@ public class UserResponse {
         }
     }
 }
+

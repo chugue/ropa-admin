@@ -1,14 +1,23 @@
 package com.example.finalproject.domain.user;
 
 import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.codi.CodiRepository;
+import com.example.finalproject.domain.items.Items;
+import com.example.finalproject.domain.items.ItemsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final CodiRepository codiRepository;
+    private final ItemsRepository itemsRepository;
 
     //회원가입
     @Transactional
@@ -68,4 +77,38 @@ public class UserService {
 
         return new UserResponse.CreatorApplyDTO(user);
     }
+
+    //크리에이터 뷰 페이지
+    public UserResponse.CreatorViewDTO creatorView(SessionUser sessionUser, int userId) {
+        // 1. 세션에서 사용자 정보 가져오기
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+
+        // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
+        List<Codi> codis = codiRepository.findCodiByUserId(userId);
+
+        // 3. 코디에 연결된 아이템 및 포토 정보 가져오기
+        List<Items> itemsList = itemsRepository.findItemsByCodiIds(
+                codis.stream().map(Codi::getId).collect(Collectors.toList()));
+
+        // 4. DTO로 매핑하기
+        List<UserResponse.CodiListDTO> codiDTOs = codis.stream()
+                .map(UserResponse.CodiListDTO::new)
+                .collect(Collectors.toList());
+
+        List<UserResponse.ItemListDTO> itemDTOs = itemsList.stream()
+                .map(UserResponse.ItemListDTO::new)
+                .distinct()
+                .collect(Collectors.toList());
+
+        UserResponse.UserDTO userDTO = new UserResponse.UserDTO(user);
+
+        return new UserResponse.CreatorViewDTO(userDTO, codiDTOs, itemDTOs);
+    }
+
 }
+
+
+
+
+

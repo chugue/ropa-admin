@@ -34,7 +34,7 @@ public class User {
 
     private String mobile; // 연락처
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     private Photo photo;
 
     private String height; // 키
@@ -62,7 +62,7 @@ public class User {
     private Timestamp updateAt; // 회원 수정 시간
 
     @Builder
-    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, String height, String weight, String job, String instagram, Integer mileage, Boolean blueChecked, String introMsg, String status, Timestamp createdAt, Timestamp updateAt) {
+    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, Photo photo, String height, String weight, String job, String introMsg, String instagram, Integer mileage, Boolean blueChecked, String status, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -70,6 +70,7 @@ public class User {
         this.myName = myName;
         this.address = address;
         this.mobile = mobile;
+        this.photo = photo;
         this.height = height;
         this.weight = weight;
         this.job = job;

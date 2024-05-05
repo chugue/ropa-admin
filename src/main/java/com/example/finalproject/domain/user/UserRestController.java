@@ -21,7 +21,7 @@ public class UserRestController {
         User user = userService.login(reqDTO);
         UserResponse.LoginDTO respDTO = new UserResponse.LoginDTO(user);
         String jwt = AppJwtUtill.create(user);
-        return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX+ jwt).body(new ApiUtil<>(respDTO)); // header 문법
+        return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil<>(respDTO)); // header 문법
     }
 
     // 앱] 로그아웃
@@ -71,4 +71,12 @@ public class UserRestController {
         UserResponse.CreatorApplyDTO respDTO = userService.creatorApply(creatorApplyDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
+
+    @GetMapping("/app/creator/{userId}")
+    public ResponseEntity<?> creatorView(@PathVariable int userId) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.CreatorViewDTO respDTO = userService.creatorView(sessionUser, userId);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
 }

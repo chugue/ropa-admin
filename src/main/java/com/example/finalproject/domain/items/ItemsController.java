@@ -18,6 +18,8 @@ public class ItemsController {
     private final HttpSession session;
     private final ItemsService itemsService;
 
+
+
     // 아이템 관리 페이지
     @GetMapping("/api/items-manage")
     public String itemsManage(HttpServletRequest requestDTO) {
@@ -43,15 +45,15 @@ public class ItemsController {
     }
 
     // 아이템 등록
-    @PostMapping("/api/items-register")
+    @PostMapping("/api/register/items")
     public String itemsRegister(@RequestParam("mainCategory") String mainCategory,
                                 @RequestParam("subCategory") String subCategory,
-                                ItemsRequest.SaveDTO requestDTO) {
+                                ItemsRequest.SaveDTO reqDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        requestDTO.setMainCategory(mainCategory);
-        requestDTO.setSubCategory(subCategory);
+        reqDTO.setMainCategory(mainCategory);
+        reqDTO.setSubCategory(subCategory);
         // 카테고리 리스트 설정
-        itemsService.saveItem(requestDTO, sessionBrand.getId());
+        itemsService.saveItem(reqDTO, sessionBrand.getId());
         return "redirect:/api/items-manage";
     }
 

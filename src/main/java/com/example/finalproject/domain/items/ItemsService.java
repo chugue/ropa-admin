@@ -6,6 +6,8 @@ import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.category.Category;
+import com.example.finalproject.domain.photo.Photo;
+import com.example.finalproject.domain.photo.PhotoService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,15 +19,20 @@ import java.util.List;
 public class ItemsService {
     private final AdminRepository adminRepository;
     private final ItemsRepository itemsRepository;
+    private final PhotoService photoService;
 
     // 아이템 저장
     @Transactional
-    public void saveItem(ItemsRequest.SaveDTO saveDTO, Integer sessionBrandId) {
+    public void saveItem(ItemsRequest.SaveDTO reqDTO, Integer sessionBrandId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+        Items savedItems =itemsRepository.save(reqDTO.toEntity(admin));
 
-        itemsRepository.save(saveDTO.toEntity(admin));
+        Photo mainPhoto = photoService.uploadItemMainImage(reqDTO.getMainImage(),savedItems);
+        Photo detailPhoto = photoService.uploadItemDetailImage(reqDTO.getDetailImage(), savedItems);
+
+
     }
 
     // 아이템 목록

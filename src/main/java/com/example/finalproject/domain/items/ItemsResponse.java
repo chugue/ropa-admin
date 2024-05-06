@@ -41,10 +41,10 @@ public class ItemsResponse {
             private Photo.Sort itemPhoto;
 
             public ItemSubPhoto(Items item) {
-                this.itemPhotoId = item.getPhotos().get(2).getId();
-                this.subPhotoName = item.getPhotos().get(2).getName();
-                this.subPhotoPath = item.getPhotos().get(2).getPath();
-                this.itemPhoto = item.getPhotos().get(2).getSort();
+                this.itemPhotoId = item.getPhotos().get(1).getId();
+                this.subPhotoName = item.getPhotos().get(1).getName();
+                this.subPhotoPath = item.getPhotos().get(1).getPath();
+                this.itemPhoto = item.getPhotos().get(1).getSort();
             }
         }
     }

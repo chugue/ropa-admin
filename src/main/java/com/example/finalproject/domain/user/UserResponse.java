@@ -10,7 +10,6 @@ import java.util.List;
 public class UserResponse {
     @Data
     public static class CreatorViewDTO {
-        private Integer userId;
         private UserDTO userDTO;
         private List<CodiListDTO> codiList;
         private List<ItemListDTO> itemList;
@@ -19,7 +18,6 @@ public class UserResponse {
             this.userDTO = userDTO;
             this.codiList = codiList;
             this.itemList = itemList;
-            this.userId = userDTO.getCreatorId(); // userDTO에서 userId 가져오기
         }
     }
 

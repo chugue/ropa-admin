@@ -19,7 +19,6 @@ public class ItemsController {
     private final ItemsService itemsService;
 
 
-
     // 아이템 관리 페이지
     @GetMapping("/api/items-manage")
     public String itemsManage(HttpServletRequest requestDTO) {
@@ -63,6 +62,8 @@ public class ItemsController {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
+
+        System.out.println("메인이미지에 무엇이 저장되어 있나요? -> " + itemsDetail.getItemMainImage());
         return "items/items-update-form";
     }
 

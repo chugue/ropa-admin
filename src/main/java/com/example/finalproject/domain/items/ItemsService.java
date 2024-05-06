@@ -7,6 +7,7 @@ import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.category.Category;
 import com.example.finalproject.domain.photo.Photo;
+import com.example.finalproject.domain.photo.PhotoRepository;
 import com.example.finalproject.domain.photo.PhotoService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class ItemsService {
     private final AdminRepository adminRepository;
     private final ItemsRepository itemsRepository;
     private final PhotoService photoService;
+    private final PhotoRepository photoRepository;
 
     // 아이템 저장
     @Transactional
@@ -27,12 +29,10 @@ public class ItemsService {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
-        Items savedItems =itemsRepository.save(reqDTO.toEntity(admin));
+        Items savedItems = itemsRepository.save(reqDTO.toEntity(admin));
 
-        Photo mainPhoto = photoService.uploadItemMainImage(reqDTO.getMainImage(),savedItems);
-        Photo detailPhoto = photoService.uploadItemDetailImage(reqDTO.getDetailImage(), savedItems);
-
-
+        photoService.uploadItemMainImage(reqDTO.getMainImage(), savedItems);
+        photoService.uploadItemDetailImage(reqDTO.getDetailImage(), savedItems);
     }
 
     // 아이템 목록
@@ -46,7 +46,7 @@ public class ItemsService {
     }
 
     // 아이템 상세보기
-    public ItemsResponse.DetailDTO findItemsByAdminIdAndItemId(Integer sessionAdminId, int itemId) {
+    public ItemsResponse.DetailDTO findItemsByAdminIdAndItemId(Integer sessionAdminId, Integer itemId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionAdminId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
@@ -54,7 +54,12 @@ public class ItemsService {
         // 아이템 정보 조회
         Items items = itemsRepository.findItemsByAdminIdAndItemId(admin.getId(), itemId)
                 .orElseThrow(() -> new Exception404("브랜드 아이템 정보를 찾을 수 없습니다."));
-        return new ItemsResponse.DetailDTO(items);
+
+        // 아이템 사진 조회
+        List<Photo> itemPhotos = photoRepository.findAllByItemsId(itemId);
+        itemPhotos.forEach(System.out::println);
+
+        return new ItemsResponse.DetailDTO(items, itemPhotos);
     }
 
     // 아이템 수정

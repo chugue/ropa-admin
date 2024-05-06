@@ -1,6 +1,9 @@
 package com.example.finalproject.domain.items;
 
+import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
+
+import java.util.List;
 
 public class ItemsResponse {
 
@@ -34,8 +37,10 @@ public class ItemsResponse {
         private Integer stock;
         private String mainCategory;
         private String subCategory;
+        private String itemMainImage;
+        private String itemDetailImage;
 
-        public DetailDTO(Items items) {
+        public DetailDTO(Items items, List<Photo> itemPhotos) {
             this.itemId = items.getId();
             this.name = items.getName();
             this.description = items.getDescription();
@@ -45,6 +50,13 @@ public class ItemsResponse {
             this.stock = items.getStock();
             this.mainCategory = items.getCategory().getMain();
             this.subCategory = items.getCategory().getSub();
+            itemPhotos.forEach(photo -> {
+                if (photo.getIsMainPhoto()) {
+                    this.itemMainImage = photo.getPath();
+                } else {
+                    this.itemDetailImage = photo.getPath();
+                }
+            });
         }
     }
 }

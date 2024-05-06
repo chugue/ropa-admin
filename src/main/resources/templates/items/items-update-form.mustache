@@ -15,7 +15,7 @@
                             <div class="card m-3">
                                 <h4 class="card-header text-center">상품 이미지</h4>
                                 <div class="card-body">
-                                    <img class="card-img-top" id="imgPreview1" src="/images/shirt.jpg">
+                                    <img class="card-img-top" id="imgPreview1" src="{{itemsDetail.itemMainImage}}">
                                     <div class="input-group mt-3">
                                         <input type="file" class="form-control" name="imgFilename1"
                                                onchange="previewImage(this, 'imgPreview1')">
@@ -27,7 +27,7 @@
                             <div class="card m-3">
                                 <h4 class="card-header text-center">상품 설명</h4>
                                 <div class="card-body">
-                                    <img class="card-img-top" id="imgPreview2" src="/images/shirt.jpg">
+                                    <img class="card-img-top" id="imgPreview2" src="{{itemsDetail.itemDetailImage}}">
                                     <div class="input-group mt-3">
                                         <input type="file" class="form-control" name="imgFilename2"
                                                onchange="previewImage(this, 'imgPreview2')">

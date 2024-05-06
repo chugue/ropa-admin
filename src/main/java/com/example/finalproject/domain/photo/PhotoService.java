@@ -28,6 +28,42 @@ public class PhotoService {
     private final LoveRepository loveRepository;
     private final String uploadPath = "./upload/";
 
+
+    // 아이템 메인 사진 업로드
+    @Transactional
+    public Photo uploadItemMainImage(MultipartFile mainImage, Items items) {
+        if (mainImage == null || mainImage.isEmpty()) {
+            throw new Exception400( "잘못된 요청입니다.");
+        }
+        // 파일명 중복 방지를 위해서 UUID 적용
+        String imgFilename = UUID.randomUUID() + "_" + mainImage.getOriginalFilename();
+
+        // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
+        // 파일이름이랑 개방된 폴더를 조합해서 경로생성
+        Path imgPath = Paths.get(uploadPath + imgFilename);
+
+
+        // 파일저장 핵심로직
+        // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
+        // 파일 저장 향후 파일 사이즈 유효성 추가 해야될것 TODO
+        validationCheckAndSave(mainImage, imgPath);
+
+        // DB저장 전 DB전용으로 경로 수정
+        String dbPath = "/upload/" + imgFilename;
+
+
+        // Base64는 디코딩해서 던져주고, MultiPartForm은 getBytes로 꺼냄
+        Photo photo = photoRepository.save(Photo.builder()
+                .items(items)
+                .path(dbPath)
+                .name(mainImage.getName())
+                .sort(Photo.Sort.ITEM)
+                .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
+                .createdAt(Timestamp.from(Instant.now())).build());
+        return photo;
+    }
+
+
     // 앱] 메인 홈 화면 요청
     public PhotoResponse.HomeDTO getHomeLists() {
         // 코디의 좋아요의 합으로 인기크리에이터를 좋아요받은 순으로 나열 + 대표 사진까지 찾기
@@ -47,31 +83,7 @@ public class PhotoService {
         return new PhotoResponse.HomeDTO(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
     }
 
-    // 아이템 메인 사진 업로드
-    @Transactional
-    public Photo uploadItemMainImage(MultipartFile mainImage, Items items) {
-        if (mainImage == null || mainImage.isEmpty()) {
-            throw new Exception400( "잘못된 요청입니다.");
-        }
-        // 파일명 중복 방지를 위해서 UUID 적용
-        String imgFilename = UUID.randomUUID() + "_" + mainImage.getOriginalFilename();
 
-        // resourceHandler로 해당 폴더를 개방
-        Path imgPath = Paths.get(uploadPath + imgFilename);
-
-        validationCheckAndSave(mainImage, imgPath);
-
-        // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
-        // Base64는 디코딩해서 던져주고, MultiPartForm은 getBytes로 꺼냄
-        Photo photo = photoRepository.save(Photo.builder()
-                .items(items)
-                .path(String.valueOf(imgPath))
-                .name(mainImage.getName())
-                .sort(Photo.Sort.ITEM)
-                .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
-                .createdAt(Timestamp.from(Instant.now())).build());
-        return photo;
-    }
 
     // 아이템 상세정보 사진 업로드
     @Transactional
@@ -82,17 +94,21 @@ public class PhotoService {
         // 파일명 중복 방지를 위해서 UUID 적용
         String imgFilename = UUID.randomUUID() + "_" + detailImage.getOriginalFilename();
 
-        // resourceHandler로 해당 폴더를 개방
+        // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
+        // 파일이름이랑 개방된 폴더를 조합해서 경로생성
         Path imgPath = Paths.get(uploadPath + imgFilename);
 
+        // 파일저장 핵심로직
+        // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
         // 파일 저장 향후 파일 사이즈 유효성 추가 해야될것 TODO
         validationCheckAndSave(detailImage, imgPath);
 
-        // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
-        // Base64는 디코딩해서 던져주고, MultiPartForm은 getBytes로 꺼냄
+        // DB 저장 전 경로 구분자 변경
+        String dbPath = "/upload/" + imgFilename;
+
         Photo photo = photoRepository.save(Photo.builder()
                 .items(items)
-                .path(String.valueOf(imgPath))
+                .path(dbPath)
                 .name(detailImage.getName())
                 .sort(Photo.Sort.ITEM)
                 .isMainPhoto(false)  // 대표사진이라면 꼭 true 남겨주기
@@ -109,6 +125,4 @@ public class PhotoService {
             throw new RuntimeException(e);
         }
     }
-
-
 }

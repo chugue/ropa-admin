@@ -3,6 +3,7 @@ package com.example.finalproject.domain.items;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.category.Category;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ItemsRequest {
 
@@ -18,6 +19,24 @@ public class ItemsRequest {
         private String mainCategory; // 메인 카테고리
         private String subCategory;  // 서브 카테고리
         private Boolean status = true; // 삭제 상태
+        private MultipartFile mainImage;
+        private MultipartFile detailImage;
+
+        public SaveDTO(Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, String mainCategory, String subCategory, Boolean status, MultipartFile mainImage, MultipartFile detailImage) {
+            this.admin = admin;
+            this.name = name;
+            this.description = description;
+            this.size = size;
+            this.price = price;
+            this.discountPrice = discountPrice;
+            this.stock = stock;
+            this.mainCategory = mainCategory;
+            this.subCategory = subCategory;
+            this.status = status;
+            this.mainImage = mainImage;
+            this.detailImage = detailImage;
+        }
+
 
         public Items toEntity(Admin admin) {
             Items items = Items.builder()

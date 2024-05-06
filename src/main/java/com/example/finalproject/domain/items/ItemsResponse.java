@@ -1,8 +1,53 @@
 package com.example.finalproject.domain.items;
 
+import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
 public class ItemsResponse {
+    //크리에이터의 아이템 상세페이지
+    @Data
+    public static class ItemDetailDTO {
+        private Integer itemId;
+        private Integer itemPhotoId;
+        private String mainPhotoName;
+        private String mainPhotoPath;
+        private Photo.Sort itemPhoto;
+        private String brandName;
+        private Integer price;
+        private Double discountRate;
+        private Integer discountPrice;
+        private ItemSubPhoto itemSubPhoto;
+
+
+        public ItemDetailDTO(Items item, ItemSubPhoto itemSubPhoto) {
+            this.itemId = item.getId();
+            this.itemPhotoId = item.getPhotos().getFirst().getId();
+            this.mainPhotoName = item.getPhotos().getFirst().getName();
+            this.mainPhotoPath = item.getPhotos().getFirst().getPath();
+            this.itemPhoto = item.getPhotos().getFirst().getSort();
+            this.brandName = item.getAdmin().getBrandName();
+            this.price = item.getPrice();
+            this.discountRate = item.getDiscountRate();
+            this.discountPrice = item.getDiscountPrice();
+            this.itemSubPhoto = itemSubPhoto;
+
+        }
+
+        @Data
+        public static class ItemSubPhoto {
+            private Integer itemPhotoId;
+            private String subPhotoName;
+            private String subPhotoPath;
+            private Photo.Sort itemPhoto;
+
+            public ItemSubPhoto(Items item) {
+                this.itemPhotoId = item.getPhotos().get(2).getId();
+                this.subPhotoName = item.getPhotos().get(2).getName();
+                this.subPhotoPath = item.getPhotos().get(2).getPath();
+                this.itemPhoto = item.getPhotos().get(2).getSort();
+            }
+        }
+    }
 
     //브랜드의 상품 목록 보기
     @Data

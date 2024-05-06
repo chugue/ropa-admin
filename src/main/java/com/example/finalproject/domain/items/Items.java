@@ -37,6 +37,8 @@ public class Items {
     @Column(nullable = false)
     private Integer price; // 가격
 
+    private Double discountRate;// 할인율
+
     private Integer discountPrice; // 할인가
 
     @Column(nullable = false)

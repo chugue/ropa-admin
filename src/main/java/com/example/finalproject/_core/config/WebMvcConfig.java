@@ -34,7 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry
                 // 파일 다운로드 URL 패턴
-                .addResourceHandler("/upload/**")
+                .addResourceHandler("/upload/register/**")
                 // 실제 파일이 저장된 경로
                 .addResourceLocations("file:./upload/")
                 .setCachePeriod(60 * 60) // 초 단위 => 한시간

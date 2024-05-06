@@ -74,6 +74,23 @@ public class ItemsRequest {
         private Integer stock;
         private String mainCategory; // 메인 카테고리
         private String subCategory;  // 서브 카테고리
+        private MultipartFile mainImage;
+        private MultipartFile detailImage;
+
+        public UpdateDTO(Integer id, Admin admin, String name, String description, String size, Integer price, Integer discountPrice, Integer stock, String mainCategory, String subCategory, MultipartFile mainImage, MultipartFile detailImage) {
+            this.id = id;
+            this.admin = admin;
+            this.name = name;
+            this.description = description;
+            this.size = size;
+            this.price = price;
+            this.discountPrice = discountPrice;
+            this.stock = stock;
+            this.mainCategory = mainCategory;
+            this.subCategory = subCategory;
+            this.mainImage = mainImage;
+            this.detailImage = detailImage;
+        }
 
         public Items toEntity() {
             Items items = Items.builder()

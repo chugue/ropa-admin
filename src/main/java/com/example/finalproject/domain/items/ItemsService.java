@@ -64,7 +64,7 @@ public class ItemsService {
 
     // 아이템 수정
     @Transactional
-    public void updateItem(Integer itemId, ItemsRequest.UpdateDTO updateDTO, Integer sessionBrandId) {
+    public void updateItem(Integer itemId, ItemsRequest.UpdateDTO reqDTO, Integer sessionBrandId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
@@ -73,18 +73,25 @@ public class ItemsService {
         Items items = itemsRepository.findById(itemId)
                 .orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
 
+        List<Photo> itemsPhotos = photoRepository.findAllByItemsId(itemId);
+
         // 아이템 정보 업데이트
-        items.setName(updateDTO.getName());
-        items.setDescription(updateDTO.getDescription());
-        items.setSize(updateDTO.getSize());
-        items.setPrice(updateDTO.getPrice());
-        items.setDiscountPrice(updateDTO.getDiscountPrice());
-        items.setStock(updateDTO.getStock());
+        items.setName(reqDTO.getName());
+        items.setDescription(reqDTO.getDescription());
+        items.setSize(reqDTO.getSize());
+        items.setPrice(reqDTO.getPrice());
+        items.setDiscountPrice(reqDTO.getDiscountPrice());
+        items.setStock(reqDTO.getStock());
+        itemsPhotos.forEach(photo -> {
+            if (photo.getIsMainPhoto()){
+                photo.setPath(reqDTO.getMainImage());
+            }
+        });
 
         // 카테고리 정보 업데이트
         Category category = items.getCategory();
-        category.setMain(updateDTO.getMainCategory());
-        category.setSub(updateDTO.getSubCategory());
+        category.setMain(reqDTO.getMainCategory());
+        category.setSub(reqDTO.getSubCategory());
 
         // 엔티티 저장
         itemsRepository.save(items);

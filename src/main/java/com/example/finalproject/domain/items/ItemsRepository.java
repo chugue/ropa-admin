@@ -9,6 +9,8 @@ import java.util.Optional;
 
 
 public interface ItemsRepository extends JpaRepository<Items, Integer> {
+    //아이템 정보와 해당 아이템을 올린 브랜드 정복 가져오기
+    @Query("select i from Items i join fetch i.photos join fetch i.admin where i.id")
 
     // 여러 코디에 대한 아이템과 포토 정보를 가져오는 쿼리
     @Query("SELECT ci.items FROM CodiItems ci join fetch ci.items.photos WHERE ci.codi.id IN :codiIds")

@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.photo;
 
-import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.love.LoveRepository;
 import com.example.finalproject.domain.love.LoveResponse;
@@ -29,12 +28,29 @@ public class PhotoService {
     private final LoveRepository loveRepository;
     private final String uploadPath = "./upload/";
 
+    // 아이템 메인사진 없데이트
+    @Transactional
+    public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
+            uploadItemMainImage(updateImage, items);
+            deleteItemMainImage(dbPhoto);
+        }
+    }
+
+    // 아이템 상세보기 사진 업데이트
+    @Transactional
+    public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())){
+            uploadItemDetailImage(updateImage, items);
+            deleteItemMainImage(dbPhoto);
+        }
+    }
 
     // 아이템 메인 사진 업로드
     @Transactional
-    public Photo uploadItemMainImage(MultipartFile mainImage, Items items) {
+    public void uploadItemMainImage(MultipartFile mainImage, Items items) {
         if (mainImage == null || mainImage.isEmpty()) {
-            return null;
+            return;
         }
         // 파일명 중복 방지를 위해서 UUID 적용
         String imgFilename = UUID.randomUUID() + "_" + mainImage.getOriginalFilename();
@@ -51,7 +67,6 @@ public class PhotoService {
         // DB저장 전 DB전용으로 경로 수정
         String dbPath = "/upload/" + imgFilename;
 
-
         // Base64는 디코딩해서 던져주고, MultiPartForm은 getBytes로 꺼냄
         Photo photo = photoRepository.save(Photo.builder()
                 .items(items)
@@ -60,87 +75,7 @@ public class PhotoService {
                 .sort(Photo.Sort.ITEM)
                 .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
-        return photo;
     }
-
-
-    // 앱] 메인 홈 화면 요청
-    public PhotoResponse.HomeDTO getHomeLists() {
-        // 코디의 좋아요의 합으로 인기크리에이터를 좋아요받은 순으로 나열 + 대표 사진까지 찾기
-        List<LoveResponse.UserLoveCount> userLoveCounts = loveRepository.findUserIdsSortedByLoveCount();
-        List<Integer> popularCreators = userLoveCounts.stream().map(userLoveCount -> userLoveCount.getUserId()).toList();
-        List<Photo> popularUserPhotos = photoRepository.findByUserId(popularCreators);
-
-        // 인기 아이템의 id 조회 (총 판매량 순으로 아이템을 나열) + 사진 가져오기
-        List<Integer> itemsId = orderHistoryRepository.findItemsIdByTotalSales();
-        List<Photo> popularItemsPhotos = photoRepository.findByItemsIds(itemsId);
-
-        // 인기 코디 좋아요 순으로 정렬
-        List<LoveResponse.CodiLoveCount> popularCodies = loveRepository.findCodiIdsSortedByLoveCount();
-        List<Integer> popularCodiIdes = popularCodies.stream().map(codiLoveCount -> codiLoveCount.getCodiId()).toList();
-        List<Photo> popularCodiPhotos = photoRepository.findByCodiIds(popularCodiIdes);
-
-        return new PhotoResponse.HomeDTO(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
-    }
-
-
-
-    // 아이템 상세정보 사진 업로드
-    @Transactional
-    public Photo uploadItemDetailImage(MultipartFile detailImage, Items items) {
-        if (detailImage == null || detailImage.isEmpty()) {
-            return null;
-        }
-        // 파일명 중복 방지를 위해서 UUID 적용
-        String imgFilename = UUID.randomUUID() + "_" + detailImage.getOriginalFilename();
-
-        // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
-        // 파일이름이랑 개방된 폴더를 조합해서 경로생성
-        Path imgPath = Paths.get(uploadPath + imgFilename);
-
-        // 파일저장 핵심로직
-        // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
-        // 파일 저장 향후 파일 사이즈 유효성 추가 해야될것 TODO
-        validationCheckAndSave(detailImage, imgPath);
-
-        // DB 저장 전 경로 구분자 변경
-        String dbPath = "/upload/" + imgFilename;
-
-        Photo photo = photoRepository.save(Photo.builder()
-                .items(items)
-                .path(dbPath)
-                .name(detailImage.getOriginalFilename())
-                .sort(Photo.Sort.ITEM)
-                .isMainPhoto(false)  // 대표사진이라면 꼭 true 남겨주기
-                .createdAt(Timestamp.from(Instant.now())).build());
-        return photo;
-    }
-
-    // 아이템 메인사진 없데이트
-    @Transactional
-    public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
-            uploadItemMainImage(updateImage, items);
-            deleteItemMainImage(dbPhoto);
-        }
-    }
-
-    // 아이템 상세보기 사진 업데이트
-    @Transactional
-    public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-
-        if (updateImage.getOriginalFilename() != dbPhoto.getName()){
-            uploadItemMainImage(updateImage, items);
-            Path path = Paths.get(dbPhoto.getPath().replace("/", File.separator));
-            if (Files.exists(path)) {
-                Files.delete(path);
-            } else {
-                throw new IllegalStateException("파일이 존재하지 않습니다: " + path);
-            }
-        }
-    }
-
 
     // 파일로 저장 + 예외처리
     @Transactional
@@ -151,6 +86,7 @@ public class PhotoService {
             throw new RuntimeException(e);
         }
     }
+
 
     // 사진 삭제
     @Transactional
@@ -180,5 +116,60 @@ public class PhotoService {
         } catch (IOException e) {
             throw new RuntimeException("파일 삭제 중 오류 발생", e);
         }
+    }
+
+
+
+
+
+    // 앱] 메인 홈 화면 요청
+    public PhotoResponse.HomeDTO getHomeLists() {
+        // 코디의 좋아요의 합으로 인기크리에이터를 좋아요받은 순으로 나열 + 대표 사진까지 찾기
+        List<LoveResponse.UserLoveCount> userLoveCounts = loveRepository.findUserIdsSortedByLoveCount();
+        List<Integer> popularCreators = userLoveCounts.stream().map(userLoveCount -> userLoveCount.getUserId()).toList();
+        List<Photo> popularUserPhotos = photoRepository.findByUserId(popularCreators);
+
+        // 인기 아이템의 id 조회 (총 판매량 순으로 아이템을 나열) + 사진 가져오기
+        List<Integer> itemsId = orderHistoryRepository.findItemsIdByTotalSales();
+        List<Photo> popularItemsPhotos = photoRepository.findByItemsIds(itemsId);
+
+        // 인기 코디 좋아요 순으로 정렬
+        List<LoveResponse.CodiLoveCount> popularCodies = loveRepository.findCodiIdsSortedByLoveCount();
+        List<Integer> popularCodiIdes = popularCodies.stream().map(codiLoveCount -> codiLoveCount.getCodiId()).toList();
+        List<Photo> popularCodiPhotos = photoRepository.findByCodiIds(popularCodiIdes);
+
+        return new PhotoResponse.HomeDTO(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
+    }
+
+
+
+    // 아이템 상세정보 사진 업로드
+    @Transactional
+    public void uploadItemDetailImage(MultipartFile detailImage, Items items) {
+        if (detailImage == null || detailImage.isEmpty()) {
+            return;
+        }
+        // 파일명 중복 방지를 위해서 UUID 적용
+        String imgFilename = UUID.randomUUID() + "_" + detailImage.getOriginalFilename();
+
+        // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
+        // 파일이름이랑 개방된 폴더를 조합해서 경로생성
+        Path imgPath = Paths.get(uploadPath + imgFilename);
+
+        // 파일저장 핵심로직
+        // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
+        // 파일 저장 향후 파일 사이즈 유효성 추가 해야될것 TODO
+        validationCheckAndSave(detailImage, imgPath);
+
+        // DB 저장 전 경로 구분자 변경
+        String dbPath = "/upload/" + imgFilename;
+
+        Photo photo = photoRepository.save(Photo.builder()
+                .items(items)
+                .path(dbPath)
+                .name(detailImage.getOriginalFilename())
+                .sort(Photo.Sort.ITEM)
+                .isMainPhoto(false)  // 대표사진이라면 꼭 true 남겨주기
+                .createdAt(Timestamp.from(Instant.now())).build());
     }
 }

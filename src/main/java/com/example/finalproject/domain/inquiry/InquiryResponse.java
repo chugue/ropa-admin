@@ -10,6 +10,44 @@ import java.util.Date;
 
 public class InquiryResponse {
 
+    //문의 상세보기 DTO
+    @Data
+    public static class DetailDTO {
+        private Integer inquiryId;
+        private Integer userId;
+        private String title;
+        private String content;
+        private Timestamp createAt;
+        private CommentDTO commentDTO;
+
+        public DetailDTO(Inquiry inquiry, CommentDTO commentDTO) {
+            this.inquiryId = inquiry.getId();
+            this.userId = inquiry.getUser().getId();
+            this.title = inquiry.getTitle();
+            this.content = inquiry.getContent();
+            this.createAt = inquiry.getCreatedAt();
+            this.commentDTO = commentDTO;
+        }
+
+        //브랜드의 답변  DTO
+        @Data
+        public static class CommentDTO{
+            private Integer  brandId;
+            private String brandName;
+            private Boolean status;
+            private String comment;
+            private Timestamp commentedAt;
+
+            public CommentDTO(Inquiry inquiry) {
+                this.brandId = inquiry.getAdmin().getId();
+                this.brandName = inquiry.getAdmin().getBrandName();
+                this.status = inquiry.getStatus();
+                this.comment = inquiry.getComment();
+                this.commentedAt = inquiry.getCommentedAt();
+            }
+        }
+    }
+
     @Data // 문의 저장후 확인 데이터
     public static class SaveDTO {
         private Integer inquiryId;

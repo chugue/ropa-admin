@@ -8,17 +8,17 @@
     <div class="card">
         <div class="card-body">
             <div class="justify-content-center">
-                <form action="/api/items-update/{{itemId}}" method="post">
+                <form action="/api/register/items-update/{{itemId}}" method="post" enctype="multipart/form-data">
                     <!-- 이미지 -->
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                             <div class="card m-3">
                                 <h4 class="card-header text-center">상품 이미지</h4>
                                 <div class="card-body">
-                                    <img class="card-img-top" id="imgPreview1" src="/images/shirt.jpg">
+                                    <img class="card-img-top" id="imgPreview1" src="{{itemsDetail.itemMainImage}}">
                                     <div class="input-group mt-3">
-                                        <input type="file" class="form-control" name="imgFilename1"
-                                               onchange="previewImage(this, 'imgPreview1')">
+                                        <input type="file" class="form-control" data-preview-target="imgPreview1"
+                                               onchange="previewImage(this, 'imgPreview1')" name="mainImage">
                                     </div>
                                 </div>
                             </div>
@@ -27,10 +27,10 @@
                             <div class="card m-3">
                                 <h4 class="card-header text-center">상품 설명</h4>
                                 <div class="card-body">
-                                    <img class="card-img-top" id="imgPreview2" src="/images/shirt.jpg">
+                                    <img class="card-img-top" id="imgPreview2" src="{{itemsDetail.itemDetailImage}}">
                                     <div class="input-group mt-3">
-                                        <input type="file" class="form-control" name="imgFilename2"
-                                               onchange="previewImage(this, 'imgPreview2')">
+                                        <input type="file" class="form-control" data-preview-target="imgPreview2"
+                                               onchange="previewImage(this,'imgPreview2')" name="detailImage">
                                     </div>
                                 </div>
                             </div>
@@ -123,5 +123,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function previewImage(inputElement, previewElementId) {
+        if (inputElement.files && inputElement.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(previewElementId).src = e.target.result;
+            };
+            reader.readAsDataURL(inputElement.files[0]);
+        }
+    }
+
+
+</script>
 
 {{> /layout/footer}}

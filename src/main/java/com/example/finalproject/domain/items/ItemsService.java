@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,6 +23,53 @@ public class ItemsService {
     private final ItemsRepository itemsRepository;
     private final PhotoService photoService;
     private final PhotoRepository photoRepository;
+
+
+    // 아이템 수정
+    @Transactional
+    public void updateItem(Integer itemId, ItemsRequest.UpdateDTO reqDTO, Integer sessionBrandId) {
+        // Admin 정보 조회
+        Admin admin = adminRepository.findById(sessionBrandId)
+                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+
+        // 아이템 정보 조회
+        Items items = itemsRepository.findById(itemId)
+                .orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
+
+        List<Photo> itemsPhotos = photoRepository.findAllByItemsId(itemId);
+
+        // 아이템 정보 업데이트
+        items.setName(reqDTO.getName());
+        items.setDescription(reqDTO.getDescription());
+        items.setSize(reqDTO.getSize());
+        items.setPrice(reqDTO.getPrice());
+        items.setDiscountPrice(reqDTO.getDiscountPrice());
+        items.setStock(reqDTO.getStock());
+        itemsPhotos.forEach(photo -> {
+            if (photo.getIsMainPhoto()){
+                try {
+                    photoService.updateMainImage(reqDTO.getMainImage(), photo, items);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                try {
+                    photoService.updateDetailImage(reqDTO.getDetailImage(), photo, items);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        // 카테고리 정보 업데이트
+        Category category = items.getCategory();
+        category.setMain(reqDTO.getMainCategory());
+        category.setSub(reqDTO.getSubCategory());
+
+        // 엔티티 저장
+        itemsRepository.save(items);
+    }
+
 
     // 아이템 저장
     @Transactional
@@ -57,45 +105,10 @@ public class ItemsService {
 
         // 아이템 사진 조회
         List<Photo> itemPhotos = photoRepository.findAllByItemsId(itemId);
-        itemPhotos.forEach(System.out::println);
 
         return new ItemsResponse.DetailDTO(items, itemPhotos);
     }
 
-    // 아이템 수정
-    @Transactional
-    public void updateItem(Integer itemId, ItemsRequest.UpdateDTO reqDTO, Integer sessionBrandId) {
-        // Admin 정보 조회
-        Admin admin = adminRepository.findById(sessionBrandId)
-                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
-
-        // 아이템 정보 조회
-        Items items = itemsRepository.findById(itemId)
-                .orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
-
-        List<Photo> itemsPhotos = photoRepository.findAllByItemsId(itemId);
-
-        // 아이템 정보 업데이트
-        items.setName(reqDTO.getName());
-        items.setDescription(reqDTO.getDescription());
-        items.setSize(reqDTO.getSize());
-        items.setPrice(reqDTO.getPrice());
-        items.setDiscountPrice(reqDTO.getDiscountPrice());
-        items.setStock(reqDTO.getStock());
-        itemsPhotos.forEach(photo -> {
-            if (photo.getIsMainPhoto()){
-                photo.setPath(reqDTO.getMainImage());
-            }
-        });
-
-        // 카테고리 정보 업데이트
-        Category category = items.getCategory();
-        category.setMain(reqDTO.getMainCategory());
-        category.setSub(reqDTO.getSubCategory());
-
-        // 엔티티 저장
-        itemsRepository.save(items);
-    }
 
     // 아이템 삭제
     public void deleteItem(Integer itemId, Admin sessionAdmin) {

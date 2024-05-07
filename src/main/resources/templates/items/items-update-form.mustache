@@ -18,7 +18,7 @@
                                     <img class="card-img-top" id="imgPreview1" src="{{itemsDetail.itemMainImage}}">
                                     <div class="input-group mt-3">
                                         <input type="file" class="form-control" name="imgFilename1"
-                                               onchange="previewImage(this, 'imgPreview1')">
+                                               onchange="previewImage(this, 'imgPreview1')" name="mainImage">
                                     </div>
                                 </div>
                             </div>
@@ -29,8 +29,8 @@
                                 <div class="card-body">
                                     <img class="card-img-top" id="imgPreview2" src="{{itemsDetail.itemDetailImage}}">
                                     <div class="input-group mt-3">
-                                        <input type="file" class="form-control" name="imgFilename2"
-                                               onchange="previewImage(this, 'imgPreview2')">
+                                        <input type="file" class="form-control"
+                                               onchange="previewImage(this, 'imgPreview2')" name="detailImage">
                                     </div>
                                 </div>
                             </div>

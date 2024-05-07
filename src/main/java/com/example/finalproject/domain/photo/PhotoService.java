@@ -42,7 +42,6 @@ public class PhotoService {
         // 파일이름이랑 개방된 폴더를 조합해서 경로생성
         Path imgPath = Paths.get(uploadPath + imgFilename);
 
-
         // 파일저장 핵심로직
         // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
         // 파일 저장 향후 파일 사이즈 유효성 추가 해야될것 TODO
@@ -56,7 +55,7 @@ public class PhotoService {
         Photo photo = photoRepository.save(Photo.builder()
                 .items(items)
                 .path(dbPath)
-                .name(mainImage.getName())
+                .name(mainImage.getOriginalFilename())
                 .sort(Photo.Sort.ITEM)
                 .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
@@ -109,11 +108,29 @@ public class PhotoService {
         Photo photo = photoRepository.save(Photo.builder()
                 .items(items)
                 .path(dbPath)
-                .name(detailImage.getName())
+                .name(detailImage.getOriginalFilename())
                 .sort(Photo.Sort.ITEM)
                 .isMainPhoto(false)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
         return photo;
+    }
+
+    // 아이템 메인사진 없데이트
+    @Transactional
+    public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (updateImage.getOriginalFilename() != dbPhoto.getName()){
+            uploadItemMainImage(updateImage, items);
+            Files.delete(Path.of(dbPhoto.getPath()));
+        }
+    }
+
+    // 아이템 상세보기 사진 업데이트
+    @Transactional
+    public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (updateImage.getOriginalFilename() != dbPhoto.getName()){
+            uploadItemMainImage(updateImage, items);
+            Files.delete(Path.of(dbPhoto.getPath()));
+        }
     }
 
 

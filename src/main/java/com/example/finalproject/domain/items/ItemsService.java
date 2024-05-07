@@ -48,19 +48,15 @@ public class ItemsService {
         itemsPhotos.forEach(photo -> {
             if (photo.getIsMainPhoto()){
                 try {
-                    System.out.println(11111);
                     photoService.updateMainImage(reqDTO.getMainImage(), photo, items);
-                    System.out.println(2222);
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             } else {
                 try {
-                    System.out.println(333333);
                     photoService.updateDetailImage(reqDTO.getDetailImage(), photo, items);
                 } catch (IOException e) {
-                    System.out.println(444444);
                     throw new RuntimeException(e);
                 }
             }
@@ -116,6 +112,7 @@ public class ItemsService {
 
 
     // 아이템 삭제
+    @Transactional
     public void deleteItem(Integer itemId, Admin sessionAdmin) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionAdmin.getId())
@@ -130,5 +127,8 @@ public class ItemsService {
 
         // 엔티티 저장
         itemsRepository.save(items);
+
+        // 아이템에 연결된 사진 삭제
+        photoService.deleteByItemId(itemId);
     }
 }

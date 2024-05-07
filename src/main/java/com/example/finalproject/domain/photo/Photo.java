@@ -77,4 +77,5 @@ public class Photo {
     public enum Sort {
         USER, ITEM, CODI
     }
+
 }

@@ -33,16 +33,16 @@ public class PhotoService {
     public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
         if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
             uploadItemMainImage(updateImage, items);
-            deleteItemMainImage(dbPhoto);
+            deleteItemImage(dbPhoto);
         }
     }
 
     // 아이템 상세보기 사진 업데이트
     @Transactional
     public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())){
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
             uploadItemDetailImage(updateImage, items);
-            deleteItemMainImage(dbPhoto);
+            deleteItemImage(dbPhoto);
         }
     }
 
@@ -90,7 +90,7 @@ public class PhotoService {
 
     // 사진 삭제
     @Transactional
-    public void deleteItemMainImage(Photo dbPhoto) {
+    public void deleteItemImage(Photo dbPhoto) {
         // 데이터베이스에 저장된 상대 경로
         String dbPath = dbPhoto.getPath();  // 예: /upload/uuid-filename.jpg
 
@@ -102,7 +102,6 @@ public class PhotoService {
         // 상대 경로를 절대 경로로 변환
         String baseDirectory = System.getProperty("user.dir");  // 애플리케이션이 실행되는 디렉토리의 절대 경로
         String fullPath = baseDirectory + File.separator + "upload" + File.separator + dbPath.substring(dbPath.lastIndexOf("/") + 1);
-
 
         Path pathToDelete = Paths.get(fullPath);
 
@@ -118,9 +117,16 @@ public class PhotoService {
         }
     }
 
+    // 아이템 번호로 연결된 사진 삭제
+    @Transactional
+    public void deleteByItemId(Integer itemId) {
+        List<Photo> itemPhotos = photoRepository.findAllByItemsId(itemId);
 
-
-
+        itemPhotos.forEach(photo -> {
+            deleteItemImage(photo);
+            photoRepository.delete(photo);
+        });
+    }
 
     // 앱] 메인 홈 화면 요청
     public PhotoResponse.HomeDTO getHomeLists() {
@@ -140,7 +146,6 @@ public class PhotoService {
 
         return new PhotoResponse.HomeDTO(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
     }
-
 
 
     // 아이템 상세정보 사진 업로드
@@ -172,4 +177,6 @@ public class PhotoService {
                 .isMainPhoto(false)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
     }
+
+
 }

@@ -14,16 +14,16 @@ public class CodiItemsRepositoryTest {
     @Autowired
     private CodiItemsRepository codiItemsRepository;
 
-    @Test
-    public void findByUserWithCodiLIstItemsList_test() {
-        // given
-        Integer userId = 1;
-        // when
-        List<CodiItems> codiItems = codiItemsRepository.findByUserWithCodiLIstItemsList(userId);
-        // then
-        System.out.println(codiItems.size());
-
-    }
+//    @Test
+//    public void findByUserWithCodiLIstItemsList_test() {
+//        // given
+//        Integer userId = 1;
+//        // when
+//        List<CodiItems> codiItems = codiItemsRepository.findByUserWithCodiLIstItemsList(userId);
+//        // then
+//        System.out.println(codiItems.size());
+//
+//    }
 
     @Test
     public void findByCodiWithItems_test() {

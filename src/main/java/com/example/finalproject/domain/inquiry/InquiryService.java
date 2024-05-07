@@ -1,9 +1,11 @@
 package com.example.finalproject.domain.inquiry;
 
 import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject._core.error.exception.Exception403;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
+import com.example.finalproject.domain.user.SessionUser;
 import com.example.finalproject.domain.user.User;
 import com.example.finalproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,17 @@ public class InquiryService {
     private final InquiryRepository inquiryRepository;
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
+
+    // 문의 상세보기(브랜드가 문읟 답변 하는 페이지)
+    public  InquiryResponse.DetailDTO detailInquiry(SessionUser sessionUser, int inquiryId){
+        Admin admin = adminRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception403("페이지의 접근 권한이없습니다."));
+
+        Inquiry inquiry = inquiryRepository.findByInquiryId(inquiryId);
+
+        return new InquiryResponse.DetailDTO(inquiry, new InquiryResponse.DetailDTO.CommentDTO(inquiry));
+
+    }
 
     // 문의 등록
     @Transactional

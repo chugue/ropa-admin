@@ -9,7 +9,10 @@ import java.util.Optional;
 
 
 public interface ItemsRepository extends JpaRepository<Items, Integer> {
-    //아이템 정보와 해당 아이템을 올린 브랜드 정복 가져오기
+    //브랜드 기준으로 브랜드 정보와 본인이 올린 아이템들에 대한 정보를 가져오는 쿼리
+    @Query("select i from Items i join fetch i.photos join fetch i.admin where i.admin.id = :adminId")
+    List<Items> findByAdminItemsAndPhotos(@Param("adminId")int adminId);
+    //아이템 정보와 해당 아이템을 올린 브랜드 정보 가져오기
     @Query("select i from Items i join fetch i.photos join fetch i.admin where i.id = :itemId")
     Items findItemsByAdminAndPhotos(@Param("itemId") int itemId);
 

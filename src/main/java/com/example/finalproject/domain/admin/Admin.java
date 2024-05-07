@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.admin;
 
+import com.example.finalproject.domain.photo.Photo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -36,11 +37,13 @@ public class Admin {
 
     }
 
-
     @Column(nullable = false)
     private String address; //주소
 
     private String businessNum; // 사업자 번호 (관리자, 브랜드)
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    private Photo photo;
 
     @CreationTimestamp
     private Timestamp createdAt; // 브랜드, 관리자 회원가입 시간
@@ -49,7 +52,7 @@ public class Admin {
     private Timestamp updateAt; // 관리자 / 브랜드 수정 날짜
 
     @Builder
-    public Admin(Integer id, String email, String password, String brandName, AdminRole role, String address, String businessNum, Timestamp updateAt, Timestamp createdAt) {
+    public Admin(Integer id, String email, String password, String brandName, AdminRole role, String address, String businessNum, Photo photo,Timestamp updateAt, Timestamp createdAt) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -57,6 +60,7 @@ public class Admin {
         this.role = role;
         this.address = address;
         this.businessNum = businessNum;
+        this.photo = photo;
         this.updateAt = updateAt;
         this.createdAt = createdAt;
     }

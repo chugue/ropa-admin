@@ -18,6 +18,19 @@ public class CodiRestController {
     private final CodiService codiService;
     private final HttpSession session;
 
+
+    //앱] 코디 등록 - 아이템 연결
+    @GetMapping("/app/save-codi/add-item")
+    public void clickItemSave(){
+
+    }
+
+    // 앱] 코디 등록
+    @PostMapping("/app/save-codi")
+    public void codiSave(){
+
+    }
+
     // 앱] 크리에이터 보기 코디 목록 탭
     @GetMapping("/app/find-codies/{creatorId}")
     public void findCodies(){

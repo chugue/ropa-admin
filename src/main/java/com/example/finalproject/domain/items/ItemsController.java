@@ -68,7 +68,7 @@ public class ItemsController {
     }
 
     // 아이템 수정
-    @PostMapping("/api/items-update/{itemId}")
+    @PostMapping("/api/register/items-update/{itemId}")
     public String itemsUpdate(@PathVariable("itemId") Integer itemId, ItemsRequest.UpdateDTO updateDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         itemsService.updateItem(itemId, updateDTO, sessionBrand.getId());

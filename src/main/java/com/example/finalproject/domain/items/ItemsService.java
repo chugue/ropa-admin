@@ -48,14 +48,19 @@ public class ItemsService {
         itemsPhotos.forEach(photo -> {
             if (photo.getIsMainPhoto()){
                 try {
+                    System.out.println(11111);
                     photoService.updateMainImage(reqDTO.getMainImage(), photo, items);
+                    System.out.println(2222);
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             } else {
                 try {
+                    System.out.println(333333);
                     photoService.updateDetailImage(reqDTO.getDetailImage(), photo, items);
                 } catch (IOException e) {
+                    System.out.println(444444);
                     throw new RuntimeException(e);
                 }
             }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +34,7 @@ public class PhotoService {
     @Transactional
     public Photo uploadItemMainImage(MultipartFile mainImage, Items items) {
         if (mainImage == null || mainImage.isEmpty()) {
-            throw new Exception400( "잘못된 요청입니다.");
+            return null;
         }
         // 파일명 중복 방지를 위해서 UUID 적용
         String imgFilename = UUID.randomUUID() + "_" + mainImage.getOriginalFilename();
@@ -88,7 +89,7 @@ public class PhotoService {
     @Transactional
     public Photo uploadItemDetailImage(MultipartFile detailImage, Items items) {
         if (detailImage == null || detailImage.isEmpty()) {
-            throw new Exception400( "잘못된 요청입니다.");
+            return null;
         }
         // 파일명 중복 방지를 위해서 UUID 적용
         String imgFilename = UUID.randomUUID() + "_" + detailImage.getOriginalFilename();
@@ -118,28 +119,66 @@ public class PhotoService {
     // 아이템 메인사진 없데이트
     @Transactional
     public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (updateImage.getOriginalFilename() != dbPhoto.getName()){
+
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
             uploadItemMainImage(updateImage, items);
-            Files.delete(Path.of(dbPhoto.getPath()));
+            deleteItemMainImage(dbPhoto);
         }
     }
 
     // 아이템 상세보기 사진 업데이트
     @Transactional
     public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+
         if (updateImage.getOriginalFilename() != dbPhoto.getName()){
             uploadItemMainImage(updateImage, items);
-            Files.delete(Path.of(dbPhoto.getPath()));
+            Path path = Paths.get(dbPhoto.getPath().replace("/", File.separator));
+            if (Files.exists(path)) {
+                Files.delete(path);
+            } else {
+                throw new IllegalStateException("파일이 존재하지 않습니다: " + path);
+            }
         }
     }
 
 
     // 파일로 저장 + 예외처리
-    private void validationCheckAndSave(MultipartFile image, Path imgPath) {
+    @Transactional
+    protected void validationCheckAndSave(MultipartFile image, Path imgPath) {
         try {
             Files.write(imgPath, image.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    // 사진 삭제
+    @Transactional
+    public void deleteItemMainImage(Photo dbPhoto) {
+        // 데이터베이스에 저장된 상대 경로
+        String dbPath = dbPhoto.getPath();  // 예: /upload/uuid-filename.jpg
+
+        // 파일 이름 추출을 위한 마지막 '/' 위치 확인
+        int lastSlashIndex = dbPath.lastIndexOf("/");
+        if (lastSlashIndex == -1) {
+            throw new IllegalStateException("올바른 파일 경로가 아닙니다: " + dbPath);
+        }
+        // 상대 경로를 절대 경로로 변환
+        String baseDirectory = System.getProperty("user.dir");  // 애플리케이션이 실행되는 디렉토리의 절대 경로
+        String fullPath = baseDirectory + File.separator + "upload" + File.separator + dbPath.substring(dbPath.lastIndexOf("/") + 1);
+
+
+        Path pathToDelete = Paths.get(fullPath);
+
+        // 파일 존재 여부 확인 후 삭제
+        try {
+            if (Files.exists(pathToDelete)) {
+                Files.delete(pathToDelete);
+            } else {
+                throw new IllegalStateException("파일이 존재하지 않습니다: " + pathToDelete);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("파일 삭제 중 오류 발생", e);
         }
     }
 }

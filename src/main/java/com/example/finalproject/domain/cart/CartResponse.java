@@ -1,22 +1,26 @@
 package com.example.finalproject.domain.cart;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 public class CartResponse {
 
+    // 장바구니 DTO
     @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class CartDTO {
         private Integer userId;
         private List<CartListDTO> cartList;
         private Integer totalCartPrice;
+
+        public CartDTO(Integer userId, List<CartListDTO> cartList, Integer totalCartPrice) {
+            this.userId = userId;
+            this.cartList = cartList;
+            this.totalCartPrice = totalCartPrice;
+        }
     }
 
+    // 장바구니 아이템 DTO
     @Data
     public static class CartListDTO {
         private Integer itemId;

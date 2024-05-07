@@ -11,6 +11,7 @@ public class ItemsResponse {
         private Integer itemPhotoId;
         private String mainPhotoName;
         private String mainPhotoPath;
+        private Boolean isMainPhoto;
         private Photo.Sort itemPhoto;
         private String brandName;
         private Integer price;
@@ -24,12 +25,14 @@ public class ItemsResponse {
             this.itemPhotoId = item.getPhotos().getFirst().getId();
             this.mainPhotoName = item.getPhotos().getFirst().getName();
             this.mainPhotoPath = item.getPhotos().getFirst().getPath();
+            this.isMainPhoto = item.getPhotos().getFirst().getIsMainPhoto();
             this.itemPhoto = item.getPhotos().getFirst().getSort();
             this.brandName = item.getAdmin().getBrandName();
             this.price = item.getPrice();
             this.discountRate = item.getDiscountRate();
             this.discountPrice = item.getDiscountPrice();
             this.itemSubPhoto = itemSubPhoto;
+
 
         }
 
@@ -38,12 +41,14 @@ public class ItemsResponse {
             private Integer itemPhotoId;
             private String subPhotoName;
             private String subPhotoPath;
+            private Boolean isSubPhoto;
             private Photo.Sort itemPhoto;
 
             public ItemSubPhoto(Items item) {
                 this.itemPhotoId = item.getPhotos().get(1).getId();
                 this.subPhotoName = item.getPhotos().get(1).getName();
                 this.subPhotoPath = item.getPhotos().get(1).getPath();
+                this.isSubPhoto = item.getPhotos().get(1).getIsMainPhoto();
                 this.itemPhoto = item.getPhotos().get(1).getSort();
             }
         }

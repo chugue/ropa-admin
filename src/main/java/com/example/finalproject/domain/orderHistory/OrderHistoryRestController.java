@@ -1,4 +1,4 @@
-package com.example.finalproject.domain.cart;
+package com.example.finalproject.domain.orderHistory;
 
 import com.example.finalproject._core.utils.ApiUtil;
 import com.example.finalproject.domain.user.SessionUser;
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-public class CartRestController {
-    private final CartService cartService;
+public class OrderHistoryRestController {
+    private final OrderHistoryService orderHistoryService;
     private final HttpSession session;
 
-    // 장바구니 목록
-    @GetMapping("/app/carts")
-    public ResponseEntity<?> CartList() {
+    // 주문 목록 페이지
+    @GetMapping("/app/orderHistories")
+    public ResponseEntity<?> OrderHistories() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(requestDTO));
+        OrderHistoryResponse.UserOrderHistoryDTO orderHistoryList = orderHistoryService.getOrderHistoryByUserId(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(orderHistoryList));
     }
 }

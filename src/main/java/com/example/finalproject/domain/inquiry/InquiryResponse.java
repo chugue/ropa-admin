@@ -10,6 +10,58 @@ import java.util.Date;
 
 public class InquiryResponse {
 
+    //문의 상세보기 DTO
+    @Data
+    public static class DetailDTO {
+        private Integer inquiryId;
+        private Integer userId;
+        private String title;
+        private String content;
+        private String  createdAt;
+        private CommentDTO commentDTO;
+
+        public DetailDTO(Inquiry inquiry, CommentDTO commentDTO) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = Date.from(Instant.now());
+            this.inquiryId = inquiry.getId();
+            this.userId = inquiry.getUser().getId();
+            this.title = inquiry.getTitle();
+            this.content = inquiry.getContent();
+            this.createdAt = dateFormat.format(inquiry.getCreatedAt());
+            this.commentDTO = commentDTO;
+        }
+
+        //브랜드의 답변  DTO
+        @Data
+        public static class CommentDTO{
+            private Integer  brandId;
+            private String brandName;
+            private Boolean status;
+            private String comment;
+            private String commentedAt;
+
+            public CommentDTO(Inquiry inquiry) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = Date.from(Instant.now());
+                if (inquiry.getComment().equals("")) {
+                    // 문의 답변이 없는 경우 해당 칸 비움
+                    this.comment = "";
+                    this.commentedAt = "";
+                    this.status = false;
+                } else {
+                    // 답변이 있다면 화면에 출력
+                    this.comment = inquiry.getComment();
+                    this.commentedAt = dateFormat.format(date);
+                    this.status = true;
+                }
+                this.brandId = inquiry.getAdmin().getId();
+                this.brandName = inquiry.getAdmin().getBrandName();
+
+            }
+        }
+        }
+
+
     @Data // 문의 저장후 확인 데이터
     public static class SaveDTO {
         private Integer inquiryId;
@@ -112,6 +164,4 @@ public class InquiryResponse {
         }
 
     }
-
-
 }

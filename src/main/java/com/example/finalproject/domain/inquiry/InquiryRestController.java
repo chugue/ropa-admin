@@ -6,10 +6,7 @@ import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +16,13 @@ public class InquiryRestController {
     private final InquiryService inquiryService;
     private final HttpSession session;
 
+    //문의 상세보기
+    @GetMapping ("/app/inquiries/{inquiryId}")
+    public ResponseEntity<?> inquiryDetail(@PathVariable int inquiryId){
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        InquiryResponse.DetailDTO respDTO = inquiryService.detailInquiry(sessionUser,inquiryId);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
     // 문의 등록
     @PostMapping("/app/inquiries")
     public ResponseEntity<?> inquirySave(@RequestBody InquiryRequest.SaveDTO reqDTO){

@@ -78,14 +78,14 @@ INSERT INTO cart_tb (user_id, items_id, quantity, total_amount)
 VALUES
     (1, 1, 2, 16000),
     (1, 2, 1, 12000),
-    (2, 1, 3, 24000),
-    (1, 1, 1, 8000),
-    (1, 1, 1, 8000),
-    (1, 1, 1, 8000),
-    (1, 1, 1, 8000),
-    (1, 1, 1, 8000),
-    (1, 1, 1, 8000),
-    (1, 1, 1, 8000);
+    (2, 3, 3, 24000),
+    (2, 4, 1, 8000),
+    (2, 5, 1, 8000),
+    (2, 6, 1, 8000),
+    (2, 7, 1, 8000),
+    (2, 8, 1, 8000),
+    (2, 9, 1, 8000),
+    (2, 10, 1, 8000);
 
 -- 코디 테이블 더미
 insert into codi_tb (user_id, title, description, created_at)
@@ -199,26 +199,3 @@ VALUES (1, 2, 1, 2, 100000, 10000),
        (2, 2, 2, 3, 75000, 7500),
        (1, 3, 7, 4, 400000, 40000),
        (3, 1, 10, 2, 200000, 20000);
-
-
-
--- -- 주문(Order) 더미 데이터 삽입
--- INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
--- VALUES
---     (1, 1, 50000, 22.000, CURRENT_TIMESTAMP),
---     (2, 2, 75000, 22.000, CURRENT_TIMESTAMP),
---     (1, 3, 100000, 22.000, CURRENT_TIMESTAMP);
-
--- -- OrderHistory 더미 데이터 삽입
--- INSERT INTO orderhistory_tb (order_id, order_items_id, admin_id, total_quantity, total_price, fee)
--- VALUES
---     -- OrderHistory 1
---     (1, 1, 1, 2, 100000, 22.000),
---     -- OrderHistory 2
---     (2, 2, 2, 1, 75000, 22.000),
---     -- OrderHistory 3
---     (1, 3, 1, 3, 150000, 22.000),
---     -- OrderHistory 4
---     (2, 4, 2, 2, 100000, 22.000),
---     -- OrderHistory 5
---     (3, 5, 1, 1, 50000, 22.000);

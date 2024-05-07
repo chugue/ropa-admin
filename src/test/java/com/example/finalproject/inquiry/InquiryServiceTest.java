@@ -22,6 +22,19 @@ public class InquiryServiceTest {
     private AdminRepository adminRepository;
 
     @Test
+    public void findByInquiryId_test(){
+        // given
+        Integer inquiryId = 1;
+
+        // when
+        Inquiry detail  = inquiryRepository.findByInquiryId(inquiryId);
+
+        // then
+        System.out.println(detail);
+
+    }
+
+    @Test
     public void inquiryReplyUpdate_test(){
         // given
         Integer id = 1;

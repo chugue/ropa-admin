@@ -9,6 +9,9 @@ import com.example.finalproject.domain.category.Category;
 import com.example.finalproject.domain.photo.Photo;
 import com.example.finalproject.domain.photo.PhotoRepository;
 import com.example.finalproject.domain.photo.PhotoService;
+import com.example.finalproject.domain.user.SessionUser;
+import com.example.finalproject.domain.user.User;
+import com.example.finalproject.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +24,7 @@ import java.util.List;
 public class ItemsService {
     private final AdminRepository adminRepository;
     private final ItemsRepository itemsRepository;
+    private final UserRepository userRepository;
     private final PhotoService photoService;
     private final PhotoRepository photoRepository;
 
@@ -71,6 +75,16 @@ public class ItemsService {
         itemsRepository.save(items);
     }
 
+
+    //아이템 디테일
+    public ItemsResponse.ItemDetailDTO itemDetail(SessionUser sessionUser, int itemId) {
+        User user = userRepository.findById(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+
+        Items item = itemsRepository.findItemsByAdminAndPhotos(itemId);
+
+        return new ItemsResponse.ItemDetailDTO(item, new ItemsResponse.ItemDetailDTO.ItemSubPhoto(item));
+    }
 
     // 아이템 저장
     @Transactional

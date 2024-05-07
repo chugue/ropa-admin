@@ -19,7 +19,7 @@ public class CodiItemsRepositoryTest {
         // given
         Integer userId = 1;
         // when
-        List<CodiItems> codiItems = codiItemsRepository.findByUserWithCodiLIstItemsList(userId);
+        List<CodiItems> codiItems = codiItemsRepository.findCodiItemsByUserId(userId);
         // then
         System.out.println(codiItems.size());
 

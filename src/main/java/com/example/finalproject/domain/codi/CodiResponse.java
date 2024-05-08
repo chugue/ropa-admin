@@ -13,35 +13,25 @@ public class CodiResponse {
 
     //코디 등록에 아이템 등록 클릭시 나오는 뷰 DTO
     @Data
-    public static class CodiSaveAddItemDTO{
+    public static class BrandInfo {
+        private Integer brandId;
+        private String brandName;
+        private Integer photoId;
+        private String photoName;
+        private String photoPath;
+        private List<ItemInfo> itemInfo;
 
-        private List<BrandInfo> brandsInfo;
-
-        public CodiSaveAddItemDTO(List<BrandInfo> brandsInfo) {
-            this.brandsInfo = brandsInfo;
+        public BrandInfo(Admin admin, List<Items> items) {
+            this.brandId = admin.getId();
+            this.brandName = admin.getBrandName();
+            this.photoId = admin.getPhoto().getId();
+            this.photoName = admin.getPhoto().getName();
+            this.photoPath = admin.getPhoto().getPath();
+            this.itemInfo = items.stream().map(ItemInfo::new).toList();
         }
 
         @Data
-        public static class BrandInfo{
-            private Integer brandId;
-            private String brandName;
-            private Integer photoId;
-            private String photoName;
-            private String photoPath;
-            private List<ItemInfo> itemInfo;
-
-            public BrandInfo(Admin admin, List<ItemInfo> itemInfo) {
-                this.brandId = admin.getId();
-                this.brandName = admin.getBrandName();
-                this.photoId = admin.getPhoto().getId();
-                this.photoName = admin.getPhoto().getName();
-                this.photoPath = admin.getPhoto().getPath();
-                this.itemInfo = itemInfo;
-            }
-        }
-
-        @Data
-        public static class ItemInfo{
+        public static class ItemInfo {
             private Integer itemId;
             private String itemName;
             private String photoName;
@@ -56,13 +46,12 @@ public class CodiResponse {
                 this.isMainPhoto = items.getPhotos().getFirst().getIsMainPhoto();
             }
         }
-
-
     }
+
 
     //코디 등록 DTO
     @Data
-    public static class SaveDTO{
+    public static class SaveDTO {
 
     }
 
@@ -81,7 +70,7 @@ public class CodiResponse {
             this.codiId = codi.getId();
             this.description = codi.getDescription();
             this.createdAt = codi.getCreatedAt().toString();
-            if (codiLoveStatus.isEmpty()){
+            if (codiLoveStatus.isEmpty()) {
                 this.isloved = false;
             } else {
                 this.isloved = codiLoveStatus.get().getIsLoved();

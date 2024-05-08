@@ -42,7 +42,7 @@ public class Admin {
 
     private String businessNum; // 사업자 번호 (관리자, 브랜드)
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     private Photo photo;
 
     @CreationTimestamp

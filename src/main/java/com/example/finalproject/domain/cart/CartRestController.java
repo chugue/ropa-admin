@@ -38,4 +38,13 @@ public class CartRestController {
         CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(requestDTO));
     }
+
+    // 장바구니 비우기
+    @DeleteMapping("/app/carts/clear")
+    public ResponseEntity<?> clearCart() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        cartService.clearCart(sessionUser.getId());
+        CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(requestDTO));
+    }
 }

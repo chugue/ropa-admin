@@ -1,5 +1,8 @@
 package com.example.finalproject.domain.codi;
 
+import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.codiItems.CodiItemsRepository;
@@ -27,13 +30,29 @@ import java.util.*;
 @RequiredArgsConstructor
 @Service
 public class CodiService {
-    private final CodiRepository codiRepository;
     private final CodiItemsRepository codiItemsRepository;
     private final PhotoRepository photoRepository;
     private final LoveRepository loveRepository;
     private final ItemsRepository itemsRepository;
-    private final String uploadPath = "./upload/";
+    private final AdminRepository adminRepository;
     private final UserRepository userRepository;
+    private final CodiRepository codiRepository;
+    private final String uploadPath = "./upload/";
+
+    //코디 등록 페이지 - 아이템 연결
+    public List<CodiResponse.BrandInfo> addItemPage() {
+        //모든 브랜드 정보 불러오기
+        List<Admin> admins = adminRepository.findAdminByPhoto();
+
+        //브랜드 기준으로 본인이 올린 아이템 정보 불러오기
+        List<CodiResponse.BrandInfo> respList = admins.stream().map(admin -> {
+            List<Items> adminItems = itemsRepository.findByAdminItemsAndPhotos(admin.getId());
+            return new CodiResponse.BrandInfo(admin, adminItems);
+        }).toList();
+        return respList;
+    }
+
+
 
 
     // 코디 보기 페이지 요청 - 페이지 내 아이템 목록, 크리에이터 코디목록 포함

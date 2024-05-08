@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.utils.ApiUtil;
+import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +20,15 @@ public class CodiRestController {
     private final HttpSession session;
 
 
+    //앱] 코디 등록 - 아이템 연결
+    @GetMapping("/app/save-codi/add-item")
+    public ResponseEntity<?> clickItemSave() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        List<CodiResponse.BrandInfo> respDTO = codiService.addItemPage();
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    // 앱] 코디 등록
     @PostMapping("/app/codi-register")
     public ResponseEntity<?> codiRegister (@RequestBody CodiRequest.SaveDTO reqDTO) {
         CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
@@ -28,13 +38,13 @@ public class CodiRestController {
 
     // 앱] 크리에이터 보기 코디 목록 탭
     @GetMapping("/app/find-codies/{creatorId}")
-    public void findCodies(){
+    public void findCodies() {
 //        codiService.findCreatorCodies();
     }
 
     // 코디 보기 페이지 (페이지내 아이템 목록 코디목록있음)
     @GetMapping("/app/codi-pages/{codiId}")
-    public ResponseEntity<?> codiPage(@PathVariable Integer codiId){
+    public ResponseEntity<?> codiPage(@PathVariable Integer codiId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         CodiResponse.MainViewDTO respDTO = codiService.codiPage(codiId, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

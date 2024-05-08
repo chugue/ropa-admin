@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.photo;
 
+import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.user.User;
@@ -37,7 +38,13 @@ public class Photo {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Sort sort; // 구분 [사용자, 아이템, 코디]
+    private Sort sort; // 구분 [사용자, 아이템, 코디, 브랜드]
+
+    @ToString.Exclude
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    private Admin admin; // 사용자 고유번호
+
 
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY)
@@ -60,13 +67,15 @@ public class Photo {
     @UpdateTimestamp
     private Timestamp updateAt;
 
+
     @Builder
-    public Photo(Integer id, String name, String path, Boolean isMainPhoto, Sort sort, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
+    public Photo(Integer id, String name, String path, Boolean isMainPhoto, Sort sort, Admin admin, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
         this.name = name;
         this.path = path;
         this.isMainPhoto = isMainPhoto;
         this.sort = sort;
+        this.admin = admin;
         this.user = user;
         this.items = items;
         this.codi = codi;
@@ -75,7 +84,7 @@ public class Photo {
     }
 
     public enum Sort {
-        USER, ITEM, CODI
+        USER, ITEM, CODI, BRAND
     }
 
 }

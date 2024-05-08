@@ -5,10 +5,7 @@ import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,5 +28,23 @@ public class CartRestController {
         cartService.save(requestDTO, sessionUser.getId(), requestDTO.getItems().getId());
         CartResponse.CartDTO reqDTO = cartService.getCartByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
+    }
+
+    // 장바구니 아이템 삭제
+    @DeleteMapping("/app/carts/delete/{cartItemId}")
+    public ResponseEntity<?> deleteCartItem(@PathVariable("cartItemId") Integer cartItemId) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        cartService.deleteCartItem(sessionUser.getId(), cartItemId);
+        CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(requestDTO));
+    }
+
+    // 장바구니 비우기
+    @DeleteMapping("/app/carts/clear")
+    public ResponseEntity<?> clearCart() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        cartService.clearCart(sessionUser.getId());
+        CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(requestDTO));
     }
 }

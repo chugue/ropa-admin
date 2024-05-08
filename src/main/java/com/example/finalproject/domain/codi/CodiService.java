@@ -36,6 +36,7 @@ public class CodiService {
     private final ItemsRepository itemsRepository;
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
+    private final CodiRepository codiRepository;
     private final String uploadPath = "./upload/";
 
     //코디 등록 페이지 - 아이템 연결

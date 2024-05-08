@@ -19,10 +19,10 @@ public class ItemsResponse {
         private Integer price;
         private Double discountRate;
         private Integer discountPrice;
-        private ItemSubPhoto itemSubPhoto;
+        private ItemDetailPhoto itemDetailPhoto;
 
 
-        public ItemDetailDTO(Items item, ItemSubPhoto itemSubPhoto) {
+        public ItemDetailDTO(Items item, ItemDetailPhoto itemDetailPhoto) {
             this.itemId = item.getId();
             this.itemPhotoId = item.getPhotos().getFirst().getId();
             this.mainPhotoName = item.getPhotos().getFirst().getName();
@@ -33,24 +33,24 @@ public class ItemsResponse {
             this.price = item.getPrice();
             this.discountRate = item.getDiscountRate();
             this.discountPrice = item.getDiscountPrice();
-            this.itemSubPhoto = itemSubPhoto;
+            this.itemDetailPhoto = itemDetailPhoto;
 
 
         }
 
         @Data
-        public static class ItemSubPhoto {
+        public static class ItemDetailPhoto {
             private Integer itemPhotoId;
             private String subPhotoName;
             private String subPhotoPath;
-            private Boolean isSubPhoto;
+            private Boolean isMainPhoto;
             private Photo.Sort itemPhoto;
 
-            public ItemSubPhoto(Items item) {
+            public ItemDetailPhoto(Items item) {
                 this.itemPhotoId = item.getPhotos().get(1).getId();
                 this.subPhotoName = item.getPhotos().get(1).getName();
                 this.subPhotoPath = item.getPhotos().get(1).getPath();
-                this.isSubPhoto = item.getPhotos().get(1).getIsMainPhoto();
+                this.isMainPhoto = item.getPhotos().get(1).getIsMainPhoto();
                 this.itemPhoto = item.getPhotos().get(1).getSort();
             }
         }

@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.cart;
 
+import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import jakarta.transaction.Transactional;
@@ -44,6 +45,20 @@ public class CartService {
                 // 새로운 아이템을 장바구니에 추가
                 cartRepository.save(saveDTO.toEntity());
             }
+        }
+    }
+
+    @Transactional
+    public void deleteCartItem(Integer userId, Integer cartItemId) {
+        // 해당 아이템을 장바구니에서 찾음
+        Cart cartItem = cartRepository.findById(cartItemId).orElse(null);
+
+        // 장바구니에 해당 아이템이 존재하는지 확인
+        if (cartItem != null && cartItem.getUser().getId().equals(userId)) {
+            cartRepository.delete(cartItem);
+        } else {
+            // 사용자의 장바구니에 해당 아이템이 없거나, 장바구니에 접근할 수 없는 경우
+            throw new Exception404("해당 사용자의 장바구니에 해당 아이템이 없습니다.");
         }
     }
 }

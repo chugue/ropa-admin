@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.codi;
 
+import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.love.Love;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
@@ -8,6 +9,47 @@ import java.util.List;
 import java.util.Optional;
 
 public class CodiResponse {
+
+    @Data
+    public static class NewLinkItems{
+        private Integer codiId;
+        private Integer userId;
+        private String codiTitle;
+        private List<SavedPhoto> savedPhotos;
+        private List<LinkedItem> linkedItems;
+
+        public NewLinkItems(Codi saveCodi, List<Photo> savedPhotos, List<CodiItems> linkedCodiItems) {
+            this.codiId = saveCodi.getId();
+            this.userId = saveCodi.getUser().getId();
+            this.codiTitle = saveCodi.getTitle();
+            this.savedPhotos = savedPhotos.stream().map(SavedPhoto::new).toList();
+            this.linkedItems = linkedCodiItems.stream().map(LinkedItem::new).toList();
+        }
+
+        @Data
+        public class SavedPhoto {
+            private Integer photoId;
+            private String photoName;
+            private String photoPath;
+
+            public SavedPhoto(Photo photo) {
+                this.photoId = photo.getId();
+                this.photoName = photo.getName();
+                this.photoPath = photo.getPath();
+            }
+        }
+
+        @Data
+        public class LinkedItem {
+            private Integer codiId;
+            private Integer itemId;
+
+            public LinkedItem(CodiItems codiItems) {
+                this.codiId = codiItems.getCodi().getId();
+                this.itemId = codiItems.getItems().getId();
+            }
+        }
+    }
 
     @Data
     public static class MainViewDTO {

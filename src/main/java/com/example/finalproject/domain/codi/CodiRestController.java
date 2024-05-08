@@ -18,6 +18,14 @@ public class CodiRestController {
     private final CodiService codiService;
     private final HttpSession session;
 
+
+    @PostMapping("/app/codi-register")
+    public ResponseEntity<?> codiRegister (@RequestBody CodiRequest.SaveDTO reqDTO) {
+        CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+
     // 앱] 크리에이터 보기 코디 목록 탭
     @GetMapping("/app/find-codies/{creatorId}")
     public void findCodies(){
@@ -33,13 +41,10 @@ public class CodiRestController {
     }
 
     // 코디 등록 (상의와 하의가 같이 저장됨) - 웹에서 코디 등록 로직 사라짐..
-    @PostMapping("/api/codi-register")
+    @PostMapping("/api/codi-register/notuse")
     public void codiRegister(
             @RequestParam(name = "top") String topItem,
             @RequestParam(name = "bottom") String bottomItem) {
-
-        System.out.println(topItem);
-        System.out.println(bottomItem);
     }
 
 

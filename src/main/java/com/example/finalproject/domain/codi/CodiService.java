@@ -52,6 +52,26 @@ public class CodiService {
         return respList;
     }
 
+    // 로그인 안한 사용자용 코디보기 페이지 - 공개된 페이지
+    public CodiResponse.OpenMainViewDTO codiOpenPage(Integer codiId) {
+        // codiId로 코디 메인 사진 조회
+        List<Photo> mainCodiPhotos = photoRepository.findByCodiId(codiId);
+
+        // 코디에 대한 좋아요 갯수 조회
+        Long totalLove = loveRepository.countTotalLove(codiId);
+
+        // codiItems로 조회해서 Codi 정보랑 연계된 Items조회후 사진 가져오기
+        List<CodiItems> codiItemsList = codiItemsRepository.findByCodiWithItems(codiId);
+        List<Integer> itemsIdList = codiItemsList.stream().map(codiItems -> codiItems.getItems().getId()).toList();
+        List<Photo> codiItemPhotos = photoRepository.findByItemsIds(itemsIdList);
+
+        // CreatorId로 모든 코디를 조회해서 여러 코디 메인 사진 가져오기
+        Codi selectedCodi = codiItemsList.getFirst().getCodi();
+        List<Photo> otherCodiPhotos = photoRepository.findByUserIdWithCodiesAndPhoto(selectedCodi.getUser().getId());
+
+        return new CodiResponse.OpenMainViewDTO(
+                selectedCodi, totalLove, mainCodiPhotos, codiItemPhotos, otherCodiPhotos);
+    }
 
 
 
@@ -159,6 +179,19 @@ public class CodiService {
         }
     }
 
+    // 코디 수정 페이지 요청
+    public void findInfoByCodiId(Integer codiId, Integer userId) {
+        Codi codi = codiRepository.findByCodiId(codiId).orElseThrow(() ->
+                new Exception404("코디를 찾을 수 없습니다. "));
+        User user = userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자를 찾을 수 없습니다."));
+
+        if (codi.getUser().getId() != user.getId()) {
+            throw new Exception401("인증된 사용자가 아닙니다.");
+        }
+
+        codiItemsRepository.findAllByCodiId(codi.getId());
+
+    }
 }
 
 

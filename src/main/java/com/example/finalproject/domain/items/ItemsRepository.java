@@ -28,4 +28,7 @@ public interface ItemsRepository extends JpaRepository<Items, Integer> {
     @Query("SELECT i FROM Items i JOIN FETCH i.category c WHERE i.admin.id = :adminId AND i.id = :itemId")
     Optional<Items> findItemsByAdminIdAndItemId(@Param("adminId") int adminId, @Param("itemId") int itemId);
 
+    // 아이템 id 리스트로 아이템 목록 불러오기
+    @Query("select i from Items i where  i.id in :reqItemsIds")
+    List<Items> findItemsByItemId(@Param("reqItemsIds") List<Integer> reqItemsIds);
 }

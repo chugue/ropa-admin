@@ -180,17 +180,24 @@ public class CodiService {
     }
 
     // 코디 수정 페이지 요청
-    public void findInfoByCodiId(Integer codiId, Integer userId) {
-        Codi codi = codiRepository.findByCodiId(codiId).orElseThrow(() ->
-                new Exception404("코디를 찾을 수 없습니다. "));
+    public CodiResponse.UpdatePage findInfoByCodiId(Integer codiId, Integer userId) {
+        // 코디아이디랑 연결된 아이템 가져오기
+        List<CodiItems> codiItems = codiItemsRepository.findByCodiWithItems(codiId);
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자를 찾을 수 없습니다."));
 
-        if (codi.getUser().getId() != user.getId()) {
+        // 사용자 인증
+        if (codiItems.getFirst().getCodi().getUser().getId() != user.getId()) {
             throw new Exception401("인증된 사용자가 아닙니다.");
         }
 
-        codiItemsRepository.findAllByCodiId(codi.getId());
+        // 코디 사진 가져오기
+        List<Photo> codiPhotos = photoRepository.findByCodiId(codiId);
 
+        // 코디랑 연결된 아이템 아이템 id 뽑아오기, 이걸로 codiItemPhotos in쿼리에 사용
+        List<Integer> codiItemIds = codiItems.stream().map(codiItem -> codiItem.getItems().getId()).toList();
+        List<Photo> codiItemPhotos = photoRepository.findByItemsIds(codiItemIds);
+
+        return new CodiResponse.UpdatePage(codiItems.getFirst().getCodi(), codiPhotos, codiItemPhotos);
     }
 }
 

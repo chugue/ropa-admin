@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CodiItemsRepository extends JpaRepository<CodiItems, Integer> {
+
     @Query("SELECT ci FROM CodiItems ci JOIN FETCH ci.items WHERE ci.codi.id IN :codiIds")
     List<CodiItems> findCodiItemsByCodiIdIn(@Param("codiIds") List<Integer> codiIds);
 

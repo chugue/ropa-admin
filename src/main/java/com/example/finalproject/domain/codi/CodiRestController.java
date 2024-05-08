@@ -23,8 +23,9 @@ public class CodiRestController {
     // 코디 수정 페이지
     @GetMapping("/app/codi-update-page/{codiId}")
     public ResponseEntity<?> updatePage(@PathVariable Integer codiId) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        codiService.findInfoByCodiId(codiId, sessionUser.getId());
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        CodiResponse.UpdatePage respDTO = codiService.findInfoByCodiId(codiId, sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 

@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -20,5 +22,14 @@ public class CartRestController {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(requestDTO));
+    }
+
+    // 장바구니 추가
+    @PostMapping("/app/carts/save")
+    public ResponseEntity<?> CartSave(@RequestBody CartRequest.SaveDTO requestDTO) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        cartService.save(requestDTO, sessionUser.getId(), requestDTO.getItems().getId());
+        CartResponse.CartDTO reqDTO = cartService.getCartByUserId(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 }

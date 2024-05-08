@@ -1,14 +1,13 @@
 package com.example.finalproject.domain.codi;
 
 import com.example.finalproject.domain.admin.Admin;
-import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.codiItems.CodiItems;
+import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.love.Love;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,13 +105,7 @@ public class CodiResponse {
         }
     }
 
-
-    //코디 등록 DTO
-    @Data
-    public static class SaveDTO {
-
-    }
-
+    // 코디 등록할 때 사용하는 DTO
     @Data
     public static class NewLinkItems{
         private Integer codiId;
@@ -200,11 +193,13 @@ public class CodiResponse {
         @Data
         public class ItemsPhotoDTO {
             private Integer itemsPhotoId;
+            private Integer itemsId;
             private String itemsPhotoName;
             private String itemsPhotoPath;
 
             public ItemsPhotoDTO(Photo photo) {
                 this.itemsPhotoId = photo.getId();
+                this.itemsId = photo.getItems().getId();
                 this.itemsPhotoName = photo.getName();
                 this.itemsPhotoPath = photo.getPath();
             }
@@ -212,11 +207,13 @@ public class CodiResponse {
 
         @Data
         public class CodiPhotoDTO {
+            private Integer codiId;
             private Integer codiPhotoId;
             private String codiPhotoName;
             private String codiPhotoPath;
 
             public CodiPhotoDTO(Photo photo) {
+                this.codiId = photo.getCodi().getId();
                 this.codiPhotoId = photo.getId();
                 this.codiPhotoName = photo.getName();
                 this.codiPhotoPath = photo.getPath();
@@ -267,11 +264,13 @@ public class CodiResponse {
         @Data
         public class ItemsPhotoDTO {
             private Integer itemsPhotoId;
+            private Integer itemsId;
             private String itemsPhotoName;
             private String itemsPhotoPath;
 
             public ItemsPhotoDTO(Photo photo) {
                 this.itemsPhotoId = photo.getId();
+                this.itemsId = photo.getItems().getId();
                 this.itemsPhotoName = photo.getName();
                 this.itemsPhotoPath = photo.getPath();
             }
@@ -280,11 +279,13 @@ public class CodiResponse {
         @Data
         public class CodiPhotoDTO {
             private Integer codiPhotoId;
+            private Integer codiId;
             private String codiPhotoName;
             private String codiPhotoPath;
 
             public CodiPhotoDTO(Photo photo) {
                 this.codiPhotoId = photo.getId();
+                this.codiId = photo.getCodi().getId();
                 this.codiPhotoName = photo.getName();
                 this.codiPhotoPath = photo.getPath();
             }

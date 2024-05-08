@@ -30,10 +30,10 @@ public class PhotoResponse {
 
             public CreatorPhotoDTO(Photo photo) {
                 this.photoId = photo.getId();
+                this.creatorId = photo.getUser().getId();
                 this.name = photo.getName();
                 this.path = photo.getPath();
                 this.sort = photo.getSort();
-                this.creatorId = photo.getUser().getId();
             }
         }
 
@@ -48,10 +48,10 @@ public class PhotoResponse {
 
             public ItemsPhotoDTO(Photo photo, Admin admin) {
                 this.photoId = photo.getId();
+                this.itemsId = photo.getItems().getId();
                 this.name = photo.getName();
                 this.path = photo.getPath();
                 this.sort = photo.getSort();
-                this.itemsId = photo.getItems().getId();
                 this.adminInfo = new AdminDTO(admin);
             }
 
@@ -70,10 +70,10 @@ public class PhotoResponse {
         @Data
         public class CodiesPhotoDTO {
             private Integer photoId;
+            private Integer codiId;
             private String name;
             private String path;
             private Photo.Sort sort;
-            private Integer codiId;
 
             public CodiesPhotoDTO(Photo photo) {
                 this.photoId = photo.getId();

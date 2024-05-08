@@ -27,15 +27,15 @@ public class AdminService {
     private final UserRepository userRepository;
 
     //브랜드가 로그인 했을 때 매출 목록보기
-    public List<AdminResponse.BrandOrderHistoryListDTO> brandOrderHistory(int adminId) {
+    public List<AdminResponse.BrandOrderHistoryList> brandOrderHistory(int adminId) {
         List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
         if (brandOrderHistory == null) {
             throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
         }
 
-        List<AdminResponse.BrandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
-            return new AdminResponse.BrandOrderHistoryListDTO(orderHistory);
+        List<AdminResponse.BrandOrderHistoryList> respDTO = brandOrderHistory.stream().map(orderHistory -> {
+            return new AdminResponse.BrandOrderHistoryList(orderHistory);
         }).collect(Collectors.toList());
 
         return respDTO;
@@ -54,9 +54,9 @@ public class AdminService {
     }
 
     //관리자가 로그인했을 때 매출 목록보기
-    public List<AdminResponse.SalesListDTO> adminSalesListDTOList() {
+    public List<AdminResponse.SalesList> adminSalesListDTOList() {
 
-        List<AdminResponse.SalesListDTO> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        List<AdminResponse.SalesList> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
 
         return respDTO;
     }
@@ -88,9 +88,9 @@ public class AdminService {
     }
 
     // 유저 크리에이터 인증 관리
-    public List<AdminResponse.UserListDTO> getUserList() {
+    public List<AdminResponse.UserList> getUserList() {
         List<User> userList = userRepository.findAll();
-        return userList.stream().map(AdminResponse.UserListDTO::new).toList();
+        return userList.stream().map(AdminResponse.UserList::new).toList();
     }
 
 

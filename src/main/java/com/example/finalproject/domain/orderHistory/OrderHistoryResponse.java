@@ -12,7 +12,7 @@ public class OrderHistoryResponse {
 
     // 전체 주문 내역 DTO (관리자)
     @Data
-    public static class orderListDTO {
+    public static class orderList {
         private Integer orderId;
         private String userName;
         private String userPhone;
@@ -23,7 +23,7 @@ public class OrderHistoryResponse {
         private Integer totalPrice;
         private String orderDate;
 
-        public orderListDTO(OrderHistory orderHistory) {
+        public orderList(OrderHistory orderHistory) {
             this.orderId = orderHistory.getId();
             this.userName = orderHistory.getOrder().getUser().getMyName();
             this.userPhone = orderHistory.getOrder().getUser().getMobile();
@@ -39,7 +39,7 @@ public class OrderHistoryResponse {
 
     // 배송 목록 DTO (관리자)
     @Data
-    public static class DeliveryListDTO {
+    public static class DeliveryList {
         private Integer orderId; // 주문 코드
         private String userName; // 주문자
         private String recipient; // 수령인
@@ -48,7 +48,7 @@ public class OrderHistoryResponse {
         private String orderDate; // 주문일자
         private String endDate; // 배송도착일자
 
-        public DeliveryListDTO(OrderHistory orderHistory, User user, DeliveryAddress deliveryAddress, Delivery delivery) {
+        public DeliveryList(OrderHistory orderHistory, User user, DeliveryAddress deliveryAddress, Delivery delivery) {
             this.orderId = orderHistory.getOrder().getId();
             this.userName = user.getMyName();
             this.recipient = deliveryAddress.getRecipient();
@@ -62,11 +62,11 @@ public class OrderHistoryResponse {
 
     // 주문내역 DTO (사용자)
     @Data
-    public static class UserOrderHistoryDTO {
+    public static class UserOrderHistory {
         private Integer userId;
-        private List<ItemHistoryDTO> itemHistoryDTOList;
+        private List<ItemHistory> itemHistoryDTOList;
 
-        public UserOrderHistoryDTO(Integer userId, List<ItemHistoryDTO> itemHistoryDTOList) {
+        public UserOrderHistory(Integer userId, List<ItemHistory> itemHistoryDTOList) {
             this.userId = userId;
             this.itemHistoryDTOList = itemHistoryDTOList;
         }
@@ -74,7 +74,7 @@ public class OrderHistoryResponse {
 
     // 주문내역 아이템 DTO (사용자)
     @Data
-    public static class ItemHistoryDTO {
+    public static class ItemHistory {
         private Integer orderId; // 주문 코드
         private Integer itemId; // 주문자
         private String itemName; // 아이템명
@@ -85,7 +85,7 @@ public class OrderHistoryResponse {
         private String itemCategoryMain; // 아이템 카테고리 main
         private String deliveryStatus; // 배송 현황
 
-        public ItemHistoryDTO(OrderHistory orderHistory) {
+        public ItemHistory(OrderHistory orderHistory) {
             this.orderId = orderHistory.getOrder().getId();
             this.itemId = orderHistory.getItems().getId();
             this.itemName = orderHistory.getItems().getName();

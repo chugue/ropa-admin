@@ -1,16 +1,13 @@
 package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.utils.ApiUtil;
-import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.user.SessionUser;
-import com.example.finalproject.domain.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -53,14 +50,14 @@ public class CodiRestController {
     @GetMapping("/app/codi-pages/{codiId}")
     public ResponseEntity<?> codiPage(@PathVariable Integer codiId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        CodiResponse.MainViewDTO respDTO = codiService.codiPage(codiId, sessionUser.getId());
+        CodiResponse.MainView respDTO = codiService.codiPage(codiId, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 공개된 코디 보기 페이지 (좋아요 false) - 로그인 안해도 볼 수 있음
     @GetMapping("/codi-pages/{codiId}")
     public ResponseEntity<?> codiOpenPage(@PathVariable Integer codiId) {
-        CodiResponse.OpenMainViewDTO respDTO = codiService.codiOpenPage(codiId);
+        CodiResponse.OpenMainView respDTO = codiService.codiOpenPage(codiId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.photo;
 
-import com.example.finalproject.domain.admin.Admin;
 import lombok.Data;
 
 import java.util.List;
@@ -8,59 +7,59 @@ import java.util.List;
 public class PhotoResponse {
 
     @Data
-    public static class HomeDTO {
-        private List<CreatorPhotoDTO> popularUserPhotos;
-        private List<ItemsPhotoDTO> popularItemsPhotos;
-        private List<CodiesPhotoDTO> popularCodiPhotos;
+    public static class Home {
+        private List<CreatorPhoto> popularUserPhotos;
+        private List<ItemsPhoto> popularItemsPhotos;
+        private List<CodiesPhoto> popularCodiPhotos;
 
-        public HomeDTO(List<Photo> popularUserPhotos, List<Photo> popularItemsPhotos, List<Photo> popularCodiPhotos) {
-            this.popularUserPhotos = popularUserPhotos.stream().map(CreatorPhotoDTO::new).toList();
+        public Home(List<Photo> popularUserPhotos, List<Photo> popularItemsPhotos, List<Photo> popularCodiPhotos) {
+            this.popularUserPhotos = popularUserPhotos.stream().map(CreatorPhoto::new).toList();
             this.popularItemsPhotos = popularItemsPhotos.stream().map(photo ->
-                    new ItemsPhotoDTO(photo, photo.getItems().getAdmin())).toList();
-            this.popularCodiPhotos = popularCodiPhotos.stream().map(CodiesPhotoDTO::new).toList();
+                    new ItemsPhoto(photo, photo.getItems().getAdmin())).toList();
+            this.popularCodiPhotos = popularCodiPhotos.stream().map(CodiesPhoto::new).toList();
         }
 
         @Data
-        public class CreatorPhotoDTO{
+        public class CreatorPhoto {
             private Integer photoId;
             private String name;
             private String path;
             private Photo.Sort sort;
             private Integer creatorId;
 
-            public CreatorPhotoDTO(Photo photo) {
+            public CreatorPhoto(Photo photo) {
                 this.photoId = photo.getId();
+                this.creatorId = photo.getUser().getId();
                 this.name = photo.getName();
                 this.path = photo.getPath();
                 this.sort = photo.getSort();
-                this.creatorId = photo.getUser().getId();
             }
         }
 
         @Data
-        public class ItemsPhotoDTO{
+        public class ItemsPhoto {
             private Integer photoId;
             private String name;
             private String path;
             private Photo.Sort sort;
             private Integer itemsId;
-            private AdminDTO adminInfo;
+            private AdminInfo adminInfo;
 
-            public ItemsPhotoDTO(Photo photo, Admin admin) {
+            public ItemsPhoto(Photo photo, com.example.finalproject.domain.admin.Admin admin) {
                 this.photoId = photo.getId();
+                this.itemsId = photo.getItems().getId();
                 this.name = photo.getName();
                 this.path = photo.getPath();
                 this.sort = photo.getSort();
-                this.itemsId = photo.getItems().getId();
-                this.adminInfo = new AdminDTO(admin);
+                this.adminInfo = new AdminInfo(admin);
             }
 
             @Data
-            public class AdminDTO{
+            public class AdminInfo {
                 private Integer brandId;
                 private String brandName;
 
-                public AdminDTO(Admin admin) {
+                public AdminInfo(com.example.finalproject.domain.admin.Admin admin) {
                     this.brandId = admin.getId();
                     this.brandName = admin.getBrandName();
                 }
@@ -68,14 +67,14 @@ public class PhotoResponse {
         }
 
         @Data
-        public class CodiesPhotoDTO {
+        public class CodiesPhoto {
             private Integer photoId;
+            private Integer codiId;
             private String name;
             private String path;
             private Photo.Sort sort;
-            private Integer codiId;
 
-            public CodiesPhotoDTO(Photo photo) {
+            public CodiesPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.name = photo.getName();
                 this.path = photo.getPath();

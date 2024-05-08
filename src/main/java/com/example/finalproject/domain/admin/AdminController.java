@@ -68,7 +68,7 @@ public class AdminController {
         if (sessionAdmin == null) {
             throw new Exception403("잘못된 접근입니다.");
         }
-        List<AdminResponse.SalesListDTO> orderHistoryList = adminService.adminSalesListDTOList();
+        List<AdminResponse.SalesList> orderHistoryList = adminService.adminSalesListDTOList();
 
         req.setAttribute("orderHistoryList", orderHistoryList);
         return "sales/admin-sales-manage";
@@ -78,7 +78,7 @@ public class AdminController {
     @GetMapping("/api/brand-sales-manage")
     public String brandSalesManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-        List<AdminResponse.BrandOrderHistoryListDTO> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
+        List<AdminResponse.BrandOrderHistoryList> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
         req.setAttribute("orderHistoryList", orderHistoryList);
 
         return "sales/brand-sales-manage";
@@ -87,7 +87,7 @@ public class AdminController {
     // 회원 관리 페이지
     @GetMapping("/api/user-manage")
     public String userManage(HttpServletRequest request) {
-        List<AdminResponse.UserListDTO> userList = adminService.getUserList();
+        List<AdminResponse.UserList> userList = adminService.getUserList();
         request.setAttribute("userList", userList);
         return "admin/user-manage";
     }

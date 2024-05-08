@@ -20,9 +20,9 @@ public class CodiRestController {
 
 
     @PostMapping("/app/codi-register")
-    public void codiRegister (@RequestBody CodiRequest.SaveDTO reqDTO) {
-
-
+    public ResponseEntity<?> codiRegister (@RequestBody CodiRequest.SaveDTO reqDTO) {
+        CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
 

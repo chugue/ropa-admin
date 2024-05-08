@@ -34,12 +34,12 @@ public class Order {
     @CreationTimestamp
     private Timestamp orderDate; // 주문일자
 
-
     @Builder
-    public Order(Integer id, User user, Delivery delivery, Integer totalOrderAmount, Double fee, Timestamp orderDate) {
+    public Order(Integer id, User user, Delivery delivery, String deliveryType, Integer totalOrderAmount, Double fee, Timestamp orderDate) {
         this.id = id;
         this.user = user;
         this.delivery = delivery;
+        this.deliveryType = deliveryType;
         this.totalOrderAmount = totalOrderAmount;
         this.fee = fee;
         this.orderDate = orderDate;

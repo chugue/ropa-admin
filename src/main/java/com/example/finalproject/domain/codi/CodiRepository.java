@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CodiRepository extends JpaRepository<Codi, Integer> {
     //선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
@@ -15,5 +16,6 @@ public interface CodiRepository extends JpaRepository<Codi, Integer> {
     @Query("SELECT DISTINCT c FROM Codi c JOIN FETCH c.photos WHERE c.user.id = :userId")
     List<Codi> findCodiAndPhotosByUserId(@Param("userId") int userId);
 
-
+    @Query("select c from Codi c where c.id = :codiId")
+    Optional<Codi> findByCodiId(@Param("codiId") Integer codiId);
 }

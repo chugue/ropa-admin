@@ -12,7 +12,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
 
 
     // 아이템 아이디들로 사진조회하는 쿼리
-    @Query("select p from Photo p where p.items.id in :itemsIds")
+    @Query("select p from Photo p join fetch p.items i join fetch i.category c where p.items.id in :itemsIds")
     List<Photo> findByItemsIds(@Param("itemsIds") List<Integer> itemsIds);
 
     // 코디 아이디로 코디 메인 사진 조회 + 좋아요 정보

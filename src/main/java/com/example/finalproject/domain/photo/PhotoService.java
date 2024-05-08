@@ -28,24 +28,6 @@ public class PhotoService {
     private final LoveRepository loveRepository;
     private final String uploadPath = "./upload/";
 
-    // 아이템 메인사진 없데이트
-    @Transactional
-    public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
-            uploadItemMainImage(updateImage, items);
-            deleteItemImage(dbPhoto);
-        }
-    }
-
-    // 아이템 상세보기 사진 업데이트
-    @Transactional
-    public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
-            uploadItemDetailImage(updateImage, items);
-            deleteItemImage(dbPhoto);
-        }
-    }
-
     // 아이템 메인 사진 업로드
     @Transactional
     public void uploadItemMainImage(MultipartFile mainImage, Items items) {
@@ -76,6 +58,26 @@ public class PhotoService {
                 .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
     }
+
+    // 아이템 메인사진 없데이트
+    @Transactional
+    public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
+            uploadItemMainImage(updateImage, items);
+            deleteItemImage(dbPhoto);
+        }
+    }
+
+    // 아이템 상세보기 사진 업데이트
+    @Transactional
+    public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
+            uploadItemDetailImage(updateImage, items);
+            deleteItemImage(dbPhoto);
+        }
+    }
+
+
 
     // 파일로 저장 + 예외처리
     @Transactional

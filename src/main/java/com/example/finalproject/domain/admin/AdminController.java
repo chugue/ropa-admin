@@ -46,6 +46,8 @@ public class AdminController {
             return "index-brand";
         }
         return "index-brand";
+
+
     }
 
     // 회원가입 폼

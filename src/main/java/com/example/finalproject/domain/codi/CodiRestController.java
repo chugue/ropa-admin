@@ -19,7 +19,11 @@ public class CodiRestController {
     private final HttpSession session;
 
 
-    @PostMapping("/app/register/codi")
+    @PostMapping("/app/codi-register")
+    public void codiRegister (@RequestBody CodiRequest.SaveDTO reqDTO) {
+
+
+    }
 
 
     // 앱] 크리에이터 보기 코디 목록 탭

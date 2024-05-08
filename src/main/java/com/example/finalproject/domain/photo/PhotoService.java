@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.photo;
 
+import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.love.LoveRepository;
 import com.example.finalproject.domain.love.LoveResponse;
@@ -27,6 +28,20 @@ public class PhotoService {
     private final OrderHistoryRepository orderHistoryRepository;
     private final LoveRepository loveRepository;
     private final String uploadPath = "./upload/";
+
+    // 회원가입 사진 업로드
+    @Transactional
+    public void uploadBrandImage(MultipartFile brandImage, Admin admin){
+        if(brandImage == null || brandImage.isEmpty()){
+            return;
+        }
+
+        // 파일명 중복 방지를 위해 UUID 사용
+        String imgFilename = UUID.randomUUID() + "_" + brandImage.getOriginalFilename();
+
+        // 파일이름이랑 개방된 폴더를 조합해서 경로 생성
+        Path imgPath = Paths.get(uploadPath + imgFilename);
+    }
 
     // 아이템 메인 사진 업로드
     @Transactional

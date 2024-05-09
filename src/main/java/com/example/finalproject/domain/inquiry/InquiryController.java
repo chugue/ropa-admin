@@ -21,7 +21,7 @@ public class InquiryController {
     @GetMapping("/api/inquiry-manage")
     public String inquiryManage(HttpServletRequest req) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        List<InquiryResponse.ListDTO> respList =
+        List<InquiryResponse.List> respList =
                 inquiryService.findAllInquiryWithUser(sessionBrand.getId());
 
         req.setAttribute("inquiryList", respList);
@@ -31,7 +31,7 @@ public class InquiryController {
     // 문의 내용 답변 폼 페이지
     @GetMapping("/api/inquiry-reply/{inquiryId}")
     public String inquiryReply(@PathVariable(name = "inquiryId") Integer inquiryId, HttpServletRequest req) {
-        InquiryResponse.ReplyDTO respDTO = inquiryService.findByInquiryId(inquiryId);
+        InquiryResponse.Reply respDTO = inquiryService.findByInquiryId(inquiryId);
 
         req.setAttribute("inquiryReply", respDTO);
         return "inquiry/inquiry-reply-form";

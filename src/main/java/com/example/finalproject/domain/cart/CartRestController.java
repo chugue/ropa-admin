@@ -17,7 +17,7 @@ public class CartRestController {
     @GetMapping("/app/carts")
     public ResponseEntity<?> CartList() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
+        CartResponse.CartInfo requestDTO = cartService.getCartByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(requestDTO));
     }
 
@@ -26,7 +26,7 @@ public class CartRestController {
     public ResponseEntity<?> CartSave(@RequestBody CartRequest.SaveDTO requestDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         cartService.save(requestDTO, sessionUser.getId(), requestDTO.getItems().getId());
-        CartResponse.CartDTO reqDTO = cartService.getCartByUserId(sessionUser.getId());
+        CartResponse.CartInfo reqDTO = cartService.getCartByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(reqDTO));
     }
 
@@ -35,7 +35,7 @@ public class CartRestController {
     public ResponseEntity<?> deleteCartItem(@PathVariable("cartItemId") Integer cartItemId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         cartService.deleteCartItem(sessionUser.getId(), cartItemId);
-        CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
+        CartResponse.CartInfo requestDTO = cartService.getCartByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(requestDTO));
     }
 
@@ -44,7 +44,7 @@ public class CartRestController {
     public ResponseEntity<?> clearCart() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         cartService.clearCart(sessionUser.getId());
-        CartResponse.CartDTO requestDTO = cartService.getCartByUserId(sessionUser.getId());
+        CartResponse.CartInfo requestDTO = cartService.getCartByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(requestDTO));
     }
 }

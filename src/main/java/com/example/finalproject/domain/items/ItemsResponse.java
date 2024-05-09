@@ -8,7 +8,7 @@ import java.util.List;
 public class ItemsResponse {
     //크리에이터의 아이템 상세페이지
     @Data
-    public static class ItemDetailDTO {
+    public static class ItemDetail {
         private Integer itemId;
         private Integer itemPhotoId;
         private String mainPhotoName;
@@ -22,7 +22,7 @@ public class ItemsResponse {
         private ItemDetailPhoto itemDetailPhoto;
 
 
-        public ItemDetailDTO(Items item, ItemDetailPhoto itemDetailPhoto) {
+        public ItemDetail(Items item, ItemDetailPhoto itemDetailPhoto) {
             this.itemId = item.getId();
             this.itemPhotoId = item.getPhotos().getFirst().getId();
             this.mainPhotoName = item.getPhotos().getFirst().getName();
@@ -58,14 +58,14 @@ public class ItemsResponse {
 
     //브랜드의 상품 목록 보기
     @Data
-    public static class listDTO {
+    public static class list {
         private Integer itemId;
         private String itemName;
         private Integer price;
         private String mainCategory;
         private Integer stock;
 
-        public listDTO(Items items) {
+        public list(Items items) {
             this.itemId = items.getId();
             this.itemName = items.getName();
             this.price = items.getPrice();
@@ -76,7 +76,7 @@ public class ItemsResponse {
 
     // 아이템 상세보기
     @Data
-    public static class DetailDTO {
+    public static class Detail {
         private Integer itemId;
         private String name;
         private String description;
@@ -89,7 +89,7 @@ public class ItemsResponse {
         private String itemMainImage;
         private String itemDetailImage;
 
-        public DetailDTO(Items items, List<Photo> itemPhotos) {
+        public Detail(Items items, List<Photo> itemPhotos) {
             this.itemId = items.getId();
             this.name = items.getName();
             this.description = items.getDescription();

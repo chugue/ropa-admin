@@ -20,14 +20,14 @@ public class InquiryRestController {
     @GetMapping ("/app/inquiries/{inquiryId}")
     public ResponseEntity<?> inquiryDetail(@PathVariable int inquiryId){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        InquiryResponse.DetailDTO respDTO = inquiryService.detailInquiry(sessionUser,inquiryId);
+        InquiryResponse.Detail respDTO = inquiryService.detailInquiry(sessionUser,inquiryId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
     // 문의 등록
     @PostMapping("/app/inquiries")
     public ResponseEntity<?> inquirySave(@RequestBody InquiryRequest.SaveDTO reqDTO){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        InquiryResponse.SaveDTO respDTO = inquiryService.saveInquiry(reqDTO, sessionUser.getId());
+        InquiryResponse.Save respDTO = inquiryService.saveInquiry(reqDTO, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
@@ -35,7 +35,7 @@ public class InquiryRestController {
     @GetMapping("/app/inquiries-lists")
     public ResponseEntity<?> inquiryPage(){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        List<InquiryResponse.UserPageDTO> respList = inquiryService.inquiryPage(sessionUser.getId());
+        List<InquiryResponse.UserPage> respList = inquiryService.inquiryPage(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respList));
     }
 }

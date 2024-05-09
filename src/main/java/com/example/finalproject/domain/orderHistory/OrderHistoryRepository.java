@@ -10,10 +10,10 @@ import java.util.List;
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
 
     //관리자의 브랜드별 매출 목록보기
-    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesListDTO(oh.admin ,SUM(oh.orderItemPrice), SUM(oh.fee)) " +
+    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesList(oh.admin ,SUM(oh.orderItemPrice), SUM(oh.fee)) " +
             "FROM OrderHistory oh " +
             "GROUP BY oh.admin.id")
-    List<AdminResponse.SalesListDTO> getTotalSalesAndFeePerBrand();
+    List<AdminResponse.SalesList> getTotalSalesAndFeePerBrand();
 
     //관리자의 매출 목록
     @Query("select oh from OrderHistory oh join FETCH oh.order where oh.admin.id = :adminId")
@@ -27,7 +27,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
     List<OrderHistory> findByOrderHistoryItemsAdmin(@Param("adminId") Integer adminId);
 
-    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch d.deliveryAddress da join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch d.address da join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
     List<OrderHistory> findByOrderHistoryItemsAdminAndDelivery(@Param("adminId") Integer adminId);
 
     // 각 아이템의 총 판매수량대로 정렬하여서 각 아이템의 id를 나열

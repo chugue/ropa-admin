@@ -20,7 +20,7 @@ public class DeliveryController {
     @GetMapping("/api/delivery-manage")
     public String deliveryManage(HttpServletRequest request) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        List<OrderHistoryResponse.DeliveryListDTO> orderDeliveryList = deliveryService.findByOrderHistoryItemsAdminAndDelivery(sessionBrand.getId());
+        List<OrderHistoryResponse.DeliveryList> orderDeliveryList = deliveryService.findByOrderHistoryItemsAdminAndDelivery(sessionBrand.getId());
         request.setAttribute("orderDeliveryList", orderDeliveryList);
         return "delivery/delivery-manage";
     }

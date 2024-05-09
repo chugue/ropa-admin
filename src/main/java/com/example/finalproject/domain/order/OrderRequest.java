@@ -29,7 +29,7 @@ public class OrderRequest {
             // 주문 생성
             return Order.builder()
                     .user(user)
-                    .totalOrderAmount(totalOrderAmount)
+                    .purchaseAmount(totalOrderAmount)
                     .orderDate(new Timestamp(System.currentTimeMillis()))
                     .build();
         }

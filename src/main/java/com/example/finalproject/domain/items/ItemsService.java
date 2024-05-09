@@ -77,13 +77,13 @@ public class ItemsService {
 
 
     //아이템 디테일
-    public ItemsResponse.ItemDetailDTO itemDetail(SessionUser sessionUser, int itemId) {
+    public ItemsResponse.ItemDetail itemDetail(SessionUser sessionUser, int itemId) {
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
         Items item = itemsRepository.findItemsByAdminAndPhotos(itemId);
 
-        return new ItemsResponse.ItemDetailDTO(item, new ItemsResponse.ItemDetailDTO.ItemDetailPhoto(item));
+        return new ItemsResponse.ItemDetail(item, new ItemsResponse.ItemDetail.ItemSubPhoto(item));
     }
 
     // 아이템 저장
@@ -99,17 +99,17 @@ public class ItemsService {
     }
 
     // 아이템 목록
-    public List<ItemsResponse.listDTO> findItemsByAdminId(Integer sessionBrandId) {
+    public List<ItemsResponse.list> findItemsByAdminId(Integer sessionBrandId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         List<Items> item = itemsRepository.findItemsByAdminId(sessionBrandId);
-        return item.stream().map(ItemsResponse.listDTO::new).toList();
+        return item.stream().map(ItemsResponse.list::new).toList();
     }
 
     // 아이템 상세보기
-    public ItemsResponse.DetailDTO findItemsByAdminIdAndItemId(Integer sessionAdminId, Integer itemId) {
+    public ItemsResponse.Detail findItemsByAdminIdAndItemId(Integer sessionAdminId, Integer itemId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionAdminId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
@@ -121,7 +121,7 @@ public class ItemsService {
         // 아이템 사진 조회
         List<Photo> itemPhotos = photoRepository.findAllByItemsId(itemId);
 
-        return new ItemsResponse.DetailDTO(items, itemPhotos);
+        return new ItemsResponse.Detail(items, itemPhotos);
     }
 
 

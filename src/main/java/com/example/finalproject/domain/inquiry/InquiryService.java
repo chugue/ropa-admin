@@ -22,19 +22,19 @@ public class InquiryService {
     private final UserRepository userRepository;
 
     // 문의 상세보기(브랜드가 문읟 답변 하는 페이지)
-    public  InquiryResponse.DetailDTO detailInquiry(SessionUser sessionUser, int inquiryId){
+    public InquiryResponse.Detail detailInquiry(SessionUser sessionUser, int inquiryId){
         Admin admin = adminRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception403("페이지의 접근 권한이없습니다."));
 
         Inquiry inquiry = inquiryRepository.findByInquiryId(inquiryId);
 
-        return new InquiryResponse.DetailDTO(inquiry, new InquiryResponse.DetailDTO.CommentDTO(inquiry));
+        return new InquiryResponse.Detail(inquiry, new InquiryResponse.Detail.Comment(inquiry));
 
     }
 
     // 문의 등록
     @Transactional
-    public InquiryResponse.SaveDTO saveInquiry(InquiryRequest.SaveDTO reqDTO, Integer userId) {
+    public InquiryResponse.Save saveInquiry(InquiryRequest.SaveDTO reqDTO, Integer userId) {
         Admin admin = adminRepository.findById(reqDTO.getBrandId())
                 .orElseThrow(() -> new Exception404("업체를 찾을 수 없습니다."));
         User user = userRepository.findById(userId)
@@ -48,16 +48,16 @@ public class InquiryService {
                 .createdAt(reqDTO.getCreatedAt())
                 .status(false).build());
 
-        return new InquiryResponse.SaveDTO(savedInquiry);
+        return new InquiryResponse.Save(savedInquiry);
 
     }
 
     // 브랜드 관리자 ID로 모든 문의 조회
-    public List<InquiryResponse.ListDTO> findAllInquiryWithUser(Integer adminId) {
+    public List<InquiryResponse.List> findAllInquiryWithUser(Integer adminId) {
         List<Inquiry> inquiryList = inquiryRepository.findAllByAdminIdWithUser(adminId);
-        List<InquiryResponse.ListDTO> respList =
+        List<InquiryResponse.List> respList =
                 inquiryList.stream().map(inquiry ->
-                        new InquiryResponse.ListDTO(inquiry, inquiry.getUser())).toList();
+                        new InquiryResponse.List(inquiry, inquiry.getUser())).toList();
 
         int a = 1;
         for (int i = respList.size(); i > 0; i--) {
@@ -68,11 +68,11 @@ public class InquiryService {
     }
 
     // 문의 내용 확인하기
-    public InquiryResponse.ReplyDTO findByInquiryId(Integer inquiryId) {
+    public InquiryResponse.Reply findByInquiryId(Integer inquiryId) {
         Inquiry inquiry = inquiryRepository.findByInquiryIdWithUser(inquiryId)
                 .orElseThrow(() -> new Exception404("해당 게시물을 찾을 수 없습니다."));
 
-        return new InquiryResponse.ReplyDTO(inquiry, inquiry.getUser());
+        return new InquiryResponse.Reply(inquiry, inquiry.getUser());
     }
 
     // 문의 답변 등록 또는 수정
@@ -88,10 +88,10 @@ public class InquiryService {
     }
 
     // 문의 페이지 모든 문희 조회
-    public List<InquiryResponse.UserPageDTO> inquiryPage(Integer userId) {
+    public List<InquiryResponse.UserPage> inquiryPage(Integer userId) {
         List<Inquiry> inquiries = inquiryRepository.findAllByUserId(userId);
 
-        return inquiries.stream().map(inquiry -> new InquiryResponse.UserPageDTO(inquiry)).toList();
+        return inquiries.stream().map(inquiry -> new InquiryResponse.UserPage(inquiry)).toList();
     }
 
 

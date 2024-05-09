@@ -7,7 +7,7 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
 
 
 -- 앱 사용자 더미
-INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, job, intro_msg, instagram,
+INSERT INTO user_tb (email, password, nick_name, my_name, address,  mobile, height, weight, job, intro_msg, instagram,
                      status, blue_checked, mileage)
 VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
         '어깨 넓은 보통 체형',
@@ -174,20 +174,19 @@ values (2, 1, true),
        (1, 2, true),
        (2, 5, true);
 
-
--- 배송 주소(DeliveryAddress) 더미 데이터 삽입
-INSERT INTO delivery_address_tb (user_id, recipient, postal_code, address, address_detail, phone_number)
-VALUES (1, '수령인1', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1111-1111'),
-       (2, '수령인2', '54321', '경기도 분당구', '판교로 456번길', '010-2222-2222'),
-       (3, '수령인3', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333');
-
 -- 배송(Delivery) 더미 데이터 삽입
-INSERT INTO delivery_tb (delivery_address_id, status, start_date, end_date)
-VALUES (1, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (2, '배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (3, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO delivery_tb (status, start_date, end_date, recipient,postal_code,address,address_detail, phone_number)
+VALUES ( '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인1', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1111-1111'),
+       ( '배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인2', '54321' , '경기도 분당구', '판교로 456번길', '010-2222-2222'),
+       ( '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인3', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333');
 
 
+INSERT INTO order_tb (user_id, delivery_id, purchase_amount, fee, order_date, delivery_type, pay_method)
+VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
+       (2, 2, 75000, 7500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
+       (3, 3, 100000, 10000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT');
+
+-- 주문(Order) 더미 데이터 삽입
 INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)
 VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 1, 1,
         '2024-01-26 11:30:00', '2024-01-25 11:30:00'),
@@ -200,12 +199,6 @@ VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋�
        (false, '스님이 공중부양 하면?', '어중이 떠중이', '', 5, 1, null, NOW()),
        (false, '여자 : 좋은 소식과 나쁜 소식이 있어. 우리 헤어지자.', '남자 : 그럼 나쁜 소식은?', '', 1, 3, null, NOW()),
        (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 3, 2, null, NOW());
-
--- 주문(Order) 더미 데이터 삽입
-INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
-VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP),
-       (2, 2, 75000, 7500, CURRENT_TIMESTAMP),
-       (3, 3, 100000, 10000, CURRENT_TIMESTAMP);
 
 -- 주문 상세(OrderHistory) 더미 데이터 삽입
 INSERT INTO order_history_tb (admin_id, order_id, items_id, order_item_qty, order_item_price, fee)

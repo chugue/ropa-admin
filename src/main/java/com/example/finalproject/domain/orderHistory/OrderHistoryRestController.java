@@ -18,7 +18,7 @@ public class OrderHistoryRestController {
     @GetMapping("/app/orderHistories")
     public ResponseEntity<?> OrderHistories() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        OrderHistoryResponse.UserOrderHistoryDTO orderHistoryList = orderHistoryService.getOrderHistoryByUserId(sessionUser.getId());
+        OrderHistoryResponse.UserOrderHistory orderHistoryList = orderHistoryService.getOrderHistoryByUserId(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(orderHistoryList));
     }
 }

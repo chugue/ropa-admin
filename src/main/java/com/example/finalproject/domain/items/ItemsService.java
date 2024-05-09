@@ -50,7 +50,7 @@ public class ItemsService {
         items.setDiscountPrice(reqDTO.getDiscountPrice());
         items.setStock(reqDTO.getStock());
         itemsPhotos.forEach(photo -> {
-            if (photo.getIsMainPhoto()){
+            if (photo.getIsMainPhoto()) {
                 try {
                     photoService.updateMainImage(reqDTO.getMainImage(), photo, items);
 

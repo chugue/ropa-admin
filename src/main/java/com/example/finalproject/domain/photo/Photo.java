@@ -9,9 +9,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -87,4 +92,17 @@ public class Photo {
         USER, ITEM, CODI, BRAND
     }
 
+
+    // 경로에 있는 사진을 읽어서 base64로 전환
+    public String toBase64(Photo photo){
+        String currentDir = System.getProperty("user.dir");
+        String relativePath = photo.getPath();
+        String fullPath = currentDir + File.separator + relativePath;
+        try {
+            byte[] imageData = Files.readAllBytes(Paths.get(fullPath));
+            return Base64.encodeBase64String(imageData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

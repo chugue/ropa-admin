@@ -86,15 +86,7 @@ public class PhotoResponse {
                 this.name = photo.getName();
                 this.sort = photo.getSort();
                 this.isMainPhoto = photo.getIsMainPhoto();
-                String currentDir = System.getProperty("user.dir");
-                String relativePath = photo.getPath();
-                String fullPath = currentDir + File.separator + relativePath;
-                try {
-                    byte[] imageData = Files.readAllBytes(Paths.get(fullPath));
-                    this.base64 = Base64.encodeBase64String(imageData);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                this.base64 = photo.toBase64(photo);
             }
         }
     }

@@ -22,6 +22,8 @@ public class Admin {
     @Column(nullable = false)
     private String email; //아이디
 
+    private String name; //대표자 명
+
     @Column(nullable = false)
     private String password; //비밀번호
 

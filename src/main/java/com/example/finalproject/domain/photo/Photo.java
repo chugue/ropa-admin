@@ -38,7 +38,7 @@ public class Photo {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Sort sort; // 구분 [사용자, 아이템, 코디, 브랜드]
+    private Sort sort; // 구분 [사용자, 아이템, 코디, 브랜드, 관리자]
 
     @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY)
@@ -84,7 +84,7 @@ public class Photo {
     }
 
     public enum Sort {
-        USER, ITEM, CODI, BRAND
+        USER, ITEM, CODI, BRAND, ADMIN
     }
 
 }

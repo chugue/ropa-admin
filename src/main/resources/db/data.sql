@@ -1,9 +1,9 @@
 -- --관리자 테이블--
-insert into admin_tb(email, password, brand_name, role, phone, address, business_num, update_at, created_at)
-values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
-       ('Ace@naver.com', '1234', 'Ace', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', NULL, now()),
-       ('BB@naver.com', '1234', 'BB', 'BRAND', '010-3333-3333', '서울특별시 강동구', '657-546-2897', NULL, now()),
-       ('Admin@naver.com', '1234', 'RopaAdmin', 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', NULL, now());
+insert into admin_tb(email, name, password, brand_name, role, phone, address, business_num, update_at, created_at)
+values ('nike@naver.com', '김성훈', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
+       ('Ace@naver.com', '김주혁','1234', 'Ace', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', NULL, now()),
+       ('BB@naver.com', '김완준','1234', 'BB', 'BRAND', '010-3333-3333', '서울특별시 강동구', '657-546-2897', NULL, now()),
+       ('Admin@naver.com', '박선규','1234', 'RopaAdmin', 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', NULL, now());
 
 
 -- 앱 사용자 더미
@@ -110,7 +110,8 @@ values (1, 1),
 -- 사진 테이블 더미
 -- 크리이터 사용자용
 insert into photo_tb (name, path, sort, admin_id, user_id, codi_id, items_id, created_at, is_main_photo)
-values ('브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NOW(), true),
+values ('ropa_home_logo.png', 'ropa_home_logo.png', 'ADMIN', 4, null, null, null, NOW(), true),
+       ('브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NOW(), true),
        ('브랜드사진2', '브랜드경로2', 'BRAND', 2, null, null, null, NOW(), true),
        ('브랜드사진3', '브랜드경로3', 'BRAND', 3, null, null, null, NOW(), true),
        ('사용자사진1', '사용자경로1', 'USER', null, 1, null, null, NOW(), true),

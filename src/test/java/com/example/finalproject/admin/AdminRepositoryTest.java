@@ -16,6 +16,18 @@ class AdminRepositoryTest {
     private AdminRepository adminRepository;
 
     @Test
+    public void findByAdminAndPhoto_test() {
+        //given
+        Integer adminId = 1;
+
+        // when
+        Optional<Admin> admin = adminRepository.findByAdminAndPhoto(adminId);
+
+        // then
+        System.out.println("여기: "+admin);
+    }
+
+    @Test
     public void findAdminByPhoto_test() {
         // when
         List<Admin> admins = adminRepository.findAdminByPhoto();

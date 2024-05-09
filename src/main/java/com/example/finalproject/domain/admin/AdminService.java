@@ -29,8 +29,8 @@ public class AdminService {
     private final PhotoService photoService;
 
     //관리자의 정보 가져오기
-    public Admin adminInfo(Integer id) {
-        return adminRepository.findById(id)
+    public Admin adminInfo(Integer adminId) {
+        return adminRepository.findByAdminAndPhoto(adminId)
                 .orElseThrow(() -> new Exception404("해당 관리자 정보를 찾을 수 없습니다."));
     }
 

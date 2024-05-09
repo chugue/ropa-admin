@@ -28,7 +28,7 @@ public class OrderService {
         Order order = orderRepository.findByUserId(userId)
                 .orElseThrow(() -> new Exception404("주문 내역을 찾을 수 없습니다."));
         // 장바구니 내역 불러오기
-        List<Cart> cartList = cartRepository.findAllByUserId(userId);
+        List<Cart> cartList = cartRepository.findAllByUserIdAndMainPhoto(userId);
 
 //        OrderResponse.PageView
 

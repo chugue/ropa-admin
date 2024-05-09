@@ -73,13 +73,15 @@ public class PhotoResponse {
             private String name;
             private String path;
             private Photo.Sort sort;
+            private Boolean isMainPhoto;
 
             public CodiesPhoto(Photo photo) {
                 this.photoId = photo.getId();
+                this.codiId = photo.getCodi().getId();
                 this.name = photo.getName();
                 this.path = photo.getPath();
                 this.sort = photo.getSort();
-                this.codiId = photo.getId();
+                this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
     }

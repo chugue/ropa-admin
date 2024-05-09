@@ -7,7 +7,7 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
 
 
 -- 앱 사용자 더미
-INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, job, intro_msg, instagram,
+INSERT INTO user_tb (email, password, nick_name, my_name, address,  mobile, height, weight, job, intro_msg, instagram,
                      status, blue_checked, mileage)
 VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
         '어깨 넓은 보통 체형',
@@ -74,18 +74,18 @@ VALUES
     (2, '아이템20', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, 50, 20, true);
 
 -- 장바구니 더미데이터
-INSERT INTO cart_tb (user_id, items_id, quantity, total_amount)
+INSERT INTO cart_tb (user_id, items_id, quantity, total_amount, delivery_type)
 VALUES
-    (1, 15, 2, 16000),
-    (1, 12, 1, 12000),
-    (2, 3, 3, 24000),
-    (2, 4, 1, 8000),
-    (2, 5, 1, 8000),
-    (2, 6, 1, 8000),
-    (2, 7, 1, 8000),
-    (2, 8, 1, 8000),
-    (2, 9, 1, 8000),
-    (2, 10, 1, 8000);
+    (1, 15, 2, 16000 , 'FREE'),
+    (1, 12, 1, 12000 , 'FREE'),
+    (2, 3, 3, 24000 , 'FREE'),
+    (2, 4, 1, 8000 , 'FREE'),
+    (2, 5, 1, 8000 , 'FREE'),
+    (2, 6, 1, 8000 , 'FREE'),
+    (2, 7, 1, 8000 , 'FREE'),
+    (2, 8, 1, 8000 , 'FREE'),
+    (2, 9, 1, 8000 , 'FREE'),
+    (2, 10, 1, 8000 , 'FREE');
 
 -- 코디 테이블 더미
 insert into codi_tb (user_id, title, description, created_at)

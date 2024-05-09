@@ -1,7 +1,7 @@
 package com.example.finalproject.domain.orderHistory;
 
 import com.example.finalproject.domain.delivery.Delivery;
-import com.example.finalproject.domain.deliveryAddress.DeliveryAddress;
+import com.example.finalproject.domain.purchase.DeliveryAddress;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 

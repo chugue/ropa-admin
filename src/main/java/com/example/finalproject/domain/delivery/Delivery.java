@@ -1,8 +1,6 @@
 package com.example.finalproject.domain.delivery;
 
-import com.example.finalproject.domain.deliveryAddress.DeliveryAddress;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,12 +17,22 @@ public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
-    @JoinColumn(name = "delivery_address_id", nullable = false)
-    private DeliveryAddress deliveryAddress; // 배송지 고유번호
+    private String recipient; // 수령인
+
+    private String postalCode; // 우편번호
+
+    private String address; // 주소
+
+    private String addressDetail; // 상세주소
+
+    private String phoneNumber; // 연락처
+
+    private String requestMsg;
 
     @Column(nullable = false)
     private String status; // 배송 현황
+
+    private Boolean isBaseAddress; // 기본 배송지 저장 여부
 
     @CreationTimestamp
     private Timestamp startDate; // 배송시작일
@@ -32,12 +40,5 @@ public class Delivery {
     @UpdateTimestamp
     private Timestamp endDate; // 배송도착일
 
-    @Builder
-    public Delivery(Integer id, DeliveryAddress deliveryAddress, String status, Timestamp startDate, Timestamp endDate) {
-        this.id = id;
-        this.deliveryAddress = deliveryAddress;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+
 }

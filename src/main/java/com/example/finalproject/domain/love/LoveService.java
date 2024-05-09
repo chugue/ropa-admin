@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.love;
 
 
+import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiRepository;
@@ -33,5 +34,17 @@ public class LoveService {
 
         Long loveCount = loveRepository.countTotalLove(codiId);
         return new LoveResponse.SaveUserLove(love, loveCount);
+    }
+
+    // 좋아요 취소
+    @Transactional
+    public LoveResponse.DeleteInfo deleteLove(Integer codiId, Integer userId) {
+        Optional<Love> loveOP = loveRepository.findByCodiIdAndUserLoveStatus(codiId, userId);
+
+        if (loveOP.isPresent()) {
+            loveRepository.delete(loveOP.get());
+        }
+        Long loveCount = loveRepository.countTotalLove(codiId);
+        return new LoveResponse.DeleteInfo(codiId, userId, loveCount);
     }
 }

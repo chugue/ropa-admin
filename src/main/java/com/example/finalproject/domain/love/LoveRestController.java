@@ -6,10 +6,7 @@ import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,9 +16,17 @@ public class LoveRestController {
 
     // 좋아요 상태변경 및 저장
     @PostMapping("/app/function/love/{codiId}")
-    public ResponseEntity<?> love(@PathVariable Integer codiId) {
+    public ResponseEntity<?> loveSave(@PathVariable Integer codiId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         LoveResponse.SaveUserLove respDTO = loveService.saveLove(codiId, sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    // 좋아요 삭제
+    @DeleteMapping("/app/function/love/{codiId}")
+    public ResponseEntity<?> loveDelete(@PathVariable Integer codiId) {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        LoveResponse.DeleteInfo respDTO = loveService.deleteLove(codiId, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

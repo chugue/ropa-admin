@@ -18,4 +18,7 @@ public interface CodiRepository extends JpaRepository<Codi, Integer> {
 
     @Query("select c from Codi c where c.id = :codiId")
     Optional<Codi> findByCodiId(@Param("codiId") Integer codiId);
+
+    @Query("select c from Codi c join fetch c.user u where c.id = :codiId")
+    Optional<Codi> findByCodiIdAndUser(@Param("codiId") Integer codiId);
 }

@@ -34,4 +34,9 @@ public class OrderRequest {
                     .build();
         }
     }
+
+    @Data
+    public static class temp {
+
+    }
 }

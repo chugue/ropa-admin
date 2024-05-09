@@ -48,20 +48,21 @@ public class Admin {
     @CreationTimestamp
     private Timestamp createdAt; // 브랜드, 관리자 회원가입 시간
 
-    @UpdateTimestamp
+
     private Timestamp updateAt; // 관리자 / 브랜드 수정 날짜
 
     @Builder
-    public Admin(Integer id, String email, String password, String brandName, AdminRole role, String address, String businessNum, Photo photo,Timestamp updateAt, Timestamp createdAt) {
+    public Admin(Integer id, String email, String password, String brandName, String phone, AdminRole role, String address, String businessNum, Photo photo, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.brandName = brandName;
+        this.phone = phone;
         this.role = role;
         this.address = address;
         this.businessNum = businessNum;
         this.photo = photo;
-        this.updateAt = updateAt;
         this.createdAt = createdAt;
+        this.updateAt = updateAt;
     }
 }

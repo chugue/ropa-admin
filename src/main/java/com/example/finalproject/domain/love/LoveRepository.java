@@ -28,5 +28,6 @@ public interface LoveRepository extends JpaRepository <Love, Integer> {
     // 코디 번호의 전체 좋아요 갯수
     @Query("SELECT COUNT(a) FROM Love a WHERE a.isLoved = true AND a.codi.id = :codiId")
     Long countTotalLove(@Param("codiId") Integer codiId);
+
 }
 

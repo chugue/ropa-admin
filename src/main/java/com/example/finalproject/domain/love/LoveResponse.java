@@ -4,6 +4,21 @@ import lombok.Data;
 
 public class LoveResponse {
 
+    @Data
+    public static class SaveUserLove{
+        private Integer userId;
+        private Integer codiId;
+        private Boolean isloved;
+        private Long loveCount;
+
+        public SaveUserLove(Love love, Long loveCount) {
+            this.userId = love.getUser().getId();
+            this.codiId = love.getCodi().getId();
+            this.isloved = love.getIsLoved();
+            this.loveCount = loveCount;
+        }
+    }
+
     // 사용자번호와 좋아요 갯수 리스트 용
     @Data
     public static class UserLoveCount {

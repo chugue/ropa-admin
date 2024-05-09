@@ -56,9 +56,10 @@
 //                this.quantity = cart.getQuantity();
 //                this.price = cart.getItems().getPrice();
 //                this.amount = cart.getTotalAmount();
-//                this.itemPhoto = new ItemPhoto(cart.getItems().getPhotos());
+//                this.itemPhoto = new ItemPhoto(cart.getItems().getPhotos().getFirst());
 //            }
 //
+//            @Data
 //            public class ItemPhoto {
 //                private Integer photoId;
 //                private String photoTitle;

@@ -5,6 +5,22 @@ import lombok.Data;
 public class LoveResponse {
 
     @Data
+    public static class DeleteInfo{
+        private Integer codiId;
+        private Integer userId;
+        private String isDeleted;
+        private Long loveCount;
+
+
+        public DeleteInfo(Integer codiId, Integer userId, Long loveCount) {
+            this.codiId = codiId;
+            this.userId = userId;
+            this.isDeleted = "deleted successfully";
+            this.loveCount = loveCount;
+        }
+    }
+
+    @Data
     public static class SaveUserLove{
         private Integer userId;
         private Integer codiId;

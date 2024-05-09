@@ -140,6 +140,17 @@ public class CodiService {
         // 파일이름이랑 개방된 폴더를 조합해서 경로생성
         Path imgPath = Paths.get(uploadPath + imgFilename);
 
+        try {
+            Files.createDirectories(imgPath.getParent());
+        } catch (IOException e) {
+            // 폴더 생성 실패 시 처리 로직
+            System.err.println("Failed to create directory: " + imgPath.getParent());
+            e.printStackTrace();
+            // 필요하면 예외를 던지거나 다른 처리를 할 수 있습니다.
+        }
+
+        System.out.println("경로 설정 어떻게 되어있는거야?? " + imgPath);
+
         // 파일저장 핵심로직
         // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
         // 파일 저장 향후 파일 사이즈 유효성 추가 해야될것 TODO
@@ -177,6 +188,8 @@ public class CodiService {
             throw new RuntimeException(e);
         }
     }
+
+
 
     // 코디 수정 페이지 요청
     public CodiResponse.UpdatePage findInfoByCodiId(Integer codiId, Integer userId) {

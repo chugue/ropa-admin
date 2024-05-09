@@ -157,10 +157,20 @@ values ('브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NO
        ('코디사진1', '코디사진경로1', 'CODI', null, null, 1, null, NOW(), true),
        ('코디사진2', '코디사진경로2', 'CODI', null, null, 1, null, NOW(), false),
        ('코디사진3', '코디사진경로3', 'CODI', null, null, 1, null, NOW(), false),
-       ('코디사진4', '코디사진경로4', 'CODI', null, null, 2, null, NOW(), true),
+       ('코디사진4', '/upload/codi-1.webp', 'CODI', null, null, 2, null, NOW(), true),
        ('코디사진5', '코디사진경로5', 'CODI', null, null, 2, null, NOW(), false),
-       ('코디사진6', '코디사진경로6', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진7', '코디사진경로7', 'CODI', null, null, 3, null, NOW(), false);
+       ('코디사진6', '/upload/codi-2.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진7', '코디사진경로7', 'CODI', null, null, 3, null, NOW(), false),
+       ('코디사진8', '/upload/codi-3.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진9', '/upload/codi-4.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진10', '/upload/codi-5.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진11', '/upload/codi-6.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진12', '/upload/codi-7.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진13', '/upload/codi-8.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진14', '/upload/codi-9.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진14', '/upload/codi-10.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진14', '/upload/codi-11.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('코디사진14', '/upload/codi-12.webp', 'CODI', null, null, 3, null, NOW(), true);
 
 
 -- 좋아요 기능

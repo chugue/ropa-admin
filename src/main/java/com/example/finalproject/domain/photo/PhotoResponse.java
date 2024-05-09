@@ -7,10 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
-
-import static org.apache.tomcat.util.codec.binary.Base64.*;
 
 public class PhotoResponse {
 
@@ -79,8 +76,7 @@ public class PhotoResponse {
             private Integer photoId;
             private Integer codiId;
             private String name;
-            private String path;
-            private byte[] base64;
+            private String base64;
             private Photo.Sort sort;
             private Boolean isMainPhoto;
 
@@ -88,7 +84,6 @@ public class PhotoResponse {
                 this.photoId = photo.getId();
                 this.codiId = photo.getCodi().getId();
                 this.name = photo.getName();
-                this.path = photo.getPath();
                 this.sort = photo.getSort();
                 this.isMainPhoto = photo.getIsMainPhoto();
                 String currentDir = System.getProperty("user.dir");
@@ -96,7 +91,7 @@ public class PhotoResponse {
                 String fullPath = currentDir + File.separator + relativePath;
                 try {
                     byte[] imageData = Files.readAllBytes(Paths.get(fullPath));
-                    this.base64 = Base64.encodeBase64(imageData, false);
+                    this.base64 = Base64.encodeBase64String(imageData);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

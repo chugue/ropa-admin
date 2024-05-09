@@ -31,6 +31,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PayMethod payMethod;  // 결제 타입 (카카오 / 토스 / 신용카드 / 계좌이체 )
 
+    private Boolean savePayMethod; // 결제 정보 저장 여부
+
     private Integer purchaseAmount; // 주문 최종 결제 금액
 
     private Double fee; // 주문 전체 수수료 매출액의 5퍼를 로파관리자 5퍼는 크리에이터
@@ -39,22 +41,23 @@ public class Order {
     private Timestamp orderDate; // 주문일자
 
     @Builder
-    public Order(Integer id, User user, Delivery delivery, DeliveryType deliveryType, PayMethod payMethod, Integer purchaseAmount, Double feeToRopaCreator, Timestamp orderDate) {
+    public Order(Integer id, User user, Delivery delivery, DeliveryType deliveryType, PayMethod payMethod, Boolean savePayMethod, Integer purchaseAmount, Double fee, Timestamp orderDate) {
         this.id = id;
         this.user = user;
         this.delivery = delivery;
         this.deliveryType = deliveryType;
         this.payMethod = payMethod;
+        this.savePayMethod = savePayMethod;
         this.purchaseAmount = purchaseAmount;
-        this.fee = feeToRopaCreator;
+        this.fee = fee;
         this.orderDate = orderDate;
     }
 
-    private enum DeliveryType {
+    public enum DeliveryType {
         FREE, ROCKET
     }
 
-    private enum PayMethod {
+    public enum PayMethod {
         TOSS, KAKAO, CREDIT, TRANSFER
     }
 }

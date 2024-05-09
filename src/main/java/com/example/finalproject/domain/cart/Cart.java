@@ -37,7 +37,7 @@ public class Cart {
     private Timestamp createdAt;
 
     @Builder
-    public Cart(Integer id, User user, Items items, Integer quantity, Integer totalAmount, Timestamp createdAt) {
+    public Cart(Integer id, User user, Items items, Integer totalAmount, Integer quantity, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.items = items;

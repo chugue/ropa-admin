@@ -11,11 +11,11 @@ public class OrderRequest {
 
     // 주문하기
     @Data
-    public static class saveDTO {
+    public static class SaveDTO {
         private User user;
         private List<Cart> cartItems;
 
-        public saveDTO(User user, List<Cart> cartItems) {
+        public SaveDTO(User user, List<Cart> cartItems) {
             this.user = user;
             this.cartItems = cartItems;
         }

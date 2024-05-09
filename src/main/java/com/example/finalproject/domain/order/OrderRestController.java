@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -17,16 +18,15 @@ public class OrderRestController {
 
     // 총 주문 페이지 + 배송지 설정 화면
     @GetMapping("/app/order-page")
-    public void orderPage(){
+    public ResponseEntity<?> orderPage(){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        orderService.orderPage(sessionUser.getId());
-
+        OrderResponse.PageView respDTO = orderService.orderPage(sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-
-    // 주문하기
+    // 주문하기 + 배송지 정보까지 세이브
     @PostMapping("/app/order")
-    public ResponseEntity<?> OrderSave() {
+    public ResponseEntity<?> OrderSave(@RequestBody OrderRequest.SaveDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         orderService.saveOrder(sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(null));

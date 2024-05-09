@@ -110,10 +110,10 @@ values (1, 1),
 -- 사진 테이블 더미
 -- 크리이터 사용자용
 insert into photo_tb (name, path, sort, admin_id, user_id, codi_id, items_id, created_at, is_main_photo)
-values ('ropa_home_logo.png', 'ropa_home_logo.png', 'ADMIN', 4, null, null, null, NOW(), true),
-       ('브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NOW(), true),
+values ('브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NOW(), true),
        ('브랜드사진2', '브랜드경로2', 'BRAND', 2, null, null, null, NOW(), true),
        ('브랜드사진3', '브랜드경로3', 'BRAND', 3, null, null, null, NOW(), true),
+       ('ropa_home_logo.png', '/upload/ropa_home_logo.png', 'ADMIN', 4, null, null, null, NOW(), true),
        ('사용자사진1', '사용자경로1', 'USER', null, 1, null, null, NOW(), true),
        ('사용자사진2', '사용자경로2', 'USER', null, 2, null, null, NOW(), true),
        ('사용자사진3', '사용자경로3', 'USER', null, 3, null, null, NOW(), true),

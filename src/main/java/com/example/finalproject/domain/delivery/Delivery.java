@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.delivery;
 
-import com.example.finalproject.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +28,7 @@ public class Delivery {
 
     private String phoneNumber; // 연락처
 
-    private String requestMsg;  // 배송 요청 사항
+    private String deliveryRequest;  // 배송 요청 사항
 
     @Column(nullable = false)
     private String status; // 배송 현황
@@ -43,14 +42,14 @@ public class Delivery {
     private Timestamp endDate; // 배송도착일
 
     @Builder
-    public Delivery(Integer id, String recipient, String postalCode, String address, String addressDetail, String phoneNumber, String requestMsg, String status, Boolean isBaseAddress, Timestamp startDate, Timestamp endDate) {
+    public Delivery(Integer id, String recipient, String postalCode, String address, String addressDetail, String phoneNumber, String deliveryRequest, String status, Boolean isBaseAddress, Timestamp startDate, Timestamp endDate) {
         this.id = id;
         this.recipient = recipient;
         this.postalCode = postalCode;
         this.address = address;
         this.addressDetail = addressDetail;
         this.phoneNumber = phoneNumber;
-        this.requestMsg = requestMsg;
+        this.deliveryRequest = deliveryRequest;
         this.status = status;
         this.isBaseAddress = isBaseAddress;
         this.startDate = startDate;

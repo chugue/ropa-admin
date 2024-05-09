@@ -27,7 +27,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
     List<Photo> findByUserId(@Param("userIds") List<Integer> userIds);
 
     // 코디 아이디 리스트로 사진 조회
-    @Query("select p from Photo p where p.codi.id in :codiIds")
+    @Query("select p from Photo p where p.isMainPhoto = true and p.codi.id in :codiIds")
     List<Photo> findByCodiIds(@Param("codiIds") List<Integer> codiIds);
 
     // 아이템 아이디로 모든 사진 조회

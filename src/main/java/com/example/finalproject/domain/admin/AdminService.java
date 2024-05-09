@@ -6,6 +6,7 @@ import com.example.finalproject._core.error.exception.Exception403;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
+import com.example.finalproject.domain.photo.PhotoService;
 import com.example.finalproject.domain.user.User;
 import com.example.finalproject.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
@@ -25,6 +26,7 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final OrderHistoryRepository orderHistoryRepository;
     private final UserRepository userRepository;
+    private final PhotoService photoService;
 
     //브랜드가 로그인 했을 때 매출 목록보기
     public List<AdminResponse.BrandOrderHistoryList> brandOrderHistory(int adminId) {
@@ -84,6 +86,7 @@ public class AdminService {
         } else if (reqDTO.getRole().equals(Admin.AdminRole.BRAND)) {
             admin = adminRepository.save(reqDTO.toBrandEntity());
         }
+        photoService.uploadBrandImage(reqDTO.getBrandImage(),admin);
         return admin;
     }
 

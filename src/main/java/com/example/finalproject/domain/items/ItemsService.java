@@ -50,7 +50,7 @@ public class ItemsService {
         items.setDiscountPrice(reqDTO.getDiscountPrice());
         items.setStock(reqDTO.getStock());
         itemsPhotos.forEach(photo -> {
-            if (photo.getIsMainPhoto()){
+            if (photo.getIsMainPhoto()) {
                 try {
                     photoService.updateMainImage(reqDTO.getMainImage(), photo, items);
 
@@ -83,7 +83,7 @@ public class ItemsService {
 
         Items item = itemsRepository.findItemsByAdminAndPhotos(itemId);
 
-        return new ItemsResponse.ItemDetail(item, new ItemsResponse.ItemDetail.ItemSubPhoto(item));
+        return new ItemsResponse.ItemDetail(item, new ItemsResponse.ItemDetail.ItemDetailPhoto(item));
     }
 
     // 아이템 저장

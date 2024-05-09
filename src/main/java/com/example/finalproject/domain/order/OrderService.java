@@ -36,7 +36,7 @@ public class OrderService {
 
     // 주문하기
     @Transactional
-    public Order saveOrder(Integer userId) {
+    public void saveOrder(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception401("사용자 정보를 찾을 수 없습니다."));
         // 사용자의 장바구니에서 아이템들을 가져옴
@@ -64,8 +64,6 @@ public class OrderService {
 
         // 장바구니 비우기
         cartRepository.deleteAll(cartItems);
-
-        return order;
     }
 
 

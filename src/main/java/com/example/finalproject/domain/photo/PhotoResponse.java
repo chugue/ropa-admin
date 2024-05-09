@@ -1,8 +1,16 @@
 package com.example.finalproject.domain.photo;
 
 import lombok.Data;
+import org.apache.tomcat.util.codec.binary.Base64;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+
+import static org.apache.tomcat.util.codec.binary.Base64.*;
 
 public class PhotoResponse {
 
@@ -72,6 +80,7 @@ public class PhotoResponse {
             private Integer codiId;
             private String name;
             private String path;
+            private byte[] base64;
             private Photo.Sort sort;
             private Boolean isMainPhoto;
 
@@ -82,6 +91,15 @@ public class PhotoResponse {
                 this.path = photo.getPath();
                 this.sort = photo.getSort();
                 this.isMainPhoto = photo.getIsMainPhoto();
+                String currentDir = System.getProperty("user.dir");
+                String relativePath = photo.getPath();
+                String fullPath = currentDir + File.separator + relativePath;
+                try {
+                    byte[] imageData = Files.readAllBytes(Paths.get(fullPath));
+                    this.base64 = Base64.encodeBase64(imageData, false);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

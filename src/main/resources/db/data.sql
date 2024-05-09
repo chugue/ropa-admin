@@ -154,7 +154,7 @@ values ('브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NO
        ('아이템서브사진17', '아이템서브사진경로17', 'ITEM', null, null, null, 17, NOW(), false),
        ('아이템사진18', '아이템사진경로18', 'ITEM', null, null, null, 18, NOW(), true),
        ('아이템서브사진18', '아이템서브사진경로18', 'ITEM', null, null, null, 18, NOW(), false),
-       ('코디사진1', '코디사진경로1', 'CODI', null, null, 1, null, NOW(), true),
+       ('코디사진1', '/upload/2ffec590-2404-4d86-aab6-f39905f20091_코디사진1.jpg', 'CODI', null, null, 1, null, NOW(), true),
        ('코디사진2', '코디사진경로2', 'CODI', null, null, 1, null, NOW(), false),
        ('코디사진3', '코디사진경로3', 'CODI', null, null, 1, null, NOW(), false),
        ('코디사진4', '/upload/codi-1.webp', 'CODI', null, null, 2, null, NOW(), true),

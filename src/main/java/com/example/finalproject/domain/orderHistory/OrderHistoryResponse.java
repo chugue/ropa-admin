@@ -1,7 +1,6 @@
 package com.example.finalproject.domain.orderHistory;
 
 import com.example.finalproject.domain.delivery.Delivery;
-import com.example.finalproject.domain.purchase.DeliveryAddress;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 
@@ -48,11 +47,11 @@ public class OrderHistoryResponse {
         private String orderDate; // 주문일자
         private String endDate; // 배송도착일자
 
-        public DeliveryList(OrderHistory orderHistory, User user, DeliveryAddress deliveryAddress, Delivery delivery) {
+        public DeliveryList(OrderHistory orderHistory, User user, Delivery delivery) {
             this.orderId = orderHistory.getOrder().getId();
             this.userName = user.getMyName();
-            this.recipient = deliveryAddress.getRecipient();
-            this.recipientPhoneNumber = deliveryAddress.getPhoneNumber();
+            this.recipient = delivery.getRecipient();
+            this.recipientPhoneNumber = delivery.getPhoneNumber();
             this.status = delivery.getStatus();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             this.orderDate = dateFormat.format(delivery.getStartDate());

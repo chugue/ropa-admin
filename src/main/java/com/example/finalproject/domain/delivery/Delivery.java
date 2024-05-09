@@ -1,6 +1,8 @@
 package com.example.finalproject.domain.delivery;
 
+import com.example.finalproject.domain.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,7 +29,7 @@ public class Delivery {
 
     private String phoneNumber; // 연락처
 
-    private String requestMsg;
+    private String requestMsg;  // 배송 요청 사항
 
     @Column(nullable = false)
     private String status; // 배송 현황
@@ -40,5 +42,18 @@ public class Delivery {
     @UpdateTimestamp
     private Timestamp endDate; // 배송도착일
 
-
+    @Builder
+    public Delivery(Integer id, String recipient, String postalCode, String address, String addressDetail, String phoneNumber, String requestMsg, String status, Boolean isBaseAddress, Timestamp startDate, Timestamp endDate) {
+        this.id = id;
+        this.recipient = recipient;
+        this.postalCode = postalCode;
+        this.address = address;
+        this.addressDetail = addressDetail;
+        this.phoneNumber = phoneNumber;
+        this.requestMsg = requestMsg;
+        this.status = status;
+        this.isBaseAddress = isBaseAddress;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }

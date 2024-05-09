@@ -18,7 +18,6 @@ public class DeliveryService {
         List<OrderHistory> orderDeliveryList = orderHistoryRepository.findByOrderHistoryItemsAdminAndDelivery(adminId);
         return orderDeliveryList.stream()
                 .map(orderHistory -> new OrderHistoryResponse.DeliveryList(orderHistory, orderHistory.getOrder().getUser(),
-                        orderHistory.getOrder().getDelivery().getDeliveryAddress(),
                         orderHistory.getOrder().getDelivery()))
                 .toList();
     }

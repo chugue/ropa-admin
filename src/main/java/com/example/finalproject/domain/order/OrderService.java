@@ -24,9 +24,13 @@ public class OrderService {
 
     // 주문 + 배송지 + 결제 설정 페이지
     public void orderPage(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
+        // 배송지+결제+사용자 정보 가져오기
+        Order order = orderRepository.findByUserId(userId)
+                .orElseThrow(() -> new Exception404("주문 내역을 찾을 수 없습니다."));
+        // 장바구니 내역 불러오기
+        List<Cart> cartList = cartRepository.findAllByUserId(userId);
 
+//        OrderResponse.PageView
 
     }
 

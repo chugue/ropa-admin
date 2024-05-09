@@ -28,25 +28,33 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private DeliveryType deliveryType;  // 배송타입 (기본:무료/로켓:3000원)
 
-    private Integer orderAmount; // 주문 전체 금액
+    @Enumerated(EnumType.STRING)
+    private PayMethod payMethod;  // 결제 타입 (카카오 / 토스 / 신용카드 / 계좌이체 )
 
-    private Double feeToRopaCreator; // 주문 전체 수수료
+    private Integer purchaseAmount; // 주문 최종 결제 금액
+
+    private Double fee; // 주문 전체 수수료 매출액의 5퍼를 로파관리자 5퍼는 크리에이터
 
     @CreationTimestamp
     private Timestamp orderDate; // 주문일자
 
     @Builder
-    public Order(Integer id, User user, Delivery delivery, DeliveryType deliveryType, Integer orderAmount, Double feeToRopaCreator, Timestamp orderDate) {
+    public Order(Integer id, User user, Delivery delivery, DeliveryType deliveryType, PayMethod payMethod, Integer purchaseAmount, Double feeToRopaCreator, Timestamp orderDate) {
         this.id = id;
         this.user = user;
         this.delivery = delivery;
         this.deliveryType = deliveryType;
-        this.orderAmount = orderAmount;
-        this.feeToRopaCreator = feeToRopaCreator;
+        this.payMethod = payMethod;
+        this.purchaseAmount = purchaseAmount;
+        this.fee = feeToRopaCreator;
         this.orderDate = orderDate;
     }
 
     private enum DeliveryType {
         FREE, ROCKET
+    }
+
+    private enum PayMethod {
+        TOSS, KAKAO, CREDIT, TRANSFER
     }
 }

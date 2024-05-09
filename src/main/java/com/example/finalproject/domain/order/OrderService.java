@@ -1,7 +1,6 @@
 package com.example.finalproject.domain.order;
 
 import com.example.finalproject._core.error.exception.Exception401;
-import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.cart.CartRepository;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
@@ -13,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -23,14 +23,14 @@ public class OrderService {
     private final OrderHistoryRepository orderHistoryRepository;
 
     // 주문 + 배송지 + 결제 설정 페이지
-    public void orderPage(Integer userId) {
+    public OrderResponse.PageView orderPage(Integer userId) {
         // 배송지+결제+사용자 정보 가져오기
-        Order order = orderRepository.findByUserId(userId)
-                .orElseThrow(() -> new Exception404("주문 내역을 찾을 수 없습니다."));
+        Optional<Order> order = orderRepository.findByUserId(userId);
+
         // 장바구니 내역 불러오기
         List<Cart> cartList = cartRepository.findAllByUserIdAndMainPhoto(userId);
 
-//        OrderResponse.PageView
+        return new OrderResponse.PageView(order, cartList);
 
     }
 
@@ -43,7 +43,7 @@ public class OrderService {
         List<Cart> cartItems = cartRepository.findAllByUserId(userId);
 
         // 주문 생성
-        Order order = OrderRequest.saveDTO.toEntity(user, cartItems);
+        Order order = OrderRequest.SaveDTO.toEntity(user, cartItems);
 
         // 장바구니에서 주문내역으로 이동
         for (Cart cartItem : cartItems) {

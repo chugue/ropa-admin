@@ -19,9 +19,9 @@ public class LoveService {
     private final CodiRepository codiRepository;
 
     @Transactional
-    public LoveResponse.SaveUserLove saveLove(LoveRequest.Save reqDTO, Integer userId) {
-        Optional<Love> loveStatus = loveRepository.findByCodiIdAndUserLoveStatus(reqDTO.getCodiId(), userId);
-        Codi codi = codiRepository.findByCodiIdAndUser(reqDTO.getCodiId()).orElseThrow(() ->
+    public LoveResponse.SaveUserLove saveLove(Integer codiId, Integer userId) {
+        Optional<Love> loveStatus = loveRepository.findByCodiIdAndUserLoveStatus(codiId, userId);
+        Codi codi = codiRepository.findByCodiIdAndUser(codiId).orElseThrow(() ->
                 new Exception404("해당 게시물을 찾을 수 없습니다. "));
         if (loveStatus.isPresent()) {
             loveStatus.get().setIsLoved(true);
@@ -31,7 +31,7 @@ public class LoveService {
                 .codi(codi)
                 .isLoved(true).build());
 
-        Long loveCount = loveRepository.countTotalLove(reqDTO.getCodiId());
+        Long loveCount = loveRepository.countTotalLove(codiId);
         return new LoveResponse.SaveUserLove(love, loveCount);
     }
 }

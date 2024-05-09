@@ -20,19 +20,54 @@ public class AdminController {
     private final AdminService adminService;
     private final HttpSession session;
 
+
+    //관리자 정보 페이지
+    @GetMapping("/api/admin-information-form")
+    public String adminInformation(HttpServletRequest req){
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        Admin adminInfo = adminService.adminInfo(sessionAdmin.getId());
+        req.setAttribute("adminInfo", adminInfo);
+        return "admin/admin-information-form";
+    }
+
+    // 브랜드 정보 페이지
+    @GetMapping("/api/brand-information-form")
+    public String brandInformation(HttpServletRequest req){
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        if (sessionBrand == null) {
+            throw new Exception403("잘못된 접근입니다.");
+        }
+
+        return "admin/brand-information-form";
+    }
+
+
     //로그인
     @PostMapping("/login")
-    public String login(AdminRequest.LoginDTO reqDTO) {
+    public String login(AdminRequest.LoginDTO reqDTO, HttpSession session) {
         Admin admin = adminService.login(reqDTO);
-        if (admin.getRole().equals(ADMIN)) {
+
+        // 로그인 성공한 경우에만 세션을 설정하고 적절한 페이지로 리다이렉트
+        if (admin.getRole().equals(Admin.AdminRole.ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
             return "index-admin";
-        } else if (admin.getRole().equals(BRAND)) {
+        } else if (admin.getRole().equals(Admin.AdminRole.BRAND)) {
             session.setAttribute("sessionBrand", admin);
             return "index-brand";
         }
+
+        // 로그인 실패 시 기본 페이지로 리다이렉트하거나 에러 페이지로 처리할 수 있음
         return "index-brand";
     }
+
+    //로그아웃
+    @GetMapping("/logout")
+    public String logout(){
+        session.removeAttribute("sessionAdmin");
+        session.removeAttribute("sessionBrand");
+        return "redirect:/";
+    }
+
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")

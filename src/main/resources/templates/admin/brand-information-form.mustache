@@ -1,0 +1,87 @@
+{{> /layout/header}}
+{{> /layout/navbar-common}}
+{{> /layout/sidebar-admin}}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    브랜드 정보
+                </div>
+                <div class="card-body">
+                    <form action="/join" method="post" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <img class="card-img-top" id="imgPreview1" src="/images/add-image.png">
+                            <div class="input-group mt-3">
+                                <input type="file" class="form-control" data-preview-target="imgPreview1"
+                                       onchange="previewImage(this, 'imgPreview1')" name="brandImage">
+                            </div>
+                        <div class="form-group">
+                            <label for="name">이름</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일 주소</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">비밀번호</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요">
+                        </div>
+                            <!-- 자바 스크립트 처리해야됨 -->
+                        <div class="form-group">
+                            <label for="confirm_password">비밀번호 확인</label>
+                            <input type="password" class="form-control" id="confirm_password"
+                                   placeholder="비밀번호를 다시 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="businessNum">회사 주소</label>
+                            <input type="compAdress" class="form-control" id="compAdress" name="address" placeholder="회사 주소를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">대표자 번호</label>
+                            <input type="phone" class="form-control" id="phone" name="phone" placeholder="대표자 휴대폰 번호를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="businessNum">사업자 번호</label>
+                            <input type="businessNum" class="form-control" id="businessNum" name="businessNum" placeholder="브랜드명을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="brandName">브랜드 이름</label>
+                            <input type="brandName" class="form-control" id="brandName" name="brandName" placeholder="브랜드명을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="role">역할</label>
+                            <select class="form-control" id="role" name="role">role
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="BRAND">BRAND</option>
+                            </select>
+                        </div>
+                        <button type="submit" onclick="valid()" class="btn btn-primary btn-block">가입하기</button>
+                        <div class="text-center mt-3">
+                            <a href="/login-form">이전</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> /layout/footer}}
+
+<!-- 회원가입 -->
+<script>
+
+    function previewImage(inputElement, previewElementId) {
+        if (inputElement.files && inputElement.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(previewElementId).src = e.target.result;
+            };
+            reader.readAsDataURL(inputElement.files[0]);
+        }
+    }
+</script>

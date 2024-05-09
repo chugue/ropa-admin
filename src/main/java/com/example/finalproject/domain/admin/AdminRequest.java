@@ -29,6 +29,7 @@ public class AdminRequest {
         private Timestamp createdAt; // 브랜드, 관리자 회원가입 시간
         private MultipartFile brandImage;
 
+
         public JoinDTO(String email, String password, String brandName, Admin.AdminRole role, String phone, String address, String businessNum, Timestamp createdAt, MultipartFile brandImage) {
             this.email = email;
             this.password = password;

@@ -31,7 +31,7 @@ public class PhotoService {
 
     // 회원가입 사진 업로드
     @Transactional
-    public void uploadBrandImage(MultipartFile brandImage, Admin admin){
+    public void uploadBrandAndAdminImage(MultipartFile brandImage, Admin admin){
         if(brandImage == null || brandImage.isEmpty()){
             return;
         }

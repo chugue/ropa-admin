@@ -28,6 +28,12 @@ public class AdminService {
     private final UserRepository userRepository;
     private final PhotoService photoService;
 
+    //관리자의 정보 가져오기
+    public Admin adminInfo(Integer id) {
+        return adminRepository.findById(id)
+                .orElseThrow(() -> new Exception404("해당 관리자 정보를 찾을 수 없습니다."));
+    }
+
     //브랜드가 로그인 했을 때 매출 목록보기
     public List<AdminResponse.BrandOrderHistoryListDTO> brandOrderHistory(int adminId) {
         List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
@@ -85,8 +91,9 @@ public class AdminService {
             admin = adminRepository.save(reqDTO.toAdminEntity());
         } else if (reqDTO.getRole().equals(Admin.AdminRole.BRAND)) {
             admin = adminRepository.save(reqDTO.toBrandEntity());
+            photoService.uploadBrandAndAdminImage(reqDTO.getBrandImage(),admin);
         }
-        photoService.uploadBrandImage(reqDTO.getBrandImage(),admin);
+
         return admin;
     }
 

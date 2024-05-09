@@ -26,9 +26,9 @@ public class OrderRestController {
 
     // 주문하기 + 배송지 정보까지 세이브
     @PostMapping("/app/order")
-    public ResponseEntity<?> OrderSave(@RequestBody OrderRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> OrderSave(@RequestBody OrderRequest.SaveOrder reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        orderService.saveOrder(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(null));
+        OrderResponse.SaveOrder respDTO = orderService.saveOrder(reqDTO, sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

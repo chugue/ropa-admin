@@ -38,9 +38,25 @@ public class PhotoService {
 
         // 파일명 중복 방지를 위해 UUID 사용
         String imgFilename = UUID.randomUUID() + "_" + brandImage.getOriginalFilename();
-
+        // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
         // 파일이름이랑 개방된 폴더를 조합해서 경로 생성
         Path imgPath = Paths.get(uploadPath + imgFilename);
+
+        //파일 저장 (fileWrite)
+        //파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구한다.
+        validationCheckAndSave(brandImage, imgPath);
+
+        //DB저장 전 DB전용으로 경로 수정
+        String dbPath = "/upload" + imgFilename;
+
+        // Base64는 디코딩해서 던져주고, MultiPartForm은 getBytes로 꺼냄
+        Photo photo = photoRepository.save(Photo.builder()
+                .admin(admin)
+                .path(dbPath)
+                .name(brandImage.getOriginalFilename())
+                .sort(Photo.Sort.BRAND)
+                .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
+                .createdAt(Timestamp.from(Instant.now())).build());
     }
 
     // 아이템 메인 사진 업로드

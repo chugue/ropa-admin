@@ -41,29 +41,29 @@ public class UserService {
     }
 
     // 앱 세팅 페이지
-    public UserResponse.SettingPageDTO settingPage(SessionUser sessionUser) {
+    public UserResponse.SettingPage settingPage(SessionUser sessionUser) {
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
-        return new UserResponse.SettingPageDTO(user);
+        return new UserResponse.SettingPage(user);
     }
 
     // 앱 사용자 프로필 페이지
-    public UserResponse.ProfilePageDTO profilePage(SessionUser sessionUser) {
+    public UserResponse.ProfilePage profilePage(SessionUser sessionUser) {
         User user = userRepository.findByUserIdWithPhoto(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
-        return new UserResponse.ProfilePageDTO(user, new UserResponse.ProfilePageDTO.PhotoDTO(user.getPhoto()));
+        return new UserResponse.ProfilePage(user, new UserResponse.ProfilePage.PhotoInfo(user.getPhoto()));
     }
 
     // 앱 사용자 크리에이터 지원 페이지
-    public UserResponse.CreatorApplyDTO creatorApplyPage(SessionUser sessionUser) {
+    public UserResponse.CreatorApply creatorApplyPage(SessionUser sessionUser) {
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
-        return new UserResponse.CreatorApplyDTO(user);
+        return new UserResponse.CreatorApply(user);
     }
 
     // 앱 사용자 크리에이터 지원
     @Transactional
-    public UserResponse.CreatorApplyDTO creatorApply(UserRequest.CreatorApplyDTO creatorApplyDTO, SessionUser sessionUser) {
+    public UserResponse.CreatorApply creatorApply(UserRequest.CreatorApplyDTO creatorApplyDTO, SessionUser sessionUser) {
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
@@ -75,7 +75,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        return new UserResponse.CreatorApplyDTO(user);
+        return new UserResponse.CreatorApply(user);
     }
 
     //크리에이터 뷰 페이지
@@ -92,16 +92,16 @@ public class UserService {
                 codis.stream().map(Codi::getId).collect(Collectors.toList()));
 
         // 4. DTO로 매핑하기
-        List<UserResponse.CodiListDTO> codiDTOs = codis.stream()
-                .map(UserResponse.CodiListDTO::new)
+        List<UserResponse.CodiList> codiDTOs = codis.stream()
+                .map(UserResponse.CodiList::new)
                 .collect(Collectors.toList());
 
-        List<UserResponse.ItemListDTO> itemDTOs = itemsList.stream()
-                .map(UserResponse.ItemListDTO::new)
+        List<UserResponse.ItemList> itemDTOs = itemsList.stream()
+                .map(UserResponse.ItemList::new)
                 .distinct()
                 .collect(Collectors.toList());
 
-        UserResponse.UserDTO userDTO = new UserResponse.UserDTO(user);
+        UserResponse.UserInfo userDTO = new UserResponse.UserInfo(user);
 
         return new UserResponse.CreatorViewDTO(userDTO, codiDTOs, itemDTOs);
     }

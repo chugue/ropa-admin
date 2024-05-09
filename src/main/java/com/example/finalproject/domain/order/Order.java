@@ -25,23 +25,28 @@ public class Order {
     @OneToOne
     private Delivery delivery; // 배송 고유번호
 
-    private String deliveryType;  // 배송타입 (기본:무료/총알:3000원)
+    @Enumerated(EnumType.STRING)
+    private DeliveryType deliveryType;  // 배송타입 (기본:무료/로켓:3000원)
 
-    private Integer totalOrderAmount; // 주문 전체 금액
+    private Integer orderAmount; // 주문 전체 금액
 
-    private Double fee; // 주문 전체 수수료
+    private Double feeToRopaCreator; // 주문 전체 수수료
 
     @CreationTimestamp
     private Timestamp orderDate; // 주문일자
 
     @Builder
-    public Order(Integer id, User user, Delivery delivery, String deliveryType, Integer totalOrderAmount, Double fee, Timestamp orderDate) {
+    public Order(Integer id, User user, Delivery delivery, DeliveryType deliveryType, Integer orderAmount, Double feeToRopaCreator, Timestamp orderDate) {
         this.id = id;
         this.user = user;
         this.delivery = delivery;
         this.deliveryType = deliveryType;
-        this.totalOrderAmount = totalOrderAmount;
-        this.fee = fee;
+        this.orderAmount = orderAmount;
+        this.feeToRopaCreator = feeToRopaCreator;
         this.orderDate = orderDate;
+    }
+
+    private enum DeliveryType {
+        FREE, ROCKET
     }
 }

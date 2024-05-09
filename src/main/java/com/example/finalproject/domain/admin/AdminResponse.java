@@ -9,25 +9,25 @@ import java.util.Objects;
 public class AdminResponse {
     //관리자의 브랜드별 매출 목록보기
     @Data
-    public static class SalesListDTO {
-        private AdminDTO admin;
+    public static class SalesList {
+        private AdminInfo admin;
         private Long orderItemPrice;
         private Double fee;
 
-        public SalesListDTO(Admin admin, Long orderItemPrice, Double fee) {
-            this.admin = new AdminDTO(admin);
+        public SalesList(Admin admin, Long orderItemPrice, Double fee) {
+            this.admin = new AdminInfo(admin);
             this.orderItemPrice = orderItemPrice;
             this.fee = fee;
         }
 
         @Data
-        public class AdminDTO {
+        public class AdminInfo {
             private Integer adminId;
             private String brandName;
             private String brandPhone;
             private String brandEmail;
 
-            public AdminDTO(Admin admin) {
+            public AdminInfo(Admin admin) {
                 this.adminId = admin.getId();
                 this.brandName = admin.getBrandName();
                 this.brandPhone = admin.getPhone();
@@ -39,14 +39,14 @@ public class AdminResponse {
 
     //브랜드의 매출 목록
     @Data
-    public static class BrandOrderHistoryListDTO {
+    public static class BrandOrderHistoryList {
         private Integer orderHistoryId;
         private Integer itemsId;
         private String itemsName;
         private Integer totalPrice;
         private Integer totalQuantity;
 
-        public BrandOrderHistoryListDTO(OrderHistory orderHistory) {
+        public BrandOrderHistoryList(OrderHistory orderHistory) {
             this.orderHistoryId = orderHistory.getId();
             this.itemsId = orderHistory.getItems().getId();
             this.itemsName = orderHistory.getItems().getName();
@@ -57,7 +57,7 @@ public class AdminResponse {
 
     // 유저 목록
     @Data
-    public static class UserListDTO {
+    public static class UserList {
         private Integer userId;
         private String myName;
         private String email; // 아이디
@@ -67,7 +67,7 @@ public class AdminResponse {
         private String status; // 크리에이터 지원 현황
         private Boolean isBlueChecked; // 크리에이터 인증
 
-        public UserListDTO(User user) {
+        public UserList(User user) {
             this.userId = user.getId();
             this.myName = user.getMyName();
             this.email = user.getEmail();

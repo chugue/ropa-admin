@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.order;
 
 import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.cart.CartRepository;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
@@ -21,11 +22,19 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderHistoryRepository orderHistoryRepository;
 
+    // 주문 + 배송지 + 결제 설정 페이지
+    public void orderPage(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
+
+
+    }
+
     // 주문하기
     @Transactional
     public Order saveOrder(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new Exception401("사용자의의 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception401("사용자 정보를 찾을 수 없습니다."));
         // 사용자의 장바구니에서 아이템들을 가져옴
         List<Cart> cartItems = cartRepository.findAllByUserId(userId);
 
@@ -54,4 +63,6 @@ public class OrderService {
 
         return order;
     }
+
+
 }

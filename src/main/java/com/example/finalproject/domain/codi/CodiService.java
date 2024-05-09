@@ -17,7 +17,6 @@ import com.example.finalproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -53,7 +52,7 @@ public class CodiService {
     }
 
     // 로그인 안한 사용자용 코디보기 페이지 - 공개된 페이지
-    public CodiResponse.OpenMainViewDTO codiOpenPage(Integer codiId) {
+    public CodiResponse.OpenMainView codiOpenPage(Integer codiId) {
         // codiId로 코디 메인 사진 조회
         List<Photo> mainCodiPhotos = photoRepository.findByCodiId(codiId);
 
@@ -69,14 +68,14 @@ public class CodiService {
         Codi selectedCodi = codiItemsList.getFirst().getCodi();
         List<Photo> otherCodiPhotos = photoRepository.findByUserIdWithCodiesAndPhoto(selectedCodi.getUser().getId());
 
-        return new CodiResponse.OpenMainViewDTO(
+        return new CodiResponse.OpenMainView(
                 selectedCodi, totalLove, mainCodiPhotos, codiItemPhotos, otherCodiPhotos);
     }
 
 
 
     // 코디 보기 페이지 요청 - 페이지 내 아이템 목록, 크리에이터 코디목록 포함
-    public CodiResponse.MainViewDTO codiPage(Integer codiId, Integer userId) {
+    public CodiResponse.MainView codiPage(Integer codiId, Integer userId) {
 
         // codiId로 코디 메인 사진들 조회
         List<Photo> mainCodiPhotos = photoRepository.findByCodiId(codiId);
@@ -94,7 +93,7 @@ public class CodiService {
         Codi selectedCodi = codiItemsList.getFirst().getCodi();
         List<Photo> otherCodiPhotos = photoRepository.findByUserIdWithCodiesAndPhoto(selectedCodi.getUser().getId());
 
-        return new CodiResponse.MainViewDTO(
+        return new CodiResponse.MainView(
                 selectedCodi, loveStatus, totalLove, mainCodiPhotos, codiItemPhotos, otherCodiPhotos);
 
     }

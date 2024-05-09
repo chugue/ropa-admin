@@ -5,6 +5,7 @@ import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderRestController {
     private final OrderService orderService;
     private final HttpSession session;
+
+    // 총 주문 페이지 + 배송지 설정 화면
+    @GetMapping("/app/order-page")
+    public void orderPage(){
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        orderService.orderPage(sessionUser.getId());
+
+    }
+
 
     // 주문하기
     @PostMapping("/app/order")

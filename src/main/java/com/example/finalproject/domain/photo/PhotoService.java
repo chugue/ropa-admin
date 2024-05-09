@@ -131,7 +131,7 @@ public class PhotoService {
     }
 
     // 앱] 메인 홈 화면 요청
-    public PhotoResponse.HomeDTO getHomeLists() {
+    public PhotoResponse.Home getHomeLists() {
         // 코디의 좋아요의 합으로 인기크리에이터를 좋아요받은 순으로 나열 + 대표 사진까지 찾기
         List<LoveResponse.UserLoveCount> userLoveCounts = loveRepository.findUserIdsSortedByLoveCount();
         List<Integer> popularCreators = userLoveCounts.stream().map(userLoveCount -> userLoveCount.getUserId()).toList();
@@ -146,7 +146,7 @@ public class PhotoService {
         List<Integer> popularCodiIdes = popularCodies.stream().map(codiLoveCount -> codiLoveCount.getCodiId()).toList();
         List<Photo> popularCodiPhotos = photoRepository.findByCodiIds(popularCodiIdes);
 
-        return new PhotoResponse.HomeDTO(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
+        return new PhotoResponse.Home(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
     }
 
 

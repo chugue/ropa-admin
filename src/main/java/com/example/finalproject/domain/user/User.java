@@ -32,6 +32,8 @@ public class User {
 
     private String address; //주소
 
+    private String addressDetail; // 상세주소
+
     private String mobile; // 연락처
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)

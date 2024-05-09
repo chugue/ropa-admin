@@ -19,7 +19,7 @@ public class ItemsRestController {
     @GetMapping("/app/item-detail-pages/{itemId}")
     public ResponseEntity<?> creatorView(@PathVariable int itemId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        ItemsResponse.ItemDetailDTO respDTO = itemsService.itemDetail(sessionUser, itemId);
+        ItemsResponse.ItemDetail respDTO = itemsService.itemDetail(sessionUser, itemId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

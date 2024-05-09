@@ -17,12 +17,12 @@ public class CartService {
     private final ItemsRepository itemsRepository;
 
     // 사용자 장바구니 목록 보기
-    public CartResponse.CartDTO getCartByUserId(Integer userId) {
+    public CartResponse.CartInfo getCartByUserId(Integer userId) {
         List<Cart> carts = cartRepository.findAllByUserId(userId);
-        List<CartResponse.CartListDTO> cartListDTO = carts.stream()
-                .map(CartResponse.CartListDTO::new).collect(Collectors.toList());
-        Integer totalCartPrice = cartListDTO.stream().mapToInt(CartResponse.CartListDTO::getTotalItemPrice).sum();
-        return new CartResponse.CartDTO(userId, cartListDTO, totalCartPrice);
+        List<CartResponse.CartList> cartListDTO = carts.stream()
+                .map(CartResponse.CartList::new).collect(Collectors.toList());
+        Integer totalCartPrice = cartListDTO.stream().mapToInt(CartResponse.CartList::getTotalItemPrice).sum();
+        return new CartResponse.CartInfo(userId, cartListDTO, totalCartPrice);
     }
 
     // 사용자 장바구니 추가

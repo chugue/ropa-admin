@@ -19,7 +19,7 @@ public class UserRestController {
     @PostMapping("/user/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginDTO reqDTO) {
         User user = userService.login(reqDTO);
-        UserResponse.LoginDTO respDTO = new UserResponse.LoginDTO(user);
+        UserResponse.LoginInfo respDTO = new UserResponse.LoginInfo(user);
         String jwt = AppJwtUtill.create(user);
         return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil<>(respDTO)); // header 문법
     }
@@ -36,7 +36,7 @@ public class UserRestController {
     public ResponseEntity<?> join(@RequestBody UserRequest.JoinDTO reqDTO) {
         User user = userService.join(reqDTO);
         String jwt = AppJwtUtill.create(user);
-        UserResponse.JoinDTO respDTO = new UserResponse.JoinDTO(user);
+        UserResponse.JoinInfo respDTO = new UserResponse.JoinInfo(user);
         return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil(respDTO));
     }
 
@@ -44,7 +44,7 @@ public class UserRestController {
     @GetMapping("/app/setting")
     public ResponseEntity<?> settingPage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.SettingPageDTO respDTO = userService.settingPage(sessionUser);
+        UserResponse.SettingPage respDTO = userService.settingPage(sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
@@ -52,7 +52,7 @@ public class UserRestController {
     @GetMapping("/app/profile")
     public ResponseEntity<?> profilePage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.ProfilePageDTO respDTO = userService.profilePage(sessionUser);
+        UserResponse.ProfilePage respDTO = userService.profilePage(sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
@@ -60,7 +60,7 @@ public class UserRestController {
     @GetMapping("/app/creator-apply-form")
     public ResponseEntity<?> creatorApplyPage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.CreatorApplyDTO respDTO = userService.creatorApplyPage(sessionUser);
+        UserResponse.CreatorApply respDTO = userService.creatorApplyPage(sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
@@ -68,7 +68,7 @@ public class UserRestController {
     @PutMapping("/app/creator-apply")
     public ResponseEntity<?> creatorApply(@RequestBody UserRequest.CreatorApplyDTO creatorApplyDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.CreatorApplyDTO respDTO = userService.creatorApply(creatorApplyDTO, sessionUser);
+        UserResponse.CreatorApply respDTO = userService.creatorApply(creatorApplyDTO, sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 

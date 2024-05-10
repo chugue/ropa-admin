@@ -83,7 +83,7 @@ public class ItemsService {
 
         Items item = itemsRepository.findItemsByAdminAndPhotos(itemId);
 
-        return new ItemsResponse.ItemDetail(item, new ItemsResponse.ItemDetail.ItemDetailPhoto(item));
+        return new ItemsResponse.ItemDetail(item);
     }
 
     // 아이템 저장

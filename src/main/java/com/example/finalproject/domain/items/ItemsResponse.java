@@ -12,9 +12,9 @@ public class ItemsResponse {
         private Integer itemId;
         private Integer itemPhotoId;
         private String mainPhotoName;
-        private String mainPhotoPath;
+        private String mainPhotoBase64;
         private Boolean isMainPhoto;
-        private Photo.Sort itemPhoto;
+        private Photo.Sort sort;
         private String brandName;
         private Integer price;
         private Double discountRate;
@@ -22,36 +22,33 @@ public class ItemsResponse {
         private ItemDetailPhoto itemDetailPhoto;
 
 
-        public ItemDetail(Items item, ItemDetailPhoto itemDetailPhoto) {
+        public ItemDetail(Items item) {
             this.itemId = item.getId();
             this.itemPhotoId = item.getPhotos().getFirst().getId();
-            this.mainPhotoName = item.getPhotos().getFirst().getName();
-            this.mainPhotoPath = item.getPhotos().getFirst().getPath();
-            this.isMainPhoto = item.getPhotos().getFirst().getIsMainPhoto();
-            this.itemPhoto = item.getPhotos().getFirst().getSort();
+            this.mainPhotoName = item.getPhotos().getFirst().getUuidName();
+            this.mainPhotoBase64 = item.getPhotos().getFirst().toBase64(item.getPhotos().getFirst());
+            this.sort = item.getPhotos().getFirst().getSort();
             this.brandName = item.getAdmin().getBrandName();
             this.price = item.getPrice();
             this.discountRate = item.getDiscountRate();
             this.discountPrice = item.getDiscountPrice();
-            this.itemDetailPhoto = itemDetailPhoto;
-
-
+            this.itemDetailPhoto = new ItemDetailPhoto(item);
         }
 
         @Data
         public static class ItemDetailPhoto {
             private Integer itemPhotoId;
             private String subPhotoName;
-            private String subPhotoPath;
+            private String subPhotoBase64;
             private Boolean isMainPhoto;
-            private Photo.Sort itemPhoto;
+            private Photo.Sort sort;
 
             public ItemDetailPhoto(Items item) {
                 this.itemPhotoId = item.getPhotos().get(1).getId();
-                this.subPhotoName = item.getPhotos().get(1).getName();
-                this.subPhotoPath = item.getPhotos().get(1).getPath();
+                this.subPhotoName = item.getPhotos().get(1).getUuidName();
+                this.subPhotoBase64 = item.getPhotos().get(1).toBase64(item.getPhotos().get(1));
                 this.isMainPhoto = item.getPhotos().get(1).getIsMainPhoto();
-                this.itemPhoto = item.getPhotos().get(1).getSort();
+                this.sort = item.getPhotos().get(1).getSort();
             }
         }
     }

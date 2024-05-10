@@ -29,7 +29,9 @@ public class Photo {
     private Integer id;
 
     @Column(nullable = false)
-    private String name; // 사진명
+    private String uuidName; // 사진명 UUID 적용 된 이름 앱이랑 소통
+
+    private String originalFileName;
 
     @Column(nullable = false)
     private String path; // 경로
@@ -72,11 +74,11 @@ public class Photo {
     @UpdateTimestamp
     private Timestamp updateAt;
 
-
     @Builder
-    public Photo(Integer id, String name, String path, Boolean isMainPhoto, Sort sort, Admin admin, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
+    public Photo(Integer id, String uuidName, String originalFileName, String path, Boolean isMainPhoto, Sort sort, Admin admin, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
-        this.name = name;
+        this.uuidName = uuidName;
+        this.originalFileName = originalFileName;
         this.path = path;
         this.isMainPhoto = isMainPhoto;
         this.sort = sort;

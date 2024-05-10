@@ -28,13 +28,15 @@ public class PhotoResponse {
         public class CreatorPhoto {
             private Integer photoId;
             private String name;
+            private String base64;
             private Photo.Sort sort;
             private Integer creatorId;
 
             public CreatorPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.creatorId = photo.getUser().getId();
-                this.name = photo.getName();
+                this.name = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
                 this.sort = photo.getSort();
             }
         }
@@ -44,13 +46,15 @@ public class PhotoResponse {
             private Integer photoId;
             private String name;
             private Photo.Sort sort;
+            private String base64;
             private Integer itemsId;
             private AdminInfo adminInfo;
 
             public ItemsPhoto(Photo photo, com.example.finalproject.domain.admin.Admin admin) {
                 this.photoId = photo.getId();
                 this.itemsId = photo.getItems().getId();
-                this.name = photo.getName();
+                this.name = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
                 this.sort = photo.getSort();
                 this.adminInfo = new AdminInfo(admin);
             }
@@ -79,10 +83,10 @@ public class PhotoResponse {
             public CodiesPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.codiId = photo.getCodi().getId();
-                this.name = photo.getName();
+                this.name = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
                 this.sort = photo.getSort();
                 this.isMainPhoto = photo.getIsMainPhoto();
-                this.base64 = photo.toBase64(photo);
             }
         }
     }

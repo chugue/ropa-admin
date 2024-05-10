@@ -73,7 +73,6 @@ public class CodiService {
     }
 
 
-
     // 코디 보기 페이지 요청 - 페이지 내 아이템 목록, 크리에이터 코디목록 포함
     public CodiResponse.MainView codiPage(Integer codiId, Integer userId) {
 
@@ -119,7 +118,7 @@ public class CodiService {
         // 새로 등록된 코디 사진을 파일로 저장하고 DB에 영속화 그리고 코디랑 연결
         List<Photo> savedPhotos = new ArrayList<>();
         reqDTO.getCodiPhotos().forEach(appSaveDTO ->
-               savedPhotos.add(uploadCodiImage(appSaveDTO, savedCodi)));
+                savedPhotos.add(uploadCodiImage(appSaveDTO, savedCodi)));
 
         // 새로 생성된 코디와 기존의 영속화된 아이템들을 연결
         List<CodiItems> linkedCodiItems = linkItems.stream().map(items -> new CodiItems().builder()
@@ -162,7 +161,8 @@ public class CodiService {
             return photoRepository.save(Photo.builder()
                     .codi(codi)
                     .path(dbPath)
-                    .name(image.getPhotoName())
+                    .uuidName(imgFilename)
+                    .originalFileName(image.getPhotoName())
                     .sort(Photo.Sort.CODI)
                     .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                     .createdAt(Timestamp.from(Instant.now())).build());
@@ -170,7 +170,8 @@ public class CodiService {
             return photoRepository.save(Photo.builder()
                     .codi(codi)
                     .path(dbPath)
-                    .name(image.getPhotoName())
+                    .uuidName(imgFilename)
+                    .originalFileName(image.getPhotoName())
                     .sort(Photo.Sort.CODI)
                     .isMainPhoto(false)
                     .createdAt(Timestamp.from(Instant.now())).build());
@@ -188,7 +189,6 @@ public class CodiService {
             throw new RuntimeException(e);
         }
     }
-
 
 
     // 코디 수정 페이지 요청

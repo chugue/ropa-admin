@@ -63,14 +63,15 @@ public class UserService {
 
     // 앱 사용자 크리에이터 지원
     @Transactional
-    public UserResponse.CreatorApply creatorApply(UserRequest.CreatorApplyDTO creatorApplyDTO, SessionUser sessionUser) {
+    public UserResponse.CreatorApply creatorApply(UserRequest.CreatorApplyDTO reqDTO, SessionUser sessionUser) {
         User user = userRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
-        user.setHeight(creatorApplyDTO.getHeight());
-        user.setWeight(creatorApplyDTO.getWeight());
-        user.setInstagram(creatorApplyDTO.getInstagram());
-        user.setJob(creatorApplyDTO.getJob());
+        user.setHeight(reqDTO.getHeight());
+        user.setWeight(reqDTO.getWeight());
+        user.setInstagram(reqDTO.getInstagram());
+        user.setIntroMsg(reqDTO.getComment());
+        user.setJob(reqDTO.getJob());
         user.setStatus("승인 대기");
 
         userRepository.save(user);

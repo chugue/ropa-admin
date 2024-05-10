@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import static com.example.finalproject.domain.order.Order.DeliveryType.FREE;
+import static com.example.finalproject.domain.order.Order.PayMethod.NA;
 
 public class OrderResponse {
 
@@ -21,7 +22,7 @@ public class OrderResponse {
         private List<DeletedCart> deletedCarts;
         private List<SavedOH> savedOHList;
 
-        public SaveOrder(Order order, Delivery delivery, List<Cart> carts,List<OrderHistory> orderHistories) {
+        public SaveOrder(Order order, Delivery delivery, List<Cart> carts, List<OrderHistory> orderHistories) {
             this.savedOrder = new SavedOrder(order);
             this.savedDelievery = new SavedDelievery(delivery);
             this.deletedCarts = carts.stream().map(DeletedCart::new).toList();
@@ -29,7 +30,7 @@ public class OrderResponse {
         }
 
         @Data
-        public class SavedOrder{
+        public class SavedOrder {
             private Integer orderId;
             private Integer userId;
 
@@ -96,7 +97,7 @@ public class OrderResponse {
 
         @Builder
         public PageView(List<Order> order, List<Cart> carts) {
-            if (order.isEmpty() || !order.getFirst().getDelivery().getIsBaseAddress()) {
+            if (order.isEmpty()) {
                 // Order가 null인 경우 기본 또는 빈 값을 할당
                 this.orderId = null;
                 this.name = "";
@@ -107,6 +108,35 @@ public class OrderResponse {
                 this.deliveryRequest = "";
                 this.isBaseAddress = false;
                 // OrderInfo 객체 자체를 null로 둘 수도 있습니다.
+            } else if (order.getFirst().getDelivery().getIsBaseAddress() != null) {
+                if (!order.getFirst().getDelivery().getIsBaseAddress()) {
+                    this.orderId = null;
+                    this.name = "";
+                    this.phone = "";
+                    this.email = "";
+                    this.address = "";
+                    this.detailAddress = "";
+                    this.deliveryRequest = "";
+                    this.isBaseAddress = false;
+                }
+                this.orderId = order.getFirst().getId();
+                this.name = order.getFirst().getDelivery().getRecipient();
+                this.phone = order.getFirst().getDelivery().getPhoneNumber();
+                this.email = order.getFirst().getUser().getEmail();
+                this.address = order.getFirst().getDelivery().getAddress();
+                this.detailAddress = order.getFirst().getDelivery().getAddressDetail();
+                if (order.getFirst().getDelivery().getDeliveryRequest() == null) {
+                    this.deliveryRequest = "배송 요청사항 없음";
+                } else {
+                    this.deliveryRequest = order.getFirst().getDelivery().getDeliveryRequest();
+                }
+                if (order.getFirst().getDelivery().getIsBaseAddress() == null) {
+                    this.isBaseAddress = false;
+                } else {
+                    this.isBaseAddress = order.getFirst().getDelivery().getIsBaseAddress();
+                }
+                this.orderInfo = new OrderInfo(order.getFirst(), carts);
+
             } else {
                 this.orderId = order.getFirst().getId();
                 this.name = order.getFirst().getDelivery().getRecipient();
@@ -126,7 +156,6 @@ public class OrderResponse {
                 }
                 this.orderInfo = new OrderInfo(order.getFirst(), carts);
             }
-            this.orderInfo = new OrderInfo(order.getFirst(), carts);
             this.cartInfos = carts.stream().map(OrderCartInfo::new).toList();
         }
 
@@ -184,24 +213,32 @@ public class OrderResponse {
                     calculation += cartItem.getTotalAmount();
                 }
                 this.orderAmount = calculation;
-                if (order.getDeliveryType() == FREE) {
-                    this.deliveryFee = 0;
-                } else {
-                    this.deliveryFee = 3000;
-                }
-                this.discount = 0;
-                this.purchaseAmount = calculation + this.deliveryFee;
 
-                if (!order.getSavePayMethod()) {
-                    this.payMethod = null;
+                if (order == null) {
+                    this.deliveryFee = 0;
+                    this.discount = 0;
+                    this.purchaseAmount = calculation + this.deliveryFee;
+                    this.payMethod = NA;
                     this.savedPayMethod = false;
                 } else {
-                    this.payMethod = order.getPayMethod();
-                    this.savedPayMethod = order.getSavePayMethod();
+                    if (order.getDeliveryType() == FREE) {
+                        this.deliveryFee = 0;
+                    } else {
+                        this.deliveryFee = 3000;
+                    }
+                    this.discount = 0;
+                    this.purchaseAmount = calculation + this.deliveryFee;
+
+                    if (order.getSavePayMethod() != null && order.getSavePayMethod()) {
+                        this.payMethod = order.getPayMethod();
+                        this.savedPayMethod = order.getSavePayMethod();
+                    } else {
+                        this.payMethod = NA;
+                        this.savedPayMethod = false;
+                    }
                 }
             }
         }
     }
-
 }
 

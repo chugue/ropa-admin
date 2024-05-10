@@ -58,6 +58,6 @@ public class Order {
     }
 
     public enum PayMethod {
-        TOSS, KAKAO, CREDIT, TRANSFER
+        TOSS, KAKAO, CREDIT, TRANSFER, NA
     }
 }

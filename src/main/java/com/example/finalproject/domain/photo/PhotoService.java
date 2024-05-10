@@ -31,8 +31,8 @@ public class PhotoService {
 
     // 회원가입 사진 업로드
     @Transactional
-    public void uploadBrandImage(MultipartFile brandImage, Admin admin){
-        if(brandImage == null || brandImage.isEmpty()){
+    public void uploadBrandImage(MultipartFile brandImage, Admin admin) {
+        if (brandImage == null || brandImage.isEmpty()) {
             return;
         }
 
@@ -53,7 +53,8 @@ public class PhotoService {
         Photo photo = photoRepository.save(Photo.builder()
                 .admin(admin)
                 .path(dbPath)
-                .name(brandImage.getOriginalFilename())
+                .uuidName(imgFilename)
+                .originalFileName(brandImage.getOriginalFilename())
                 .sort(Photo.Sort.BRAND)
                 .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
@@ -84,7 +85,8 @@ public class PhotoService {
         Photo photo = photoRepository.save(Photo.builder()
                 .items(items)
                 .path(dbPath)
-                .name(mainImage.getOriginalFilename())
+                .uuidName(imgFilename)
+                .originalFileName(mainImage.getOriginalFilename())
                 .sort(Photo.Sort.ITEM)
                 .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
@@ -93,7 +95,7 @@ public class PhotoService {
     // 아이템 메인사진 없데이트
     @Transactional
     public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getOriginalFileName())) {
             uploadItemMainImage(updateImage, items);
             deleteItemImage(dbPhoto);
         }
@@ -102,12 +104,11 @@ public class PhotoService {
     // 아이템 상세보기 사진 업데이트
     @Transactional
     public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getName())) {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getOriginalFileName())) {
             uploadItemDetailImage(updateImage, items);
             deleteItemImage(dbPhoto);
         }
     }
-
 
 
     // 파일로 저장 + 예외처리
@@ -192,7 +193,7 @@ public class PhotoService {
 
         // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
         // 파일이름이랑 개방된 폴더를 조합해서 경로생성
-        Path imgPath = Paths.get(uploadPath + imgFilename);
+        Path imgPath = Paths.get(imgFilename);
 
         // 파일저장 핵심로직
         // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
@@ -205,11 +206,10 @@ public class PhotoService {
         Photo photo = photoRepository.save(Photo.builder()
                 .items(items)
                 .path(dbPath)
-                .name(detailImage.getOriginalFilename())
+                .uuidName(imgFilename)
+                .originalFileName(detailImage.getOriginalFilename())
                 .sort(Photo.Sort.ITEM)
                 .isMainPhoto(false)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
     }
-
-
 }

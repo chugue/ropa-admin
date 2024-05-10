@@ -156,14 +156,14 @@ public class OrderResponse {
             @Data
             public class ItemPhoto {
                 private Integer photoId;
-                private String photoTitle;
-                private String photoPath;
+                private String uuidName;
+                private String base64;
                 private Boolean isMainPhoto;
 
                 public ItemPhoto(Photo photo) {
                     this.photoId = photo.getId();
-                    this.photoTitle = photo.getName();
-                    this.photoPath = photo.getPath();
+                    this.uuidName = photo.getUuidName();
+                    this.base64 = photo.toBase64(photo);
                     this.isMainPhoto = photo.getIsMainPhoto();
                 }
             }

@@ -8,14 +8,14 @@ public class LoveResponse {
     public static class DeleteInfo{
         private Integer codiId;
         private Integer userId;
-        private String isDeleted;
+        private Boolean isLoved;
         private Long loveCount;
 
 
         public DeleteInfo(Integer codiId, Integer userId, Long loveCount) {
             this.codiId = codiId;
             this.userId = userId;
-            this.isDeleted = "deleted successfully";
+            this.isLoved = false;
             this.loveCount = loveCount;
         }
     }

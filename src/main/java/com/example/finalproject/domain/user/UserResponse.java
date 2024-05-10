@@ -27,7 +27,7 @@ public class UserResponse {
         private Integer creatorId; //크리에이터 아이디
         private Boolean blueChecked;    //true -> 크리에이터
         private String photoName;   // 크리에이터 사진 이름
-        private String photoPath;   // 크리에이터 사진 경로
+        private String base64;   // 크리에이터 사진 base64
         private String nickName;    //별명
         private String height; //키
         private String weight;  // 체중
@@ -37,8 +37,8 @@ public class UserResponse {
         public UserInfo(User user) {
             this.creatorId = user.getId();
             this.blueChecked = user.getBlueChecked();
-            this.photoName = user.getPhoto().getName();
-            this.photoPath = user.getPhoto().getPath();
+            this.photoName = user.getPhoto().getUuidName();
+            this.base64 = user.getPhoto().toBase64(user.getPhoto());
             this.nickName = user.getNickName();
             this.height = user.getHeight();
             this.weight = user.getWeight();
@@ -52,7 +52,7 @@ public class UserResponse {
         private Integer codiId;
         private Integer codiPhotoId;
         private String photoName;
-        private String photoPath;
+        private String base64;
         private Photo.Sort codiPhoto;
 
         public CodiList(Codi codi) {
@@ -61,8 +61,8 @@ public class UserResponse {
             if (codiPhotos != null && !codiPhotos.isEmpty()) {
                 Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
                 this.codiPhotoId = codiPhoto.getId();
-                this.photoName = codiPhoto.getName();
-                this.photoPath = codiPhoto.getPath();
+                this.photoName = codiPhoto.getUuidName();
+                this.base64 = codiPhoto.toBase64(codiPhoto);
                 this.codiPhoto = codiPhoto.getSort();
             }
         }
@@ -76,7 +76,7 @@ public class UserResponse {
         private Integer price;
         private Integer itemPhotoId;
         private String itemPhotoName;
-        private String itemPhotoPath;
+        private String base64;
         private Photo.Sort itemPhoto;
 
         public ItemList(Items items) {
@@ -88,8 +88,8 @@ public class UserResponse {
             if (itemPhotos != null && !itemPhotos.isEmpty()) {
                 Photo itemPhoto = itemPhotos.get(0); // 첫 번째 포토만 사용
                 this.itemPhotoId = itemPhoto.getId();
-                this.itemPhotoName = itemPhoto.getName();
-                this.itemPhotoPath = itemPhoto.getPath();
+                this.itemPhotoName = itemPhoto.getUuidName();
+                this.base64 = itemPhoto.toBase64(itemPhoto);
                 this.itemPhoto = itemPhoto.getSort();
             }
         }
@@ -185,12 +185,12 @@ public class UserResponse {
         public static class PhotoInfo {
             private Integer id;
             private String name;
-            private String path;
+            private String base64;
 
             public PhotoInfo(Photo photo) {
                 this.id = photo.getId();
-                this.name = photo.getName();
-                this.path = photo.getPath();
+                this.name = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
             }
         }
     }

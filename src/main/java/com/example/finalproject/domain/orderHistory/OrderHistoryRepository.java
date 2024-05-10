@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
@@ -22,6 +23,10 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
     //브랜드의 매출 목록
     @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items WHERE oh.admin.id = :adminId")
     List<OrderHistory> findByAdminIdWithItems(@Param("adminId") int adminId);
+
+    //브랜드의 매출 기간 검색 목록
+    @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items i join fetch oh.order o WHERE oh.admin.id = :adminId and o.orderDate BETWEEN :startDate AND :endDate")
+    List<OrderHistory> findByAdminIdWithItemsAndDate(@Param("adminId") int adminId, @Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);
 
     // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템 찾기
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")

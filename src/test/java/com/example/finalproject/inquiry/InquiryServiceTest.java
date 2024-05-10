@@ -55,9 +55,11 @@ public class InquiryServiceTest {
     public void findAllInquiryWithUser_test(){
         // given
         Integer adminId = 1;
+        String searchBy = "";
+        String keyword = "";
         // when
         List<InquiryResponse.List> respList =
-                inquiryService.findAllInquiryWithUser(adminId);
+                inquiryService.findAllInquiryWithUser(adminId, searchBy, keyword);
         // then
         for (InquiryResponse.List resp : respList) {
             System.out.println(resp.getNum());

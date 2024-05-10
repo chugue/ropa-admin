@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
@@ -76,11 +78,12 @@ public class AdminController {
 
     // 브랜드 매출관리 페이지
     @GetMapping("/api/brand-sales-manage")
-    public String brandSalesManage(HttpServletRequest req) {
+    public String brandSalesManage(@RequestParam(value = "startDate", required = false) LocalDateTime startDate,
+                                   @RequestParam(value = "endDate", required = false) LocalDateTime endDate,
+                                   HttpServletRequest reqDTO) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-        List<AdminResponse.BrandOrderHistoryList> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
-        req.setAttribute("orderHistoryList", orderHistoryList);
-
+        List<AdminResponse.BrandOrderHistoryList> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId(), startDate, endDate);
+        reqDTO.setAttribute("orderHistoryList", orderHistoryList);
         return "sales/brand-sales-manage";
     }
 

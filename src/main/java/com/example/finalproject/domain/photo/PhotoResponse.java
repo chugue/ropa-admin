@@ -28,7 +28,6 @@ public class PhotoResponse {
         public class CreatorPhoto {
             private Integer photoId;
             private String name;
-            private String path;
             private Photo.Sort sort;
             private Integer creatorId;
 
@@ -36,7 +35,6 @@ public class PhotoResponse {
                 this.photoId = photo.getId();
                 this.creatorId = photo.getUser().getId();
                 this.name = photo.getName();
-                this.path = photo.getPath();
                 this.sort = photo.getSort();
             }
         }
@@ -45,7 +43,6 @@ public class PhotoResponse {
         public class ItemsPhoto {
             private Integer photoId;
             private String name;
-            private String path;
             private Photo.Sort sort;
             private Integer itemsId;
             private AdminInfo adminInfo;
@@ -54,7 +51,6 @@ public class PhotoResponse {
                 this.photoId = photo.getId();
                 this.itemsId = photo.getItems().getId();
                 this.name = photo.getName();
-                this.path = photo.getPath();
                 this.sort = photo.getSort();
                 this.adminInfo = new AdminInfo(admin);
             }

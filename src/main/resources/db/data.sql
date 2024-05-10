@@ -92,7 +92,16 @@ values (1, '코디1', '좋은 코디입니다.', NOW()),
        (1, '코디2', '좋은 코디입니다.', NOW()),
        (3, '코디3', '좋은 코디입니다.', NOW()),
        (3, '코디4', '좋은 코디입니다.', NOW()),
-       (5, '코디5', '좋은 코디입니다.', NOW());
+       (2, '코디5', '좋은 코디입니다.', NOW()),
+       (2, '코디6', '좋은 코디입니다.', NOW()),
+       (2, '코디7', '좋은 코디입니다.', NOW()),
+       (1, '코디8', '좋은 코디입니다.', NOW()),
+       (1, '코디9', '좋은 코디입니다.', NOW()),
+       (1, '코디10', '좋은 코디입니다.', NOW()),
+       (4, '코디11', '좋은 코디입니다.', NOW()),
+       (4, '코디12', '좋은 코디입니다.', NOW()),
+       (4, '코디13', '좋은 코디입니다.', NOW());
+
 
 
 -- 코디랑 아이템을 연결해주는 테이블
@@ -161,28 +170,37 @@ values ('브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NO
        ('코디사진5', '코디사진경로5', 'CODI', null, null, 2, null, NOW(), false),
        ('코디사진6', '/upload/codi-2.webp', 'CODI', null, null, 3, null, NOW(), true),
        ('코디사진7', '코디사진경로7', 'CODI', null, null, 3, null, NOW(), false),
-       ('코디사진8', '/upload/codi-3.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진9', '/upload/codi-4.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진10', '/upload/codi-5.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진11', '/upload/codi-6.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진12', '/upload/codi-7.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진13', '/upload/codi-8.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진14', '/upload/codi-9.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진14', '/upload/codi-10.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진14', '/upload/codi-11.webp', 'CODI', null, null, 3, null, NOW(), true),
-       ('코디사진14', '/upload/codi-12.webp', 'CODI', null, null, 3, null, NOW(), true);
+       ('코디사진8', '/upload/codi-3.webp', 'CODI', null, null, 4, null, NOW(), true),
+       ('코디사진9', '/upload/codi-4.webp', 'CODI', null, null, 5, null, NOW(), true),
+       ('코디사진10', '/upload/codi-5.webp', 'CODI', null, null, 6, null, NOW(), true),
+       ('코디사진11', '/upload/codi-6.webp', 'CODI', null, null, 7, null, NOW(), true),
+       ('코디사진12', '/upload/codi-7.webp', 'CODI', null, null, 8, null, NOW(), true),
+       ('코디사진13', '/upload/codi-8.webp', 'CODI', null, null, 9, null, NOW(), true),
+       ('코디사진14', '/upload/codi-9.webp', 'CODI', null, null, 10, null, NOW(), true),
+       ('코디사진14', '/upload/codi-10.webp', 'CODI', null, null, 11, null, NOW(), true),
+       ('코디사진14', '/upload/codi-11.webp', 'CODI', null, null, 12, null, NOW(), true),
+       ('코디사진14', '/upload/codi-12.webp', 'CODI', null, null, 13, null, NOW(), true);
 
 
 -- 좋아요 기능
 insert into love_tb (user_id, codi_id, is_loved)
 values (2, 1, true),
-       (3, 1, true),
-       (4, 1, true),
        (3, 2, true),
-       (5, 1, true),
-       (4, 2, true),
+       (4, 3, true),
+       (3, 4, true),
+       (5, 6, true),
+       (4, 5, true),
+       (1, 7, true),
+       (1, 8, true),
+       (1, 9, true),
        (1, 2, true),
-       (2, 5, true);
+       (1, 3, true),
+       (1, 4, true),
+       (1, 1, true),
+       (1, 10, true),
+       (1, 11, true),
+       (1, 12, true),
+       (1, 13, true);
 
 -- 배송(Delivery) 더미 데이터 삽입
 INSERT INTO delivery_tb (status, start_date, end_date, recipient,postal_code,address,address_detail, phone_number)

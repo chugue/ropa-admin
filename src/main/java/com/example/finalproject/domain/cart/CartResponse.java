@@ -26,7 +26,7 @@ public class CartResponse {
         private Integer cartId;
         private Integer itemId;
         private String itemName;
-        private String itemPhotoPath;
+        private String itemPhotoBase64;
         private Integer itemPrice;
         private Integer quantity;
         private Integer totalItemPrice;
@@ -35,7 +35,7 @@ public class CartResponse {
             this.cartId = cart.getId();
             this.itemId = cart.getItems().getId();
             this.itemName = cart.getItems().getName();
-            this.itemPhotoPath = cart.getItems().getPhotos().getFirst().getPath();
+            this.itemPhotoBase64 = cart.getItems().getPhotos().getFirst().toBase64(cart.getItems().getPhotos().getFirst());
             this.itemPrice = cart.getItems().getPrice();
             this.quantity = cart.getQuantity();
             this.totalItemPrice = itemPrice * quantity;

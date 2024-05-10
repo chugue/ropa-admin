@@ -24,13 +24,16 @@ public class LoveService {
         Optional<Love> loveStatus = loveRepository.findByCodiIdAndUserLoveStatus(codiId, userId);
         Codi codi = codiRepository.findByCodiIdAndUser(codiId).orElseThrow(() ->
                 new Exception404("해당 게시물을 찾을 수 없습니다. "));
-        if (loveStatus.isPresent()) {
-            loveStatus.get().setIsLoved(true);
+        Love love;
+        if (loveStatus.isEmpty()) {
+            love = loveRepository.save(Love.builder()
+                    .user(codi.getUser())
+                    .codi(codi)
+                    .isLoved(true).build());
+        } else {
+            love = loveStatus.get();
+            love.setIsLoved(true);
         }
-        Love love = loveRepository.save(Love.builder()
-                .user(codi.getUser())
-                .codi(codi)
-                .isLoved(true).build());
 
         Long loveCount = loveRepository.countTotalLove(codiId);
         return new LoveResponse.SaveUserLove(love, loveCount);

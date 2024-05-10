@@ -19,6 +19,7 @@ public class OrderHistoryService {
         List<OrderHistory> orderHistoryList = switch (searchBy) {
             case "username" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndUsername(adminId, keyword);
             case "mobile" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndMobile(adminId, keyword);
+            case "itemId" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndItemId(adminId, keyword);
             case "itemName" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndItemName(adminId, keyword);
             case null, default -> orderHistoryRepository.findByOrderHistoryItemsAdmin(adminId);
         };

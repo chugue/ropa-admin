@@ -13,6 +13,7 @@
             <form action="/api/items-manage" method="get" class="form-inline search-form float-right mb-3">
                 <div class="form-group mr-2">
                     <select class="form-control" name="searchBy"> <!-- 검색 기준을 서버에 전달할 파라미터 이름을 지정합니다 -->
+                        <option value="itemId">상품코드</option>
                         <option value="itemName">상품명</option>
                         <option value="category">상위 카테고리</option>
                     </select>

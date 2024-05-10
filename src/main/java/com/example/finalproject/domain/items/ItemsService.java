@@ -102,15 +102,13 @@ public class ItemsService {
         Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
-        List<Items> items;
-
-        if ("itemName".equals(searchBy)) {
-            items = itemsRepository.findItemsByAdminIdAndItemName(admin.getId(), keyword);
-        } else if ("category".equals(searchBy)) {
-            items = itemsRepository.findItemsByAdminIdAndCategory(admin.getId(), keyword);
-        } else { // 기본값은 상품명으로 검색
-            items = itemsRepository.findItemsByAdminId(admin.getId());
-        }
+        List<Items> items = switch (searchBy) {
+            case "itemId" -> itemsRepository.findItemsByAdminIdAndItemId(admin.getId(), keyword);
+            case "itemName" -> itemsRepository.findItemsByAdminIdAndItemName(admin.getId(), keyword);
+            case "category" -> itemsRepository.findItemsByAdminIdAndCategory(admin.getId(), keyword);
+            case null, default ->  // 기본값은 상품명으로 검색
+                    itemsRepository.findItemsByAdminId(admin.getId());
+        };
 
         return items.stream().map(ItemsResponse.list::new).toList();
     }

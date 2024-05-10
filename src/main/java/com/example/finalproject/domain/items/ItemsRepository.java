@@ -26,6 +26,10 @@ public interface ItemsRepository extends JpaRepository<Items, Integer> {
     List<Items> findItemsByAdminId(@Param("adminId") int adminId);
 
     //브랜드의 아이템명 검색 목록
+    @Query("SELECT i FROM Items i JOIN FETCH i.category c WHERE i.status = true AND i.admin.id = :adminId AND cast(i.id as string) LIKE %:keyword%")
+    List<Items> findItemsByAdminIdAndItemId(@Param("adminId") int adminId, @Param("keyword") String keyword);
+
+    //브랜드의 아이템명 검색 목록
     @Query("SELECT i FROM Items i JOIN FETCH i.category c WHERE i.status = true AND i.admin.id = :adminId AND i.name LIKE %:keyword%")
     List<Items> findItemsByAdminIdAndItemName(@Param("adminId") int adminId, @Param("keyword") String keyword);
 

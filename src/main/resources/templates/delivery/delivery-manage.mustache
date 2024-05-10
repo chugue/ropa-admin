@@ -8,21 +8,18 @@
     <div class="card">
         <div class="card-body">
             <!-- 검색 폼 -->
-            <form class="form-inline search-form float-right mb-3">
+            <form action="/api/delivery-manage" method="get" class="form-inline search-form float-right mb-3">
                 <div class="form-group mr-2">
-                    <select class="form-control">
-                        <option selected>배송코드</option>
-                        <option>주문코드</option>
-                        <option>고객명</option>
-                        <option>연락처</option>
-                        <option>주문일자</option>
-                        <option>도착예정일자</option>
-                        <option>도착일자</option>
-                        <option>배송현황</option>
+                    <select class="form-control" name="searchBy">
+                        <option value="orderId">주문코드</option>
+                        <option value="username">구매자</option>
+                        <option value="recipient">수령인</option>
+                        <option value="recipientPhoneNumber">수령인 연락처</option>
+                        <option value="status">배송현황</option>
                     </select>
                 </div>
                 <div class="form-group mr-2">
-                    <input type="text" class="form-control" placeholder="검색명">
+                    <input type="text" class="form-control" placeholder="검색명" name="keyword">
                 </div>
                 <button type="submit" class="btn btn-primary">검색</button>
             </form>
@@ -34,7 +31,7 @@
                     <th>수령인</th>
                     <th>수령인 연락처</th>
                     <th>배송현황</th>
-                    <th>도착일자</th>
+                    <th>출발일자</th>
                     <th>도착일자</th>
                 </tr>
                 </thead>

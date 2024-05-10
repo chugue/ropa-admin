@@ -15,7 +15,7 @@ public class OrderHistoryRestController {
     private final HttpSession session;
 
     // 주문 목록 페이지
-    @GetMapping("/app/orderHistories")
+    @GetMapping("/app/order-histories")
     public ResponseEntity<?> OrderHistories() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         OrderHistoryResponse.UserOrderHistory orderHistoryList = orderHistoryService.getOrderHistoryByUserId(sessionUser.getId());

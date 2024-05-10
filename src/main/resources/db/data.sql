@@ -117,18 +117,17 @@ values (1, 1),
        (10, 3);
 
 -- 사진 테이블 더미
--- 크리이터 사용자용
 insert into photo_tb (uuid_name, original_file_name, path, sort, admin_id, user_id, codi_id, items_id, created_at, is_main_photo)
-values ('uuid_브랜드사진1','브랜드사진1', '브랜드경로1', 'BRAND', 1, null, null, null, NOW(), true),
-       ('uuid_브랜드사진2','브랜드사진2', '브랜드경로2', 'BRAND', 2, null, null, null, NOW(), true),
-       ('uuid_브랜드사진3','브랜드사진3', '브랜드경로3', 'BRAND', 3, null, null, null, NOW(), true),
+values ('uuid_브랜드사진1','브랜드사진1', '/upload/brand/brand1.jpg', 'BRAND', 1, null, null, null, NOW(), true),
+       ('uuid_브랜드사진2','브랜드사진2', '/upload/brand/brand2.jpeg', 'BRAND', 2, null, null, null, NOW(), true),
+       ('uuid_브랜드사진3','브랜드사진3', '/upload/brand/brand3.jpeg', 'BRAND', 3, null, null, null, NOW(), true),
        ('uuid_사용자사진1','사용자사진1', '/upload/user/user1.webp', 'USER', null, 1, null, null, NOW(), true),
        ('uuid_사용자사진2','사용자사진2', '/upload/user/user2.webp', 'USER', null, 2, null, null, NOW(), true),
        ('uuid_사용자사진3','사용자사진3', '/upload/user/user3.webp', 'USER', null, 3, null, null, NOW(), true),
        ('uuid_사용자사진4','사용자사진4', '/upload/user/user4.webp', 'USER', null, 4, null, null, NOW(), true),
        ('uuid_사용자사진5','사용자사진5', '/upload/user/user5.webp', 'USER', null, 5, null, null, NOW(), true),
-       ('uuid_아이템사진1','아이템사진1', '/upload/items/item1.webp', 'ITEM', null, null, null, 1, NOW(), true),
-       ('uuid_아이템사진1서브','아이템서브사진1', '/upload/items/item1.webp', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1','아이템사진1', '/upload/items/test/mainItemPhoto.jpg', 'ITEM', null, null, null, 1, NOW(), true),
+       ('uuid_아이템사진1서브','아이템서브사진1', '/upload/items/test/detail01.jpg', 'ITEM', null, null, null, 1, NOW(), false),
        ('uuid_아이템사진2','아이템사진2', '/upload/items/item2.webp', 'ITEM', null, null, null, 2, NOW(), true),
        ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/item2.webp', 'ITEM', null, null, null, 2, NOW(), false),
        ('uuid_아이템사진4','아이템사진3', '/upload/items/item3.webp', 'ITEM', null, null, null, 3, NOW(), true),
@@ -179,7 +178,19 @@ values ('uuid_브랜드사진1','브랜드사진1', '브랜드경로1', 'BRAND',
        ('uuid_코디사진14','코디사진14', '/upload/codi/codi-9.webp', 'CODI', null, null, 10, null, NOW(), true),
        ('uuid_코디사진15','코디사진15', '/upload/codi/codi-10.webp', 'CODI', null, null, 11, null, NOW(), true),
        ('uuid_코디사진16','코디사진16', '/upload/codi/codi-11.webp', 'CODI', null, null, 12, null, NOW(), true),
-       ('uuid_코디사진17','코디사진17', '/upload/codi/codi-12.webp', 'CODI', null, null, 13, null, NOW(), true);
+       ('uuid_코디사진17','코디사진17', '/upload/codi/codi-12.webp', 'CODI', null, null, 13, null, NOW(), true),
+       ('uuid_관리자사진','관리자사진', '/upload/brand/admin.png', 'BRAND', 4, null, null, null, NOW(), true),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail01.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail02.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail03.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail04.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail05.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail06.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail07.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail08.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail09.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브','아이템서브사진2', '/upload/items/test/detail10.jpg', 'ITEM', null, null, null, 1, NOW(), false);
+
 
 
 -- 좋아요 기능

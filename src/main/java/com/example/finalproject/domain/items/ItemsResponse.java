@@ -10,45 +10,54 @@ public class ItemsResponse {
     @Data
     public static class ItemDetail {
         private Integer itemId;
-        private Integer itemPhotoId;
-        private String mainPhotoName;
-        private String mainPhotoBase64;
         private Boolean isMainPhoto;
         private Photo.Sort sort;
         private String brandName;
         private Integer price;
         private Double discountRate;
         private Integer discountPrice;
-        private ItemDetailPhoto itemDetailPhoto;
+        private List<MainPhoto> mainPhotos;
+        private List<DetailPhoto> detailPhotos;
 
-
-        public ItemDetail(Items item) {
+        public ItemDetail(Items item, List<Photo> photos, List<Photo> detailPhotos) {
             this.itemId = item.getId();
-            this.itemPhotoId = item.getPhotos().getFirst().getId();
-            this.mainPhotoName = item.getPhotos().getFirst().getUuidName();
-            this.mainPhotoBase64 = item.getPhotos().getFirst().toBase64(item.getPhotos().getFirst());
-            this.sort = item.getPhotos().getFirst().getSort();
             this.brandName = item.getAdmin().getBrandName();
-            this.price = item.getPrice();
             this.discountRate = item.getDiscountRate();
             this.discountPrice = item.getDiscountPrice();
-            this.itemDetailPhoto = new ItemDetailPhoto(item);
+            this.price = item.getPrice();
+            this.mainPhotos = photos.stream().map(MainPhoto::new).toList();
+            this.detailPhotos = detailPhotos.stream().map(DetailPhoto::new).toList();
         }
 
         @Data
-        public static class ItemDetailPhoto {
+        public class MainPhoto {
+            private Integer photoId;
+            private String mainPhotoName;
+            private String mainPhotoBase64;
+            private Photo.Sort sort;
+
+            public MainPhoto(Photo photo) {
+                this.photoId = photo.getId();
+                this.mainPhotoName = photo.getUuidName();
+                this.mainPhotoBase64 = photo.toBase64(photo);
+                this.sort = photo.getSort();
+            }
+        }
+
+        @Data
+        public class DetailPhoto {
             private Integer itemPhotoId;
             private String subPhotoName;
             private String subPhotoBase64;
             private Boolean isMainPhoto;
             private Photo.Sort sort;
 
-            public ItemDetailPhoto(Items item) {
-                this.itemPhotoId = item.getPhotos().get(1).getId();
-                this.subPhotoName = item.getPhotos().get(1).getUuidName();
-                this.subPhotoBase64 = item.getPhotos().get(1).toBase64(item.getPhotos().get(1));
-                this.isMainPhoto = item.getPhotos().get(1).getIsMainPhoto();
-                this.sort = item.getPhotos().get(1).getSort();
+            public DetailPhoto(Photo photo) {
+                this.itemPhotoId = photo.getId();
+                this.subPhotoName = photo.getUuidName();
+                this.subPhotoBase64 = photo.toBase64(photo);
+                this.isMainPhoto = photo.getIsMainPhoto();
+                this.sort = photo.getSort();
             }
         }
     }

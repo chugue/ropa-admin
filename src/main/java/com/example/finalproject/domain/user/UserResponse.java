@@ -201,14 +201,12 @@ public class UserResponse {
         private Integer id;
         private String name;
         private String instagram;
-        private String status;
         private Boolean blueChecked;
 
         public CreatorApply(User user) {
             this.id = user.getId();
             this.name = user.getMyName();
             this.instagram = user.getInstagram();
-            this.status = user.getStatus();
             this.blueChecked = user.getBlueChecked();
         }
     }

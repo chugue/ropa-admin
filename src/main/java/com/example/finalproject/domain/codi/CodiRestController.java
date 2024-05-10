@@ -26,7 +26,7 @@ public class CodiRestController {
     }
 
 
-    //앱] 코디 등록 - 아이템 연결
+    //앱] 코디 등록 - 아이템 연결 페이지
     @GetMapping("/app/codi-register/add-item-page")
     public ResponseEntity<?> clickItemSave() {
         List<CodiResponse.BrandInfo> respDTO = codiService.addItemPage();

@@ -17,7 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -74,14 +76,18 @@ public class ItemsService {
         itemsRepository.save(items);
     }
 
-    //아이템 디테일
-    public ItemsResponse.ItemDetail itemDetail(SessionUser sessionUser, int itemId) {
-        User user = userRepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+    //아이템 디테일 페이지 요청
+    public ItemsResponse.ItemDetail itemDetail(Integer itemId) {
+        Items item = itemsRepository.findItemsByAdminAndPhotos(itemId)
+                .orElseThrow(() -> new Exception404("등록된 아이템이 아닙니다."));
+        List<Photo> mainPhotos = item.getPhotos().stream()
+                .filter(Photo::getIsMainPhoto)  // isMainPhoto가 true인 photo만 필터링
+                .collect(Collectors.toList());
+        List<Photo> detailPhotos = item.getPhotos().stream()
+                .filter(photo -> !photo.getIsMainPhoto())
+                .sorted(Comparator.comparing(Photo::getId)) .toList();
 
-        Items item = itemsRepository.findItemsByAdminAndPhotos(itemId);
-
-        return new ItemsResponse.ItemDetail(item);
+        return new ItemsResponse.ItemDetail(item, mainPhotos, detailPhotos);
     }
 
     // 아이템 저장

@@ -190,17 +190,17 @@ values (2, 1, true),
        (3, 4, true),
        (5, 6, true),
        (4, 5, true),
-       (1, 7, true),
-       (1, 8, true),
-       (1, 9, true),
-       (1, 2, true),
-       (1, 3, true),
-       (1, 4, true),
-       (1, 1, true),
-       (1, 10, true),
-       (1, 11, true),
-       (1, 12, true),
-       (1, 13, true);
+       (3, 7, true),
+       (4, 8, true),
+       (5, 9, true),
+       (4, 2, true),
+       (3, 3, true),
+       (5, 4, true),
+       (5, 1, true),
+       (3, 10, true),
+       (4, 11, true),
+       (3, 12, true),
+       (2, 13, true);
 
 -- 배송(Delivery) 더미 데이터 삽입
 INSERT INTO delivery_tb (status, start_date, end_date, recipient,postal_code,address,address_detail, phone_number)

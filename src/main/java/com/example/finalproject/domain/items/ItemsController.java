@@ -18,12 +18,11 @@ public class ItemsController {
     private final HttpSession session;
     private final ItemsService itemsService;
 
-
     // 아이템 관리 페이지
     @GetMapping("/api/items-manage")
-    public String itemsManage(HttpServletRequest requestDTO) {
+    public String itemsManage(@RequestParam(defaultValue = "itemCode") String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        List<ItemsResponse.list> itemsList = itemsService.findItemsByAdminId(sessionBrand.getId());
+        List<ItemsResponse.list> itemsList = itemsService.findItemsByAdminId(sessionBrand.getId(), searchBy, keyword);
         requestDTO.setAttribute("itemsList", itemsList);
         return "items/items-manage";
     }

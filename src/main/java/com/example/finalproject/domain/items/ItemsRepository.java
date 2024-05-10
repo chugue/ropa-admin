@@ -11,7 +11,8 @@ import java.util.Optional;
 public interface ItemsRepository extends JpaRepository<Items, Integer> {
     //브랜드 기준으로 브랜드 정보와 본인이 올린 아이템들에 대한 정보를 가져오는 쿼리
     @Query("select i from Items i join fetch i.photos join fetch i.admin where i.admin.id in :adminIds")
-    List<Items> findByAdminItemsAndPhotos(@Param("adminIds")int adminIds);
+    List<Items> findByAdminItemsAndPhotos(@Param("adminIds") int adminIds);
+
     //아이템 정보와 해당 아이템을 올린 브랜드 정보 가져오기
     @Query("select i from Items i join fetch i.photos join fetch i.admin where i.id = :itemId")
     Items findItemsByAdminAndPhotos(@Param("itemId") int itemId);
@@ -23,6 +24,14 @@ public interface ItemsRepository extends JpaRepository<Items, Integer> {
     //브랜드의 아이템 목록
     @Query("SELECT i FROM Items i JOIN FETCH i.category WHERE i.status = true AND i.admin.id = :adminId")
     List<Items> findItemsByAdminId(@Param("adminId") int adminId);
+
+    //브랜드의 아이템명 검색 목록
+    @Query("SELECT i FROM Items i JOIN FETCH i.category c WHERE i.status = true AND i.admin.id = :adminId AND i.name LIKE %:keyword%")
+    List<Items> findItemsByAdminIdAndItemName(@Param("adminId") int adminId, @Param("keyword") String keyword);
+
+    //브랜드의 아이템 상위 카테고리 검색 목록
+    @Query("SELECT i FROM Items i JOIN FETCH i.category c WHERE i.status = true AND i.admin.id = :adminId AND c.main LIKE %:keyword%")
+    List<Items> findItemsByAdminIdAndCategory(@Param("adminId") int adminId, @Param("keyword") String keyword);
 
     // 브랜드 아이템 상세보기
     @Query("SELECT i FROM Items i JOIN FETCH i.category c WHERE i.admin.id = :adminId AND i.id = :itemId")

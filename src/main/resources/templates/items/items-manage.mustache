@@ -10,19 +10,17 @@
         <div class="card-body">
             <a href="/api/items-register-form" class="btn btn-primary mb-3">상품등록</a>
             <!-- 검색 폼 -->
-            <form class="form-inline search-form float-right mb-3">
+            <form action="/api/items-manage" method="get" class="form-inline search-form float-right mb-3">
                 <div class="form-group mr-2">
-                    <select class="form-control">
-                        <option selected>상품번호</option>
-                        <option>상품명</option>
-                        <option>상품가격</option>
-                        <option>카테고리</option>
+                    <select class="form-control" name="searchBy"> <!-- 검색 기준을 서버에 전달할 파라미터 이름을 지정합니다 -->
+                        <option value="itemName">상품명</option>
+                        <option value="category">상위 카테고리</option>
                     </select>
                 </div>
                 <div class="form-group mr-2">
-                    <input type="text" class="form-control" placeholder="검색명">
+                    <input type="text" class="form-control" placeholder="검색명" name="keyword">
                 </div>
-                <button type="submit" class="btn btn-primary">검색</button>
+                <button class="btn btn-primary">검색</button>
             </form>
             <table class="table">
                 <thead>

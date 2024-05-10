@@ -22,7 +22,7 @@ public class InquiryService {
     private final UserRepository userRepository;
 
     // 문의 상세보기(브랜드가 문읟 답변 하는 페이지)
-    public InquiryResponse.Detail detailInquiry(SessionUser sessionUser, int inquiryId){
+    public InquiryResponse.Detail detailInquiry(SessionUser sessionUser, int inquiryId) {
         Admin admin = adminRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception403("페이지의 접근 권한이없습니다."));
 
@@ -49,12 +49,17 @@ public class InquiryService {
                 .status(false).build());
 
         return new InquiryResponse.Save(savedInquiry);
-
     }
 
     // 브랜드 관리자 ID로 모든 문의 조회
-    public List<InquiryResponse.List> findAllInquiryWithUser(Integer adminId) {
-        List<Inquiry> inquiryList = inquiryRepository.findAllByAdminIdWithUser(adminId);
+    public List<InquiryResponse.List> findAllInquiryWithUser(Integer adminId, String searchBy, String keyword) {
+
+        List<Inquiry> inquiryList = switch (searchBy) {
+            case "username" -> inquiryRepository.findAllByAdminIdWithUserAndUsername(adminId, keyword);
+            case "title" -> inquiryRepository.findAllByAdminIdWithUserAndTitle(adminId, keyword);
+            case null, default -> inquiryRepository.findAllByAdminIdWithUser(adminId);
+        };
+
         List<InquiryResponse.List> respList =
                 inquiryList.stream().map(inquiry ->
                         new InquiryResponse.List(inquiry, inquiry.getUser())).toList();
@@ -90,11 +95,6 @@ public class InquiryService {
     // 문의 페이지 모든 문희 조회
     public List<InquiryResponse.UserPage> inquiryPage(Integer userId) {
         List<Inquiry> inquiries = inquiryRepository.findAllByUserId(userId);
-
-        return inquiries.stream().map(inquiry -> new InquiryResponse.UserPage(inquiry)).toList();
+        return inquiries.stream().map(InquiryResponse.UserPage::new).toList();
     }
-
-
-
-
 }

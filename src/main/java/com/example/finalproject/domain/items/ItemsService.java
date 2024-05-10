@@ -28,7 +28,6 @@ public class ItemsService {
     private final PhotoService photoService;
     private final PhotoRepository photoRepository;
 
-
     // 아이템 수정
     @Transactional
     public void updateItem(Integer itemId, ItemsRequest.UpdateDTO reqDTO, Integer sessionBrandId) {
@@ -75,7 +74,6 @@ public class ItemsService {
         itemsRepository.save(items);
     }
 
-
     //아이템 디테일
     public ItemsResponse.ItemDetail itemDetail(SessionUser sessionUser, int itemId) {
         User user = userRepository.findById(sessionUser.getId())
@@ -99,13 +97,20 @@ public class ItemsService {
     }
 
     // 아이템 목록
-    public List<ItemsResponse.list> findItemsByAdminId(Integer sessionBrandId) {
+    public List<ItemsResponse.list> findItemsByAdminId(Integer sessionBrandId, String searchBy, String keyword) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
-        List<Items> item = itemsRepository.findItemsByAdminId(sessionBrandId);
-        return item.stream().map(ItemsResponse.list::new).toList();
+        List<Items> items = switch (searchBy) {
+            case "itemId" -> itemsRepository.findItemsByAdminIdAndItemId(admin.getId(), keyword);
+            case "itemName" -> itemsRepository.findItemsByAdminIdAndItemName(admin.getId(), keyword);
+            case "category" -> itemsRepository.findItemsByAdminIdAndCategory(admin.getId(), keyword);
+            case null, default ->  // 기본값은 상품명으로 검색
+                    itemsRepository.findItemsByAdminId(admin.getId());
+        };
+
+        return items.stream().map(ItemsResponse.list::new).toList();
     }
 
     // 아이템 상세보기

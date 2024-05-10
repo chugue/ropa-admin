@@ -27,8 +27,45 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
     List<OrderHistory> findByOrderHistoryItemsAdmin(@Param("adminId") Integer adminId);
 
+    // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템 고객명 검색
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId AND u.myName like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndUsername(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템 연락처 검색
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId AND u.mobile like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndMobile(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템 코드 검색
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId AND cast(i.id as string) like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndItemId(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템명 검색
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId AND i.name like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndItemName(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 로그인한 브랜드 관리자 별 사용자가 구매한 아이템 배송 목록
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
     List<OrderHistory> findByOrderHistoryItemsAdminAndDelivery(@Param("adminId") Integer adminId);
+
+    // 로그인한 브랜드 관리자 별 사용자가 구매한 아이템 배송 구매자 검색 목록
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch o.user u join fetch oh.items i where i.admin.id = :adminId and cast(o.id as string) like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndDeliveryAndOrderId(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 로그인한 브랜드 관리자 별 사용자가 구매한 아이템 배송 구매자 검색 목록
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch o.user u join fetch oh.items i where i.admin.id = :adminId and u.myName like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndDeliveryAndUsername(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 로그인한 브랜드 관리자 별 사용자가 구매한 아이템 배송 수령인 검색 목록
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch o.user u join fetch oh.items i where i.admin.id = :adminId and d.recipient like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndDeliveryAndRecipient(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 로그인한 브랜드 관리자 별 사용자가 구매한 아이템 배송 수령인 연락처 검색 목록
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch o.user u join fetch oh.items i where i.admin.id = :adminId and d.phoneNumber like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndDeliveryAndRecipientPhoneNumber(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 로그인한 브랜드 관리자 별 사용자가 구매한 아이템 배송 현황 검색 목록
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch o.user u join fetch oh.items i where i.admin.id = :adminId and d.status like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndDeliveryAndStatus(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
 
     // 각 아이템의 총 판매수량대로 정렬하여서 각 아이템의 id를 나열
     @Query("SELECT oh.items.id FROM OrderHistory oh GROUP BY oh.items.id ORDER BY SUM(oh.orderItemQty) DESC")

@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            {{#orderHistoryList}}
+
             <table class="table">
                 <thead>
                 <tr>
@@ -41,15 +41,16 @@
                 </tr>
                 </thead>
                 <tbody>
+            {{#orderHistoryList}}
                 <tr>
                     <td>{{itemsId}}</td>
                     <td>{{itemsName}}</td>
                     <td>{{totalPrice}}</td>
                     <td>{{totalQuantity}}</td>
                 </tr>
+            {{/orderHistoryList}}
                 </tbody>
             </table>
-            {{/orderHistoryList}}
         </div>
     </div>
 </div>

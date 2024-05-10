@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class DeliveryController {
 
     // 배송 관리 페이지 (브랜드)
     @GetMapping("/api/delivery-manage")
-    public String deliveryManage(HttpServletRequest request) {
+    public String deliveryManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest request) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        List<OrderHistoryResponse.DeliveryList> orderDeliveryList = deliveryService.findByOrderHistoryItemsAdminAndDelivery(sessionBrand.getId());
+        List<OrderHistoryResponse.DeliveryList> orderDeliveryList = deliveryService.findByOrderHistoryItemsAdminAndDelivery(sessionBrand.getId(), searchBy, keyword);
         request.setAttribute("orderDeliveryList", orderDeliveryList);
         return "delivery/delivery-manage";
     }

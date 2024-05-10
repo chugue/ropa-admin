@@ -13,8 +13,17 @@ public class OrderHistoryService {
     private final OrderHistoryRepository orderHistoryRepository;
 
     // 브랜드 별 사용자가 구매한 아이템 주문 목록 (관리자)
-    public List<OrderHistoryResponse.orderList> findByOrderHistoryItemsAdmin(Integer adminId) {
-        List<OrderHistory> orderHistoryList = orderHistoryRepository.findByOrderHistoryItemsAdmin(adminId);
+    public List<OrderHistoryResponse.orderList> findByOrderHistoryItemsAdmin(Integer adminId, String searchBy, String keyword) {
+        orderHistoryRepository.findByOrderHistoryItemsAdmin(adminId);
+
+        List<OrderHistory> orderHistoryList = switch (searchBy) {
+            case "username" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndUsername(adminId, keyword);
+            case "mobile" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndMobile(adminId, keyword);
+            case "itemId" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndItemId(adminId, keyword);
+            case "itemName" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndItemName(adminId, keyword);
+            case null, default -> orderHistoryRepository.findByOrderHistoryItemsAdmin(adminId);
+        };
+
         return orderHistoryList.stream().map(OrderHistoryResponse.orderList::new).toList();
     }
 

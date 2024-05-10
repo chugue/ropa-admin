@@ -199,17 +199,13 @@ public class UserResponse {
     @Data
     public static class CreatorApply {
         private Integer id;
-        private String height;
-        private String weight;
+        private String name;
         private String instagram;
-        private String job;
 
         public CreatorApply(User user) {
             this.id = user.getId();
-            this.height = user.getHeight();
-            this.weight = user.getWeight();
+            this.name = user.getMyName();
             this.instagram = user.getInstagram();
-            this.job = user.getJob();
         }
     }
 }

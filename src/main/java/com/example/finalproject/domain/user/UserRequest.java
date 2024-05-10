@@ -44,19 +44,20 @@ public class UserRequest {
     }
 
     // 앱 크리에이터 지원 요청
-    @AllArgsConstructor
     @Data
     public static class CreatorApplyDTO {
         private String height;
         private String weight;
         private String instagram;
+        private String comment;
         private String job;
 
-        public CreatorApplyDTO(User user) {
-            this.height = user.getHeight();
-            this.weight = user.getWeight();
-            this.instagram = user.getInstagram();
-            this.job = user.getJob();
+        public CreatorApplyDTO(String height, String weight, String instagram, String comment, String job) {
+            this.height = height;
+            this.weight = weight;
+            this.instagram = instagram;
+            this.comment = comment;
+            this.job = job;
         }
     }
 }

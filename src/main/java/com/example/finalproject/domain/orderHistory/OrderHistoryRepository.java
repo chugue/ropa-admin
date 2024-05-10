@@ -27,6 +27,19 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
     List<OrderHistory> findByOrderHistoryItemsAdmin(@Param("adminId") Integer adminId);
 
+    // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템 고객명 검색
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId AND u.myName like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndUsername(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템 연락처 검색
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId AND u.mobile like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndMobile(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 아이템 주문 목록 중 로그인한 브랜드 관리자가 등록한 아이템명 검색
+    @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.user u join fetch oh.items i where i.admin.id = :adminId AND i.name like %:keyword%")
+    List<OrderHistory> findByOrderHistoryItemsAdminAndItemName(@Param("adminId") Integer adminId, @Param("keyword") String keyword);
+
+    // 로그인한 브랜드 관리자 별 사용자가 구매한 아이템 배송 목록
     @Query("select oh from OrderHistory oh join fetch oh.order o join fetch o.delivery d join fetch o.user u join fetch oh.items i where i.admin.id = :adminId")
     List<OrderHistory> findByOrderHistoryItemsAdminAndDelivery(@Param("adminId") Integer adminId);
 

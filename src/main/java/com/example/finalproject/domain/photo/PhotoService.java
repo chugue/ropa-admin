@@ -193,7 +193,7 @@ public class PhotoService {
 
         // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
         // 파일이름이랑 개방된 폴더를 조합해서 경로생성
-        Path imgPath = Paths.get(imgFilename);
+        Path imgPath = Paths.get(uploadPath + imgFilename);
 
         // 파일저장 핵심로직
         // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
@@ -203,7 +203,7 @@ public class PhotoService {
         // DB 저장 전 경로 구분자 변경
         String dbPath = "/upload/" + imgFilename;
 
-        Photo photo = photoRepository.save(Photo.builder()
+        photoRepository.save(Photo.builder()
                 .items(items)
                 .path(dbPath)
                 .uuidName(imgFilename)

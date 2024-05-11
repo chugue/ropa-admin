@@ -38,16 +38,10 @@ public class AdminController {
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
-        if (admin.getRole().equals(ADMIN)) {
-            session.setAttribute("sessionAdmin", admin);
-            return "index-admin";
-        } else if (admin.getRole().equals(BRAND)) {
-            session.setAttribute("sessionBrand", admin);
-            return "index-brand";
-        }
+
+        session.setAttribute("sessionBrand", admin);
+
         return "index-brand";
-
-
     }
 
     // 회원가입 폼
@@ -76,11 +70,12 @@ public class AdminController {
 
     // 브랜드 매출관리 페이지
     @GetMapping("/api/brand-sales-manage")
-    public String brandSalesManage(HttpServletRequest req) {
+    public String brandSalesManage(@RequestParam(value = "startDate", required = false) LocalDateTime startDate,
+                                   @RequestParam(value = "endDate", required = false) LocalDateTime endDate,
+                                   HttpServletRequest reqDTO) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-        List<AdminResponse.BrandOrderHistoryList> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId());
-        req.setAttribute("orderHistoryList", orderHistoryList);
-
+        List<AdminResponse.BrandOrderHistoryList> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId(), startDate, endDate);
+        reqDTO.setAttribute("orderHistoryList", orderHistoryList);
         return "sales/brand-sales-manage";
     }
 

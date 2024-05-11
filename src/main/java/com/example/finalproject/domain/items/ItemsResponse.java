@@ -10,8 +10,6 @@ public class ItemsResponse {
     @Data
     public static class ItemDetail {
         private Integer itemId;
-        private Boolean isMainPhoto;
-        private Photo.Sort sort;
         private String brandName;
         private Integer price;
         private Double discountRate;

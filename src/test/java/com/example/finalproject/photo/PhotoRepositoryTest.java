@@ -15,16 +15,6 @@ public class PhotoRepositoryTest {
     private PhotoRepository photoRepository;
 
     @Test
-    public void findMainPhoto_test(){
-        // given
-
-        // when
-        photoRepository.findAllMainPhoto();
-        // then
-
-    }
-
-    @Test
     public void findByUserIdWithCodiesAndPhoto_test(){
         // given
         Integer userId = 1;

@@ -1,7 +1,12 @@
 package com.example.finalproject.domain.photo;
 
 import lombok.Data;
+import org.apache.tomcat.util.codec.binary.Base64;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class PhotoResponse {
@@ -82,62 +87,6 @@ public class PhotoResponse {
                 this.base64 = photo.toBase64(photo);
                 this.sort = photo.getSort();
                 this.isMainPhoto = photo.getIsMainPhoto();
-            }
-        }
-    }
-
-    @Data
-    public static class SearchPage {
-        private List<CodiPhoto> codiPhotos;
-        private List<ItemInfo> itemPhotos;
-
-        public SearchPage( List<Photo> codiPhotos , List<Photo> itemPhotos) {
-            this.codiPhotos = codiPhotos.stream().map(CodiPhoto::new).toList();
-            this.itemPhotos = itemPhotos.stream().map(ItemInfo::new).toList();
-        }
-
-        @Data
-        private class CodiPhoto {
-            private Integer photoId;
-            private Integer codiId;
-            private String photoName;
-            private String base64;
-
-            public CodiPhoto(Photo photo) {
-                this.photoId = photo.getId();
-                this.codiId = photo.getCodi().getId();
-                this.photoName = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
-            }
-        }
-
-        @Data
-        private class ItemInfo {
-            private Integer itemId;
-            private String name;
-            private String description;
-            private Integer price;
-            private ItemPhoto itemPhoto;
-
-            public ItemInfo(Photo photo) {
-                this.itemId = photo.getItems().getId();
-                this.name = photo.getItems().getName();
-                this.description = photo.getItems().getDescription();
-                this.price = photo.getItems().getPrice();
-                this.itemPhoto = new ItemPhoto(photo) ;
-            }
-
-            @Data
-            public class ItemPhoto {
-                private Integer photoId;
-                private String photoName;
-                private String base64;
-
-                public ItemPhoto(Photo photo) {
-                    this.photoId = photo.getId();
-                    this.photoName = photo.getUuidName();
-                    this.base64 = photo.toBase64(photo);
-                }
             }
         }
     }

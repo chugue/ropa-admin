@@ -31,7 +31,7 @@ public class CodiResponse {
         }
 
         @Data
-        public class CodiPhoto{
+        public class CodiPhoto {
             private Integer photoId;
             private Integer codiId;
             private String base64;
@@ -48,7 +48,7 @@ public class CodiResponse {
         }
 
         @Data
-        public class CodiItemPhoto{
+        public class CodiItemPhoto {
             private Integer photoId;
             private Integer itemId;
             private String base64;
@@ -105,7 +105,7 @@ public class CodiResponse {
 
     // 코디 등록할 때 사용하는 DTO
     @Data
-    public static class NewLinkItems{
+    public static class NewLinkItems {
         private Integer codiId;
         private Integer userId;
         private String codiTitle;
@@ -296,6 +296,27 @@ public class CodiResponse {
                 this.codiPhotoName = photo.getUuidName();
                 this.base64 = photo.toBase64(photo);
                 this.isMainPhoto = photo.getIsMainPhoto();
+            }
+        }
+    }
+
+    @Data
+    public static class CodiListDTO {
+        private Integer codiId;
+        private String title;
+        private Integer codiPhotoId;
+        private String photoName;
+        private String base64;
+
+        public CodiListDTO(Codi codi) {
+            this.codiId = codi.getId();
+            this.title = codi.getTitle();
+            List<Photo> codiPhotos = codi.getPhotos();
+            if (codiPhotos != null && !codiPhotos.isEmpty()) {
+                Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
+                this.codiPhotoId = codiPhoto.getId();
+                this.photoName = codiPhoto.getUuidName();
+                this.base64 = codiPhoto.toBase64(codiPhoto);
             }
         }
     }

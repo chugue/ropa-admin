@@ -112,4 +112,29 @@ public class ItemsResponse {
             });
         }
     }
+
+    @Data
+    public static class ItemListDTO {
+        private Integer itemId;
+        private String name;
+        private String description;
+        private Integer price;
+        private Integer itemPhotoId;
+        private String itemPhotoName;
+        private String base64;
+
+        public ItemListDTO(Items items) {
+            this.itemId = items.getId();
+            this.name = items.getName();
+            this.description = items.getDescription();
+            this.price = items.getPrice();
+            List<Photo> itemPhotos = items.getPhotos();
+            if (itemPhotos != null && !itemPhotos.isEmpty()) {
+                Photo itemPhoto = itemPhotos.get(0); // 첫 번째 포토만 사용
+                this.itemPhotoId = itemPhoto.getId();
+                this.itemPhotoName = itemPhoto.getUuidName();
+                this.base64 = itemPhoto.toBase64(itemPhoto);
+            }
+        }
+    }
 }

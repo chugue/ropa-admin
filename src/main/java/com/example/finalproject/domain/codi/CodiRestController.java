@@ -19,7 +19,7 @@ public class CodiRestController {
 
     // 검색 화면 페이지
     @GetMapping("/app/search-page")
-    public void searchPage(){
+    public void searchPage() {
         codiService.findAllcodiAllItems();
     }
 
@@ -41,7 +41,7 @@ public class CodiRestController {
 
     // 앱] 코디 등록
     @PostMapping("/app/codi-register")
-    public ResponseEntity<?> codiRegister (@RequestBody CodiRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> codiRegister(@RequestBody CodiRequest.SaveDTO reqDTO) {
         CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
@@ -64,6 +64,12 @@ public class CodiRestController {
     @GetMapping("/codi-pages/{codiId}")
     public ResponseEntity<?> codiOpenPage(@PathVariable Integer codiId) {
         CodiResponse.OpenMainView respDTO = codiService.codiOpenPage(codiId);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    @GetMapping("/app/search-codi")
+    public ResponseEntity<?> searchCodi(@RequestParam(defaultValue = "") String keyword) {
+        List<CodiResponse.CodiListDTO> respDTO = codiService.searchCodi(keyword);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 }

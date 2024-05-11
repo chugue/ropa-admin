@@ -44,4 +44,10 @@ public interface ItemsRepository extends JpaRepository<Items, Integer> {
     // 아이템 id 리스트로 아이템 목록 불러오기
     @Query("select i from Items i where  i.id in :reqItemsIds")
     List<Items> findItemsByItemId(@Param("reqItemsIds") List<Integer> reqItemsIds);
+
+    @Query("select i from Items i join fetch i.photos p")
+    List<Items> findByAllItems();
+
+    @Query("select i from Items i join fetch i.photos p where i.name like %:keyword%")
+    List<Items> findItemsByItemName(String keyword);
 }

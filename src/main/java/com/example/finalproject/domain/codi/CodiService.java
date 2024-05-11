@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -216,6 +217,18 @@ public class CodiService {
     public void findAllcodiAllItems() {
 
         codiRepository.findAllByOrderByDateDesc();
+    }
+
+    public List<CodiResponse.CodiListDTO> searchCodi(String keyword) {
+        List<Codi> codiList;
+
+        if (keyword == null || keyword.isEmpty()) {
+            codiList = codiRepository.findByAllCodi();
+            return codiList.stream().map(CodiResponse.CodiListDTO::new).collect(Collectors.toList());
+        }
+
+        codiList = codiRepository.findItemsByCodiTitle(keyword);
+        return codiList.stream().map(CodiResponse.CodiListDTO::new).collect(Collectors.toList());
     }
 }
 

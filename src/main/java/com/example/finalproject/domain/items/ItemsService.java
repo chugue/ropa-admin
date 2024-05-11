@@ -9,8 +9,6 @@ import com.example.finalproject.domain.category.Category;
 import com.example.finalproject.domain.photo.Photo;
 import com.example.finalproject.domain.photo.PhotoRepository;
 import com.example.finalproject.domain.photo.PhotoService;
-import com.example.finalproject.domain.user.SessionUser;
-import com.example.finalproject.domain.user.User;
 import com.example.finalproject.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +83,7 @@ public class ItemsService {
                 .collect(Collectors.toList());
         List<Photo> detailPhotos = item.getPhotos().stream()
                 .filter(photo -> !photo.getIsMainPhoto())
-                .sorted(Comparator.comparing(Photo::getId)) .toList();
+                .sorted(Comparator.comparing(Photo::getId)).toList();
 
         return new ItemsResponse.ItemDetail(item, mainPhotos, detailPhotos);
     }
@@ -155,5 +153,18 @@ public class ItemsService {
 
         // 아이템에 연결된 사진 삭제
         photoService.deleteByItemId(itemId);
+    }
+
+    // 유저 아이템 검색 기능
+    public List<ItemsResponse.ItemListDTO> searchItems(String keyword) {
+        List<Items> items;
+
+        if (keyword == null || keyword.isEmpty()) {
+            items = itemsRepository.findByAllItems();
+            return items.stream().map(ItemsResponse.ItemListDTO::new).collect(Collectors.toList());
+        }
+
+        items = itemsRepository.findItemsByItemName(keyword);
+        return items.stream().map(ItemsResponse.ItemListDTO::new).collect(Collectors.toList());
     }
 }

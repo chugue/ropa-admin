@@ -1,7 +1,9 @@
 package com.example.finalproject.domain.user;
 
 import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.codi.CodiResponse;
 import com.example.finalproject.domain.items.Items;
+import com.example.finalproject.domain.items.ItemsResponse;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
@@ -208,6 +210,18 @@ public class UserResponse {
             this.name = user.getMyName();
             this.instagram = user.getInstagram();
             this.blueChecked = user.getBlueChecked();
+        }
+    }
+
+    // 아이템, 코디 리스트 DTO
+    @Data
+    public static class SearchPage {
+        private List<CodiResponse.CodiListDTO> codiListDTOS;
+        private List<ItemsResponse.ItemListDTO> itemListDTOS;
+
+        public SearchPage(List<CodiResponse.CodiListDTO> codiListDTOS, List<ItemsResponse.ItemListDTO> itemListDTOS) {
+            this.codiListDTOS = codiListDTOS;
+            this.itemListDTOS = itemListDTOS;
         }
     }
 }

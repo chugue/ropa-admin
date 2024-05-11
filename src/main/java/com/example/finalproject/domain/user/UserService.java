@@ -3,8 +3,10 @@ package com.example.finalproject.domain.user;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiRepository;
+import com.example.finalproject.domain.codi.CodiResponse;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
+import com.example.finalproject.domain.items.ItemsResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -106,6 +108,35 @@ public class UserService {
         UserResponse.UserInfo userDTO = new UserResponse.UserInfo(user);
 
         return new UserResponse.CreatorViewDTO(userDTO, codiDTOs, itemDTOs);
+    }
+
+    // 유저 아이템, 코디 통합 검색
+    public UserResponse.SearchPage searchPage(String keyword) {
+        List<Codi> codiList;
+        List<Items> items;
+        List<CodiResponse.CodiListDTO> codiListDTO;
+        List<ItemsResponse.ItemListDTO> itemListDTO;
+
+        if (keyword == null || keyword.isEmpty()) {
+            codiList = codiRepository.findByAllCodi();
+            items = itemsRepository.findByAllItems();
+            codiListDTO = codiList.stream()
+                    .map(CodiResponse.CodiListDTO::new).toList();
+            itemListDTO = items.stream()
+                    .map(ItemsResponse.ItemListDTO::new).toList();
+
+            return new UserResponse.SearchPage(codiListDTO, itemListDTO);
+        }
+
+        items = itemsRepository.findItemsByItemName(keyword);
+        codiList = codiRepository.findItemsByCodiTitle(keyword);
+
+        codiListDTO = codiList.stream()
+                .map(CodiResponse.CodiListDTO::new).toList();
+        itemListDTO = items.stream()
+                .map(ItemsResponse.ItemListDTO::new).toList();
+
+        return new UserResponse.SearchPage(codiListDTO, itemListDTO);
     }
 
 }

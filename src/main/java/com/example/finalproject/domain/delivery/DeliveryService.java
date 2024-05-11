@@ -14,12 +14,19 @@ public class DeliveryService {
     private final OrderHistoryRepository orderHistoryRepository;
 
     // 브랜드 별 사용자가 구매한 아이템 배송 목록
-    public List<OrderHistoryResponse.DeliveryListDTO> findByOrderHistoryItemsAdminAndDelivery(Integer adminId) {
-        List<OrderHistory> orderDeliveryList = orderHistoryRepository.findByOrderHistoryItemsAdminAndDelivery(adminId);
+    public List<OrderHistoryResponse.DeliveryList> findByOrderHistoryItemsAdminAndDelivery(Integer adminId, String searchBy, String keyword) {
+
+        List<OrderHistory> orderDeliveryList = switch (searchBy) {
+            case "orderId" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndDeliveryAndOrderId(adminId, keyword);
+            case "username" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndDeliveryAndUsername(adminId, keyword);
+            case "recipient" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndDeliveryAndRecipient(adminId, keyword);
+            case "recipientPhoneNumber" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndDeliveryAndRecipientPhoneNumber(adminId, keyword);
+            case "status" -> orderHistoryRepository.findByOrderHistoryItemsAdminAndDeliveryAndStatus(adminId, keyword);
+            case null, default -> orderHistoryRepository.findByOrderHistoryItemsAdminAndDelivery(adminId);
+        };
+
         return orderDeliveryList.stream()
-                .map(orderHistory -> new OrderHistoryResponse.DeliveryListDTO(orderHistory, orderHistory.getOrder().getUser(),
-                        orderHistory.getOrder().getDelivery().getDeliveryAddress(),
-                        orderHistory.getOrder().getDelivery()))
-                .toList();
+                .map(orderHistory -> new OrderHistoryResponse.DeliveryList(orderHistory, orderHistory.getOrder().getUser(),
+                        orderHistory.getOrder().getDelivery())).toList();
     }
 }

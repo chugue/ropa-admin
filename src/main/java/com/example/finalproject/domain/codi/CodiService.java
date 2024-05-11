@@ -17,7 +17,6 @@ import com.example.finalproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -53,7 +52,7 @@ public class CodiService {
     }
 
     // 로그인 안한 사용자용 코디보기 페이지 - 공개된 페이지
-    public CodiResponse.OpenMainViewDTO codiOpenPage(Integer codiId) {
+    public CodiResponse.OpenMainView codiOpenPage(Integer codiId) {
         // codiId로 코디 메인 사진 조회
         List<Photo> mainCodiPhotos = photoRepository.findByCodiId(codiId);
 
@@ -69,14 +68,13 @@ public class CodiService {
         Codi selectedCodi = codiItemsList.getFirst().getCodi();
         List<Photo> otherCodiPhotos = photoRepository.findByUserIdWithCodiesAndPhoto(selectedCodi.getUser().getId());
 
-        return new CodiResponse.OpenMainViewDTO(
+        return new CodiResponse.OpenMainView(
                 selectedCodi, totalLove, mainCodiPhotos, codiItemPhotos, otherCodiPhotos);
     }
 
 
-
     // 코디 보기 페이지 요청 - 페이지 내 아이템 목록, 크리에이터 코디목록 포함
-    public CodiResponse.MainViewDTO codiPage(Integer codiId, Integer userId) {
+    public CodiResponse.MainView codiPage(Integer codiId, Integer userId) {
 
         // codiId로 코디 메인 사진들 조회
         List<Photo> mainCodiPhotos = photoRepository.findByCodiId(codiId);
@@ -94,7 +92,7 @@ public class CodiService {
         Codi selectedCodi = codiItemsList.getFirst().getCodi();
         List<Photo> otherCodiPhotos = photoRepository.findByUserIdWithCodiesAndPhoto(selectedCodi.getUser().getId());
 
-        return new CodiResponse.MainViewDTO(
+        return new CodiResponse.MainView(
                 selectedCodi, loveStatus, totalLove, mainCodiPhotos, codiItemPhotos, otherCodiPhotos);
 
     }
@@ -120,7 +118,7 @@ public class CodiService {
         // 새로 등록된 코디 사진을 파일로 저장하고 DB에 영속화 그리고 코디랑 연결
         List<Photo> savedPhotos = new ArrayList<>();
         reqDTO.getCodiPhotos().forEach(appSaveDTO ->
-               savedPhotos.add(uploadCodiImage(appSaveDTO, savedCodi)));
+                savedPhotos.add(uploadCodiImage(appSaveDTO, savedCodi)));
 
         // 새로 생성된 코디와 기존의 영속화된 아이템들을 연결
         List<CodiItems> linkedCodiItems = linkItems.stream().map(items -> new CodiItems().builder()
@@ -141,6 +139,17 @@ public class CodiService {
         // 파일이름이랑 개방된 폴더를 조합해서 경로생성
         Path imgPath = Paths.get(uploadPath + imgFilename);
 
+        try {
+            Files.createDirectories(imgPath.getParent());
+        } catch (IOException e) {
+            // 폴더 생성 실패 시 처리 로직
+            System.err.println("Failed to create directory: " + imgPath.getParent());
+            e.printStackTrace();
+            // 필요하면 예외를 던지거나 다른 처리를 할 수 있습니다.
+        }
+
+        System.out.println("경로 설정 어떻게 되어있는거야?? " + imgPath);
+
         // 파일저장 핵심로직
         // 파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구함
         // 파일 저장 향후 파일 사이즈 유효성 추가 해야될것 TODO
@@ -152,7 +161,8 @@ public class CodiService {
             return photoRepository.save(Photo.builder()
                     .codi(codi)
                     .path(dbPath)
-                    .name(image.getPhotoName())
+                    .uuidName(imgFilename)
+                    .originalFileName(image.getPhotoName())
                     .sort(Photo.Sort.CODI)
                     .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                     .createdAt(Timestamp.from(Instant.now())).build());
@@ -160,7 +170,8 @@ public class CodiService {
             return photoRepository.save(Photo.builder()
                     .codi(codi)
                     .path(dbPath)
-                    .name(image.getPhotoName())
+                    .uuidName(imgFilename)
+                    .originalFileName(image.getPhotoName())
                     .sort(Photo.Sort.CODI)
                     .isMainPhoto(false)
                     .createdAt(Timestamp.from(Instant.now())).build());
@@ -178,6 +189,7 @@ public class CodiService {
             throw new RuntimeException(e);
         }
     }
+
 
     // 코디 수정 페이지 요청
     public CodiResponse.UpdatePage findInfoByCodiId(Integer codiId, Integer userId) {

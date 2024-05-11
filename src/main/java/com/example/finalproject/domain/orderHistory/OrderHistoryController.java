@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class OrderHistoryController {
 
     // 주문 목록 페이지
     @GetMapping("/api/order-manage")
-    public String orderManage(HttpServletRequest request) {
+    public String orderManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest request) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        List<OrderHistoryResponse.orderListDTO> orderHistoryList = orderHistoryService.findByOrderHistoryItemsAdmin(sessionBrand.getId());
+        List<OrderHistoryResponse.orderList> orderHistoryList = orderHistoryService.findByOrderHistoryItemsAdmin(sessionBrand.getId(), searchBy, keyword);
         request.setAttribute("orderHistoryList", orderHistoryList);
         return "order/order-manage";
     }

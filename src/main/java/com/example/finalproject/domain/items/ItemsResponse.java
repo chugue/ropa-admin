@@ -8,64 +8,70 @@ import java.util.List;
 public class ItemsResponse {
     //크리에이터의 아이템 상세페이지
     @Data
-    public static class ItemDetailDTO {
+    public static class ItemDetail {
         private Integer itemId;
-        private Integer itemPhotoId;
-        private String mainPhotoName;
-        private String mainPhotoPath;
         private Boolean isMainPhoto;
-        private Photo.Sort itemPhoto;
+        private Photo.Sort sort;
         private String brandName;
         private Integer price;
         private Double discountRate;
         private Integer discountPrice;
-        private ItemSubPhoto itemSubPhoto;
+        private List<MainPhoto> mainPhotos;
+        private List<DetailPhoto> detailPhotos;
 
-
-        public ItemDetailDTO(Items item, ItemSubPhoto itemSubPhoto) {
+        public ItemDetail(Items item, List<Photo> photos, List<Photo> detailPhotos) {
             this.itemId = item.getId();
-            this.itemPhotoId = item.getPhotos().getFirst().getId();
-            this.mainPhotoName = item.getPhotos().getFirst().getName();
-            this.mainPhotoPath = item.getPhotos().getFirst().getPath();
-            this.isMainPhoto = item.getPhotos().getFirst().getIsMainPhoto();
-            this.itemPhoto = item.getPhotos().getFirst().getSort();
             this.brandName = item.getAdmin().getBrandName();
-            this.price = item.getPrice();
             this.discountRate = item.getDiscountRate();
             this.discountPrice = item.getDiscountPrice();
-            this.itemSubPhoto = itemSubPhoto;
-
-
+            this.price = item.getPrice();
+            this.mainPhotos = photos.stream().map(MainPhoto::new).toList();
+            this.detailPhotos = detailPhotos.stream().map(DetailPhoto::new).toList();
         }
 
         @Data
-        public static class ItemSubPhoto {
+        public class MainPhoto {
+            private Integer photoId;
+            private String mainPhotoName;
+            private String mainPhotoBase64;
+            private Photo.Sort sort;
+
+            public MainPhoto(Photo photo) {
+                this.photoId = photo.getId();
+                this.mainPhotoName = photo.getUuidName();
+                this.mainPhotoBase64 = photo.toBase64(photo);
+                this.sort = photo.getSort();
+            }
+        }
+
+        @Data
+        public class DetailPhoto {
             private Integer itemPhotoId;
             private String subPhotoName;
-            private String subPhotoPath;
-            private Boolean isSubPhoto;
-            private Photo.Sort itemPhoto;
+            private String subPhotoBase64;
+            private Boolean isMainPhoto;
+            private Photo.Sort sort;
 
-            public ItemSubPhoto(Items item) {
-                this.itemPhotoId = item.getPhotos().get(1).getId();
-                this.subPhotoName = item.getPhotos().get(1).getName();
-                this.subPhotoPath = item.getPhotos().get(1).getPath();
-                this.isSubPhoto = item.getPhotos().get(1).getIsMainPhoto();
-                this.itemPhoto = item.getPhotos().get(1).getSort();
+            public DetailPhoto(Photo photo) {
+                this.itemPhotoId = photo.getId();
+                this.subPhotoName = photo.getUuidName();
+                this.subPhotoBase64 = photo.toBase64(photo);
+                this.isMainPhoto = photo.getIsMainPhoto();
+                this.sort = photo.getSort();
             }
         }
     }
 
     //브랜드의 상품 목록 보기
     @Data
-    public static class listDTO {
+    public static class list {
         private Integer itemId;
         private String itemName;
         private Integer price;
         private String mainCategory;
         private Integer stock;
 
-        public listDTO(Items items) {
+        public list(Items items) {
             this.itemId = items.getId();
             this.itemName = items.getName();
             this.price = items.getPrice();
@@ -76,7 +82,7 @@ public class ItemsResponse {
 
     // 아이템 상세보기
     @Data
-    public static class DetailDTO {
+    public static class Detail {
         private Integer itemId;
         private String name;
         private String description;
@@ -89,7 +95,7 @@ public class ItemsResponse {
         private String itemMainImage;
         private String itemDetailImage;
 
-        public DetailDTO(Items items, List<Photo> itemPhotos) {
+        public Detail(Items items, List<Photo> itemPhotos) {
             this.itemId = items.getId();
             this.name = items.getName();
             this.description = items.getDescription();

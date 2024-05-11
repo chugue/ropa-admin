@@ -12,15 +12,15 @@ public class InquiryResponse {
 
     //문의 상세보기 DTO
     @Data
-    public static class DetailDTO {
+    public static class Detail {
         private Integer inquiryId;
         private Integer userId;
         private String title;
         private String content;
         private String  createdAt;
-        private CommentDTO commentDTO;
+        private Comment commentDTO;
 
-        public DetailDTO(Inquiry inquiry, CommentDTO commentDTO) {
+        public Detail(Inquiry inquiry, Comment commentDTO) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = Date.from(Instant.now());
             this.inquiryId = inquiry.getId();
@@ -33,14 +33,14 @@ public class InquiryResponse {
 
         //브랜드의 답변  DTO
         @Data
-        public static class CommentDTO{
+        public static class Comment {
             private Integer  brandId;
             private String brandName;
             private Boolean status;
             private String comment;
             private String commentedAt;
 
-            public CommentDTO(Inquiry inquiry) {
+            public Comment(Inquiry inquiry) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = Date.from(Instant.now());
                 if (inquiry.getComment().equals("")) {
@@ -63,14 +63,14 @@ public class InquiryResponse {
 
 
     @Data // 문의 저장후 확인 데이터
-    public static class SaveDTO {
+    public static class Save {
         private Integer inquiryId;
         private Integer userId;
         private Integer brandId;
         private String title;
         private Timestamp createdAt;
 
-        public SaveDTO(Inquiry inquiry) {
+        public Save(Inquiry inquiry) {
             this.inquiryId = inquiry.getId();
             this.userId = inquiry.getUser().getId();
             this.brandId = inquiry.getAdmin().getId();
@@ -81,14 +81,14 @@ public class InquiryResponse {
 
 
     @Data   // 앱 문의화면에서 뿌려지는 문의 목록 DTO
-    public static class UserPageDTO {
+    public static class UserPage {
         private Integer inquiryId;
         private Boolean isReplied;
         private String title;
         private String content;
         private String createdAt;
 
-        public UserPageDTO(Inquiry inquiry) {
+        public UserPage(Inquiry inquiry) {
             this.inquiryId = inquiry.getId();
             this.isReplied = inquiry.getStatus();
             this.title = inquiry.getTitle();
@@ -105,7 +105,7 @@ public class InquiryResponse {
 
 
     @Data
-    public static class ListDTO {
+    public static class List {
 
         private Integer id; // 문의 PK
         private Integer num; // 문의게시물 개수 연산
@@ -115,7 +115,7 @@ public class InquiryResponse {
         private String statusMsg;
 
         private String createdAt;
-        public ListDTO(Inquiry inquiry, User user) {
+        public List(Inquiry inquiry, User user) {
             this.id = inquiry.getId();
             this.myName = user.getMyName();
             this.title = inquiry.getTitle();
@@ -132,7 +132,7 @@ public class InquiryResponse {
 
     }
     @Data
-    public static class ReplyDTO {
+    public static class Reply {
         private Integer id;
         private String myName;
         private String title;
@@ -142,7 +142,7 @@ public class InquiryResponse {
         private Boolean isReplied;
 
         private String commentedAt;
-        public ReplyDTO(Inquiry inquiry, User user) {
+        public Reply(Inquiry inquiry, User user) {
             this.id = inquiry.getId();
             this.myName = user.getMyName();
             this.title = inquiry.getTitle();

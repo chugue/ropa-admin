@@ -22,15 +22,17 @@
                     </table>
                 </div>
                 <!-- 날짜 조회 -->
-                <div class="input-group" style="margin-right: 30px;  width: 500px;">
+                <form action="/api/brand-sales-manage" method="get" class="input-group"
+                      style="margin-right: 30px;  width: 650px;">
                     <span class="input-group-text">조회기간</span>
-                    <input type="date" class="form-control" id="date">
-                    <input type="date" class="form-control" id="date">
+                    <input type="datetime-local" class="form-control" name="startDate">
+                    <input type="datetime-local" class="form-control" name="endDate">
                     <button class="btn btn-primary ml-3">검색하기</button>
-                </div>
+                </form>
+
             </div>
 
-            {{#orderHistoryList}}
+
             <table class="table">
                 <thead>
                 <tr>
@@ -41,15 +43,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>{{itemsId}}</td>
-                    <td>{{itemsName}}</td>
-                    <td>{{totalPrice}}</td>
-                    <td>{{totalQuantity}}</td>
-                </tr>
+                {{#orderHistoryList}}
+                    <tr>
+                        <td>{{itemsId}}</td>
+                        <td>{{itemsName}}</td>
+                        <td>{{totalPrice}}</td>
+                        <td>{{totalQuantity}}</td>
+                    </tr>
+                {{/orderHistoryList}}
                 </tbody>
             </table>
-            {{/orderHistoryList}}
         </div>
     </div>
 </div>

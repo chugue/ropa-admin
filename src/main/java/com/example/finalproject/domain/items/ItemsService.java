@@ -17,7 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +29,6 @@ public class ItemsService {
     private final UserRepository userRepository;
     private final PhotoService photoService;
     private final PhotoRepository photoRepository;
-
 
     // 아이템 수정
     @Transactional
@@ -50,7 +51,7 @@ public class ItemsService {
         items.setDiscountPrice(reqDTO.getDiscountPrice());
         items.setStock(reqDTO.getStock());
         itemsPhotos.forEach(photo -> {
-            if (photo.getIsMainPhoto()){
+            if (photo.getIsMainPhoto()) {
                 try {
                     photoService.updateMainImage(reqDTO.getMainImage(), photo, items);
 
@@ -75,15 +76,18 @@ public class ItemsService {
         itemsRepository.save(items);
     }
 
+    //아이템 디테일 페이지 요청
+    public ItemsResponse.ItemDetail itemDetail(Integer itemId) {
+        Items item = itemsRepository.findItemsByAdminAndPhotos(itemId)
+                .orElseThrow(() -> new Exception404("등록된 아이템이 아닙니다."));
+        List<Photo> mainPhotos = item.getPhotos().stream()
+                .filter(Photo::getIsMainPhoto)  // isMainPhoto가 true인 photo만 필터링
+                .collect(Collectors.toList());
+        List<Photo> detailPhotos = item.getPhotos().stream()
+                .filter(photo -> !photo.getIsMainPhoto())
+                .sorted(Comparator.comparing(Photo::getId)) .toList();
 
-    //아이템 디테일
-    public ItemsResponse.ItemDetailDTO itemDetail(SessionUser sessionUser, int itemId) {
-        User user = userRepository.findById(sessionUser.getId())
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
-
-        Items item = itemsRepository.findItemsByAdminAndPhotos(itemId);
-
-        return new ItemsResponse.ItemDetailDTO(item, new ItemsResponse.ItemDetailDTO.ItemSubPhoto(item));
+        return new ItemsResponse.ItemDetail(item, mainPhotos, detailPhotos);
     }
 
     // 아이템 저장
@@ -99,17 +103,24 @@ public class ItemsService {
     }
 
     // 아이템 목록
-    public List<ItemsResponse.listDTO> findItemsByAdminId(Integer sessionBrandId) {
+    public List<ItemsResponse.list> findItemsByAdminId(Integer sessionBrandId, String searchBy, String keyword) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
-        List<Items> item = itemsRepository.findItemsByAdminId(sessionBrandId);
-        return item.stream().map(ItemsResponse.listDTO::new).toList();
+        List<Items> items = switch (searchBy) {
+            case "itemId" -> itemsRepository.findItemsByAdminIdAndItemId(admin.getId(), keyword);
+            case "itemName" -> itemsRepository.findItemsByAdminIdAndItemName(admin.getId(), keyword);
+            case "category" -> itemsRepository.findItemsByAdminIdAndCategory(admin.getId(), keyword);
+            case null, default ->  // 기본값은 상품명으로 검색
+                    itemsRepository.findItemsByAdminId(admin.getId());
+        };
+
+        return items.stream().map(ItemsResponse.list::new).toList();
     }
 
     // 아이템 상세보기
-    public ItemsResponse.DetailDTO findItemsByAdminIdAndItemId(Integer sessionAdminId, Integer itemId) {
+    public ItemsResponse.Detail findItemsByAdminIdAndItemId(Integer sessionAdminId, Integer itemId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionAdminId)
                 .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
@@ -121,7 +132,7 @@ public class ItemsService {
         // 아이템 사진 조회
         List<Photo> itemPhotos = photoRepository.findAllByItemsId(itemId);
 
-        return new ItemsResponse.DetailDTO(items, itemPhotos);
+        return new ItemsResponse.Detail(items, itemPhotos);
     }
 
 

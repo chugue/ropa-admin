@@ -18,12 +18,11 @@ public class ItemsController {
     private final HttpSession session;
     private final ItemsService itemsService;
 
-
     // 아이템 관리 페이지
     @GetMapping("/api/items-manage")
-    public String itemsManage(HttpServletRequest requestDTO) {
+    public String itemsManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        List<ItemsResponse.listDTO> itemsList = itemsService.findItemsByAdminId(sessionBrand.getId());
+        List<ItemsResponse.list> itemsList = itemsService.findItemsByAdminId(sessionBrand.getId(), searchBy, keyword);
         requestDTO.setAttribute("itemsList", itemsList);
         return "items/items-manage";
     }
@@ -32,7 +31,7 @@ public class ItemsController {
     @GetMapping("/api/items-detail/{itemId}")
     public String itemsDetail(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
+        ItemsResponse.Detail itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
         return "items/items-detail";
     }
@@ -60,7 +59,7 @@ public class ItemsController {
     @GetMapping("/api/items-update-form/{itemId}")
     public String itemsUpdateForm(@PathVariable(name = "itemId") Integer itemId, HttpServletRequest requestDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
-        ItemsResponse.DetailDTO itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
+        ItemsResponse.Detail itemsDetail = itemsService.findItemsByAdminIdAndItemId(sessionBrand.getId(), itemId);
         requestDTO.setAttribute("itemsDetail", itemsDetail);
 
         System.out.println("메인이미지에 무엇이 저장되어 있나요? -> " + itemsDetail.getItemMainImage());

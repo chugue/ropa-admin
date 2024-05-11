@@ -13,12 +13,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
 
 @Service
 @RequiredArgsConstructor
@@ -29,18 +29,21 @@ public class AdminService {
     private final PhotoService photoService;
 
     //브랜드가 로그인 했을 때 매출 목록보기
-    public List<AdminResponse.BrandOrderHistoryListDTO> brandOrderHistory(int adminId) {
-        List<OrderHistory> brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
+    public List<AdminResponse.BrandOrderHistoryList> brandOrderHistory(int adminId, LocalDateTime startDate, LocalDateTime endDate) {
+        List<OrderHistory> brandOrderHistory;
+        System.out.println(startDate);
 
+        if (startDate == null || endDate == null) {
+            brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
+        } else {
+            Timestamp startTimestamp = Timestamp.valueOf(startDate);
+            Timestamp endTimestamp = Timestamp.valueOf(endDate);
+            brandOrderHistory = orderHistoryRepository.findByAdminIdWithItemsAndDate(adminId, startTimestamp, endTimestamp);
+        }
         if (brandOrderHistory == null) {
             throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
         }
-
-        List<AdminResponse.BrandOrderHistoryListDTO> respDTO = brandOrderHistory.stream().map(orderHistory -> {
-            return new AdminResponse.BrandOrderHistoryListDTO(orderHistory);
-        }).collect(Collectors.toList());
-
-        return respDTO;
+        return brandOrderHistory.stream().map(AdminResponse.BrandOrderHistoryList::new).collect(Collectors.toList());
     }
 
 
@@ -56,9 +59,9 @@ public class AdminService {
     }
 
     //관리자가 로그인했을 때 매출 목록보기
-    public List<AdminResponse.SalesListDTO> adminSalesListDTOList() {
+    public List<AdminResponse.SalesList> adminSalesListDTOList() {
 
-        List<AdminResponse.SalesListDTO> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        List<AdminResponse.SalesList> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
 
         return respDTO;
     }
@@ -79,21 +82,16 @@ public class AdminService {
             throw new Exception400("중복된 이메일이 있습니다.");
         }
 
-        Admin admin = null;
+        Admin admin = adminRepository.save(reqDTO.toBrandEntity());
 
-        if (reqDTO.getRole().equals(ADMIN)) {
-            admin = adminRepository.save(reqDTO.toAdminEntity());
-        } else if (reqDTO.getRole().equals(Admin.AdminRole.BRAND)) {
-            admin = adminRepository.save(reqDTO.toBrandEntity());
-        }
         photoService.uploadBrandImage(reqDTO.getBrandImage(),admin);
         return admin;
     }
 
     // 유저 크리에이터 인증 관리
-    public List<AdminResponse.UserListDTO> getUserList() {
+    public List<AdminResponse.UserList> getUserList() {
         List<User> userList = userRepository.findAll();
-        return userList.stream().map(AdminResponse.UserListDTO::new).toList();
+        return userList.stream().map(AdminResponse.UserList::new).toList();
     }
 
 

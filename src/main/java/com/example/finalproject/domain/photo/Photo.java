@@ -9,9 +9,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -24,7 +29,9 @@ public class Photo {
     private Integer id;
 
     @Column(nullable = false)
-    private String name; // 사진명
+    private String uuidName; // 사진명 UUID 적용 된 이름 앱이랑 소통
+
+    private String originalFileName;
 
     @Column(nullable = false)
     private String path; // 경로
@@ -67,11 +74,11 @@ public class Photo {
     @UpdateTimestamp
     private Timestamp updateAt;
 
-
     @Builder
-    public Photo(Integer id, String name, String path, Boolean isMainPhoto, Sort sort, Admin admin, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
+    public Photo(Integer id, String uuidName, String originalFileName, String path, Boolean isMainPhoto, Sort sort, Admin admin, User user, Items items, Codi codi, Timestamp createdAt, Timestamp updateAt) {
         this.id = id;
-        this.name = name;
+        this.uuidName = uuidName;
+        this.originalFileName = originalFileName;
         this.path = path;
         this.isMainPhoto = isMainPhoto;
         this.sort = sort;
@@ -87,4 +94,17 @@ public class Photo {
         USER, ITEM, CODI, BRAND
     }
 
+
+    // 경로에 있는 사진을 읽어서 base64로 전환
+    public String toBase64(Photo photo){
+        String currentDir = System.getProperty("user.dir");
+        String relativePath = photo.getPath();
+        String fullPath = currentDir + File.separator + relativePath;
+        try {
+            byte[] imageData = Files.readAllBytes(Paths.get(fullPath));
+            return Base64.encodeBase64String(imageData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

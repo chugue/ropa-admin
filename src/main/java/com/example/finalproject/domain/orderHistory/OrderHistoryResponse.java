@@ -1,7 +1,6 @@
 package com.example.finalproject.domain.orderHistory;
 
 import com.example.finalproject.domain.delivery.Delivery;
-import com.example.finalproject.domain.deliveryAddress.DeliveryAddress;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 
@@ -12,7 +11,7 @@ public class OrderHistoryResponse {
 
     // 전체 주문 내역 DTO (관리자)
     @Data
-    public static class orderListDTO {
+    public static class orderList {
         private Integer orderId;
         private String userName;
         private String userPhone;
@@ -23,7 +22,7 @@ public class OrderHistoryResponse {
         private Integer totalPrice;
         private String orderDate;
 
-        public orderListDTO(OrderHistory orderHistory) {
+        public orderList(OrderHistory orderHistory) {
             this.orderId = orderHistory.getId();
             this.userName = orderHistory.getOrder().getUser().getMyName();
             this.userPhone = orderHistory.getOrder().getUser().getMobile();
@@ -39,7 +38,7 @@ public class OrderHistoryResponse {
 
     // 배송 목록 DTO (관리자)
     @Data
-    public static class DeliveryListDTO {
+    public static class DeliveryList {
         private Integer orderId; // 주문 코드
         private String userName; // 주문자
         private String recipient; // 수령인
@@ -48,11 +47,11 @@ public class OrderHistoryResponse {
         private String orderDate; // 주문일자
         private String endDate; // 배송도착일자
 
-        public DeliveryListDTO(OrderHistory orderHistory, User user, DeliveryAddress deliveryAddress, Delivery delivery) {
+        public DeliveryList(OrderHistory orderHistory, User user, Delivery delivery) {
             this.orderId = orderHistory.getOrder().getId();
             this.userName = user.getMyName();
-            this.recipient = deliveryAddress.getRecipient();
-            this.recipientPhoneNumber = deliveryAddress.getPhoneNumber();
+            this.recipient = delivery.getRecipient();
+            this.recipientPhoneNumber = delivery.getPhoneNumber();
             this.status = delivery.getStatus();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             this.orderDate = dateFormat.format(delivery.getStartDate());
@@ -62,11 +61,11 @@ public class OrderHistoryResponse {
 
     // 주문내역 DTO (사용자)
     @Data
-    public static class UserOrderHistoryDTO {
+    public static class UserOrderHistory {
         private Integer userId;
-        private List<ItemHistoryDTO> itemHistoryDTOList;
+        private List<ItemHistory> itemHistoryDTOList;
 
-        public UserOrderHistoryDTO(Integer userId, List<ItemHistoryDTO> itemHistoryDTOList) {
+        public UserOrderHistory(Integer userId, List<ItemHistory> itemHistoryDTOList) {
             this.userId = userId;
             this.itemHistoryDTOList = itemHistoryDTOList;
         }
@@ -74,22 +73,24 @@ public class OrderHistoryResponse {
 
     // 주문내역 아이템 DTO (사용자)
     @Data
-    public static class ItemHistoryDTO {
+    public static class ItemHistory {
         private Integer orderId; // 주문 코드
         private Integer itemId; // 주문자
         private String itemName; // 아이템명
-        private String itemPhotos; // 아이템 사진
+        private String itemPhotoName; //아이템 사진 이름
+        private String itemBase64; // 아이템 사진
         private Integer itemCount; // 하나의 아이템 개수
         private Integer itemPrice; // 하나의 아이템 금액
         private Integer itemTotalPrice; // 하나의 아이템 총 금액
         private String itemCategoryMain; // 아이템 카테고리 main
         private String deliveryStatus; // 배송 현황
 
-        public ItemHistoryDTO(OrderHistory orderHistory) {
+        public ItemHistory(OrderHistory orderHistory) {
             this.orderId = orderHistory.getOrder().getId();
             this.itemId = orderHistory.getItems().getId();
             this.itemName = orderHistory.getItems().getName();
-            this.itemPhotos = orderHistory.getItems().getPhotos().getFirst().getPath();
+            this.itemPhotoName = orderHistory.getItems().getPhotos().getFirst().getUuidName();
+            this.itemBase64 = orderHistory.getItems().getPhotos().getFirst().toBase64(orderHistory.getItems().getPhotos().getFirst());
             this.itemCount = orderHistory.getOrderItemQty();
             this.itemPrice = orderHistory.getItems().getPrice();
             this.itemTotalPrice = (this.itemCount * this.itemPrice);

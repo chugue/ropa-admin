@@ -75,17 +75,16 @@ VALUES
 
 -- 장바구니 더미데이터
 INSERT INTO cart_tb (user_id, items_id, quantity, total_amount)
-VALUES
-    (1, 15, 2, 16000),
-    (1, 12, 1, 12000),
-    (2, 3, 3, 24000),
-    (2, 4, 1, 8000),
-    (2, 5, 1, 8000),
-    (2, 6, 1, 8000),
-    (2, 7, 1, 8000),
-    (2, 8, 1, 8000),
-    (2, 9, 1, 8000),
-    (2, 10, 1, 8000);
+VALUES (1, 15, 2, 200000),
+       (1, 12, 1, 100000),
+       (2, 3, 3, 300000),
+       (2, 4, 1, 50000),
+       (2, 5, 1, 75000),
+       (2, 6, 1, 100000),
+       (2, 7, 1, 50000),
+       (2, 8, 1, 75000),
+       (2, 9, 1, 100000),
+       (2, 10, 1, 50000);
 
 -- 코디 테이블 더미
 insert into codi_tb (user_id, title, description, created_at)
@@ -93,81 +92,162 @@ values (1, '코디1', '좋은 코디입니다.', NOW()),
        (1, '코디2', '좋은 코디입니다.', NOW()),
        (3, '코디3', '좋은 코디입니다.', NOW()),
        (3, '코디4', '좋은 코디입니다.', NOW()),
-       (5, '코디5', '좋은 코디입니다.', NOW());
+       (2, '코디5', '좋은 코디입니다.', NOW()),
+       (2, '코디6', '좋은 코디입니다.', NOW()),
+       (2, '코디7', '좋은 코디입니다.', NOW()),
+       (1, '코디8', '좋은 코디입니다.', NOW()),
+       (1, '코디9', '좋은 코디입니다.', NOW()),
+       (1, '코디10', '좋은 코디입니다.', NOW()),
+       (4, '코디11', '좋은 코디입니다.', NOW()),
+       (4, '코디12', '좋은 코디입니다.', NOW()),
+       (4, '코디13', '좋은 코디입니다.', NOW());
 
 
 -- 코디랑 아이템을 연결해주는 테이블
-insert into codi_items_tb (items_id, codi_id) values
-                                                  (1,1),
-                                                  (2,1),
-                                                  (3,1),
-                                                  (2,2),
-                                                  (3,2),
-                                                  (6,2),
-                                                  (5,3),
-                                                  (7,3),
-                                                  (10,3);
+insert into codi_items_tb (items_id, codi_id)
+values (1, 1),
+       (2, 1),
+       (3, 1),
+       (2, 2),
+       (3, 2),
+       (6, 2),
+       (5, 3),
+       (7, 3),
+       (10, 3);
 
 -- 사진 테이블 더미
--- 크리이터 사용자용
-insert into photo_tb (name, path, sort, user_id, codi_id, items_id, created_at, is_main_photo)
-values ('사용자사진1', '사용자경로1', 'USER', 1, null, null, NOW(), true),
-       ('사용자사진2', '사용자경로2', 'USER', 2, null, null, NOW(), true),
-       ('사용자사진3', '사용자경로3', 'USER', 3, null, null, NOW(), true),
-       ('사용자사진4', '사용자경로4', 'USER', 4, null, null, NOW(), true),
-       ('사용자사진5', '사용자경로5', 'USER', 5, null, null, NOW(), true),
-       ('아이템사진1', '아이템사진경로1', 'ITEM', null, null, 1, NOW(), true),
-       ('아이템사진2', '아이템사진경로2', 'ITEM', null, null, 2, NOW(), true),
-       ('아이템사진3', '아이템사진경로3', 'ITEM', null, null, 3, NOW(), true),
-       ('아이템사진4', '아이템사진경로4', 'ITEM', null, null, 4, NOW(), true),
-       ('아이템사진5', '아이템사진경로5', 'ITEM', null, null, 5, NOW(), true),
-       ('아이템사진6', '아이템사진경로6', 'ITEM', null, null, 6, NOW(), true),
-       ('아이템사진7', '아이템사진경로7', 'ITEM', null, null, 7, NOW(), true),
-       ('아이템사진8', '아이템사진경로8', 'ITEM', null, null, 8, NOW(), true),
-       ('아이템사진9', '아이템사진경로9', 'ITEM', null, null, 9, NOW(), true),
-       ('아이템사진10', '아이템사진경로10', 'ITEM', null, null, 10, NOW(), true),
-       ('아이템사진11', '아이템사진경로11', 'ITEM', null, null, 11, NOW(), true),
-       ('아이템사진12', '아이템사진경로12', 'ITEM', null, null, 12, NOW(), true),
-       ('아이템사진13', '아이템사진경로13', 'ITEM', null, null, 13, NOW(), true),
-       ('아이템사진14', '아이템사진경로14', 'ITEM', null, null, 14, NOW(), true),
-       ('아이템사진15', '아이템사진경로15', 'ITEM', null, null, 15, NOW(), true),
-       ('아이템사진16', '아이템사진경로16', 'ITEM', null, null, 16, NOW(), true),
-       ('아이템사진17', '아이템사진경로17', 'ITEM', null, null, 17, NOW(), true),
-       ('아이템사진18', '아이템사진경로18', 'ITEM', null, null, 18, NOW(), true),
-       ('코디사진1', '코디사진경로1', 'CODI', null, 1, null,  NOW(), true),
-       ('코디사진2', '코디사진경로2', 'CODI', null, 1, null,  NOW(), false),
-       ('코디사진3', '코디사진경로3', 'CODI', null, 1, null,  NOW(), false),
-       ('코디사진4', '코디사진경로4', 'CODI', null, 2, null,  NOW(), true),
-       ('코디사진5', '코디사진경로5', 'CODI', null, 2, null,  NOW(), false),
-       ('코디사진6', '코디사진경로6', 'CODI', null, 3, null,  NOW(), true),
-       ('코디사진7', '코디사진경로7', 'CODI', null, 3, null,  NOW(), false);
+insert into photo_tb (uuid_name, original_file_name, path, sort, admin_id, user_id, codi_id, items_id, created_at,
+                      is_main_photo)
+values ('uuid_브랜드사진1', '브랜드사진1', '/upload/brand/brand1.jpg', 'BRAND', 1, null, null, null, NOW(), true),
+       ('uuid_브랜드사진2', '브랜드사진2', '/upload/brand/brand2.jpeg', 'BRAND', 2, null, null, null, NOW(), true),
+       ('uuid_브랜드사진3', '브랜드사진3', '/upload/brand/brand3.jpeg', 'BRAND', 3, null, null, null, NOW(), true),
+       ('uuid_사용자사진1', '사용자사진1', '/upload/user/user1.webp', 'USER', null, 1, null, null, NOW(), true),
+       ('uuid_사용자사진2', '사용자사진2', '/upload/user/user2.webp', 'USER', null, 2, null, null, NOW(), true),
+       ('uuid_사용자사진3', '사용자사진3', '/upload/user/user3.webp', 'USER', null, 3, null, null, NOW(), true),
+       ('uuid_사용자사진4', '사용자사진4', '/upload/user/user4.webp', 'USER', null, 4, null, null, NOW(), true),
+       ('uuid_사용자사진5', '사용자사진5', '/upload/user/user5.webp', 'USER', null, 5, null, null, NOW(), true),
+       ('uuid_아이템사진1', '아이템사진1', '/upload/items/item01/mainItemPhoto.jpg', 'ITEM', null, null, null, 1, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진1', '/upload/items/item01/detail01.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진2', '아이템사진2', '/upload/items/item2.webp', 'ITEM', null, null, null, 2, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item2.webp', 'ITEM', null, null, null, 2, NOW(), false),
+       ('uuid_아이템사진4', '아이템사진3', '/upload/items/item3.webp', 'ITEM', null, null, null, 3, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진3', '/upload/items/item3.webp', 'ITEM', null, null, null, 3, NOW(), false),
+       ('uuid_아이템사진5', '아이템사진4', '/upload/items/item4.webp', 'ITEM', null, null, null, 4, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진4', '/upload/items/item4.webp', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템사진6', '아이템사진5', '/upload/items/item5.webp', 'ITEM', null, null, null, 5, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진5', '/upload/items/item5.webp', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템사진7', '아이템사진6', '/upload/items/item6.webp', 'ITEM', null, null, null, 6, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진6', '/upload/items/item6.webp', 'ITEM', null, null, null, 6, NOW(), false),
+       ('uuid_아이템사진8', '아이템사진7', '/upload/items/item7.webp', 'ITEM', null, null, null, 7, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진7', '/upload/items/item7.webp', 'ITEM', null, null, null, 7, NOW(), false),
+       ('uuid_아이템사진9', '아이템사진8', '/upload/items/item8.webp', 'ITEM', null, null, null, 8, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진8', '/upload/items/item8.webp', 'ITEM', null, null, null, 8, NOW(), false),
+       ('uuid_아이템사진0', '아이템사진9', '/upload/items/item9.webp', 'ITEM', null, null, null, 9, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진9', '/upload/items/item9.webp', 'ITEM', null, null, null, 9, NOW(), false),
+       ('uuid_아이템사진10', '아이템사진10', '/upload/items/item10.webp', 'ITEM', null, null, null, 10, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진10', '/upload/items/item10.webp', 'ITEM', null, null, null, 10, NOW(), false),
+       ('uuid_아이템사진11', '아이템사진11', '/upload/items/item11.webp', 'ITEM', null, null, null, 11, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진11', '/upload/items/item11.webp', 'ITEM', null, null, null, 11, NOW(), false),
+       ('uuid_아이템사진12', '아이템사진12', '/upload/items/item12.webp', 'ITEM', null, null, null, 12, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진12', '/upload/items/item12.webp', 'ITEM', null, null, null, 12, NOW(), false),
+       ('uuid_아이템사진13', '아이템사진13', '/upload/items/item13.webp', 'ITEM', null, null, null, 13, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진13', '/upload/items/item13.webp', 'ITEM', null, null, null, 13, NOW(), false),
+       ('uuid_아이템사진14', '아이템사진14', '/upload/items/item14.webp', 'ITEM', null, null, null, 14, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진14', '/upload/items/item14.webp', 'ITEM', null, null, null, 14, NOW(), false),
+       ('uuid_아이템사진15', '아이템사진15', '/upload/items/item15.webp', 'ITEM', null, null, null, 15, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진15', '/upload/items/item15.webp', 'ITEM', null, null, null, 15, NOW(), false),
+       ('uuid_아이템사진16', '아이템사진16', '/upload/items/item16.webp', 'ITEM', null, null, null, 16, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진16', '/upload/items/item16.webp', 'ITEM', null, null, null, 16, NOW(), false),
+       ('uuid_아이템사진17', '아이템사진17', '/upload/items/item17.webp', 'ITEM', null, null, null, 17, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진17', '/upload/items/item17.webp', 'ITEM', null, null, null, 17, NOW(), false),
+       ('uuid_아이템사진18', '아이템사진18', '/upload/items/item18.webp', 'ITEM', null, null, null, 18, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진18', '/upload/items/item18.webp', 'ITEM', null, null, null, 18, NOW(), false),
+       ('uuid_코디사진1', '코디사진1', '/upload/codi/2ffec590-2404-4d86-aab6-f39905f20091_코디사진1.jpg', 'CODI', null, null, 1,
+        null, NOW(), true),
+       ('uuid_코디사진2', '코디사진2', '/upload/codi/64c9cd13-dc34-416d-9c60-bc18c9da5e17_코디사진2.jpg', 'CODI', null, null, 1,
+        null, NOW(), false),
+       ('uuid_코디사진3', '코디사진3', '/upload/codi/f34bbd93-71ed-4758-a76d-4aaaffe59abd_코디사진3.jpg', 'CODI', null, null, 1,
+        null, NOW(), false),
+       ('uuid_코디사진4', '코디사진4', '/upload/codi/codi-1.webp', 'CODI', null, null, 2, null, NOW(), true),
+       ('uuid_코디사진5', '코디사진5', '/upload/codi/codi-1.webp', 'CODI', null, null, 2, null, NOW(), false),
+       ('uuid_코디사진6', '코디사진6', '/upload/codi/codi-2.webp', 'CODI', null, null, 3, null, NOW(), true),
+       ('uuid_코디사진7', '코디사진7', '/upload/codi/codi-1.webp', 'CODI', null, null, 3, null, NOW(), false),
+       ('uuid_코디사진8', '코디사진8', '/upload/codi/codi-3.webp', 'CODI', null, null, 4, null, NOW(), true),
+       ('uuid_코디사진9', '코디사진9', '/upload/codi/codi-4.webp', 'CODI', null, null, 5, null, NOW(), true),
+       ('uuid_코디사진10', '코디사진10', '/upload/codi/codi-5.webp', 'CODI', null, null, 6, null, NOW(), true),
+       ('uuid_코디사진11', '코디사진11', '/upload/codi/codi-6.webp', 'CODI', null, null, 7, null, NOW(), true),
+       ('uuid_코디사진12', '코디사진12', '/upload/codi/codi-7.webp', 'CODI', null, null, 8, null, NOW(), true),
+       ('uuid_코디사진13', '코디사진13', '/upload/codi/codi-8.webp', 'CODI', null, null, 9, null, NOW(), true),
+       ('uuid_코디사진14', '코디사진14', '/upload/codi/codi-9.webp', 'CODI', null, null, 10, null, NOW(), true),
+       ('uuid_코디사진15', '코디사진15', '/upload/codi/codi-10.webp', 'CODI', null, null, 11, null, NOW(), true),
+       ('uuid_코디사진16', '코디사진16', '/upload/codi/codi-11.webp', 'CODI', null, null, 12, null, NOW(), true),
+       ('uuid_코디사진17', '코디사진17', '/upload/codi/codi-12.webp', 'CODI', null, null, 13, null, NOW(), true),
+       ('uuid_관리자사진', '관리자사진', '/upload/brand/admin.png', 'BRAND', 4, null, null, null, NOW(), true),
+       ('uuid_아이템사진1', '아이템사진1', '/upload/items/item01/mainItemPhoto.jpg', 'ITEM', null, null, null, 1, NOW(), true),
+       ('uuid_아이템사진1서브', '아이템서브사진1', '/upload/items/item01/detail01.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail02.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail03.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail04.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail05.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail06.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail07.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail08.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail09.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진1서브', '아이템서브사진2', '/upload/items/item01/detail10.jpg', 'ITEM', null, null, null, 1, NOW(), false),
+       ('uuid_아이템사진2', '아이템사진2', '/upload/items/item02/mainItemPhoto.jpg', 'ITEM', null, null, null, 2, NOW(), true),
+       ('uuid_아이템사진2서브', '아이템사진서브사진2', '/upload/items/item02/detail01.jpg', 'ITEM', null, null, null, 2, NOW(), false),
+       ('uuid_아이템사진2서브', '아이템사진서브사진2', '/upload/items/item02/detail02.jpg', 'ITEM', null, null, null, 2, NOW(), false),
+       ('uuid_아이템사진2서브', '아이템사진서브사진2', '/upload/items/item02/detail03.jpg', 'ITEM', null, null, null, 2, NOW(), false),
+       ('uuid_아이템사진3', '아이템사진사진3', '/upload/items/item03/mainItemPhoto.jpg', 'ITEM', null, null, null, 3, NOW(), true),
+       ('uuid_아이템사진3서브', '아이템사진서브사진3', '/upload/items/item03/detail01.jpg', 'ITEM', null, null, null, 3, NOW(), false),
+       ('uuid_아이템사진3서브', '아이템사진서브사진3', '/upload/items/item03/detail02.jpg', 'ITEM', null, null, null, 3, NOW(), false),
+       ('uuid_아이템사진4', '아이템사진사진4', '/upload/items/item04/mainItemPhoto.jpg', 'ITEM', null, null, null, 4, NOW(), true),
+       ('uuid_아이템사진4서브', '아이템사진서브사진4', '/upload/items/item04/detail01.jpg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템사진4서브', '아이템사진서브사진4', '/upload/items/item04/detail02.jpg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템사진4서브', '아이템사진서브사진4', '/upload/items/item04/detail02.jpg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템사진5', '아이템사진사진5', '/upload/items/item05/mainItemPhoto.jpg', 'ITEM', null, null, null, 5, NOW(), true),
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail01.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail02.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail03.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail04.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail05.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail06.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail07.jpg', 'ITEM', null, null, null, 5, NOW(), false);
 
 
 -- 좋아요 기능
 insert into love_tb (user_id, codi_id, is_loved)
 values (2, 1, true),
-       (3, 1, true),
-       (4, 1, true),
        (3, 2, true),
-       (5, 1, true),
+       (4, 3, true),
+       (3, 4, true),
+       (5, 6, true),
+       (4, 5, true),
+       (3, 7, true),
+       (4, 8, true),
+       (5, 9, true),
        (4, 2, true),
-       (1, 2, true),
-       (2, 5, true);
-
-
--- 배송 주소(DeliveryAddress) 더미 데이터 삽입
-INSERT INTO delivery_address_tb (user_id, recipient, postal_code, address, address_detail, phone_number)
-VALUES (1, '수령인1', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1111-1111'),
-       (2, '수령인2', '54321', '경기도 분당구', '판교로 456번길', '010-2222-2222'),
-       (3, '수령인3', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333');
+       (3, 3, true),
+       (5, 4, true),
+       (5, 1, true),
+       (3, 10, true),
+       (4, 11, true),
+       (3, 12, true),
+       (2, 13, true);
 
 -- 배송(Delivery) 더미 데이터 삽입
-INSERT INTO delivery_tb (delivery_address_id, status, start_date, end_date)
-VALUES (1, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (2, '배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-       (3, '배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO delivery_tb (status, start_date, end_date, recipient, postal_code, address, address_detail, phone_number)
+VALUES ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인1', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1111-1111'),
+       ('배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인2', '54321', '경기도 분당구', '판교로 456번길', '010-2222-2222'),
+       ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인3', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333');
 
 
+INSERT INTO order_tb (user_id, delivery_id, purchase_amount, fee, order_date, delivery_type, pay_method)
+VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
+       (2, 2, 75000, 7500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
+       (3, 3, 100000, 10000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT');
+
+-- 주문(Order) 더미 데이터 삽입
 INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)
 VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 1, 1,
         '2024-01-26 11:30:00', '2024-01-25 11:30:00'),
@@ -180,12 +260,6 @@ VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋�
        (false, '스님이 공중부양 하면?', '어중이 떠중이', '', 5, 1, null, NOW()),
        (false, '여자 : 좋은 소식과 나쁜 소식이 있어. 우리 헤어지자.', '남자 : 그럼 나쁜 소식은?', '', 1, 3, null, NOW()),
        (false, '상품 문의', '저희 사이즈는 프리사이즈 밖에 없나요?', '', 3, 2, null, NOW());
-
--- 주문(Order) 더미 데이터 삽입
-INSERT INTO order_tb (user_id, delivery_id, total_order_amount, fee, order_date)
-VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP),
-       (2, 2, 75000, 7500, CURRENT_TIMESTAMP),
-       (3, 3, 100000, 10000, CURRENT_TIMESTAMP);
 
 -- 주문 상세(OrderHistory) 더미 데이터 삽입
 INSERT INTO order_history_tb (admin_id, order_id, items_id, order_item_qty, order_item_price, fee)

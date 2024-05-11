@@ -1,19 +1,17 @@
 package com.example.finalproject.domain.codi;
 
 import com.example.finalproject.domain.admin.Admin;
-import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.codiItems.CodiItems;
+import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.love.Love;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 public class CodiResponse {
-
 
 
     @Data
@@ -36,14 +34,14 @@ public class CodiResponse {
         public class CodiPhoto{
             private Integer photoId;
             private Integer codiId;
-            private String photoPath;
+            private String base64;
             private Boolean isMainPhoto;
             private Photo.Sort sort;
 
             public CodiPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.codiId = photo.getCodi().getId();
-                this.photoPath = photo.getPath();
+                this.base64 = photo.toBase64(photo);
                 this.isMainPhoto = photo.getIsMainPhoto();
                 this.sort = photo.getSort();
             }
@@ -53,21 +51,20 @@ public class CodiResponse {
         public class CodiItemPhoto{
             private Integer photoId;
             private Integer itemId;
-            private String photoPath;
+            private String base64;
             private String categoryName;
             private Photo.Sort sort;
 
             public CodiItemPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.itemId = photo.getItems().getId();
-                this.photoPath = photo.getPath();
+                this.base64 = photo.toBase64(photo);
                 this.categoryName = photo.getItems().getCategory().getMain();
                 this.sort = photo.getSort();
             }
         }
 
     }
-
 
     //코디 등록에 아이템 등록 클릭시 나오는 뷰 DTO
     @Data
@@ -76,15 +73,15 @@ public class CodiResponse {
         private String brandName;
         private Integer photoId;
         private String photoName;
-        private String photoPath;
+        private String base64;
         private List<ItemInfo> itemInfo;
 
         public BrandInfo(Admin admin, List<Items> items) {
             this.brandId = admin.getId();
             this.brandName = admin.getBrandName();
             this.photoId = admin.getPhoto().getId();
-            this.photoName = admin.getPhoto().getName();
-            this.photoPath = admin.getPhoto().getPath();
+            this.photoName = admin.getPhoto().getUuidName();
+            this.base64 = admin.getPhoto().toBase64(admin.getPhoto());
             this.itemInfo = items.stream().map(ItemInfo::new).toList();
         }
 
@@ -93,26 +90,20 @@ public class CodiResponse {
             private Integer itemId;
             private String itemName;
             private String photoName;
-            private String photoPath;
+            private String base64;
             private Boolean isMainPhoto;
 
             public ItemInfo(Items items) {
                 this.itemId = items.getId();
                 this.itemName = items.getName();
-                this.photoName = items.getPhotos().getFirst().getName();
-                this.photoPath = items.getPhotos().getFirst().getPath();
+                this.photoName = items.getPhotos().getFirst().getUuidName();
+                this.base64 = items.getPhotos().getFirst().toBase64(items.getPhotos().getFirst());
                 this.isMainPhoto = items.getPhotos().getFirst().getIsMainPhoto();
             }
         }
     }
 
-
-    //코디 등록 DTO
-    @Data
-    public static class SaveDTO {
-
-    }
-
+    // 코디 등록할 때 사용하는 DTO
     @Data
     public static class NewLinkItems{
         private Integer codiId;
@@ -133,12 +124,10 @@ public class CodiResponse {
         public class SavedPhoto {
             private Integer photoId;
             private String photoName;
-            private String photoPath;
 
             public SavedPhoto(Photo photo) {
                 this.photoId = photo.getId();
-                this.photoName = photo.getName();
-                this.photoPath = photo.getPath();
+                this.photoName = photo.getUuidName();
             }
         }
 
@@ -155,17 +144,17 @@ public class CodiResponse {
     }
 
     @Data
-    public static class MainViewDTO {
+    public static class MainView {
         private Integer codiId;
         private String description;
         private String createdAt;
         private Boolean isloved;
         private Long loveCount;
-        private List<MainPhotoDTO> mainPhotos;
-        private List<ItemsPhotoDTO> itemPhotos;
-        private List<CodiPhotoDTO> otherCodiPhotos;
+        private List<MainPhoto> mainPhotos;
+        private List<ItemsPhoto> itemPhotos;
+        private List<CodiPhoto> otherCodiPhotos;
 
-        public MainViewDTO(Codi codi, Optional<Love> codiLoveStatus, Long totalLoves, List<Photo> mainPhotos, List<Photo> itemPhotos, List<Photo> otherCodiPhotos) {
+        public MainView(Codi codi, Optional<Love> codiLoveStatus, Long totalLoves, List<Photo> mainPhotos, List<Photo> itemPhotos, List<Photo> otherCodiPhotos) {
             this.codiId = codi.getId();
             this.description = codi.getDescription();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -177,66 +166,76 @@ public class CodiResponse {
             }
             this.loveCount = totalLoves;
             this.mainPhotos = mainPhotos.stream().map(photo ->
-                    new MainPhotoDTO(photo)).toList();
+                    new MainPhoto(photo)).toList();
             this.itemPhotos = itemPhotos.stream().map(photo ->
-                    new ItemsPhotoDTO(photo)).toList();
+                    new ItemsPhoto(photo)).toList();
             this.otherCodiPhotos = otherCodiPhotos.stream().map(photo ->
-                    new CodiPhotoDTO(photo)).toList();
+                    new CodiPhoto(photo)).toList();
         }
 
         @Data
-        public class MainPhotoDTO {
+        public class MainPhoto {
             private Integer mainPhotoId;
             private String mainPhotoName;
-            private String mainPhotoPath;
+            private String base64;
+            private Boolean isMainPhoto;
 
-            public MainPhotoDTO(Photo mainPhoto) {
+            public MainPhoto(Photo mainPhoto) {
                 this.mainPhotoId = mainPhoto.getId();
-                this.mainPhotoName = mainPhoto.getName();
-                this.mainPhotoPath = mainPhoto.getPath();
+                this.mainPhotoName = mainPhoto.getUuidName();
+                this.base64 = mainPhoto.toBase64(mainPhoto);
+                this.isMainPhoto = mainPhoto.getIsMainPhoto();
             }
         }
 
         @Data
-        public class ItemsPhotoDTO {
+        public class ItemsPhoto {
             private Integer itemsPhotoId;
+            private Integer itemsId;
             private String itemsPhotoName;
-            private String itemsPhotoPath;
+            private String base64;
+            private Boolean isMainPhoto;
 
-            public ItemsPhotoDTO(Photo photo) {
+            public ItemsPhoto(Photo photo) {
                 this.itemsPhotoId = photo.getId();
-                this.itemsPhotoName = photo.getName();
-                this.itemsPhotoPath = photo.getPath();
+                this.itemsId = photo.getItems().getId();
+                this.itemsPhotoName = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
+                this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
 
         @Data
-        public class CodiPhotoDTO {
+        public class CodiPhoto {
+            private Integer codiId;
             private Integer codiPhotoId;
             private String codiPhotoName;
-            private String codiPhotoPath;
+            private String base64;
+            private Boolean isMainPhoto;
 
-            public CodiPhotoDTO(Photo photo) {
+            public CodiPhoto(Photo photo) {
+                this.codiId = photo.getCodi().getId();
                 this.codiPhotoId = photo.getId();
-                this.codiPhotoName = photo.getName();
-                this.codiPhotoPath = photo.getPath();
+                this.codiPhotoName = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
+                this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
 
     }
 
     @Data
-    public static class OpenMainViewDTO {
+    public static class OpenMainView {
         private Integer codiId;
         private String description;
         private String createdAt;
         private Boolean isloved;
         private Long loveCount;
-        private List<MainPhotoDTO> mainPhotos;
-        private List<ItemsPhotoDTO> itemPhotos;
-        private List<CodiPhotoDTO> otherCodiPhotos;
+        private List<MainPhoto> mainPhotos;
+        private List<ItemsPhoto> itemPhotos;
+        private List<CodiPhoto> otherCodiPhotos;
 
-        public OpenMainViewDTO(Codi codi, Long totalLoves, List<Photo> mainPhotos, List<Photo> itemPhotos, List<Photo> otherCodiPhotos) {
+        public OpenMainView(Codi codi, Long totalLoves, List<Photo> mainPhotos, List<Photo> itemPhotos, List<Photo> otherCodiPhotos) {
             this.codiId = codi.getId();
             this.description = codi.getDescription();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -244,52 +243,60 @@ public class CodiResponse {
             this.isloved = false;
             this.loveCount = totalLoves;
             this.mainPhotos = mainPhotos.stream().map(photo ->
-                    new MainPhotoDTO(photo)).toList();
+                    new MainPhoto(photo)).toList();
             this.itemPhotos = itemPhotos.stream().map(photo ->
-                    new ItemsPhotoDTO(photo)).toList();
+                    new ItemsPhoto(photo)).toList();
             this.otherCodiPhotos = otherCodiPhotos.stream().map(photo ->
-                    new CodiPhotoDTO(photo)).toList();
+                    new CodiPhoto(photo)).toList();
         }
 
         @Data
-        public class MainPhotoDTO {
+        public class MainPhoto {
             private Integer mainPhotoId;
             private String mainPhotoName;
-            private String mainPhotoPath;
+            private String base64;
+            private Boolean isMainPhoto;
 
-            public MainPhotoDTO(Photo mainPhoto) {
+            public MainPhoto(Photo mainPhoto) {
                 this.mainPhotoId = mainPhoto.getId();
-                this.mainPhotoName = mainPhoto.getName();
-                this.mainPhotoPath = mainPhoto.getPath();
+                this.mainPhotoName = mainPhoto.getUuidName();
+                this.base64 = mainPhoto.toBase64(mainPhoto);
+                this.isMainPhoto = mainPhoto.getIsMainPhoto();
             }
         }
 
         @Data
-        public class ItemsPhotoDTO {
+        public class ItemsPhoto {
             private Integer itemsPhotoId;
+            private Integer itemsId;
             private String itemsPhotoName;
-            private String itemsPhotoPath;
+            private String base64;
+            private Boolean isMainPhoto;
 
-            public ItemsPhotoDTO(Photo photo) {
+            public ItemsPhoto(Photo photo) {
                 this.itemsPhotoId = photo.getId();
-                this.itemsPhotoName = photo.getName();
-                this.itemsPhotoPath = photo.getPath();
+                this.itemsId = photo.getItems().getId();
+                this.itemsPhotoName = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
+                this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
 
         @Data
-        public class CodiPhotoDTO {
+        public class CodiPhoto {
             private Integer codiPhotoId;
+            private Integer codiId;
             private String codiPhotoName;
-            private String codiPhotoPath;
+            private String base64;
+            private Boolean isMainPhoto;
 
-            public CodiPhotoDTO(Photo photo) {
+            public CodiPhoto(Photo photo) {
                 this.codiPhotoId = photo.getId();
-                this.codiPhotoName = photo.getName();
-                this.codiPhotoPath = photo.getPath();
+                this.codiId = photo.getCodi().getId();
+                this.codiPhotoName = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
+                this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
-
     }
-
 }

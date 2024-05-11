@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Entity
@@ -30,12 +33,16 @@ public class Cart {
     @Column(nullable = false)
     private Integer totalAmount; // 아이템 총 금액
 
+    @CreationTimestamp
+    private Timestamp createdAt;
+
     @Builder
-    public Cart(Integer id, User user, Items items, Integer quantity, Integer totalAmount) {
+    public Cart(Integer id, User user, Items items, Integer totalAmount, Integer quantity, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.items = items;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
+        this.createdAt = createdAt;
     }
 }

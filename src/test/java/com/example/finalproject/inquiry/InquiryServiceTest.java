@@ -56,10 +56,10 @@ public class InquiryServiceTest {
         // given
         Integer adminId = 1;
         // when
-        List<InquiryResponse.ListDTO> respList =
+        List<InquiryResponse.List> respList =
                 inquiryService.findAllInquiryWithUser(adminId);
         // then
-        for (InquiryResponse.ListDTO resp : respList) {
+        for (InquiryResponse.List resp : respList) {
             System.out.println(resp.getNum());
         }
 

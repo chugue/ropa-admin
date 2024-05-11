@@ -10,11 +10,11 @@ import java.util.List;
 public class UserResponse {
     @Data
     public static class CreatorViewDTO {
-        private UserDTO userDTO;
-        private List<CodiListDTO> codiList;
-        private List<ItemListDTO> itemList;
+        private UserInfo userDTO;
+        private List<CodiList> codiList;
+        private List<ItemList> itemList;
 
-        public CreatorViewDTO(UserDTO userDTO, List<CodiListDTO> codiList, List<ItemListDTO> itemList) {
+        public CreatorViewDTO(UserInfo userDTO, List<CodiList> codiList, List<ItemList> itemList) {
             this.userDTO = userDTO;
             this.codiList = codiList;
             this.itemList = itemList;
@@ -23,22 +23,22 @@ public class UserResponse {
 
 
     @Data
-    public static class UserDTO {
+    public static class UserInfo {
         private Integer creatorId; //크리에이터 아이디
         private Boolean blueChecked;    //true -> 크리에이터
         private String photoName;   // 크리에이터 사진 이름
-        private String photoPath;   // 크리에이터 사진 경로
+        private String base64;   // 크리에이터 사진 base64
         private String nickName;    //별명
         private String height; //키
         private String weight;  // 체중
         private String job; //직업
         private String introMsg; //자기소개
 
-        public UserDTO(User user) {
+        public UserInfo(User user) {
             this.creatorId = user.getId();
             this.blueChecked = user.getBlueChecked();
-            this.photoName = user.getPhoto().getName();
-            this.photoPath = user.getPhoto().getPath();
+            this.photoName = user.getPhoto().getUuidName();
+            this.base64 = user.getPhoto().toBase64(user.getPhoto());
             this.nickName = user.getNickName();
             this.height = user.getHeight();
             this.weight = user.getWeight();
@@ -48,38 +48,38 @@ public class UserResponse {
     }
 
     @Data
-    public static class CodiListDTO {
+    public static class CodiList {
         private Integer codiId;
         private Integer codiPhotoId;
         private String photoName;
-        private String photoPath;
+        private String base64;
         private Photo.Sort codiPhoto;
 
-        public CodiListDTO(Codi codi) {
+        public CodiList(Codi codi) {
             this.codiId = codi.getId();
             List<Photo> codiPhotos = codi.getPhotos();
             if (codiPhotos != null && !codiPhotos.isEmpty()) {
                 Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
                 this.codiPhotoId = codiPhoto.getId();
-                this.photoName = codiPhoto.getName();
-                this.photoPath = codiPhoto.getPath();
+                this.photoName = codiPhoto.getUuidName();
+                this.base64 = codiPhoto.toBase64(codiPhoto);
                 this.codiPhoto = codiPhoto.getSort();
             }
         }
     }
 
     @Data
-    public static class ItemListDTO {
+    public static class ItemList {
         private Integer itemId;
         private String name;
         private String description;
         private Integer price;
         private Integer itemPhotoId;
         private String itemPhotoName;
-        private String itemPhotoPath;
+        private String base64;
         private Photo.Sort itemPhoto;
 
-        public ItemListDTO(Items items) {
+        public ItemList(Items items) {
             this.itemId = items.getId();
             this.name = items.getName();
             this.description = items.getDescription();
@@ -88,8 +88,8 @@ public class UserResponse {
             if (itemPhotos != null && !itemPhotos.isEmpty()) {
                 Photo itemPhoto = itemPhotos.get(0); // 첫 번째 포토만 사용
                 this.itemPhotoId = itemPhoto.getId();
-                this.itemPhotoName = itemPhoto.getName();
-                this.itemPhotoPath = itemPhoto.getPath();
+                this.itemPhotoName = itemPhoto.getUuidName();
+                this.base64 = itemPhoto.toBase64(itemPhoto);
                 this.itemPhoto = itemPhoto.getSort();
             }
         }
@@ -97,13 +97,13 @@ public class UserResponse {
 
 
     @Data  // 로그인 성공시 응답 DTO
-    public static class LoginDTO {
+    public static class LoginInfo {
         private Integer id;
         private String email;
         private String username;
         private Boolean blueChecked;
 
-        public LoginDTO(User user) {
+        public LoginInfo(User user) {
             this.id = user.getId();
             this.email = user.getEmail();
             this.username = user.getMyName();
@@ -113,7 +113,7 @@ public class UserResponse {
 
     // 관리자 유저 목록 DTO
     @Data
-    public static class UserListDTO {
+    public static class UserList {
         private String myName;
         private String email; // 아이디
         private String mobile; // 연락처
@@ -121,7 +121,7 @@ public class UserResponse {
         private String instagram; // 인스타그램
         private Boolean isBlueChecked; // 크리에이터 인증
 
-        public UserListDTO(User user) {
+        public UserList(User user) {
             this.myName = user.getMyName();
             this.email = user.getEmail();
             this.mobile = user.getMobile();
@@ -132,12 +132,12 @@ public class UserResponse {
     }
 
     @Data
-    public static class JoinDTO {
+    public static class JoinInfo {
         private Integer id;
         private String nickName;
         private String createdAt;
 
-        public JoinDTO(User user) {
+        public JoinInfo(User user) {
             this.id = user.getId();
             this.nickName = user.getNickName();
             this.createdAt = user.getCreatedAt().toString();
@@ -146,14 +146,14 @@ public class UserResponse {
 
     // 앱 사용자 세팅 DTO
     @Data
-    public static class SettingPageDTO {
+    public static class SettingPage {
         private Integer id;
         private String email;
         private String myName;
         private String nickName;
         private String mobile;
 
-        public SettingPageDTO(User user) {
+        public SettingPage(User user) {
             this.id = user.getId();
             this.email = user.getEmail();
             this.myName = user.getMyName();
@@ -164,15 +164,15 @@ public class UserResponse {
 
     // 앱 사용자 프로필 DTO
     @Data
-    public static class ProfilePageDTO {
+    public static class ProfilePage {
         private Integer userId;
         private String email;
         private String myName;
         private String nickName;
         private String mobile;
-        private PhotoDTO photoDTO;
+        private PhotoInfo photoDTO;
 
-        public ProfilePageDTO(User user, PhotoDTO photoDTO) {
+        public ProfilePage(User user, PhotoInfo photoDTO) {
             this.userId = user.getId();
             this.email = user.getEmail();
             this.myName = user.getMyName();
@@ -182,34 +182,32 @@ public class UserResponse {
         }
 
         @Data
-        public static class PhotoDTO {
+        public static class PhotoInfo {
             private Integer id;
             private String name;
-            private String path;
+            private String base64;
 
-            public PhotoDTO(Photo photo) {
+            public PhotoInfo(Photo photo) {
                 this.id = photo.getId();
-                this.name = photo.getName();
-                this.path = photo.getPath();
+                this.name = photo.getUuidName();
+                this.base64 = photo.toBase64(photo);
             }
         }
     }
 
     // 앱 크리에이터 지원 DTO
     @Data
-    public static class CreatorApplyDTO {
+    public static class CreatorApply {
         private Integer id;
-        private String height;
-        private String weight;
+        private String name;
         private String instagram;
-        private String job;
+        private Boolean blueChecked;
 
-        public CreatorApplyDTO(User user) {
+        public CreatorApply(User user) {
             this.id = user.getId();
-            this.height = user.getHeight();
-            this.weight = user.getWeight();
+            this.name = user.getMyName();
             this.instagram = user.getInstagram();
-            this.job = user.getJob();
+            this.blueChecked = user.getBlueChecked();
         }
     }
 }

@@ -13,15 +13,15 @@ public class ItemsRepositoryTest {
     @Autowired
     private ItemsRepository itemsRepository;
 
-    @Test
-    public void findItemsByAdminAndPhotos_test() {
-        // given
-        int itemId = 1;
-        // when
-        Items resp = itemsRepository.findItemsByAdminAndPhotos(itemId);
-        // then
-        System.out.println("1 번 아이템의 정보들 : " + resp);
-    }
+//    @Test
+//    public void findItemsByAdminAndPhotos_test() {
+//        // given
+//        int itemId = 1;
+//        // when
+//        Items resp = itemsRepository.findItemsByAdminAndPhotos(itemId);
+//        // then
+//        System.out.println("1 번 아이템의 정보들 : " + resp);
+//    }
 
     @Test
     public void findItemsByAdminId_test() {

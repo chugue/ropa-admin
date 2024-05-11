@@ -14,5 +14,16 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+//    @Test
+//    public void findUsersByStatus_test(){
+//        // given
+//
+//        // when
+//        List<User> creatorPage = userRepository.findUsersByStatus();
+//        // then
+//        System.out.println("찾았다 : "+ creatorPage.get(0));
+//    }
+
+
 
 }

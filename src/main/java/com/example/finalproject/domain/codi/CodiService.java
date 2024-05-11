@@ -212,11 +212,7 @@ public class CodiService {
         return new CodiResponse.UpdatePage(codiItems.getFirst().getCodi(), codiPhotos, codiItemPhotos);
     }
 
-    // 검색 화면 요청
-    public void findAllcodiAllItems() {
 
-        codiRepository.findAllByOrderByDateDesc();
-    }
 }
 
 

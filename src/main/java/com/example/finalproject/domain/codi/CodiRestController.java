@@ -17,11 +17,7 @@ public class CodiRestController {
     private final CodiService codiService;
     private final HttpSession session;
 
-    // 검색 화면 페이지
-    @GetMapping("/app/search-page")
-    public void searchPage(){
-        codiService.findAllcodiAllItems();
-    }
+
 
     // 코디 수정 페이지
     @GetMapping("/app/codi-update-page/{codiId}")

@@ -29,6 +29,20 @@ public class PhotoService {
     private final LoveRepository loveRepository;
     private final String uploadPath = "./upload/";
 
+
+    // 검색 화면 요청
+    public PhotoResponse.SearchPage findAllcodiAllItems() {
+        List<Photo> mainPhotos = photoRepository.findAllMainPhoto();
+
+        List<Photo> codiPhotos = mainPhotos.stream().filter(photo ->
+                photo.getIsMainPhoto() && photo.getCodi() !=null).toList();
+        List<Photo> itemPhotos = mainPhotos.stream().filter(photo ->
+                photo.getIsMainPhoto() && photo.getItems()!=null).toList();
+
+        return new PhotoResponse.SearchPage(codiPhotos,itemPhotos);
+    }
+
+
     // 회원가입 사진 업로드
     @Transactional
     public void uploadBrandImage(MultipartFile brandImage, Admin admin) {

@@ -38,16 +38,10 @@ public class AdminController {
     @PostMapping("/join")
     public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
-        if (admin.getRole().equals(ADMIN)) {
-            session.setAttribute("sessionAdmin", admin);
-            return "index-admin";
-        } else if (admin.getRole().equals(BRAND)) {
-            session.setAttribute("sessionBrand", admin);
-            return "index-brand";
-        }
+
+        session.setAttribute("sessionBrand", admin);
+
         return "index-brand";
-
-
     }
 
     // 회원가입 폼

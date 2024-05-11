@@ -18,8 +18,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.example.finalproject.domain.admin.Admin.AdminRole.ADMIN;
-
 @Service
 @RequiredArgsConstructor
 public class AdminService {
@@ -79,13 +77,8 @@ public class AdminService {
             throw new Exception400("중복된 이메일이 있습니다.");
         }
 
-        Admin admin = null;
+        Admin admin = adminRepository.save(reqDTO.toBrandEntity());
 
-        if (reqDTO.getRole().equals(ADMIN)) {
-            admin = adminRepository.save(reqDTO.toAdminEntity());
-        } else if (reqDTO.getRole().equals(Admin.AdminRole.BRAND)) {
-            admin = adminRepository.save(reqDTO.toBrandEntity());
-        }
         photoService.uploadBrandImage(reqDTO.getBrandImage(),admin);
         return admin;
     }

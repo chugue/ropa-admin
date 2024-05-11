@@ -33,4 +33,8 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
     // 아이템 아이디로 모든 사진 조회
     @Query("select p from Photo p where p.items.id = :itemsId")
     List<Photo> findAllByItemsId(@Param("itemsId")Integer itemsId);
+
+    // 모든 메인 사진 찾아서 뿌리고 필터링 해서 사용하기 위함
+    @Query("select p from Photo p left join fetch p.items i left join fetch p.codi c where p.isMainPhoto = true order by p.id desc ")
+    List<Photo> findAllMainPhoto();
 }

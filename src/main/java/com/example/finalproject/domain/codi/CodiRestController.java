@@ -17,6 +17,8 @@ public class CodiRestController {
     private final CodiService codiService;
     private final HttpSession session;
 
+
+
     // 코디 수정 페이지
     @GetMapping("/app/codi-update-page/{codiId}")
     public ResponseEntity<?> updatePage(@PathVariable Integer codiId) {

@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class PhotoRestController {
     private final PhotoService  photoService;
 
+    // 검색 화면 페이지
+    @GetMapping("/app/search-page")
+    public ResponseEntity<?> searchPage(){
+        PhotoResponse.SearchPage respDTO = photoService.findAllcodiAllItems();
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
     // 앱] 메인 화면 요청
     @GetMapping("/home-lists")
     public ResponseEntity<?> getHomeLists() {

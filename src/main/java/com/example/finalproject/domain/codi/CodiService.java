@@ -1,9 +1,9 @@
 package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
-import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.codiItems.CodiItemsRepository;
 import com.example.finalproject.domain.items.Items;
@@ -210,6 +210,12 @@ public class CodiService {
         List<Photo> codiItemPhotos = photoRepository.findByItemsIds(codiItemIds);
 
         return new CodiResponse.UpdatePage(codiItems.getFirst().getCodi(), codiPhotos, codiItemPhotos);
+    }
+
+    // 검색 화면 요청
+    public void findAllcodiAllItems() {
+
+        codiRepository.findAllByOrderByDateDesc();
     }
 }
 

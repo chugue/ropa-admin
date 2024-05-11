@@ -155,6 +155,7 @@ public class ItemsService {
         photoService.deleteByItemId(itemId);
     }
 
+    // 유저 아이템 검색 기능
     public List<ItemsResponse.ItemListDTO> searchItems(String keyword) {
         List<Items> items;
 

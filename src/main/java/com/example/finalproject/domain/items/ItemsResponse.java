@@ -113,6 +113,7 @@ public class ItemsResponse {
         }
     }
 
+    // 아이템 리스트 DTO
     @Data
     public static class ItemListDTO {
         private Integer itemId;

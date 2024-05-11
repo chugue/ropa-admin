@@ -67,6 +67,7 @@ public class CodiRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 유저 코디 검색 기능
     @GetMapping("/app/search-codi")
     public ResponseEntity<?> searchCodi(@RequestParam(defaultValue = "") String keyword) {
         List<CodiResponse.CodiListDTO> respDTO = codiService.searchCodi(keyword);

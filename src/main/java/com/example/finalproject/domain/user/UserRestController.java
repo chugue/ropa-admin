@@ -79,4 +79,10 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 유저 아이템, 코디 통합 검색
+    @GetMapping("/app/search-all")
+    public ResponseEntity<?> searchPage(@RequestParam(defaultValue = "") String keyword) {
+        UserResponse.SearchPage respDTO = userService.searchPage(keyword);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
 }

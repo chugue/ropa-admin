@@ -219,6 +219,7 @@ public class CodiService {
         codiRepository.findAllByOrderByDateDesc();
     }
 
+    // 유저 코디 검색 기능
     public List<CodiResponse.CodiListDTO> searchCodi(String keyword) {
         List<Codi> codiList;
 

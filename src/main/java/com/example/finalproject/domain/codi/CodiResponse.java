@@ -300,6 +300,7 @@ public class CodiResponse {
         }
     }
 
+    // 코디 리스트 DTO
     @Data
     public static class CodiListDTO {
         private Integer codiId;

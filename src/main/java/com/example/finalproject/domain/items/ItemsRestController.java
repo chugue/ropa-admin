@@ -1,7 +1,6 @@
 package com.example.finalproject.domain.items;
 
 import com.example.finalproject._core.utils.ApiUtil;
-import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +24,7 @@ public class ItemsRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    // 유저 아이템 검색 기능
     @GetMapping("/app/search-items")
     public ResponseEntity<?> searchItems(@RequestParam(defaultValue = "") String keyword) {
         List<ItemsResponse.ItemListDTO> respDTO = itemsService.searchItems(keyword);

@@ -196,7 +196,22 @@ values ('uuid_브랜드사진1', '브랜드사진1', '/upload/brand/brand1.jpg',
        ('uuid_아이템사진2', '아이템사진2', '/upload/items/items02/mainItemPhoto.jpg', 'ITEM', null, null, null, 2, NOW(), true),
        ('uuid_아이템서브사진2', '아이템사진서브사진2', '/upload/items/items02/detail01.jpg', 'ITEM', null, null, null, 2, NOW(), false),
        ('uuid_아이템서브사진2', '아이템사진서브사진2', '/upload/items/items02/detail02.jpg', 'ITEM', null, null, null, 2, NOW(), false),
-       ('uuid_아이템서브사진2', '아이템사진서브사진2', '/upload/items/items02/detail03.jpg', 'ITEM', null, null, null, 2, NOW(), false);
+       ('uuid_아이템서브사진2', '아이템사진서브사진2', '/upload/items/items02/detail03.jpg', 'ITEM', null, null, null, 2, NOW(), false),
+       ('uuid_아이템사진3', '아이템사진사진3', '/upload/items/items03/mainItemPhoto.jpg', 'ITEM', null, null, null, 3, NOW(), true),
+       ('uuid_아이템서브사진3', '아이템사진서브사진3', '/upload/items/items03/detail01.jpg', 'ITEM', null, null, null, 3, NOW(), false),
+       ('uuid_아이템서브사진3', '아이템사진서브사진3', '/upload/items/items03/detail02.jpg', 'ITEM', null, null, null, 3, NOW(), false),
+       ('uuid_아이템사진4', '아이템사진사진4', '/upload/items/items04/mainItemPhoto.jpg', 'ITEM', null, null, null, 4, NOW(), true),
+       ('uuid_아이템서브사진4', '아이템사진서브사진4', '/upload/items/items04/detail01.jpg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템서브사진4', '아이템사진서브사진4', '/upload/items/items04/detail02.jpg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템서브사진4', '아이템사진서브사진4', '/upload/items/items04/detail02.jpg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템사진5', '아이템사진사진5', '/upload/items/items05/mainItemPhoto.jpg', 'ITEM', null, null, null, 5, NOW(), true),
+       ('uuid_아이템서브사진5', '아이템사진서브사진5', '/upload/items/items05/detail01.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템서브사진5', '아이템사진서브사진5', '/upload/items/items05/detail02.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템서브사진5', '아이템사진서브사진5', '/upload/items/items05/detail03.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템서브사진5', '아이템사진서브사진5', '/upload/items/items05/detail04.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템서브사진5', '아이템사진서브사진5', '/upload/items/items05/detail05.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템서브사진5', '아이템사진서브사진5', '/upload/items/items05/detail06.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_아이템서브사진5', '아이템사진서브사진5', '/upload/items/items05/detail07.jpg', 'ITEM', null, null, null, 5, NOW(), false);
 
 
 -- 좋아요 기능

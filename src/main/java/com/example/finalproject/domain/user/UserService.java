@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +26,11 @@ public class UserService {
     @Transactional
     public User join(UserRequest.JoinDTO reqDTO) {
         User user = userRepository.save(User.builder()
+                .myName(reqDTO.getMyName())
                 .email(reqDTO.getEmail())
                 .password(reqDTO.getPassword())
                 .nickName(reqDTO.getNickName())
+                .mobile(reqDTO.getMobile())
                 .status("신청전")
                 .createdAt(reqDTO.getCreatedAt())
                 .blueChecked(false)
@@ -76,6 +79,7 @@ public class UserService {
         user.setJob(reqDTO.getJob());
         user.setBlueChecked(false);
         user.setStatus("승인 대기");
+        user.setApplyTime(LocalDateTime.now());
 
         userRepository.save(user);
 

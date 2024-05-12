@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Entity
@@ -63,8 +64,11 @@ public class User {
     @UpdateTimestamp
     private Timestamp updateAt; // 회원 수정 시간
 
+    @Column(name = "applyTime")
+    private LocalDateTime applyTime; // 크리에이터 지원 시간
+
     @Builder
-    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, Photo photo, String height, String weight, String job, String introMsg, String instagram, Integer mileage, Boolean blueChecked, String status, Timestamp createdAt, Timestamp updateAt) {
+    public User(Integer id, String email, String password, String nickName, String myName, String address, String mobile, Photo photo, String height, String weight, String job, String introMsg, String instagram, Integer mileage, Boolean blueChecked, String status, Timestamp createdAt, Timestamp updateAt, LocalDateTime applyTime) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -83,5 +87,6 @@ public class User {
         this.status = status;
         this.createdAt = createdAt;
         this.updateAt = updateAt;
+        this.applyTime = applyTime;
     }
 }

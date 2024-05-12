@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.cart;
 
+import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
 import java.util.List;
@@ -9,13 +10,21 @@ public class CartResponse {
     @Data
     public static class Saved{
         private Integer cartId;
-        private Integer userId;
         private Integer itemId;
+        private String itemName;
+        private String itemPhotoBase64;
+        private Integer itemPrice;
+        private Integer quantity;
+        private Integer totalItemPrice;
 
-        public Saved(Cart cart) {
+        public Saved(Cart cart, Photo photo) {
             this.cartId = cart.getId();
-            this.userId = cart.getUser().getId();
             this.itemId = cart.getItems().getId();
+            this.itemName = cart.getItems().getName();
+            this.itemPhotoBase64 = photo.toBase64(photo);
+            this.itemPrice = cart.getItems().getPrice();
+            this.quantity = cart.getQuantity();
+            this.totalItemPrice = itemPrice * quantity;
         }
     }
 

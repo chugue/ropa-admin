@@ -74,8 +74,8 @@ public class UserService {
         user.setInstagram(reqDTO.getInstagram());
         user.setIntroMsg(reqDTO.getComment());
         user.setJob(reqDTO.getJob());
-        user.setBlueChecked(true);
-        user.setStatus("승인완료");
+        user.setBlueChecked(false);
+        user.setStatus("승인 대기");
 
         userRepository.save(user);
 

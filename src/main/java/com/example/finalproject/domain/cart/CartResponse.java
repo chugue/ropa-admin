@@ -6,6 +6,19 @@ import java.util.List;
 
 public class CartResponse {
 
+    @Data
+    public static class Saved{
+        private Integer cartId;
+        private Integer userId;
+        private Integer itemId;
+
+        public Saved(Cart cart) {
+            this.cartId = cart.getId();
+            this.userId = cart.getUser().getId();
+            this.itemId = cart.getItems().getId();
+        }
+    }
+
     // 장바구니 DTO
     @Data
     public static class CartInfo {

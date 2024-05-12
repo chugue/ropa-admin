@@ -3,10 +3,14 @@ package com.example.finalproject.domain.cart;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
+import com.example.finalproject.domain.user.User;
+import com.example.finalproject.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +19,7 @@ import java.util.stream.Collectors;
 public class CartService {
     private final CartRepository cartRepository;
     private final ItemsRepository itemsRepository;
+    private final UserRepository userRepository;
 
     // 사용자 장바구니 목록 보기
     public CartResponse.CartInfo getCartByUserId(Integer userId) {
@@ -27,26 +32,32 @@ public class CartService {
 
     // 사용자 장바구니 추가
     @Transactional
-    public void save(CartRequest.SaveDTO saveDTO, Integer userId, Integer itemId) {
-        // 아이템 ID를 기반으로 아이템 조회
-        Items items = itemsRepository.findById(itemId).orElse(null);
+    public CartResponse.Saved save(CartRequest.SaveDTO reqDTO, Integer userId) {
 
-        if (items != null) {
-            // 이미 장바구니에 있는지 확인
-            Cart IsCartItem = cartRepository.findByUserAndItem(userId, itemId);
-            if (IsCartItem != null) {
-                // 수량 증가
-                IsCartItem.setQuantity(saveDTO.getQuantity());
-                // 총 금액 업데이트
-                IsCartItem.setTotalAmount((items.getPrice() * saveDTO.getQuantity()));
-                // 장바구니에 있는 아이템 업데이트
-                cartRepository.save(IsCartItem);
-            } else {
-                // 새로운 아이템을 장바구니에 추가
-                cartRepository.save(saveDTO.toEntity());
-            }
+        // 이미 장바구니에 있는지 확인
+        Cart IsCartItem = cartRepository.findByUserAndItem(userId, reqDTO.getItemId()).orElse(null);
+        if (IsCartItem != null) {
+            // 수량 증가
+            IsCartItem.setQuantity(reqDTO.getQuantity());
+            // 총 금액 업데이트
+            IsCartItem.setTotalAmount((IsCartItem.getItems().getPrice() * reqDTO.getQuantity()));
+            // 장바구니에 있는 아이템 업데이트
+            Cart cart = cartRepository.save(IsCartItem);
+            return new CartResponse.Saved(cart);
+        } else {
+            // 새로운 아이템을 장바구니에 추가
+            User user = userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
+            Items items = itemsRepository.findById(reqDTO.getItemId()).orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
+            Cart cart =  cartRepository.save(Cart.builder()
+                    .user(user)
+                    .items(items)
+                    .quantity(reqDTO.getQuantity())
+                    .totalAmount(items.getPrice() * reqDTO.getQuantity())
+                    .createdAt(Timestamp.from(Instant.now())).build());
+            return new CartResponse.Saved(cart);
         }
     }
+
 
     // 사용자 장바구니에 있는 하나의 아이템 삭제
     @Transactional

@@ -89,6 +89,15 @@ public class AdminController {
         return "admin/user-manage";
     }
 
+    @GetMapping("/api/creator-manage")
+    public String creatorManage(HttpServletRequest req) {
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        List<AdminResponse.CreatorList> creatorList = adminService.creatorList();
+        req.setAttribute("creatorList",creatorList);
+
+        return "admin/creator-manage";
+    }
+
     @PostMapping("/approve-creators/{userId}")
     public String approveCreatorStatus(@PathVariable Integer userId) {
         adminService.approveCreatorStatus(userId);

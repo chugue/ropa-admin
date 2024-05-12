@@ -4,7 +4,7 @@
 
 <!-- 메인 화면 -->
 <div class="content">
-    <h2>회원 목록</h2>
+    <h2>크리에이터 신청 목록</h2>
     <div class="card">
         <div class="card-body">
             <!-- 검색 폼 -->
@@ -32,10 +32,12 @@
                     <th>닉네임</th>
                     <th>인스타그램</th>
                     <th>크리에이터 신청</th>
+                    <th>승인</th>
+                    <th>거절</th>
                 </tr>
                 </thead>
                 <tbody>
-                {{#userList}}
+                {{#creatorList}}
                     <tr>
                         <td>{{myName}}</td>
                         <td>{{email}}</td>
@@ -45,8 +47,18 @@
                             <button class="btn btn-info">{{instagram}}</button>
                         </td>
                         <td>{{status}}</td>
+                            <td>
+                                <form method="post" action="/approve-creators/{{userId}}">
+                                    <button class="btn btn-success">승인</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" action="/reject-creators/{{userId}}">
+                                    <button class="btn btn-danger">거절</button>
+                                </form>
+                            </td>
                     </tr>
-                {{/userList}}
+                {{/creatorList}}
                 </tbody>
             </table>
 

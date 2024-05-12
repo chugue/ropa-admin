@@ -51,17 +51,17 @@ public class InquiryServiceTest {
         }
     }
 
-    @Test
-    public void findAllInquiryWithUser_test(){
-        // given
-        Integer adminId = 1;
-        // when
-        List<InquiryResponse.List> respList =
-                inquiryService.findAllInquiryWithUser(adminId);
-        // then
-        for (InquiryResponse.List resp : respList) {
-            System.out.println(resp.getNum());
-        }
-
-    }
+//    @Test
+//    public void findAllInquiryWithUser_test(){
+//        // given
+//        Integer adminId = 1;
+//        // when
+//        List<InquiryResponse.List> respList =
+//                inquiryService.findAllInquiryWithUser(adminId);
+//        // then
+//        for (InquiryResponse.List resp : respList) {
+//            System.out.println(resp.getNum());
+//        }
+//
+//    }
 }

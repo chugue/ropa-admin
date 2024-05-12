@@ -82,4 +82,31 @@ public class AdminResponse {
             }
         }
     }
+
+    //크리에이터 관리 페이지
+    @Data
+    public static class CreatorList {
+        private Integer userId;
+        private String myName;
+        private String email; // 아이디
+        private String mobile; // 연락처
+        private String nickName; // 닉네임
+        private String instagram; // 인스타그램
+        private String status; // 크리에이터 지원 현황
+        private Boolean isBlueChecked; // 크리에이터 인증
+        public CreatorList(User user) {
+            this.userId = user.getId();
+            this.myName = user.getMyName();
+            this.email = user.getEmail();
+            this.mobile = user.getMobile();
+            this.nickName = user.getNickName();
+            this.instagram = user.getInstagram();
+            this.status = user.getStatus();
+            this.isBlueChecked = user.getBlueChecked();
+
+            if (!Objects.equals(user.getStatus(), "승인")) {
+                this.isBlueChecked = false;
+            }
+        }
+    }
 }

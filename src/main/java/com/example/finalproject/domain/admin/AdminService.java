@@ -88,6 +88,19 @@ public class AdminService {
         return admin;
     }
 
+    // 크리에이터 관리 페이지
+    public List<AdminResponse.CreatorList> creatorList() {
+        List<User> userList = userRepository.findAll(); // 모든 User를 찾아옵니다.
+
+        // Stream API를 사용하여 필터링 및 매핑을 진행합니다.
+        return userList.stream()
+                .filter(user -> "승인 대기".equals(user.getStatus()) || "승인".equals(user.getStatus())) // "승인대기" 또는 "승인" 상태의 User만 필터링합니다.
+                .map(AdminResponse.CreatorList::new) // User 객체를 CreatorList 객체로 변환합니다.
+                .collect(Collectors.toList()); // 필터링된 결과를 List로 수집합니다.
+    }
+
+
+
     // 유저 크리에이터 인증 관리
     public List<AdminResponse.UserList> getUserList() {
         List<User> userList = userRepository.findAll();

@@ -30,12 +30,11 @@ public class CartRestController {
     }
 
     // 장바구니 아이템 삭제
-    @DeleteMapping("/app/carts/delete/{cartItemId}")
-    public ResponseEntity<?> deleteCartItem(@PathVariable("cartItemId") Integer cartItemId) {
+    @DeleteMapping("/app/carts/{cartItemId}")
+    public ResponseEntity<?> deleteCartItem(@PathVariable("cartItemId") Integer cartId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        cartService.deleteCartItem(sessionUser.getId(), cartItemId);
-        CartResponse.CartInfo requestDTO = cartService.getCartByUserId(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(requestDTO));
+        cartService.deleteCartItem(sessionUser.getId(), cartId);
+        return ResponseEntity.ok(new ApiUtil<>(null));
     }
 
     // 장바구니 비우기

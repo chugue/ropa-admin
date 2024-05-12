@@ -23,11 +23,10 @@ public class CartRestController {
 
     // 장바구니 추가
     @PostMapping("/app/carts/save")
-    public ResponseEntity<?> CartSave(@RequestBody CartRequest.SaveDTO requestDTO) {
+    public ResponseEntity<?> CartSave(@RequestBody CartRequest.SaveDTO reqDTO) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        cartService.save(requestDTO, sessionUser.getId(), requestDTO.getItems().getId());
-        CartResponse.CartInfo reqDTO = cartService.getCartByUserId(sessionUser.getId());
-        return ResponseEntity.ok(new ApiUtil<>(reqDTO));
+        CartResponse.Saved respDTO = cartService.save(reqDTO, sessionUser.getId());
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 장바구니 아이템 삭제

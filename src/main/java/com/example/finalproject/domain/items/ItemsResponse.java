@@ -11,6 +11,7 @@ public class ItemsResponse {
     public static class ItemDetail {
         private Integer itemId;
         private String brandName;
+        private String itemName;
         private Integer price;
         private Double discountRate;
         private Integer discountPrice;
@@ -20,6 +21,7 @@ public class ItemsResponse {
         public ItemDetail(Items item, List<Photo> photos, List<Photo> detailPhotos) {
             this.itemId = item.getId();
             this.brandName = item.getAdmin().getBrandName();
+            this.itemName = item.getName();
             this.discountRate = item.getDiscountRate();
             this.discountPrice = item.getDiscountPrice();
             this.price = item.getPrice();

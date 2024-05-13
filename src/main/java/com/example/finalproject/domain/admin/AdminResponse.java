@@ -4,6 +4,7 @@ import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Objects;
 
 public class AdminResponse {
@@ -33,6 +34,19 @@ public class AdminResponse {
                 this.brandPhone = admin.getPhone();
                 this.brandEmail = admin.getEmail();
             }
+        }
+    }
+
+    @Data
+    public static class BrandSalesManagement {
+        private Integer TotalSalesAmount;
+        private Integer fee;
+        private List<BrandOrderHistoryList> brandOrderHistoryList;
+
+        public BrandSalesManagement(Integer totalSalesAmount, Integer fee, List<BrandOrderHistoryList> brandOrderHistoryList) {
+            TotalSalesAmount = totalSalesAmount;
+            this.fee = fee;
+            this.brandOrderHistoryList = brandOrderHistoryList;
         }
     }
 
@@ -94,6 +108,7 @@ public class AdminResponse {
         private String instagram; // 인스타그램
         private String status; // 크리에이터 지원 현황
         private Boolean isBlueChecked; // 크리에이터 인증
+
         public CreatorList(User user) {
             this.userId = user.getId();
             this.myName = user.getMyName();

@@ -76,8 +76,8 @@ public class AdminController {
                                    @RequestParam(value = "endDate", required = false) LocalDateTime endDate,
                                    HttpServletRequest reqDTO) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-        List<AdminResponse.BrandOrderHistoryList> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId(), startDate, endDate);
-        reqDTO.setAttribute("orderHistoryList", orderHistoryList);
+        AdminResponse.BrandSalesManagement brandSalesManagement = adminService.brandOrderHistory(sessionAdmin.getId(), startDate, endDate);
+        reqDTO.setAttribute("brandSalesManagement", brandSalesManagement);
         return "sales/brand-sales-manage";
     }
 
@@ -93,7 +93,7 @@ public class AdminController {
     public String creatorManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
         List<AdminResponse.CreatorList> creatorList = adminService.creatorList();
-        req.setAttribute("creatorList",creatorList);
+        req.setAttribute("creatorList", creatorList);
 
         return "admin/creator-manage";
     }

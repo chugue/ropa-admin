@@ -9,11 +9,11 @@ values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특�
 -- 앱 사용자 더미
 INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, job, intro_msg, instagram,
                      status, blue_checked, mileage)
-VALUES ('user1@example.com', '1234', 'wdohwan', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
+VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
         '어깨 넓은 보통 체형',
         '@instagram', '신청 전', FALSE, 2000),
        ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
-        '키작고 마른 체형', '@twitter',
+        '키작고 마른 체형', 'wdohwan',
         '승인 대기', FALSE, 0),
        ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '직장인',
         '연예인 체형', '@facebook',

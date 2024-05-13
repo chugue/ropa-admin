@@ -20,17 +20,19 @@ public class UserRequest {
         private String password;
         private String mobile;
         private String status;
+        private String instagram;
         private Boolean blueChecked;
         private Timestamp createdAt;
 
         @Builder
-        public JoinDTO(String myName ,String email, String nickName, String password, String mobile, Boolean blueChecked,String status) {
+        public JoinDTO(String myName ,String email, String nickName, String password, String mobile, String instagram,Boolean blueChecked,String status) {
             this.myName = myName;
             this.email = email;
             this.nickName = nickName;
             this.password = password;
             this.mobile = mobile;
             this. status = status;
+            this. instagram = instagram;
             this.blueChecked =blueChecked;
             this.createdAt = Timestamp.from(Instant.now());
             ;

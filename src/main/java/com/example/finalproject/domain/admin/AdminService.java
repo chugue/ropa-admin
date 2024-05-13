@@ -63,11 +63,11 @@ public class AdminService {
     }
 
     //관리자가 로그인했을 때 매출 목록보기
-    public List<AdminResponse.SalesList> adminSalesListDTOList() {
-
-        List<AdminResponse.SalesList> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
-
-        return respDTO;
+    public AdminResponse.AdminSalesManagement adminSalesListDTOList() {
+        List<AdminResponse.SalesList> salesList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        int totalSalesAmount = (int) salesList.stream().mapToLong(AdminResponse.SalesList::getOrderItemPrice).sum();
+        int totalFee = (int) (totalSalesAmount * 0.1);
+        return new AdminResponse.AdminSalesManagement(totalSalesAmount, totalFee, salesList);
     }
 
 

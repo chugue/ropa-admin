@@ -64,9 +64,9 @@ public class AdminController {
         if (sessionAdmin == null) {
             throw new Exception403("잘못된 접근입니다.");
         }
-        List<AdminResponse.SalesList> orderHistoryList = adminService.adminSalesListDTOList();
+        AdminResponse.AdminSalesManagement adminSalesManagement = adminService.adminSalesListDTOList();
 
-        req.setAttribute("orderHistoryList", orderHistoryList);
+        req.setAttribute("adminSalesManagement", adminSalesManagement);
         return "sales/admin-sales-manage";
     }
 

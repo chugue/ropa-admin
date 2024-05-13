@@ -8,6 +8,21 @@ import java.util.List;
 import java.util.Objects;
 
 public class AdminResponse {
+
+    // 관리자의 브랜드별 총 매출 및 수수료 DTO
+    @Data
+    public static class AdminSalesManagement {
+        private Integer TotalSalesAmount;
+        private Integer TotalFee;
+        private List<SalesList> adminSalesList;
+
+        public AdminSalesManagement(Integer totalSalesAmount, Integer totalFee, List<SalesList> adminSalesList) {
+            TotalSalesAmount = totalSalesAmount;
+            TotalFee = totalFee;
+            this.adminSalesList = adminSalesList;
+        }
+    }
+
     //관리자의 브랜드별 매출 목록보기
     @Data
     public static class SalesList {
@@ -37,6 +52,7 @@ public class AdminResponse {
         }
     }
 
+    // 브랜드 총 매출 및 수수료 DTO
     @Data
     public static class BrandSalesManagement {
         private Integer TotalSalesAmount;

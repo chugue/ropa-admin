@@ -27,6 +27,7 @@
                 <thead>
                 <tr>
                     <th>주문번호</th>
+                    <th>아이템명</th>
                     <th>구매자</th>
                     <th>수령인</th>
                     <th>수령인 연락처</th>
@@ -39,6 +40,7 @@
                 {{#orderDeliveryList}}
                     <tr>
                         <td>{{orderId}}</td>
+                        <td>{{itemName}}</td>
                         <td>{{userName}}</td>
                         <td>{{recipient}}</td>
                         <td>{{recipientPhoneNumber}}</td>

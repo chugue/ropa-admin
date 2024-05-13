@@ -1,28 +1,28 @@
 -- --관리자 테이블--
 insert into admin_tb(email, password, brand_name, role, phone, address, business_num, update_at, created_at)
-values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
-       ('Ace@naver.com', '1234', 'Ace', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', NULL, now()),
-       ('BB@naver.com', '1234', 'BB', 'BRAND', '010-3333-3333', '서울특별시 강동구', '657-546-2897', NULL, now()),
+values ('salomon@naver.com', '1234', 'SALOMON', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
+       ('lee@naver.com', '1234', 'lee', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', NULL, now()),
+       ('espionage@naver.com', '1234', 'espionage', 'BRAND', '010-3333-3333', '서울특별시 강동구', '657-546-2897', NULL, now()),
        ('Admin@naver.com', '1234', 'RopaAdmin', 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', NULL, now());
 
 
 -- 앱 사용자 더미
 INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, height, weight, job, intro_msg, instagram,
                      status, blue_checked, mileage)
-VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
+VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
         '어깨 넓은 보통 체형',
-        '@instagram', '신청 전', FALSE, 2000),
-       ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
-        '키작고 마른 체형', 'wdohwan',
+        'holyhaein', '신청 전', FALSE, 2000),
+       ('limsiwan@example.com', '1234', 'limsiwan', '임시완', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
+        '키작고 마른 체형', 'yim_siwang',
         '승인 대기', FALSE, 0),
-       ('user3@example.com', '1234', '사용자3의 별명', '사용자3의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '직장인',
-        '연예인 체형', '@facebook',
+       ('bunwuseok@example.com', '1234', 'bunwuseok', '변우석', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '직장인',
+        '연예인 체형', 'byeonwooseok',
         '승인', TRUE, 3000),
-       ('user4@example.com', '1234', '사용자4의 별명', '사용자4의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '70kg', '학생',
-        '키크고 마른 체형', '@facebook',
+       ('gd@example.com', '1234', 'gd', '김지용', '인천광역시 남동구', '010-5555-5555', '180cm', '70kg', '학생',
+        '키크고 마른 체형', 'xxxibgdrgn',
         '신청 전', FALSE, 0),
-       ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '85kg', '학생',
-        '키크고 덩치가 있는 체형', '@facebook',
+       ('kimsuhyun@example.com', '1234', 'kimsuhyun', '김수현', '인천광역시 남동구', '010-5555-5555', '180cm', '85kg', '학생',
+        '키크고 덩치가 있는 체형', 'soohyun_k216',
         '신청 전', FALSE, 5000);
 
 -- 카테고리 테이블 더미
@@ -118,9 +118,9 @@ values (1, 1),
 -- 사진 테이블 더미
 insert into photo_tb (uuid_name, original_file_name, path, sort, admin_id, user_id, codi_id, items_id, created_at,
                       is_main_photo)
-values ('uuid_브랜드사진1', '브랜드사진1', '/upload/brand/brand1.jpg', 'BRAND', 1, null, null, null, NOW(), true),
-       ('uuid_브랜드사진2', '브랜드사진2', '/upload/brand/brand2.jpeg', 'BRAND', 2, null, null, null, NOW(), true),
-       ('uuid_브랜드사진3', '브랜드사진3', '/upload/brand/brand3.jpeg', 'BRAND', 3, null, null, null, NOW(), true),
+values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND', 1, null, null, null, NOW(), true),
+       ('uuid_브랜드사진2', 'lee', '/upload/brand/lee.png', 'BRAND', 2, null, null, null, NOW(), true),
+       ('uuid_브랜드사진3', 'espionage', '/upload/brand/espionage.png', 'BRAND', 3, null, null, null, NOW(), true),
        ('uuid_사용자사진1', '사용자사진1', '/upload/user/user1.webp', 'USER', null, 1, null, null, NOW(), true),
        ('uuid_사용자사진2', '사용자사진2', '/upload/user/user2.webp', 'USER', null, 2, null, null, NOW(), true),
        ('uuid_사용자사진3', '사용자사진3', '/upload/user/user3.webp', 'USER', null, 3, null, null, NOW(), true),
@@ -209,7 +209,9 @@ values ('uuid_브랜드사진1', '브랜드사진1', '/upload/brand/brand1.jpg',
        ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail04.jpg', 'ITEM', null, null, null, 5, NOW(), false),
        ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail05.jpg', 'ITEM', null, null, null, 5, NOW(), false),
        ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail06.jpg', 'ITEM', null, null, null, 5, NOW(), false),
-       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail07.jpg', 'ITEM', null, null, null, 5, NOW(), false);
+       ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail07.jpg', 'ITEM', null, null, null, 5, NOW(), false),
+       ('uuid_관리자사진', '관리자서브사진', '/upload/admin/ropa.png', 'ADMIN', 4, null, null, null, NOW(), false),
+
 
 
 -- 좋아요 기능

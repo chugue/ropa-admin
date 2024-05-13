@@ -11,7 +11,7 @@ INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, heigh
                      status, blue_checked, mileage)
 VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실명', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
         '어깨 넓은 보통 체형',
-        '@instagram', '신청 전', TRUE, 2000),
+        '@instagram', '신청 전', FALSE, 2000),
        ('user2@example.com', '1234', '사용자2의 별명', '사용자2의 실명', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
         '키작고 마른 체형', '@twitter',
         '승인 대기', FALSE, 0),
@@ -23,7 +23,7 @@ VALUES ('user1@example.com', '1234', '사용자1의 별명', '사용자1의 실�
         '신청 전', FALSE, 0),
        ('user5@example.com', '1234', '사용자5의 별명', '사용자5의 실명', '인천광역시 남동구', '010-5555-5555', '180cm', '85kg', '학생',
         '키크고 덩치가 있는 체형', '@facebook',
-        '신청 전', TRUE, 5000);
+        '신청 전', FALSE, 5000);
 
 -- 카테고리 테이블 더미
 INSERT INTO category_tb (main, sub)

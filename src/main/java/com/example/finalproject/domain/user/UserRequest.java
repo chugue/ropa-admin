@@ -14,16 +14,24 @@ public class UserRequest {
     @NoArgsConstructor
     @Data
     public static class JoinDTO {
+        private String myName;
         private String email;
         private String nickName;
         private String password;
+        private String mobile;
+        private String status;
+        private Boolean blueChecked;
         private Timestamp createdAt;
 
         @Builder
-        public JoinDTO(String email, String nickName, String password) {
+        public JoinDTO(String myName ,String email, String nickName, String password, String mobile, Boolean blueChecked,String status) {
+            this.myName = myName;
             this.email = email;
             this.nickName = nickName;
             this.password = password;
+            this.mobile = mobile;
+            this. status = status;
+            this.blueChecked =blueChecked;
             this.createdAt = Timestamp.from(Instant.now());
             ;
         }

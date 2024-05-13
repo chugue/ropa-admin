@@ -100,15 +100,23 @@ public class UserResponse {
 
     @Data  // 로그인 성공시 응답 DTO
     public static class LoginInfo {
+        private String myName;
         private Integer id;
         private String email;
         private String username;
+        private String mobile; // 연락처
+        private String nickName; // 닉네임
+        private String instagram; // 인스타그램
         private Boolean blueChecked;
 
         public LoginInfo(User user) {
+            this.myName = user.getMyName();
             this.id = user.getId();
             this.email = user.getEmail();
             this.username = user.getMyName();
+            this.mobile = user.getMobile();
+            this.nickName = user.getNickName();
+            this.instagram = user.getInstagram();
             this.blueChecked = user.getBlueChecked();
         }
     }
@@ -136,12 +144,22 @@ public class UserResponse {
     @Data
     public static class JoinInfo {
         private Integer id;
+        private String myName;
+        private String email;
         private String nickName;
+        private String mobile;
+        private String status;
+        private Boolean blueChecked;
         private String createdAt;
 
         public JoinInfo(User user) {
             this.id = user.getId();
+            this.myName = user.getMyName();
+            this.email = user.getEmail();
             this.nickName = user.getNickName();
+            this.mobile = user.getMobile();
+            this.status = user.getStatus();
+            this.blueChecked = user.getBlueChecked();
             this.createdAt = user.getCreatedAt().toString();
         }
     }
@@ -204,12 +222,14 @@ public class UserResponse {
         private String name;
         private String instagram;
         private Boolean blueChecked;
+        private String status;
 
         public CreatorApply(User user) {
             this.id = user.getId();
             this.name = user.getMyName();
             this.instagram = user.getInstagram();
             this.blueChecked = user.getBlueChecked();
+            this.status = user.getStatus();
         }
     }
 

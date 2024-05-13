@@ -98,6 +98,7 @@ public class AdminController {
         return "admin/creator-manage";
     }
 
+
     @PostMapping("/approve-creators/{userId}")
     public String approveCreatorStatus(@PathVariable Integer userId) {
         adminService.approveCreatorStatus(userId);

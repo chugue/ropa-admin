@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -94,9 +95,16 @@ public class AdminService {
 
         // Stream API를 사용하여 필터링 및 매핑을 진행합니다.
         return userList.stream()
-                .filter(user -> "승인 대기".equals(user.getStatus()) || "승인".equals(user.getStatus())) // "승인대기" 또는 "승인" 상태의 User만 필터링합니다.
-                .map(AdminResponse.CreatorList::new) // User 객체를 CreatorList 객체로 변환합니다.
-                .collect(Collectors.toList()); // 필터링된 결과를 List로 수집합니다.
+                .filter(user -> "승인 대기".equals(user.getStatus()) || "승인".equals(user.getStatus()))
+                .sorted((u1, u2) -> {
+                    if (u1.getApplyTime() == null && u2.getApplyTime() != null) return 1;
+                    if (u1.getApplyTime() != null && u2.getApplyTime() == null) return -1;
+                    if (u1.getApplyTime() == null && u2.getApplyTime() == null) return 0;
+                    return u2.getApplyTime().compareTo(u1.getApplyTime()); // 최신 순으로 정렬
+                })
+                .map(AdminResponse.CreatorList::new)
+                .collect(Collectors.toList());
+
     }
 
 

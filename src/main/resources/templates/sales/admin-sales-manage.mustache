@@ -14,9 +14,9 @@
                         <tbody>
                         <tr>
                             <th scope="row">총 매출</th>
-                            <td>5,000,000</td>
+                            <td>{{adminSalesManagement.totalSalesAmount}}</td>
                             <th scope="row">수수료</th>
-                            <td>500.000</td>
+                            <td>{{adminSalesManagement.totalFee}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -51,7 +51,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {{#orderHistoryList}}
+                {{#adminSalesManagement.adminSalesList}}
                 <tr>
                     <td>{{admin.adminId}}</td>
                     <td>{{admin.brandName}}</td>
@@ -60,7 +60,7 @@
                     <td>{{orderItemPrice}}</td>
                     <td>{{fee}}</td>
                 </tr>
-                {{/orderHistoryList}}
+                {{/adminSalesManagement.adminSalesList}}
                 </tbody>
             </table>
 

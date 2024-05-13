@@ -30,21 +30,25 @@ public class AdminService {
     private final PhotoService photoService;
 
     //브랜드가 로그인 했을 때 매출 목록보기
-    public List<AdminResponse.BrandOrderHistoryList> brandOrderHistory(int adminId, LocalDateTime startDate, LocalDateTime endDate) {
-        List<OrderHistory> brandOrderHistory;
-        System.out.println(startDate);
+    public AdminResponse.BrandSalesManagement brandOrderHistory(int adminId, LocalDateTime startDate, LocalDateTime endDate) {
+        List<OrderHistory> brandOrderHistoryDTO;
 
         if (startDate == null || endDate == null) {
-            brandOrderHistory = orderHistoryRepository.findByAdminIdWithItems(adminId);
+            brandOrderHistoryDTO = orderHistoryRepository.findByAdminIdWithItems(adminId);
         } else {
             Timestamp startTimestamp = Timestamp.valueOf(startDate);
             Timestamp endTimestamp = Timestamp.valueOf(endDate);
-            brandOrderHistory = orderHistoryRepository.findByAdminIdWithItemsAndDate(adminId, startTimestamp, endTimestamp);
+            brandOrderHistoryDTO = orderHistoryRepository.findByAdminIdWithItemsAndDate(adminId, startTimestamp, endTimestamp);
         }
-        if (brandOrderHistory == null) {
+        if (brandOrderHistoryDTO == null) {
             throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
         }
-        return brandOrderHistory.stream().map(AdminResponse.BrandOrderHistoryList::new).collect(Collectors.toList());
+        List<AdminResponse.BrandOrderHistoryList> brandOrderHistory = brandOrderHistoryDTO.stream()
+                .map(AdminResponse.BrandOrderHistoryList::new).collect(Collectors.toList());
+        int totalSalesAmount = brandOrderHistory.stream().mapToInt(AdminResponse.BrandOrderHistoryList::getTotalPrice).sum();
+        int fee = (int) (totalSalesAmount * 0.1);
+
+        return new AdminResponse.BrandSalesManagement(totalSalesAmount, fee, brandOrderHistory);
     }
 
 
@@ -60,11 +64,11 @@ public class AdminService {
     }
 
     //관리자가 로그인했을 때 매출 목록보기
-    public List<AdminResponse.SalesList> adminSalesListDTOList() {
-
-        List<AdminResponse.SalesList> respDTO = orderHistoryRepository.getTotalSalesAndFeePerBrand();
-
-        return respDTO;
+    public AdminResponse.AdminSalesManagement adminSalesListDTOList() {
+        List<AdminResponse.SalesList> salesList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        int totalSalesAmount = (int) salesList.stream().mapToLong(AdminResponse.SalesList::getOrderItemPrice).sum();
+        int totalFee = (int) (totalSalesAmount * 0.1);
+        return new AdminResponse.AdminSalesManagement(totalSalesAmount, totalFee, salesList);
     }
 
 
@@ -85,7 +89,7 @@ public class AdminService {
 
         Admin admin = adminRepository.save(reqDTO.toBrandEntity());
 
-        photoService.uploadBrandImage(reqDTO.getBrandImage(),admin);
+        photoService.uploadBrandImage(reqDTO.getBrandImage(), admin);
         return admin;
     }
 
@@ -106,7 +110,6 @@ public class AdminService {
                 .collect(Collectors.toList());
 
     }
-
 
 
     // 유저 크리에이터 인증 관리

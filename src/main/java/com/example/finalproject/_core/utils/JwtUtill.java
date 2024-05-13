@@ -17,7 +17,7 @@ public class JwtUtill {
                 // 토큰의 주제(subject) 설정
                 .withSubject("blog")
                 // 토큰 만료 시간 설정 (현재 시간 + 24시간)
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 600 * 60 * 24))
                 // 토큰에 사용자의 정보(Claim) 설정
                 .withClaim("id", admin.getId()) // 사용자 ID
                 .withClaim("name", admin.getBrandName())

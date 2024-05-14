@@ -173,10 +173,12 @@ public class PhotoService {
         List<Integer> itemsId = orderHistoryRepository.findItemsIdByTotalSales();
         List<Photo> popularItemsPhotos = photoRepository.findByItemsIds(itemsId);
 
-        // 인기 코디 좋아요 순으로 정렬
         List<LoveResponse.CodiLoveCount> popularCodies = loveRepository.findCodiIdsSortedByLoveCount();
         List<Integer> popularCodiIdes = popularCodies.stream().map(codiLoveCount -> codiLoveCount.getCodiId()).toList();
         List<Photo> popularCodiPhotos = photoRepository.findByCodiIds(popularCodiIdes);
+
+        // 시연영상용으로 최신순 아이템
+//        List<Photo> popularItemsPhotos = photoRepository.finAllOrderBy();
 
         return new PhotoResponse.Home(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
     }

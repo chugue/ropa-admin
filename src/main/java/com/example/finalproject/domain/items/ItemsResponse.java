@@ -13,8 +13,8 @@ public class ItemsResponse {
         private String brandName;
         private String itemName;
         private Integer price;
-        private Double discountRate;
         private Integer discountPrice;
+        private Integer finalPrice;
         private List<MainPhoto> mainPhotos;
         private List<DetailPhoto> detailPhotos;
 
@@ -22,9 +22,9 @@ public class ItemsResponse {
             this.itemId = item.getId();
             this.brandName = item.getAdmin().getBrandName();
             this.itemName = item.getName();
-            this.discountRate = item.getDiscountRate();
             this.discountPrice = item.getDiscountPrice();
             this.price = item.getPrice();
+            this.finalPrice = price - discountPrice;
             this.mainPhotos = photos.stream().map(MainPhoto::new).toList();
             this.detailPhotos = detailPhotos.stream().map(DetailPhoto::new).toList();
         }

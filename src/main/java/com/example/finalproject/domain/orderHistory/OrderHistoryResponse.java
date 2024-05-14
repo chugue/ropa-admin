@@ -40,6 +40,7 @@ public class OrderHistoryResponse {
     @Data
     public static class DeliveryList {
         private Integer orderId; // 주문 코드
+        private String itemName; // 아이템 명
         private String userName; // 주문자
         private String recipient; // 수령인
         private String recipientPhoneNumber; // 수령인 연락처
@@ -49,6 +50,7 @@ public class OrderHistoryResponse {
 
         public DeliveryList(OrderHistory orderHistory, User user, Delivery delivery) {
             this.orderId = orderHistory.getOrder().getId();
+            this.itemName = orderHistory.getItems().getName();
             this.userName = user.getMyName();
             this.recipient = delivery.getRecipient();
             this.recipientPhoneNumber = delivery.getPhoneNumber();

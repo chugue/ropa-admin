@@ -26,7 +26,6 @@ public class UserService {
     @Transactional
     public User join(UserRequest.JoinDTO reqDTO) {
         User user = userRepository.save(User.builder()
-                .myName(reqDTO.getMyName())
                 .email(reqDTO.getEmail())
                 .password(reqDTO.getPassword())
                 .nickName(reqDTO.getNickName())

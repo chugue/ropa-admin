@@ -14,7 +14,6 @@ public class UserRequest {
     @NoArgsConstructor
     @Data
     public static class JoinDTO {
-        private String myName;
         private String email;
         private String nickName;
         private String password;
@@ -25,8 +24,7 @@ public class UserRequest {
         private Timestamp createdAt;
 
         @Builder
-        public JoinDTO(String myName ,String email, String nickName, String password, String mobile, String instagram,Boolean blueChecked,String status) {
-            this.myName = myName;
+        public JoinDTO(String email, String nickName, String password, String mobile, String instagram,Boolean blueChecked,String status) {
             this.email = email;
             this.nickName = nickName;
             this.password = password;

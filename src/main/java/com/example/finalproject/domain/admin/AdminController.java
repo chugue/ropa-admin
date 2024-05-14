@@ -89,6 +89,7 @@ public class AdminController {
         return "admin/user-manage";
     }
 
+    // 크리에이터 관리 페이지
     @GetMapping("/api/creator-manage")
     public String creatorManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
@@ -102,7 +103,7 @@ public class AdminController {
     @PostMapping("/approve-creators/{userId}")
     public String approveCreatorStatus(@PathVariable Integer userId) {
         adminService.approveCreatorStatus(userId);
-        return "redirect:/api/user-manage";
+        return "redirect:/api/creator-manage";
     }
 
     @PostMapping("/reject-creators/{userId}")

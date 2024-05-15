@@ -32,6 +32,7 @@ public class UserService {
                 .mobile(reqDTO.getMobile())
                 .status("신청전")
                 .instagram(reqDTO.getInstagram())
+                .address(reqDTO.getAddress())
                 .createdAt(reqDTO.getCreatedAt())
                 .blueChecked(false)
                 .build());

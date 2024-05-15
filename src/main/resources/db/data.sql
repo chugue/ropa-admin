@@ -202,13 +202,13 @@ VALUES ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인1', '12345'
        ('배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인2', '54321', '경기도 분당구', '판교로 456번길', '010-2222-2222'),
        ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인3', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333');
 
-
+-- 주문(Order) 더미 데이터 삽입
 INSERT INTO order_tb (user_id, delivery_id, purchase_amount, fee, order_date, delivery_type, pay_method)
 VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
        (2, 2, 75000, 7500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
        (3, 3, 100000, 10000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT');
 
--- 주문(Order) 더미 데이터 삽입
+
 INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)
 VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 1, 1,
         '2024-01-26 11:30:00', '2024-01-25 11:30:00'),

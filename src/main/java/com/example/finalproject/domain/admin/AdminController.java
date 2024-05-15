@@ -3,6 +3,7 @@ package com.example.finalproject.domain.admin;
 import com.example.finalproject._core.error.exception.Exception403;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class AdminController {
 
     //로그인
     @PostMapping("/login")
-    public String login(AdminRequest.LoginDTO reqDTO) {
+    public String login(@Valid AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminService.login(reqDTO);
         if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
@@ -38,7 +39,7 @@ public class AdminController {
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")
-    public String join(AdminRequest.JoinDTO reqDTO) {
+    public String join(@Valid AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
 
         session.setAttribute("sessionBrand", admin);

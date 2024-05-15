@@ -72,7 +72,7 @@ public class AdminService {
             case null, default -> orderHistoryRepository.getTotalSalesAndFeePerBrand();
         };
 
-        int totalSalesAmount = (int) salesList.stream().mapToLong(AdminResponse.SalesList::getOrderItemPrice).sum();
+        int totalSalesAmount = orderHistoryRepository.getTotalOrderItemPrice();
         int totalFee = (int) (totalSalesAmount * 0.1);
         return new AdminResponse.AdminSalesManagement(Formatter.number(totalSalesAmount), Formatter.number(totalFee), salesList);
     }

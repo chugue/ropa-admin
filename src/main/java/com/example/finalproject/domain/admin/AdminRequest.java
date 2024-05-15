@@ -38,7 +38,7 @@ public class AdminRequest {
         @NotEmpty(message = "브랜드 이름이 공백일 수 없습니다.")
         private String brandName; //브랜드 명
 
-        @NotEmpty(message = "구분을 정해주셔야 합니다..")
+        @NotEmpty(message = "구분을 정해주셔야 합니다.")
         private Admin.AdminRole role; // 관리자 / 브랜드
 
         @NotEmpty(message = "전화번호가 공백일 수 없습니다")

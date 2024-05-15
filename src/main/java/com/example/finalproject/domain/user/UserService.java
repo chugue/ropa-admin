@@ -88,9 +88,9 @@ public class UserService {
     }
 
     //크리에이터 뷰 페이지
-    public UserResponse.CreatorViewDTO creatorView(SessionUser sessionUser, int userId) {
-        // 1. 세션에서 사용자 정보 가져오기
-        User user = userRepository.findById(sessionUser.getId())
+    public UserResponse.CreatorViewDTO creatorView(Integer userId) {
+        // 1. 크리에이터 정보 불러오기
+        User user = userRepository.findUsersByBlueCheckedAndPhoto(userId)
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
         // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기

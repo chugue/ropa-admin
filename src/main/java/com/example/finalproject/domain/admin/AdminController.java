@@ -60,12 +60,12 @@ public class AdminController {
 
     // 관리자 매출관리 페이지
     @GetMapping("/api/admin-sales-manage")
-    public String adminSalesManage(HttpServletRequest req) {
+    public String adminSalesManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
         if (sessionAdmin == null) {
             throw new Exception403("잘못된 접근입니다.");
         }
-        AdminResponse.AdminSalesManagement adminSalesManagement = adminService.adminSalesListDTOList();
+        AdminResponse.AdminSalesManagement adminSalesManagement = adminService.adminSalesListDTOList(searchBy, keyword);
 
         req.setAttribute("adminSalesManagement", adminSalesManagement);
         return "sales/admin-sales-manage";

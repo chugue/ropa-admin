@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -64,10 +63,17 @@ public class AdminService {
     }
 
     //관리자가 로그인했을 때 매출 목록보기
-    public AdminResponse.AdminSalesManagement adminSalesListDTOList() {
-        List<AdminResponse.SalesList> salesList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+    public AdminResponse.AdminSalesManagement adminSalesListDTOList(String searchBy, String keyword) {
+
+        List<AdminResponse.SalesList> salesList = switch (searchBy) {
+            case "adminId" -> orderHistoryRepository.getTotalSalesAndFeePerBrandAndBrandId(keyword);
+            case "brandName" -> orderHistoryRepository.getTotalSalesAndFeePerBrandAndBrandName(keyword);
+            case null, default -> orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        };
+
         int totalSalesAmount = (int) salesList.stream().mapToLong(AdminResponse.SalesList::getOrderItemPrice).sum();
         int totalFee = (int) (totalSalesAmount * 0.1);
+
         return new AdminResponse.AdminSalesManagement(totalSalesAmount, totalFee, salesList);
     }
 

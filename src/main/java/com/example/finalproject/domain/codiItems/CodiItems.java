@@ -24,7 +24,6 @@ public class CodiItems {
     @JoinColumn(name = "codi_id", nullable = false)
     private Codi codi; // 코디 고유번호
 
-
     @Builder
     public CodiItems(Integer id, Items items, Codi codi) {
         this.id = id;

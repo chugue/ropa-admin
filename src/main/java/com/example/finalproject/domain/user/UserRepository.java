@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.photo WHERE u.id = :userId")
     Optional<User> findByUserIdWithPhoto(@Param("userId") Integer userId);
 
+    @Query("SELECT c.user FROM CodiItems ci JOIN ci.items i JOIN ci.codi c WHERE i.id = :itemId")
+    List<Integer> findCreatorByItemId(@Param("itemId") Integer itemId);
 }

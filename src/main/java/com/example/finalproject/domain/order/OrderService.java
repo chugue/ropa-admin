@@ -2,6 +2,8 @@ package com.example.finalproject.domain.order;
 
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.cart.CartRepository;
 import com.example.finalproject.domain.delivery.Delivery;
@@ -18,6 +20,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +30,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderHistoryRepository orderHistoryRepository;
     private final DeliveryRepository deliveryRepository;
+    private final AdminRepository adminRepository;
 
     // TODO : 배송지 정보 저장 체크해서 true일경우 조회해서 뿌리고 false면은 칸 비워주기
     // 주문 + 배송지 + 결제 설정 페이지
@@ -102,18 +106,47 @@ public class OrderService {
                 .payMethod(reqDTO.getPurchaseInfo().getPayMethod())
                 .savePayMethod(reqDTO.getPurchaseInfo().getSavedPayMethod())
                 .purchaseAmount(reqDTO.getPurchaseInfo().getPurchaseAmount())
-                .fee((double) 0)
+                .fee(reqDTO.getPurchaseInfo().getPurchaseAmount() * 0.1)
                 .orderDate(Timestamp.from(Instant.now())).build());
 
         List<OrderHistory> orderHistories = new ArrayList<>();
         // 카트를 OrderHistory테이블로 옮기기
-        carts.forEach(cart -> orderHistories.add(orderHistoryRepository.save(OrderHistory.builder()
-                .admin(cart.getItems().getAdmin())
-                .order(order)
-                .items(cart.getItems())
-                .orderItemPrice(cart.getTotalAmount())
-                .orderItemQty(cart.getQuantity())
-                .fee(order.getFee()).build())));
+        carts.forEach(cart -> {
+            orderHistories.add(orderHistoryRepository.save(OrderHistory.builder()
+                    .admin(cart.getItems().getAdmin())
+                    .order(order)
+                    .items(cart.getItems())
+                    .orderItemPrice(cart.getTotalAmount())
+                    .orderItemQty(cart.getQuantity())
+                    .fee(order.getFee()).build()));
+
+            List<Integer> creatorIds = userRepository.findCreatorByItemId(cart.getItems().getId());
+            creatorIds.forEach(creatorId -> {
+                Optional<User> OptionalCreator = userRepository.findById(creatorId);
+                Optional<Admin> optionalAdmin = adminRepository.findFirst();
+
+                if (OptionalCreator.isPresent() && optionalAdmin.isPresent()) {
+                    User creatorUser = OptionalCreator.get();
+                    // 크리에이터의 마일리지 업데이트
+                    int commissionUser = (int) (cart.getTotalAmount() * 0.05); // 수수료 계산
+                    creatorUser.setMileage(creatorUser.getMileage() + commissionUser);
+                    userRepository.save(creatorUser);
+
+                    Admin admin = optionalAdmin.get();
+                    int commissionAdmin = (int) (cart.getTotalAmount() * 0.05); // 수수료 계산
+                    admin.setMileage(admin.getMileage() + commissionAdmin);
+                    adminRepository.save(admin);
+                } else {
+                    if (optionalAdmin.isPresent()) {
+                        Admin admin = optionalAdmin.get();
+                        int commissionAdmin = (int) (cart.getTotalAmount() * 0.1); // 수수료 계산
+                        admin.setMileage(admin.getMileage() + commissionAdmin);
+                        adminRepository.save(admin);
+                    }
+                }
+            });
+        });
+
 
         // 카트 비우기
         cartRepository.deleteAll(carts);

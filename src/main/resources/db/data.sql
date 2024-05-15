@@ -1,9 +1,9 @@
 -- --관리자 테이블--
-insert into admin_tb(email, password, brand_name, role, phone, address, business_num, update_at, created_at)
-values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', NULL, now()),
-       ('Ace@naver.com', '1234', 'Ace', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', NULL, now()),
-       ('BB@naver.com', '1234', 'BB', 'BRAND', '010-3333-3333', '서울특별시 강동구', '657-546-2897', NULL, now()),
-       ('Admin@naver.com', '1234', 'RopaAdmin', 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', NULL, now());
+insert into admin_tb(email, password, brand_name, role, phone, address, business_num, mileage, update_at, created_at)
+values ('nike@naver.com', '1234', 'nike', 'BRAND', '010-1111-1111', '서울특별시 강남구', '827-546-7895', 0, NULL, now()),
+       ('Ace@naver.com', '1234', 'Ace', 'BRAND', '010-2222-2222', '서울특별시 종로구', '737-546-7196', 0, NULL, now()),
+       ('BB@naver.com', '1234', 'BB', 'BRAND', '010-3333-3333', '서울특별시 강동구', '657-546-2897', 0, NULL, now()),
+       ('Admin@naver.com', '1234', 'RopaAdmin', 'ADMIN', '010-4444-4444', '부산광역시 해운대구', '1234', 0, NULL, now());
 
 
 -- 앱 사용자 더미
@@ -105,7 +105,7 @@ values (1, '코디1', '좋은 코디입니다.', NOW()),
 
 -- 코디랑 아이템을 연결해주는 테이블
 insert into codi_items_tb (items_id, codi_id)
-values (1, 1),
+values (16, 1),
        (2, 1),
        (3, 1),
        (2, 2),

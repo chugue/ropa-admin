@@ -4,28 +4,47 @@ import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiResponse;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsResponse;
+import com.example.finalproject.domain.order.Order;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
+import org.hibernate.id.IntegralDataTypeHolder;
 
 import java.util.List;
 
 public class UserResponse {
+        //유저 마이페이지
+        @Data
+        public static class UserMyPage {
+            private Integer userId; //로그인한 유저 아이디
+            private String photoName;   // 크리에이터 사진 이름
+            private String base64;   // 크리에이터 사진 base64
+            private String nickName;  //별명
+            private Integer orderCount; // 주문 갯수
+
+            public UserMyPage(User user, Integer orderCount){
+                this.userId = user.getId();
+                this.photoName = user.getPhoto().getUuidName();
+                this.base64 = user.getPhoto().toBase64(user.getPhoto());
+                this.nickName = user.getNickName();
+                this.orderCount = orderCount;
+            }
+        }
+
     @Data
     public static class CreatorViewDTO {
-        private UserInfo userDTO;
+        private CreatorInfo userDTO;
         private List<CodiList> codiList;
         private List<ItemList> itemList;
 
-        public CreatorViewDTO(UserInfo userDTO, List<CodiList> codiList, List<ItemList> itemList) {
+        public CreatorViewDTO(CreatorInfo userDTO, List<CodiList> codiList, List<ItemList> itemList) {
             this.userDTO = userDTO;
             this.codiList = codiList;
             this.itemList = itemList;
         }
     }
 
-
     @Data
-    public static class UserInfo {
+    public static class CreatorInfo {
         private Integer creatorId; //크리에이터 아이디
         private Boolean blueChecked;    //true -> 크리에이터
         private String photoName;   // 크리에이터 사진 이름
@@ -36,7 +55,7 @@ public class UserResponse {
         private String job; //직업
         private String introMsg; //자기소개
 
-        public UserInfo(User user) {
+        public CreatorInfo(User user) {
             this.creatorId = user.getId();
             this.blueChecked = user.getBlueChecked();
             this.photoName = user.getPhoto().getUuidName();

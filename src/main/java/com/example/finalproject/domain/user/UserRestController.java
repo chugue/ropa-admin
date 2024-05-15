@@ -81,6 +81,12 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    @GetMapping("/app/creator-my-page/")
+    public ResponseEntity<?> usrMyPage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        return ResponseEntity.ok(new ApiUtil<>();
+    }
+
     // 유저 아이템, 코디 통합 검색
     @GetMapping("/app/search-all")
     public ResponseEntity<?> searchPage(@RequestParam(defaultValue = "") String keyword) {

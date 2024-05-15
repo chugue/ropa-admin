@@ -110,9 +110,37 @@ public class UserService {
                 .distinct()
                 .collect(Collectors.toList());
 
-        UserResponse.UserInfo userDTO = new UserResponse.UserInfo(user);
+        UserResponse.CreatorInfo userDTO = new UserResponse.CreatorInfo(user);
 
         return new UserResponse.CreatorViewDTO(userDTO, codiDTOs, itemDTOs);
+    }
+
+    //유저 마이페이지
+    public UserResponse.UserMyPage userMyPage(SessionUser sessionUser) {
+        // 1. 크리에이터 정보 불러오기
+        User user = userRepository.findUsersByBlueCheckedAndPhoto(userId)
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+
+        // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
+        List<Codi> codis = codiRepository.findCodiByUserId(userId);
+
+        // 3. 코디에 연결된 아이템 및 포토 정보 가져오기
+        List<Items> itemsList = itemsRepository.findItemsByCodiIds(
+                codis.stream().map(Codi::getId).collect(Collectors.toList()));
+
+        // 4. DTO로 매핑하기
+        List<UserResponse.CodiList> codiDTOs = codis.stream()
+                .map(UserResponse.CodiList::new)
+                .collect(Collectors.toList());
+
+        List<UserResponse.ItemList> itemDTOs = itemsList.stream()
+                .map(UserResponse.ItemList::new)
+                .distinct()
+                .collect(Collectors.toList());
+
+        UserResponse.CreatorInfo userDTO = new UserResponse.CreatorInfo(user);
+
+        return new UserResponse.UserMyPage(userDTO, codiDTOs, itemDTOs);
     }
 
     // 유저 아이템, 코디 통합 검색

@@ -3,6 +3,7 @@ package com.example.finalproject.domain.items;
 import com.example.finalproject.domain.admin.Admin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +47,7 @@ public class ItemsController {
     @PostMapping("/api/register/items")
     public String itemsRegister(@RequestParam("mainCategory") String mainCategory,
                                 @RequestParam("subCategory") String subCategory,
-                                ItemsRequest.SaveDTO reqDTO) {
+                                @Valid ItemsRequest.SaveDTO reqDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         reqDTO.setMainCategory(mainCategory);
         reqDTO.setSubCategory(subCategory);
@@ -68,7 +69,7 @@ public class ItemsController {
 
     // 아이템 수정
     @PostMapping("/api/register/items-update/{itemId}")
-    public String itemsUpdate(@PathVariable("itemId") Integer itemId, ItemsRequest.UpdateDTO updateDTO) {
+    public String itemsUpdate(@Valid @PathVariable("itemId") Integer itemId, ItemsRequest.UpdateDTO updateDTO) {
         Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
         itemsService.updateItem(itemId, updateDTO, sessionBrand.getId());
         return "redirect:/api/items-manage";

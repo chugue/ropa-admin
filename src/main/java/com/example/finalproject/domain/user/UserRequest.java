@@ -37,6 +37,9 @@ public class UserRequest {
 
         @NotEmpty(message = "SNS 주소가 공백일 수 없습니다.")
         private String instagram;
+
+        @NotEmpty(message = "주소가 공백일 수 없습니다.")
+        private String address;
         private Boolean blueChecked;
         private Timestamp createdAt;
 

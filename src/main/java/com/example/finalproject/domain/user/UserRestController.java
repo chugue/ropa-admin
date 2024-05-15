@@ -81,10 +81,12 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-    @GetMapping("/app/creator-my-page/")
+    //유저 마이페이지
+    @GetMapping("/app/user-my-page")
     public ResponseEntity<?> usrMyPage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        return ResponseEntity.ok(new ApiUtil<>();
+        UserResponse.UserMyPage respDTO = userService.userMyPage(sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
     // 유저 아이템, 코디 통합 검색

@@ -16,6 +16,20 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
             "GROUP BY oh.admin.id")
     List<AdminResponse.SalesList> getTotalSalesAndFeePerBrand();
 
+    //관리자의 브랜드별 매출 브랜드명 검색 목록보기
+    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesList(oh.admin ,SUM(oh.orderItemPrice), SUM(oh.fee)) " +
+            "FROM OrderHistory oh " +
+            "where oh.admin.brandName like %:keyword% " +
+            "GROUP BY oh.admin.id")
+    List<AdminResponse.SalesList> getTotalSalesAndFeePerBrandAndBrandName(@Param("keyword") String keyword);
+
+    //관리자의 브랜드별 매출 브랜드코드 검색 목록보기
+    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesList(oh.admin ,SUM(oh.orderItemPrice), SUM(oh.fee)) " +
+            "FROM OrderHistory oh " +
+            "where cast(oh.admin.id as string) like %:keyword% " +
+            "GROUP BY oh.admin.id")
+    List<AdminResponse.SalesList> getTotalSalesAndFeePerBrandAndBrandId(@Param("keyword") String keyword);
+
     @Query("SELECT SUM(oh.orderItemPrice) FROM OrderHistory oh")
     Integer getTotalOrderItemPrice();
 

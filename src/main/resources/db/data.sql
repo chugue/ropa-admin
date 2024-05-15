@@ -51,7 +51,6 @@ VALUES ('상의', '반팔'),
 -- 아이템(Items) 더미 데이터 삽입
 INSERT INTO items_tb (admin_id, name, description, size, price, discount_price, stock, category_id, status)
 VALUES
-    -- 아이템 1부터 10
     (1, 'SCRAPPED 티셔츠(WHITE)', '힙하고 유니크한 반팔로 어느 코디에도 잘 어울립니다.', 'M', 45000, null, 100, 1, true),
     (2, 'scratch 블루 청바지', '봄, 여름, 가을 까지 계절 상관없이 힙한 룩에 잘어울리는 청바지입니다.', 'L', 32000, NULL, 50, 2, true),
     (3, 'CHAIN STITCH OPEN COLLAR HALF SHIRT_BLACK', '빈티지 무드의 자수 그래픽이 사용된 오픈 카라 셔츠입니다.', 'XL', 55000, null, 200, 3, true),
@@ -113,7 +112,6 @@ values (16, 1),
        (6, 3),
        (7, 4),
        (8, 4);
-
 
 -- 사진 테이블 더미
 insert into photo_tb (uuid_name, original_file_name, path, sort, admin_id, user_id, codi_id, items_id, created_at,

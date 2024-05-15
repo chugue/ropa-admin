@@ -13,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class CodiRestController {
-    private final HttpServletRequest request;
     private final CodiService codiService;
     private final HttpSession session;
 

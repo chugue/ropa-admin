@@ -4,6 +4,7 @@ import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception403;
 import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject._core.utils.Formatter;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import com.example.finalproject.domain.photo.PhotoService;
@@ -48,7 +49,7 @@ public class AdminService {
         int totalSalesAmount = brandOrderHistory.stream().mapToInt(AdminResponse.BrandOrderHistoryList::getTotalPrice).sum();
         int fee = (int) (totalSalesAmount * 0.1);
 
-        return new AdminResponse.BrandSalesManagement(totalSalesAmount, fee, brandOrderHistory);
+        return new AdminResponse.BrandSalesManagement(Formatter.number(totalSalesAmount), Formatter.number(fee), brandOrderHistory);
     }
 
 
@@ -66,9 +67,9 @@ public class AdminService {
     //관리자가 로그인했을 때 매출 목록보기
     public AdminResponse.AdminSalesManagement adminSalesListDTOList() {
         List<AdminResponse.SalesList> salesList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
-        int totalSalesAmount = (int) salesList.stream().mapToLong(AdminResponse.SalesList::getOrderItemPrice).sum();
+        int totalSalesAmount = orderHistoryRepository.getTotalOrderItemPrice();
         int totalFee = (int) (totalSalesAmount * 0.1);
-        return new AdminResponse.AdminSalesManagement(totalSalesAmount, totalFee, salesList);
+        return new AdminResponse.AdminSalesManagement(Formatter.number(totalSalesAmount), Formatter.number(totalFee), salesList);
     }
 
 

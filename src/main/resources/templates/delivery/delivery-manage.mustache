@@ -1,6 +1,6 @@
-{{> /layout/header}}
-{{> /layout/navbar}}
-{{> /layout/sidebar-brand}}
+{{> /_components/header}}
+{{> /_components/navbar}}
+{{> /_components/sidebar-brand}}
 
 <!-- 메인 화면 -->
 <div class="content">
@@ -27,6 +27,7 @@
                 <thead>
                 <tr>
                     <th>주문번호</th>
+                    <th>아이템명</th>
                     <th>구매자</th>
                     <th>수령인</th>
                     <th>수령인 연락처</th>
@@ -39,6 +40,7 @@
                 {{#orderDeliveryList}}
                     <tr>
                         <td>{{orderId}}</td>
+                        <td>{{itemName}}</td>
                         <td>{{userName}}</td>
                         <td>{{recipient}}</td>
                         <td>{{recipientPhoneNumber}}</td>
@@ -69,4 +71,4 @@
 </div>
 
 
-{{> /layout/footer}}
+{{> /_components/footer}}

@@ -4,9 +4,25 @@ import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Objects;
 
 public class AdminResponse {
+
+    // 관리자의 브랜드별 총 매출 및 수수료 DTO
+    @Data
+    public static class AdminSalesManagement {
+        private Integer TotalSalesAmount;
+        private Integer TotalFee;
+        private List<SalesList> adminSalesList;
+
+        public AdminSalesManagement(Integer totalSalesAmount, Integer totalFee, List<SalesList> adminSalesList) {
+            TotalSalesAmount = totalSalesAmount;
+            TotalFee = totalFee;
+            this.adminSalesList = adminSalesList;
+        }
+    }
+
     //관리자의 브랜드별 매출 목록보기
     @Data
     public static class SalesList {
@@ -33,6 +49,20 @@ public class AdminResponse {
                 this.brandPhone = admin.getPhone();
                 this.brandEmail = admin.getEmail();
             }
+        }
+    }
+
+    // 브랜드 총 매출 및 수수료 DTO
+    @Data
+    public static class BrandSalesManagement {
+        private Integer TotalSalesAmount;
+        private Integer fee;
+        private List<BrandOrderHistoryList> brandOrderHistoryList;
+
+        public BrandSalesManagement(Integer totalSalesAmount, Integer fee, List<BrandOrderHistoryList> brandOrderHistoryList) {
+            TotalSalesAmount = totalSalesAmount;
+            this.fee = fee;
+            this.brandOrderHistoryList = brandOrderHistoryList;
         }
     }
 
@@ -94,6 +124,7 @@ public class AdminResponse {
         private String instagram; // 인스타그램
         private String status; // 크리에이터 지원 현황
         private Boolean isBlueChecked; // 크리에이터 인증
+
         public CreatorList(User user) {
             this.userId = user.getId();
             this.myName = user.getMyName();

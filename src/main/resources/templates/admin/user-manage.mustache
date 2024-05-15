@@ -1,6 +1,6 @@
-{{> /layout/header}}
-{{> /layout/navbar}}
-{{> /layout/sidebar-admin}}
+{{> /_components/header}}
+{{> /_components/navbar}}
+{{> /_components/sidebar-admin}}
 
 <!-- 메인 화면 -->
 <div class="content">
@@ -15,7 +15,6 @@
                         <option>아이디</option>
                         <option>연락처</option>
                         <option>이메일</option>
-                        <option>인스타그램</option>
                     </select>
                 </div>
                 <div class="form-group mr-2">
@@ -41,9 +40,6 @@
                         <td>{{email}}</td>
                         <td>{{mobile}}</td>
                         <td>{{nickName}}</td>
-                        <td>
-                            <button class="btn btn-info">{{instagram}}</button>
-                        </td>
                         <td>{{status}}</td>
                     </tr>
                 {{/userList}}
@@ -68,4 +64,4 @@
     </div>
 </div>
 
-{{> layout/footer}}
+{{> /_components/footer}}

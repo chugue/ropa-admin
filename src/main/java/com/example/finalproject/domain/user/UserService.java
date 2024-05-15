@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +29,10 @@ public class UserService {
                 .email(reqDTO.getEmail())
                 .password(reqDTO.getPassword())
                 .nickName(reqDTO.getNickName())
+                .mobile(reqDTO.getMobile())
                 .status("신청전")
+                .instagram(reqDTO.getInstagram())
+                .address(reqDTO.getAddress())
                 .createdAt(reqDTO.getCreatedAt())
                 .blueChecked(false)
                 .build());
@@ -74,8 +78,9 @@ public class UserService {
         user.setInstagram(reqDTO.getInstagram());
         user.setIntroMsg(reqDTO.getComment());
         user.setJob(reqDTO.getJob());
-        user.setBlueChecked(true);
-        user.setStatus("승인완료");
+        user.setBlueChecked(false);
+        user.setStatus("승인 대기");
+        user.setApplyTime(LocalDateTime.now());
 
         userRepository.save(user);
 

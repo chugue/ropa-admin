@@ -3,6 +3,7 @@ package com.example.finalproject.domain.admin;
 import com.example.finalproject._core.error.exception.Exception403;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class AdminController {
 
     //로그인
     @PostMapping("/login")
-    public String login(AdminRequest.LoginDTO reqDTO) {
+    public String login(@Valid AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminService.login(reqDTO);
         if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
@@ -38,7 +39,7 @@ public class AdminController {
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")
-    public String join(AdminRequest.JoinDTO reqDTO) {
+    public String join(@Valid AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
 
         session.setAttribute("sessionBrand", admin);
@@ -64,9 +65,9 @@ public class AdminController {
         if (sessionAdmin == null) {
             throw new Exception403("잘못된 접근입니다.");
         }
-        List<AdminResponse.SalesList> orderHistoryList = adminService.adminSalesListDTOList();
+        AdminResponse.AdminSalesManagement adminSalesManagement = adminService.adminSalesListDTOList();
 
-        req.setAttribute("orderHistoryList", orderHistoryList);
+        req.setAttribute("adminSalesManagement", adminSalesManagement);
         return "sales/admin-sales-manage";
     }
 
@@ -76,8 +77,8 @@ public class AdminController {
                                    @RequestParam(value = "endDate", required = false) LocalDateTime endDate,
                                    HttpServletRequest reqDTO) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
-        List<AdminResponse.BrandOrderHistoryList> orderHistoryList = adminService.brandOrderHistory(sessionAdmin.getId(), startDate, endDate);
-        reqDTO.setAttribute("orderHistoryList", orderHistoryList);
+        AdminResponse.BrandSalesManagement brandSalesManagement = adminService.brandOrderHistory(sessionAdmin.getId(), startDate, endDate);
+        reqDTO.setAttribute("brandSalesManagement", brandSalesManagement);
         return "sales/brand-sales-manage";
     }
 
@@ -89,19 +90,21 @@ public class AdminController {
         return "admin/user-manage";
     }
 
+    // 크리에이터 관리 페이지
     @GetMapping("/api/creator-manage")
     public String creatorManage(HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
         List<AdminResponse.CreatorList> creatorList = adminService.creatorList();
-        req.setAttribute("creatorList",creatorList);
+        req.setAttribute("creatorList", creatorList);
 
         return "admin/creator-manage";
     }
 
+
     @PostMapping("/approve-creators/{userId}")
     public String approveCreatorStatus(@PathVariable Integer userId) {
         adminService.approveCreatorStatus(userId);
-        return "redirect:/api/user-manage";
+        return "redirect:/api/creator-manage";
     }
 
     @PostMapping("/reject-creators/{userId}")

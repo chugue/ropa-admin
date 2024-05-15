@@ -3,9 +3,10 @@ package com.example.finalproject.domain.order;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
-import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.cart.CartRepository;
+import com.example.finalproject.domain.codiItems.CodiItems;
+import com.example.finalproject.domain.codiItems.CodiItemsRepository;
 import com.example.finalproject.domain.delivery.Delivery;
 import com.example.finalproject.domain.delivery.DeliveryRepository;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
@@ -20,7 +21,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,7 +30,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderHistoryRepository orderHistoryRepository;
     private final DeliveryRepository deliveryRepository;
-    private final AdminRepository adminRepository;
+    private final CodiItemsRepository codiItemsRepository;
 
     // TODO : 배송지 정보 저장 체크해서 true일경우 조회해서 뿌리고 false면은 칸 비워주기
     // 주문 + 배송지 + 결제 설정 페이지
@@ -84,8 +84,7 @@ public class OrderService {
         // 사용자 아이디로 모든 카트 찾기
         List<Cart> carts = cartRepository.findAllByUserIdWithAdmin(userId);
 
-        // 배송지 정보 저장 => 주문하면 배송중 상태 => 배송전 상태가 있으면 구현할 로직 많아짐
-        // 관리자가 배송전 상태 체크해서 확인눌려서 배송중 상태 만들어야함.
+        // 배송지 정보 저장
         Delivery delivery = deliveryRepository.save(Delivery.builder()
                 .recipient(reqDTO.getName())
                 .postalCode(reqDTO.getPostCode())
@@ -98,7 +97,7 @@ public class OrderService {
                 .startDate(Timestamp.from(Instant.now()))
                 .build());
 
-        // Order 테이블 여기서 생성 결제 + 배송정보 같이 저장
+        // Order 테이블 생성
         Order order = orderRepository.save(Order.builder()
                 .user(user)
                 .delivery(delivery)
@@ -110,8 +109,35 @@ public class OrderService {
                 .orderDate(Timestamp.from(Instant.now())).build());
 
         List<OrderHistory> orderHistories = new ArrayList<>();
+
         // 카트를 OrderHistory테이블로 옮기기
         carts.forEach(cart -> {
+            // 카트에 있는 아이템의 아이디 값과 코디에 등록된 아이템의 아이디 값을 비교하여 처리
+            Integer cartItemId = cart.getItems().getId();
+            boolean isCodiItem = codiItemsRepository.existsByItemId(cartItemId);
+
+            User creator;
+            Admin brandAdmin;
+
+            if (isCodiItem) {
+                // 코디 아이템인 경우
+                CodiItems codiItems = codiItemsRepository.findByItemId(cartItemId);
+                creator = codiItems.getCodi().getUser();
+                brandAdmin = cart.getItems().getAdmin();
+
+                int creatorMileage = (int) (cart.getTotalAmount() * 0.05);
+                int brandMileage = (int) (cart.getTotalAmount() * 0.05);
+
+                creator.setMileage(creator.getMileage() + creatorMileage);
+                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+            } else {
+                // 코디 아이템이 아닌 경우
+                brandAdmin = cart.getItems().getAdmin();
+                int brandMileage = (int) (cart.getTotalAmount() * 0.1);
+                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+            }
+
+            // OrderHistory 테이블에 저장
             orderHistories.add(orderHistoryRepository.save(OrderHistory.builder()
                     .admin(cart.getItems().getAdmin())
                     .order(order)
@@ -119,34 +145,7 @@ public class OrderService {
                     .orderItemPrice(cart.getTotalAmount())
                     .orderItemQty(cart.getQuantity())
                     .fee(order.getFee()).build()));
-
-            List<Integer> creatorIds = userRepository.findCreatorByItemId(cart.getItems().getId());
-            creatorIds.forEach(creatorId -> {
-                Optional<User> OptionalCreator = userRepository.findById(creatorId);
-                Optional<Admin> optionalAdmin = adminRepository.findFirst();
-
-                if (OptionalCreator.isPresent() && optionalAdmin.isPresent()) {
-                    User creatorUser = OptionalCreator.get();
-                    // 크리에이터의 마일리지 업데이트
-                    int commissionUser = (int) (cart.getTotalAmount() * 0.05); // 수수료 계산
-                    creatorUser.setMileage(creatorUser.getMileage() + commissionUser);
-                    userRepository.save(creatorUser);
-
-                    Admin admin = optionalAdmin.get();
-                    int commissionAdmin = (int) (cart.getTotalAmount() * 0.05); // 수수료 계산
-                    admin.setMileage(admin.getMileage() + commissionAdmin);
-                    adminRepository.save(admin);
-                } else {
-                    if (optionalAdmin.isPresent()) {
-                        Admin admin = optionalAdmin.get();
-                        int commissionAdmin = (int) (cart.getTotalAmount() * 0.1); // 수수료 계산
-                        admin.setMileage(admin.getMileage() + commissionAdmin);
-                        adminRepository.save(admin);
-                    }
-                }
-            });
         });
-
 
         // 카트 비우기
         cartRepository.deleteAll(carts);

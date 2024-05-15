@@ -76,7 +76,7 @@ VALUES
 -- 장바구니 더미데이터
 INSERT INTO cart_tb (user_id, items_id, quantity, total_amount)
 VALUES (1, 15, 2, 200000),
-       (1, 12, 1, 100000),
+       (1, 16, 1, 100000),
        (2, 3, 3, 300000),
        (2, 4, 1, 50000),
        (2, 5, 1, 75000),

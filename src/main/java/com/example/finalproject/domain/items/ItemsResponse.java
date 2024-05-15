@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.items;
 
+import com.example.finalproject._core.utils.Formatter;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
 
@@ -67,14 +68,14 @@ public class ItemsResponse {
     public static class list {
         private Integer itemId;
         private String itemName;
-        private Integer price;
+        private String price;
         private String mainCategory;
         private Integer stock;
 
         public list(Items items) {
             this.itemId = items.getId();
             this.itemName = items.getName();
-            this.price = items.getPrice();
+            this.price = Formatter.number(items.getPrice());
             this.mainCategory = items.getCategory().getMain();
             this.stock = items.getStock();
         }

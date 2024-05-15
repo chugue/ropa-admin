@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -64,10 +63,17 @@ public class AdminService {
     }
 
     //관리자가 로그인했을 때 매출 목록보기
-    public AdminResponse.AdminSalesManagement adminSalesListDTOList() {
-        List<AdminResponse.SalesList> salesList = orderHistoryRepository.getTotalSalesAndFeePerBrand();
+    public AdminResponse.AdminSalesManagement adminSalesListDTOList(String searchBy, String keyword) {
+
+        List<AdminResponse.SalesList> salesList = switch (searchBy) {
+            case "adminId" -> orderHistoryRepository.getTotalSalesAndFeePerBrandAndBrandId(keyword);
+            case "brandName" -> orderHistoryRepository.getTotalSalesAndFeePerBrandAndBrandName(keyword);
+            case null, default -> orderHistoryRepository.getTotalSalesAndFeePerBrand();
+        };
+
         int totalSalesAmount = (int) salesList.stream().mapToLong(AdminResponse.SalesList::getOrderItemPrice).sum();
         int totalFee = (int) (totalSalesAmount * 0.1);
+
         return new AdminResponse.AdminSalesManagement(totalSalesAmount, totalFee, salesList);
     }
 
@@ -94,8 +100,13 @@ public class AdminService {
     }
 
     // 크리에이터 관리 페이지
-    public List<AdminResponse.CreatorList> creatorList() {
-        List<User> userList = userRepository.findAll(); // 모든 User를 찾아옵니다.
+    public List<AdminResponse.CreatorList> creatorList(String searchBy, String keyword) {
+        List<User> userList = switch (searchBy) {
+            case "myName" -> userRepository.findByMyName(keyword);
+            case "nickName" -> userRepository.findByNickName(keyword);
+            case "email" -> userRepository.findByEmail(keyword);
+            case null, default -> userRepository.findAll();
+        };
 
         // Stream API를 사용하여 필터링 및 매핑을 진행합니다.
         return userList.stream()
@@ -112,9 +123,14 @@ public class AdminService {
     }
 
 
-    // 유저 크리에이터 인증 관리
-    public List<AdminResponse.UserList> getUserList() {
-        List<User> userList = userRepository.findAll();
+    // 유저 관리
+    public List<AdminResponse.UserList> getUserList(String searchBy, String keyword) {
+        List<User> userList = switch (searchBy) {
+            case "myName" -> userRepository.findByMyName(keyword);
+            case "nickName" -> userRepository.findByNickName(keyword);
+            case "email" -> userRepository.findByEmail(keyword);
+            case null, default -> userRepository.findAll();
+        };
         return userList.stream().map(AdminResponse.UserList::new).toList();
     }
 

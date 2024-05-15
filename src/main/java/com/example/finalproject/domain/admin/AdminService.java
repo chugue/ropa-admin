@@ -100,8 +100,13 @@ public class AdminService {
     }
 
     // 크리에이터 관리 페이지
-    public List<AdminResponse.CreatorList> creatorList() {
-        List<User> userList = userRepository.findAll(); // 모든 User를 찾아옵니다.
+    public List<AdminResponse.CreatorList> creatorList(String searchBy, String keyword) {
+        List<User> userList = switch (searchBy) {
+            case "myName" -> userRepository.findByMyName(keyword);
+            case "nickName" -> userRepository.findByNickName(keyword);
+            case "email" -> userRepository.findByEmail(keyword);
+            case null, default -> userRepository.findAll();
+        };
 
         // Stream API를 사용하여 필터링 및 매핑을 진행합니다.
         return userList.stream()
@@ -118,9 +123,14 @@ public class AdminService {
     }
 
 
-    // 유저 크리에이터 인증 관리
-    public List<AdminResponse.UserList> getUserList() {
-        List<User> userList = userRepository.findAll();
+    // 유저 관리
+    public List<AdminResponse.UserList> getUserList(String searchBy, String keyword) {
+        List<User> userList = switch (searchBy) {
+            case "myName" -> userRepository.findByMyName(keyword);
+            case "nickName" -> userRepository.findByNickName(keyword);
+            case "email" -> userRepository.findByEmail(keyword);
+            case null, default -> userRepository.findAll();
+        };
         return userList.stream().map(AdminResponse.UserList::new).toList();
     }
 

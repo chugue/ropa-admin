@@ -84,19 +84,17 @@ public class AdminController {
 
     // 회원 관리 페이지
     @GetMapping("/api/user-manage")
-    public String userManage(HttpServletRequest request) {
-        List<AdminResponse.UserList> userList = adminService.getUserList();
+    public String userManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest request) {
+        List<AdminResponse.UserList> userList = adminService.getUserList(searchBy, keyword);
         request.setAttribute("userList", userList);
         return "admin/user-manage";
     }
 
     // 크리에이터 관리 페이지
     @GetMapping("/api/creator-manage")
-    public String creatorManage(HttpServletRequest req) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<AdminResponse.CreatorList> creatorList = adminService.creatorList();
+    public String creatorManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest req) {
+        List<AdminResponse.CreatorList> creatorList = adminService.creatorList(searchBy, keyword);
         req.setAttribute("creatorList", creatorList);
-
         return "admin/creator-manage";
     }
 

@@ -177,9 +177,6 @@ public class PhotoService {
         List<Integer> popularCodiIdes = popularCodies.stream().map(codiLoveCount -> codiLoveCount.getCodiId()).toList();
         List<Photo> popularCodiPhotos = photoRepository.findByCodiIds(popularCodiIdes);
 
-        // 시연영상용으로 최신순 아이템
-//        List<Photo> popularItemsPhotos = photoRepository.finAllOrderBy();
-
         return new PhotoResponse.Home(popularUserPhotos, popularItemsPhotos, popularCodiPhotos);
     }
 

@@ -20,6 +20,23 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
             "GROUP BY oh.admin.id")
     List<AdminResponse.SalesList> getTotalSalesAndFeePerBrand();
 
+    //관리자의 브랜드별 매출 브랜드명 검색 목록보기
+    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesList(oh.admin ,SUM(oh.orderItemPrice), SUM(oh.fee)) " +
+            "FROM OrderHistory oh " +
+            "where oh.admin.brandName like %:keyword% " +
+            "GROUP BY oh.admin.id")
+    List<AdminResponse.SalesList> getTotalSalesAndFeePerBrandAndBrandName(@Param("keyword") String keyword);
+
+    //관리자의 브랜드별 매출 브랜드코드 검색 목록보기
+    @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesList(oh.admin ,SUM(oh.orderItemPrice), SUM(oh.fee)) " +
+            "FROM OrderHistory oh " +
+            "where cast(oh.admin.id as string) like %:keyword% " +
+            "GROUP BY oh.admin.id")
+    List<AdminResponse.SalesList> getTotalSalesAndFeePerBrandAndBrandId(@Param("keyword") String keyword);
+
+    @Query("SELECT SUM(oh.orderItemPrice) FROM OrderHistory oh")
+    Integer getTotalOrderItemPrice();
+
     //관리자의 매출 목록
     @Query("select oh from OrderHistory oh join FETCH oh.order where oh.admin.id = :adminId")
     List<OrderHistory> findOrderHistoryByAdminIdWithOrder(@Param("adminId") int adminId);
@@ -27,6 +44,11 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
     //브랜드의 매출 목록
     @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items WHERE oh.admin.id = :adminId")
     List<OrderHistory> findByAdminIdWithItems(@Param("adminId") int adminId);
+
+    // 브랜드 총 매출
+    @Query("SELECT SUM(oh.orderItemPrice) FROM OrderHistory oh JOIN oh.items i WHERE oh.admin.id = :adminId")
+    Integer findByAdminAndOrderItemPrice(@Param("adminId") int adminId);
+
 
     //브랜드의 매출 기간 검색 목록
     @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items i join fetch oh.order o WHERE oh.admin.id = :adminId and o.orderDate BETWEEN :startDate AND :endDate")

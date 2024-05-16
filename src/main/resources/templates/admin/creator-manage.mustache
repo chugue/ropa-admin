@@ -8,26 +8,25 @@
     <div class="card">
         <div class="card-body">
             <!-- 검색 폼 -->
-            <form class="form-inline search-form float-right mb-3">
+            <form action="/api/user-manage" method="get" class="form-inline search-form float-right mb-3">
                 <div class="form-group mr-2">
-                    <select class="form-control">
-                        <option selected>이름</option>
-                        <option>아이디</option>
-                        <option>연락처</option>
-                        <option>이메일</option>
-                        <option>인스타그램</option>
+                    <select class="form-control" name="searchBy">
+                        <option value="myName">이름</option>
+                        <option value="nickName">닉네임</option>
+                        <option value="email">이메일</option>
                     </select>
                 </div>
                 <div class="form-group mr-2">
-                    <input type="text" class="form-control" placeholder="검색명">
+                    <input type="text" class="form-control" placeholder="검색명" name="keyword">
                 </div>
                 <button type="submit" class="btn btn-primary">검색</button>
             </form>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>아이디</th>
+                    <th>이름</th>
                     <th>닉네임</th>
+                    <th>이메일</th>
                     <th>인스타그램</th>
                     <th>크리에이터 신청</th>
                     <th>승인</th>
@@ -37,22 +36,24 @@
                 <tbody>
                 {{#creatorList}}
                     <tr>
-                        <td>{{email}}</td>
+                        <td>{{myName}}</td>
                         <td>{{nickName}}</td>
+                        <td>{{email}}</td>
                         <td>
-                            <a href="https://onthelook.co.kr/user/{{instagram}}" class="btn btn-info" target="_blank">{{instagram}}</a>
+                            <a href="https://onthelook.co.kr/user/{{instagram}}" class="btn btn-info"
+                               target="_blank">{{instagram}}</a>
                         </td>
                         <td>{{status}}</td>
-                            <td>
-                                <form method="post" action="/approve-creators/{{userId}}">
-                                    <button class="btn btn-success">승인</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form method="post" action="/reject-creators/{{userId}}">
-                                    <button class="btn btn-danger">거절</button>
-                                </form>
-                            </td>
+                        <td>
+                            <form method="post" action="/approve-creators/{{userId}}">
+                                <button class="btn btn-success">승인</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="/reject-creators/{{userId}}">
+                                <button class="btn btn-danger">거절</button>
+                            </form>
+                        </td>
                     </tr>
                 {{/creatorList}}
                 </tbody>

@@ -40,17 +40,24 @@ public class CodiService {
     private final String uploadPath = "./upload/";
 
     //코디 등록 페이지 - 아이템 연결
-    public List<CodiResponse.BrandInfo> addItemPage() {
+    public List<CodiResponse.BrandInfo> addItemPage(String category) {
         //모든 브랜드 정보 불러오기
-        List<Admin> admins = adminRepository.findAdminByPhoto();
 
-        //브랜드 기준으로 본인이 올린 아이템 정보 불러오기
-        List<CodiResponse.BrandInfo> respList = admins.stream().map(admin -> {
-            List<Items> adminItems = itemsRepository.findByAdminItemsAndPhotos(admin.getId());
-            return new CodiResponse.BrandInfo(admin, adminItems);
-        }).toList();
-        return respList;
+        List<Items> itemsList = itemsRepository.findTopItemsWithAdminAndPhoto(category);
+        // Admin 별로 Items 리스트를 그룹화
+        Map<Integer, List<Items>> adminItemMap = itemsList.stream()
+                .collect(Collectors.groupingBy(item -> Integer.valueOf(item.getAdmin().getId())));
+
+        // 그룹화된 데이터를 기반으로 BrandInfo 리스트 생성
+        return adminItemMap.entrySet().stream()
+                .map(entry -> {
+                    Admin admin = entry.getValue().get(0).getAdmin();
+                    List<Items> adminItemList = entry.getValue();
+                    return new CodiResponse.BrandInfo(admin, adminItemList);
+                })
+                .collect(Collectors.toList());
     }
+
 
     // 로그인 안한 사용자용 코디보기 페이지 - 공개된 페이지
     public CodiResponse.OpenMainView codiOpenPage(Integer codiId) {

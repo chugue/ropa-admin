@@ -23,7 +23,22 @@ VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별�
         '신청 전', FALSE, 0),
        ('kimsuhyun@example.com', '1234', 'kimsuhyun', '김수현', '인천광역시 남동구', '010-5555-5555', '180cm', '85kg', '학생',
         '키크고 덩치가 있는 체형', 'soohyun_k216',
-        '신청 전', FALSE, 5000);
+        '신청 전', FALSE, 5000),
+       ('wehajun@example.com', '1234', 'wehajun', '위하준', '서울특별시 강남구', '010-5555-5555', '180cm', '75kg', '직장인',
+        '연예인 체형', 'wi__wi__wi',
+        '승인', TRUE, 3000),
+       ('jisung@example.com', '1234', 'jisung', '지성', '서울특별시 노원구', '010-5555-5555', '180cm', '75kg', '직장인',
+        '상체가 있는 체형', 'justin_jisung',
+        '승인', TRUE, 3000),
+       ('hwangminhyun@example.com', '1234', 'hwangminhyun', '황민현', ' 남동구', '010-5555-5555', '178cm', '72kg', '학생',
+        '평범한 체형', 'optimushwang',
+        '승인', TRUE, 3000),
+       ('seokangjoon@example.com', '1234', 'seokangjoon', '서강준', '인천광역시 남동구', '010-5555-5555', '182cm', '75kg', '학생',
+        '모델 체형', 'seokj1012',
+        '승인', TRUE, 3000),
+       ('kimheechul@example.com', '1234', 'kimheechul', '김희철', '인천광역시 남동구', '010-5555-5555', '176cm', '65kg', '직장인',
+        '하체가 길어 키가 커보이는 체형', 'kimheenim',
+        '승인', TRUE, 3000);
 
 -- 카테고리 테이블 더미
 INSERT INTO category_tb (main, sub)
@@ -124,6 +139,11 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_사용자사진3', '사용자사진3', '/upload/user/user3.webp', 'USER', null, 3, null, null, NOW(), true),
        ('uuid_사용자사진4', '사용자사진4', '/upload/user/user4.webp', 'USER', null, 4, null, null, NOW(), true),
        ('uuid_사용자사진5', '사용자사진5', '/upload/user/user5.webp', 'USER', null, 5, null, null, NOW(), true),
+       ('uuid_사용자사진6', '사용자사진6', '/upload/user/user6.webp', 'USER', null, 6, null, null, NOW(), true),
+       ('uuid_사용자사진7', '사용자사진7', '/upload/user/user7.webp', 'USER', null, 7, null, null, NOW(), true),
+       ('uuid_사용자사진8', '사용자사진8', '/upload/user/user8.webp', 'USER', null, 8, null, null, NOW(), true),
+       ('uuid_사용자사진9', '사용자사진9', '/upload/user/user9.webp', 'USER', null, 9, null, null, NOW(), true),
+       ('uuid_사용자사진10', '사용자사진10', '/upload/user/user10.webp', 'USER', null, 10, null, null, NOW(), true),
        ('uuid_코디사진1', '코디사진1', '/upload/codi/codi-1.jpg', 'CODI', null, null, 1,
         null, NOW(), true),
        ('uuid_코디사진2', '코디사진2', '/upload/codi/codi-1-1.jpg', 'CODI', null, null, 1,

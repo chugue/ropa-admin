@@ -133,6 +133,19 @@ public class UserService {
         return new UserResponse.UserMyPage(user, sumOrderItemQty);
     }
 
+    //크리에이터 마이페이지
+    public UserResponse.CreatorMyPage creatorMyPage(SessionUser sessionUser) {
+        // 1. 유저 정보 불러오기
+        User user = userRepository.findUsersByBlueCheckedAndPhoto(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+
+        // 2. 주문 총 량 찾아오기
+        Integer sumOrderItemQty =  orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));
+
+        // 3. UserResponse.UserMyPage 객체 생성 및 반환
+        return new UserResponse.UserMyPage(user, sumOrderItemQty);
+    }
+
     // 유저 아이템, 코디 통합 검색
     public UserResponse.SearchPage searchPage(String keyword) {
         List<Codi> codiList;

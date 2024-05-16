@@ -98,6 +98,29 @@ public class AdminService {
         return admin;
     }
 
+    // 회원정보 수정
+    @Transactional
+    public void update(AdminRequest.UpdateDTO reqDTO, Integer userId) {
+        Admin admin = adminRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("사용자 아이디를 찾을 수 없습니다."));
+
+        admin.setEmail(reqDTO.getEmail());
+        admin.setPassword(reqDTO.getPassword());
+        admin.setBrandName(reqDTO.getBrandName());
+        admin.setPhone(reqDTO.getPhone());
+        admin.setAddress(reqDTO.getAddress());
+        admin.setBusinessNum(reqDTO.getBusinessNum());
+
+        adminRepository.save(admin);
+    }
+
+    // 회원 정보 확인
+    public AdminResponse.UserInfo getUserInfo(Integer userId) {
+        Admin admin = adminRepository.findById(userId)
+                .orElseThrow(() -> new Exception404("사용자 아이디를 찾을 수 없습니다."));
+        return new AdminResponse.UserInfo(admin);
+    }
+
     // 크리에이터 관리 페이지
     public List<AdminResponse.CreatorList> creatorList(String searchBy, String keyword) {
         List<User> userList = switch (searchBy) {

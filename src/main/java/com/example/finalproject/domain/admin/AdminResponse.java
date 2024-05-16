@@ -74,14 +74,14 @@ public class AdminResponse {
         private Integer orderHistoryId;
         private Integer itemsId;
         private String itemsName;
-        private Integer totalPrice;
+        private String totalPrice;
         private Integer totalQuantity;
 
         public BrandOrderHistoryList(OrderHistory orderHistory) {
             this.orderHistoryId = orderHistory.getId();
             this.itemsId = orderHistory.getItems().getId();
             this.itemsName = orderHistory.getItems().getName();
-            this.totalPrice = orderHistory.getOrderItemPrice();
+            this.totalPrice = Formatter.number(orderHistory.getOrderItemPrice());
             this.totalQuantity = orderHistory.getOrderItemQty();
         }
     }

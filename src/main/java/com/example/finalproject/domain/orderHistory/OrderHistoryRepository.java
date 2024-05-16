@@ -41,6 +41,11 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Inte
     @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items WHERE oh.admin.id = :adminId")
     List<OrderHistory> findByAdminIdWithItems(@Param("adminId") int adminId);
 
+    // 브랜드 총 매출
+    @Query("SELECT SUM(oh.orderItemPrice) FROM OrderHistory oh JOIN oh.items i WHERE oh.admin.id = :adminId")
+    Integer findByAdminAndOrderItemPrice(@Param("adminId") int adminId);
+
+
     //브랜드의 매출 기간 검색 목록
     @Query("SELECT oh FROM OrderHistory oh JOIN FETCH oh.items i join fetch oh.order o WHERE oh.admin.id = :adminId and o.orderDate BETWEEN :startDate AND :endDate")
     List<OrderHistory> findByAdminIdWithItemsAndDate(@Param("adminId") int adminId, @Param("startDate") Timestamp startDate, @Param("endDate") Timestamp endDate);

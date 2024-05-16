@@ -80,10 +80,10 @@ public class CartService {
     }
 
     // 사용자 장바구니의 모든 아이템 삭제
-    @Transactional
-    public void clearCart(Integer userId) {
-        // 해당 사용자의 모든 장바구니 아이템을 조회
-        List<Cart> userCartItems = cartRepository.findAllByUserId(userId);
-        cartRepository.deleteAll(userCartItems);
-    }
+//    @Transactional
+//    public void clearCart(Integer userId) {
+//        // 해당 사용자의 모든 장바구니 아이템을 조회
+//        List<Cart> userCartItems = cartRepository.findAllByUserId(userId);
+//        cartRepository.deleteAll(userCartItems);
+//    }
 }

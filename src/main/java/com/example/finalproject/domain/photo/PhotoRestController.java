@@ -13,7 +13,7 @@ public class PhotoRestController {
     private final PhotoService  photoService;
 
     // 검색 페이지 기본 정보 요청 : 코디탭 + 아이템 탭
-    @GetMapping("/app/main-search-page")
+    @GetMapping("/main-search-page")
     public ResponseEntity<?> searchPage () {
         PhotoResponse.GetSearchPage respDTO = photoService.getSearchPage();
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

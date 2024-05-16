@@ -3,6 +3,7 @@ package com.example.finalproject.domain.admin;
 import com.example.finalproject._core.error.exception.Exception403;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class AdminController {
 
     //로그인
     @PostMapping("/login")
-    public String login(AdminRequest.LoginDTO reqDTO) {
+    public String login(@Valid AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminService.login(reqDTO);
         if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
@@ -38,7 +39,7 @@ public class AdminController {
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")
-    public String join(AdminRequest.JoinDTO reqDTO) {
+    public String join(@Valid AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
 
         session.setAttribute("sessionBrand", admin);
@@ -59,12 +60,12 @@ public class AdminController {
 
     // 관리자 매출관리 페이지
     @GetMapping("/api/admin-sales-manage")
-    public String adminSalesManage(HttpServletRequest req) {
+    public String adminSalesManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest req) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
         if (sessionAdmin == null) {
             throw new Exception403("잘못된 접근입니다.");
         }
-        AdminResponse.AdminSalesManagement adminSalesManagement = adminService.adminSalesListDTOList();
+        AdminResponse.AdminSalesManagement adminSalesManagement = adminService.adminSalesListDTOList(searchBy, keyword);
 
         req.setAttribute("adminSalesManagement", adminSalesManagement);
         return "sales/admin-sales-manage";
@@ -83,19 +84,17 @@ public class AdminController {
 
     // 회원 관리 페이지
     @GetMapping("/api/user-manage")
-    public String userManage(HttpServletRequest request) {
-        List<AdminResponse.UserList> userList = adminService.getUserList();
+    public String userManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest request) {
+        List<AdminResponse.UserList> userList = adminService.getUserList(searchBy, keyword);
         request.setAttribute("userList", userList);
         return "admin/user-manage";
     }
 
     // 크리에이터 관리 페이지
     @GetMapping("/api/creator-manage")
-    public String creatorManage(HttpServletRequest req) {
-        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
-        List<AdminResponse.CreatorList> creatorList = adminService.creatorList();
+    public String creatorManage(String searchBy, @RequestParam(defaultValue = "") String keyword, HttpServletRequest req) {
+        List<AdminResponse.CreatorList> creatorList = adminService.creatorList(searchBy, keyword);
         req.setAttribute("creatorList", creatorList);
-
         return "admin/creator-manage";
     }
 

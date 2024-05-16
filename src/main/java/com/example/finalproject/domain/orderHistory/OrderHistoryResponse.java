@@ -1,11 +1,13 @@
 package com.example.finalproject.domain.orderHistory;
 
+import com.example.finalproject._core.utils.Formatter;
 import com.example.finalproject.domain.delivery.Delivery;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderHistoryResponse {
 
@@ -17,9 +19,9 @@ public class OrderHistoryResponse {
         private String userPhone;
         private Integer itemId;
         private String itemName;
-        private Integer price;
+        private String price;
         private Integer count;
-        private Integer totalPrice;
+        private String totalPrice;
         private String orderDate;
 
         public orderList(OrderHistory orderHistory) {
@@ -28,9 +30,9 @@ public class OrderHistoryResponse {
             this.userPhone = orderHistory.getOrder().getUser().getMobile();
             this.itemId = orderHistory.getItems().getId();
             this.itemName = orderHistory.getItems().getName();
-            this.price = orderHistory.getItems().getPrice();
+            this.price = Formatter.number(orderHistory.getItems().getPrice());
             this.count = orderHistory.getOrderItemQty();
-            this.totalPrice = orderHistory.getOrderItemPrice();
+            this.totalPrice = Formatter.number(orderHistory.getOrderItemPrice());
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             this.orderDate = dateFormat.format(orderHistory.getOrder().getOrderDate());
         }
@@ -57,7 +59,11 @@ public class OrderHistoryResponse {
             this.status = delivery.getStatus();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             this.orderDate = dateFormat.format(delivery.getStartDate());
-            this.endDate = dateFormat.format(delivery.getEndDate());
+            if (Objects.equals(status, "배송중")) {
+                this.endDate = "";
+            } else {
+                this.endDate = dateFormat.format(delivery.getEndDate());
+            }
         }
     }
 

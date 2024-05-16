@@ -93,7 +93,7 @@ public class PhotoResponse {
             public ItemsPhoto(Photo photo, com.example.finalproject.domain.admin.Admin admin) {
                 this.photoId = photo.getId();
                 this.itemsId = photo.getItems().getId();
-                this.name = photo.getUuidName();
+                this.name = photo.getItems().getName();
                 this.base64 = photo.toBase64(photo);
                 this.sort = photo.getSort();
                 this.adminInfo = new AdminInfo(admin);

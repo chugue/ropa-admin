@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.admin;
 
+import com.example.finalproject._core.utils.Formatter;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.user.User;
 import lombok.Data;
@@ -12,11 +13,11 @@ public class AdminResponse {
     // 관리자의 브랜드별 총 매출 및 수수료 DTO
     @Data
     public static class AdminSalesManagement {
-        private Integer TotalSalesAmount;
-        private Integer TotalFee;
+        private String TotalSalesAmount;
+        private String TotalFee;
         private List<SalesList> adminSalesList;
 
-        public AdminSalesManagement(Integer totalSalesAmount, Integer totalFee, List<SalesList> adminSalesList) {
+        public AdminSalesManagement(String totalSalesAmount, String totalFee, List<SalesList> adminSalesList) {
             TotalSalesAmount = totalSalesAmount;
             TotalFee = totalFee;
             this.adminSalesList = adminSalesList;
@@ -27,13 +28,13 @@ public class AdminResponse {
     @Data
     public static class SalesList {
         private AdminInfo admin;
-        private Long orderItemPrice;
-        private Double fee;
+        private String orderItemPrice;
+        private String fee;
 
         public SalesList(Admin admin, Long orderItemPrice, Double fee) {
             this.admin = new AdminInfo(admin);
-            this.orderItemPrice = orderItemPrice;
-            this.fee = fee;
+            this.orderItemPrice = Formatter.number(Math.toIntExact(orderItemPrice));
+            this.fee = Formatter.number(fee.intValue());
         }
 
         @Data
@@ -55,11 +56,11 @@ public class AdminResponse {
     // 브랜드 총 매출 및 수수료 DTO
     @Data
     public static class BrandSalesManagement {
-        private Integer TotalSalesAmount;
-        private Integer fee;
+        private String TotalSalesAmount;
+        private String fee;
         private List<BrandOrderHistoryList> brandOrderHistoryList;
 
-        public BrandSalesManagement(Integer totalSalesAmount, Integer fee, List<BrandOrderHistoryList> brandOrderHistoryList) {
+        public BrandSalesManagement(String totalSalesAmount, String fee, List<BrandOrderHistoryList> brandOrderHistoryList) {
             TotalSalesAmount = totalSalesAmount;
             this.fee = fee;
             this.brandOrderHistoryList = brandOrderHistoryList;
@@ -73,14 +74,14 @@ public class AdminResponse {
         private Integer orderHistoryId;
         private Integer itemsId;
         private String itemsName;
-        private Integer totalPrice;
+        private String totalPrice;
         private Integer totalQuantity;
 
         public BrandOrderHistoryList(OrderHistory orderHistory) {
             this.orderHistoryId = orderHistory.getId();
             this.itemsId = orderHistory.getItems().getId();
             this.itemsName = orderHistory.getItems().getName();
-            this.totalPrice = orderHistory.getOrderItemPrice();
+            this.totalPrice = Formatter.number(orderHistory.getOrderItemPrice());
             this.totalQuantity = orderHistory.getOrderItemQty();
         }
     }

@@ -3,6 +3,7 @@ package com.example.finalproject.domain.inquiry;
 import com.example.finalproject.domain.admin.Admin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +39,9 @@ public class InquiryController {
 
     // 문의 답변 업데이트
     @PostMapping("/api/inquiry-reply-update")
-    public String inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO) {
+    public String inquiryReplyUpdate(@Valid InquiryRequest.ReplyDTO reqDTO) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
         inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
-        return "redirect:/api/inquiry-reply/" + reqDTO.getInquiryId();
+        return "redirect:/api/inquiry-manage";
     }
 }

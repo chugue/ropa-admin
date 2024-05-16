@@ -2,6 +2,10 @@ package com.example.finalproject.domain.order;
 
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.user.User;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -37,14 +41,29 @@ public class OrderRequest {
 
     @Data
     public static class SaveOrder {
+        @NotEmpty(message = "주문자 이름은 공백 일 수 없습니다.")
         private String name;
+
+        @NotEmpty(message = "전화번호가 공백일 수 없습니다")
+        @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식이 올바르지 않습니다")
         private String phone;
+
+        @NotEmpty(message = "이메일이 공백일 수 없습니다")
+        @Email(message = "올바른 이메일 형식이어야 합니다")
         private String email;
+
+        @NotEmpty(message = "우편번호가 공백 일 수 없습니다")
         private String postCode;
+
+        @NotEmpty(message = "주소가 공백일 수 없습니다.")
         private String address;
+
+        @NotEmpty(message = "주소가 공백일 수 없습니다.")
         private String detailAddress;
         private String deliveryRequest;
         private Boolean isBaseAddress;
+
+        @NotEmpty(message = "결제정보를 정해 주셔야 합니다.")
         private PurchaseInfo purchaseInfo;
 
         public SaveOrder(String name, String phone, String email, String postCode, String address, String detailAddress, String deliveryRequest, Boolean isBaseAddress, PurchaseInfo purchaseInfo) {

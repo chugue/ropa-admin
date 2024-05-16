@@ -51,7 +51,6 @@ VALUES ('상의', '반팔'),
 -- 아이템(Items) 더미 데이터 삽입
 INSERT INTO items_tb (admin_id, name, description, size, price, discount_price, stock, category_id, status)
 VALUES
-    -- 아이템 1부터 10
     (1, 'SCRAPPED 티셔츠(WHITE)', '힙하고 유니크한 반팔로 어느 코디에도 잘 어울립니다.', 'M', 45000, null, 100, 1, true),
     (2, 'scratch 블루 청바지', '봄, 여름, 가을 까지 계절 상관없이 힙한 룩에 잘어울리는 청바지입니다.', 'L', 32000, NULL, 50, 2, true),
     (3, 'CHAIN STITCH OPEN COLLAR HALF SHIRT_BLACK', '빈티지 무드의 자수 그래픽이 사용된 오픈 카라 셔츠입니다.', 'XL', 55000, null, 200, 3, true),
@@ -75,8 +74,8 @@ VALUES
 
 -- 장바구니 더미데이터
 INSERT INTO cart_tb (user_id, items_id, quantity, total_amount)
-VALUES (1, 16, 2, 200000),
-       (1, 19, 1, 100000),
+VALUES (1, 15, 2, 200000),
+       (1, 16, 1, 100000),
        (2, 3, 3, 300000),
        (2, 4, 1, 50000),
        (2, 5, 1, 75000),
@@ -105,7 +104,7 @@ values (1, '바캉스룩', '여름 바캉스 갈때 입기 좋은 룩입니다.'
 
 -- 코디랑 아이템을 연결해주는 테이블
 insert into codi_items_tb (items_id, codi_id)
-values (1, 1),
+values (16, 1),
        (2, 1),
        (3, 2),
        (4, 2),
@@ -113,7 +112,6 @@ values (1, 1),
        (6, 3),
        (7, 4),
        (8, 4);
-
 
 -- 사진 테이블 더미
 insert into photo_tb (uuid_name, original_file_name, path, sort, admin_id, user_id, codi_id, items_id, created_at,
@@ -202,13 +200,13 @@ VALUES ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인1', '12345'
        ('배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인2', '54321', '경기도 분당구', '판교로 456번길', '010-2222-2222'),
        ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인3', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333');
 
-
+-- 주문(Order) 더미 데이터 삽입
 INSERT INTO order_tb (user_id, delivery_id, purchase_amount, fee, order_date, delivery_type, pay_method)
 VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
        (2, 2, 75000, 7500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
        (3, 3, 100000, 10000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT');
 
--- 주문(Order) 더미 데이터 삽입
+
 INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)
 VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋겠는데  혹시 안 되나요?.', '출시 예정 제품 있습니다! 1월 27일 11:00부로 상품 구매 가능합니다!', 1, 1,
         '2024-01-26 11:30:00', '2024-01-25 11:30:00'),
@@ -224,13 +222,13 @@ VALUES (true, '상품 문의', '상품이 반팔도 셔츠도 입고 되면 좋�
 
 -- 주문 상세(OrderHistory) 더미 데이터 삽입
 INSERT INTO order_history_tb (admin_id, order_id, items_id, order_item_qty, order_item_price, fee)
-VALUES (1, 2, 1, 2, 100000, 10000),
-       (2, 3, 2, 1, 75000, 7500),
-       (1, 1, 1, 3, 300000, 30000),
-       (3, 2, 3, 2, 150000, 15000),
-       (2, 1, 5, 8, 225000, 22500),
-       (3, 3, 3, 2, 200000, 20000),
-       (1, 1, 6, 1, 50000, 5000),
-       (2, 2, 2, 3, 75000, 7500),
-       (1, 3, 7, 4, 400000, 40000),
-       (3, 1, 10, 2, 200000, 20000);
+VALUES (1, 2, 1, 2, 90000, 9000),
+       (2, 3, 2, 1, 32000, 3200),
+       (1, 1, 1, 3, 135000, 13500),
+       (3, 2, 3, 2, 110000, 11000),
+       (2, 1, 5, 8, 600000, 60000),
+       (3, 3, 3, 2, 110000, 11000),
+       (1, 1, 6, 1, 80000, 8000),
+       (2, 2, 2, 3, 96000, 9600),
+       (1, 3, 7, 4, 236000, 23600),
+       (3, 1, 10, 2, 100000, 10000);

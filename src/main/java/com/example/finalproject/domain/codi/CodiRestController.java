@@ -4,6 +4,7 @@ import com.example.finalproject._core.utils.ApiUtil;
 import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class CodiRestController {
-    private final HttpServletRequest request;
     private final CodiService codiService;
     private final HttpSession session;
 
@@ -36,7 +36,7 @@ public class CodiRestController {
 
     // 앱] 코디 등록
     @PostMapping("/app/codi-register")
-    public ResponseEntity<?> codiRegister(@RequestBody CodiRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> codiRegister(@Valid  @RequestBody CodiRequest.SaveDTO reqDTO) {
         CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

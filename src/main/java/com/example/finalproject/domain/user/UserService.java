@@ -133,6 +133,38 @@ public class UserService {
         return new UserResponse.UserMyPage(user, sumOrderItemQty);
     }
 
+    //크리에이터 마이페이지
+    public UserResponse.CreatorMyPage creatorMyPage(SessionUser sessionUser) {
+        // 1. 유저 정보 불러오기
+        User user = userRepository.findUsersByBlueCheckedAndPhoto(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+
+        // 2. 주문 총 량 찾아오기
+        Integer sumOrderItemQty =  orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));
+
+        // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
+        List<Codi> codis = codiRepository.findCodiByUserId(sessionUser.getId());
+
+        // 3. 코디에 연결된 아이템 및 포토 정보 가져오기
+        List<Items> itemsList = itemsRepository.findItemsByCodiIds(
+                codis.stream().map(Codi::getId).collect(Collectors.toList()));
+
+        // 4. DTO로 매핑하기
+        List<UserResponse.MyCodiList> codiDTOs = codis.stream()
+                .map(UserResponse.MyCodiList::new)
+                .collect(Collectors.toList());
+
+        List<UserResponse.ItemList> itemDTOs = itemsList.stream()
+                .map(UserResponse.ItemList::new)
+                .distinct()
+                .collect(Collectors.toList());
+
+        UserResponse.CreatorMyInfo creatorInfoDTO = new UserResponse.CreatorMyInfo(user,sumOrderItemQty);
+
+        // 3. UserResponse.UserMyPage 객체 생성 및 반환
+        return new UserResponse.CreatorMyPage(creatorInfoDTO,codiDTOs,itemDTOs);
+    }
+
     // 유저 아이템, 코디 통합 검색
     public UserResponse.SearchPage searchPage(String keyword) {
         List<Codi> codiList;

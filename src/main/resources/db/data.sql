@@ -169,11 +169,11 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_아이템사진8서브', '아이템사진서브사진8', '/upload/items/item08/detail01.jpg', 'ITEM', null, null, null, 8, NOW(), false),
        ('uuid_아이템사진8서브', '아이템사진서브사진8', '/upload/items/item08/detail02.jpg', 'ITEM', null, null, null, 8, NOW(), false),
        ('uuid_아이템사진8서브', '아이템사진서브사진8', '/upload/items/item08/detail03.jpg', 'ITEM', null, null, null, 8, NOW(), false),
-       ('uuid_아이템사진9', '아이템사진사진9', '/upload/items/item09/mainItemPhoto.jpg', 'ITEM', null, null, null, 9, NOW(), true),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail01.jpg', 'ITEM', null, null, null, 9, NOW(), false),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail02.jpg', 'ITEM', null, null, null, 9, NOW(), false),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail03.jpg', 'ITEM', null, null, null, 9, NOW(), false),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail04.jpg', 'ITEM', null, null, null, 9, NOW(), false);
+       ('uuid_아이템사진9', '아이템사진사진9', '/upload/items/item09/mainItemPhoto.jpg', 'ITEM', null, null, null, 19, NOW(), true),
+       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail01.jpg', 'ITEM', null, null, null, 19, NOW(), false),
+       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail02.jpg', 'ITEM', null, null, null, 19, NOW(), false),
+       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail03.jpg', 'ITEM', null, null, null, 19, NOW(), false),
+       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail04.jpg', 'ITEM', null, null, null, 19, NOW(), false);
 
 
 -- 좋아요 기능

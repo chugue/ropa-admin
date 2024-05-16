@@ -1,15 +1,55 @@
 package com.example.finalproject.domain.photo;
 
+import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.items.Items;
 import lombok.Data;
-import org.apache.tomcat.util.codec.binary.Base64;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class PhotoResponse {
+
+    @Data
+    public static class GetSearchPage{
+        private List<CodiPhoto> codiPhotos;
+        private List<ItemPhoto> itemPhotos;
+
+        public GetSearchPage(List<Codi> codiPhotos, List<Items> itemsPhotos) {
+            this.codiPhotos = codiPhotos.stream().map(CodiPhoto::new).toList();
+            this.itemPhotos = itemsPhotos.stream().map(ItemPhoto::new).toList();
+        }
+        @Data
+        private class CodiPhoto{
+            private Integer photoId;
+            private Integer codiId;
+            private String codiBase64;
+
+            public CodiPhoto(Codi codi) {
+                this.photoId = codi.getPhotos().getFirst().getId();
+                this.codiId = codi.getId();
+                this.codiBase64 = codi.getPhotos().getFirst()
+                        .toBase64(codi.getPhotos().getFirst());
+            }
+        }
+
+        @Data
+        private class ItemPhoto{
+            private Integer itemsId;
+            private String itemName;
+            private String itemDescription;
+            private Integer itemPrice;
+            private Integer photoId;
+            private String base64;
+
+            public ItemPhoto(Items items) {
+                this.itemsId = items.getId();
+                this.itemName = items.getName();
+                this.itemDescription = items.getDescription();
+                this.itemPrice = items.getPrice();
+                this.photoId = items.getPhotos().getFirst().getId();
+                this.base64 = items.getPhotos().getFirst().toBase64(items.getPhotos().getFirst());
+            }
+        }
+    }
 
     @Data
     public static class Home {

@@ -1,7 +1,10 @@
 package com.example.finalproject.domain.photo;
 
 import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.codi.CodiRepository;
 import com.example.finalproject.domain.items.Items;
+import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.love.LoveRepository;
 import com.example.finalproject.domain.love.LoveResponse;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
@@ -27,7 +30,18 @@ public class PhotoService {
     private final PhotoRepository photoRepository;
     private final OrderHistoryRepository orderHistoryRepository;
     private final LoveRepository loveRepository;
+    private final CodiRepository codiRepository;
+    private final ItemsRepository itemsRepository;
     private final String uploadPath = "./upload/";
+
+
+    // 검색화면 코디탭 아이템탭 정보 가져오기
+    public PhotoResponse.GetSearchPage getSearchPage() {
+        List<Codi> codiPhotos = codiRepository.findAllByOrderByDateDescWithPhoto();
+        List<Items> itemsPhotos = itemsRepository.findAllByOrderByDateDescWithPhoto();
+
+        return new PhotoResponse.GetSearchPage(codiPhotos, itemsPhotos);
+    }
 
     // 회원가입 사진 업로드
     @Transactional
@@ -214,4 +228,6 @@ public class PhotoService {
                 .isMainPhoto(false)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
     }
+
+
 }

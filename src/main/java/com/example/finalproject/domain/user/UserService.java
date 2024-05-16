@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.user;
 
 import com.example.finalproject._core.error.exception.Exception401;
+import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiRepository;
 import com.example.finalproject.domain.codi.CodiResponse;
@@ -34,11 +35,7 @@ public class UserService {
                 .email(reqDTO.getEmail())
                 .password(reqDTO.getPassword())
                 .nickName(reqDTO.getNickName())
-                .mobile(reqDTO.getMobile())
                 .status("신청전")
-                .instagram(reqDTO.getInstagram())
-                .address(reqDTO.getAddress())
-                .createdAt(reqDTO.getCreatedAt())
                 .blueChecked(false)
                 .build());
         return user;
@@ -47,7 +44,7 @@ public class UserService {
     // 앱 사용자 로그인
     public User login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+                .orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
         return user;
     }
 

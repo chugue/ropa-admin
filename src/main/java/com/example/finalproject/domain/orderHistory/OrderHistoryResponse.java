@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderHistoryResponse {
 
@@ -58,7 +59,11 @@ public class OrderHistoryResponse {
             this.status = delivery.getStatus();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             this.orderDate = dateFormat.format(delivery.getStartDate());
-            this.endDate = dateFormat.format(delivery.getEndDate());
+            if (Objects.equals(status, "배송중")) {
+                this.endDate = "";
+            } else {
+                this.endDate = dateFormat.format(delivery.getEndDate());
+            }
         }
     }
 

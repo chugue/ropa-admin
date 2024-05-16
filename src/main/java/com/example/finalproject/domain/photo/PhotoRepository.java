@@ -40,4 +40,7 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
 
     @Query("select p from Photo p join fetch p.items i where p.isMainPhoto = true order by p.id desc")
     List<Photo> finAllOrderBy();
+
+    @Query("select p from Photo p where p.admin.id = :adminId")
+    Optional<Photo> findByAdminId(@Param("adminId") Integer adminId);
 }

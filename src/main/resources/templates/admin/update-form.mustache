@@ -13,7 +13,7 @@
                     <form action="/api/admin-update" method="post" enctype="multipart/form-data">
 
                         <div class="form-group">
-                            <img class="card-img-top" id="imgPreview1" src="/images/add-image.png">
+                            <img class="card-img-top" id="imgPreview1" src="{{userInfo.imgPath}}">
                             <div class="input-group mt-3">
                                 <input type="file" class="form-control" data-preview-target="imgPreview1"
                                        onchange="previewImage(this, 'imgPreview1')" name="brandImage">

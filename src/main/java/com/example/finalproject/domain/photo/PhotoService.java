@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -43,25 +44,25 @@ public class PhotoService {
         return new PhotoResponse.GetSearchPage(codiPhotos, itemsPhotos);
     }
 
-    // 회원가입 사진 업로드
+    // 브랜드 가입 사진 업로드
     @Transactional
     public void uploadBrandImage(MultipartFile brandImage, Admin admin) {
         if (brandImage == null || brandImage.isEmpty()) {
             return;
         }
-
+        String brandPath = "admin/" + admin.getBrandName().toLowerCase();
         // 파일명 중복 방지를 위해 UUID 사용
         String imgFilename = UUID.randomUUID() + "_" + brandImage.getOriginalFilename();
         // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
         // 파일이름이랑 개방된 폴더를 조합해서 경로 생성
-        Path imgPath = Paths.get(uploadPath + imgFilename);
-
+        Path imgPath = Paths.get(uploadPath, brandPath, imgFilename);
         //파일 저장 (fileWrite)
         //파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구한다.
+
         validationCheckAndSave(brandImage, imgPath);
 
         //DB저장 전 DB전용으로 경로 수정
-        String dbPath = "/upload" + imgFilename;
+        String dbPath = "/upload/" + brandPath + "/" + imgFilename;
 
         // Base64는 디코딩해서 던져주고, MultiPartForm은 getBytes로 꺼냄
         Photo photo = photoRepository.save(Photo.builder()
@@ -72,6 +73,61 @@ public class PhotoService {
                 .sort(Photo.Sort.BRAND)
                 .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
                 .createdAt(Timestamp.from(Instant.now())).build());
+    }
+
+
+
+    // 브랜드 회원 정보 업데이트
+    @Transactional
+    public void updateBrandImage(MultipartFile brandImage, Admin admin) {
+        if (brandImage == null || brandImage.isEmpty()) {
+            return;
+        }
+
+        // admin ID로 사진을 조회
+        Optional<Photo> existingPhotoOpt = photoRepository.findByAdminId(admin.getId());
+
+        String brandPath = "admin/" + admin.getBrandName().toLowerCase();
+        String imgFilename = UUID.randomUUID() + "_" + brandImage.getOriginalFilename();
+        Path imgPath = Paths.get(uploadPath, brandPath, imgFilename);
+
+        // 기존 사진이 있는 경우
+        if (existingPhotoOpt.isPresent()) {
+            Photo existingPhoto = existingPhotoOpt.get();
+
+            // 파일 이름이 다를 경우에만 파일을 저장
+            if (!brandImage.getOriginalFilename().equals(existingPhoto.getOriginalFileName())) {
+                validationCheckAndSave(brandImage, imgPath);
+            }
+
+            // 경로 업데이트
+            String dbPath = "/upload/" + brandPath + "/" + imgFilename;
+
+            // 기존 사진 업데이트
+            existingPhoto.setPath(dbPath);
+            existingPhoto.setUuidName(imgFilename);
+            existingPhoto.setOriginalFileName(brandImage.getOriginalFilename());
+            existingPhoto.setUpdateAt(Timestamp.from(Instant.now())); // update 시간을 기록하려면 이 필드가 필요함
+
+            // 업데이트된 사진을 저장
+            photoRepository.save(existingPhoto);
+        } else {
+            // 새로운 사진 등록
+            validationCheckAndSave(brandImage, imgPath);
+
+            String dbPath = "/upload/" + brandPath + "/" + imgFilename;
+
+            // 새로운 사진 객체 생성 및 저장
+            photoRepository.save(Photo.builder()
+                    .admin(admin)
+                    .path(dbPath)
+                    .uuidName(imgFilename)
+                    .originalFileName(brandImage.getOriginalFilename())
+                    .sort(Photo.Sort.BRAND)
+                    .isMainPhoto(true)  // 대표 사진이라면 꼭 true로 설정
+                    .createdAt(Timestamp.from(Instant.now()))
+                    .build());
+        }
     }
 
     // 아이템 메인 사진 업로드
@@ -129,6 +185,8 @@ public class PhotoService {
     @Transactional
     protected void validationCheckAndSave(MultipartFile image, Path imgPath) {
         try {
+
+            Files.createDirectories(imgPath.getParent());
             Files.write(imgPath, image.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);

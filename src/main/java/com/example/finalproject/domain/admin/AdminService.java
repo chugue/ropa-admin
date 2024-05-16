@@ -111,12 +111,14 @@ public class AdminService {
         admin.setAddress(reqDTO.getAddress());
         admin.setBusinessNum(reqDTO.getBusinessNum());
 
-        adminRepository.save(admin);
+        Admin savedAdmin = adminRepository.save(admin);
+        photoService.updateBrandImage(reqDTO.getBrandImage(), savedAdmin);
+
     }
 
     // 회원 정보 확인
     public AdminResponse.UserInfo getUserInfo(Integer userId) {
-        Admin admin = adminRepository.findById(userId)
+        Admin admin = adminRepository.findByIdWithPhoto(userId)
                 .orElseThrow(() -> new Exception404("사용자 아이디를 찾을 수 없습니다."));
         return new AdminResponse.UserInfo(admin);
     }

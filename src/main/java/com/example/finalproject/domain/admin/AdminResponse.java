@@ -148,6 +148,7 @@ public class AdminResponse {
         private String email;
         private String password;
         private String brandName;
+        private String imgPath;
         private String phone;
         private String address;
         private String businessNum;
@@ -157,6 +158,7 @@ public class AdminResponse {
             this.email = admin.getEmail();
             this.password = admin.getPassword();
             this.brandName = admin.getBrandName();
+            this.imgPath = admin.getPhoto().getPath();
             this.phone = admin.getPhone();
             this.address = admin.getAddress();
             this.businessNum = admin.getBusinessNum();

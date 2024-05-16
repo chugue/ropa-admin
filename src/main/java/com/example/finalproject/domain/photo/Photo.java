@@ -95,6 +95,8 @@ public class Photo {
     }
 
 
+
+
     // 경로에 있는 사진을 읽어서 base64로 전환
     public String toBase64(Photo photo){
         String currentDir = System.getProperty("user.dir");

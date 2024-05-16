@@ -50,42 +50,38 @@ VALUES ('상의', '반팔'),
        ('하의', '청바지'),
        ('상의', '니트'),
        ('하의', '청바지'),
-       ('상의', '청 셔츠'),
-       ('상의', '맨투맨'),
-       ('상의', '셔츠'),
-       ('상의', '맨투맨'),
-       ('하의', '슬랙스'),
-       ('상의', '맨투맨'),
-       ('하의', '반바지'),
+       ('상의', '크롭 숏 가디건 자켓'),
        ('하의', '슬랙스'),
        ('상의', '셔츠'),
-       ('하의', '반바지'),
-       ('상의', '셔츠'),
-       ('상의', '남방');
+       ('상의', '티셔츠'),
+       ('하의', '슬랙스'),
+       ('상의', '반팔 니트 가디건'),
+       ('하의', '슬랙스'),
+       ('상의', '라운드 니트'),
+       ('하의', '슬랙스');
+
 
 -- 아이템(Items) 더미 데이터 삽입
 INSERT INTO items_tb (admin_id, name, description, size, price, discount_price, stock, category_id, status)
 VALUES
     (1, 'SCRAPPED 티셔츠(WHITE)', '힙하고 유니크한 반팔로 어느 코디에도 잘 어울립니다.', 'M', 45000, null, 100, 1, true),
-    (2, 'scratch 블루 청바지', '봄, 여름, 가을 까지 계절 상관없이 힙한 룩에 잘어울리는 청바지입니다.', 'L', 32000, NULL, 50, 2, true),
-    (3, 'CHAIN STITCH OPEN COLLAR HALF SHIRT_BLACK', '빈티지 무드의 자수 그래픽이 사용된 오픈 카라 셔츠입니다.', 'XL', 55000, null, 200, 3, true),
-    (1, '나일론 립스탑 유틸리티 팬츠_BLACK', '현대식 디자인에 맞춘 카고 팬츠입니다.', 'M', 50000, null, 100, 4, true),
-    (2, 'crop cable sweater', '방모 원사임에도 모달이 섞여 기분좋은 찰랑거림이 있는게 매력적입니다.', 'L', 75000, NULL, 50, 5, true),
+    (1, 'scratch 블루 청바지', '봄, 여름, 가을 까지 계절 상관없이 힙한 룩에 잘어울리는 청바지입니다.', 'L', 32000, NULL, 50, 2, true),
+    (2, 'CHAIN STITCH OPEN COLLAR HALF SHIRT_BLACK', '빈티지 무드의 자수 그래픽이 사용된 오픈 카라 셔츠입니다.', 'XL', 55000, null, 200, 3, true),
+    (2, '나일론 립스탑 유틸리티 팬츠_BLACK', '현대식 디자인에 맞춘 카고 팬츠입니다.', 'M', 50000, null, 100, 4, true),
+    (3, 'crop cable sweater', '방모 원사임에도 모달이 섞여 기분좋은 찰랑거림이 있는게 매력적입니다.', 'L', 75000, NULL, 50, 5, true),
     (3, '라이트블루 데님팬츠', '셀비지 원단으로 만들어진 라이트 불루 데님.', 'XL', 80000, null, 200, 6, true),
     (1, 'Bulky wool full zip knit', '고급스러운 컬러감을 선택하여 단품으로도 한겨울에 이너로도 활용도가 높은 아이템.', 'L', 59000, null, 100, 7, true),
-    (2, 'Two Tuck Wide Black Jeans', '투턱 디테일과 사선 포켓 활용으로 입체적인 핏 감의 네츄럴한 무드 연출.', 'L', 32000, NULL, 50, 8, true),
-    (3, '데님 셔츠', 'Basic하면서 유니크한 디자인으로 기본으로 입어도 좋고 이너로 입어도 잘 어울리는 셔츠입니다.', 'L', 43000, null, 200, 9, true),
-    (1, '아이템10', '이 아이템은 아주 좋습니다.', 'M', 50000, null, 100, 10, true),
-    (2, '아이템11', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, 50, 11, true),
-    (3, '아이템12', '이 아이템은 제일 좋습니다.', 'XL', 100000, null, 200, 12, true),
-    (1, '아이템13', '이 아이템은 아주 좋습니다.', 'M', 50000, null, 100, 13, true),
-    (2, '아이템14', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, 50, 14, true),
-    (3, '아이템15', '이 아이템은 제일 좋습니다.', 'XL', 100000, null, 200, 15, true),
-    (1, '아이템16', '이 아이템은 아주 좋습니다.', 'M', 50000, null, 100, 16, true),
-    (2, '아이템17', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, 50, 17, true),
-    (3, '아이템18', '이 아이템은 제일 좋습니다.', 'XL', 100000, null, 200, 18, true),
-    (1, '아이템19', '이 아이템은 아주 좋습니다.', 'M', 50000, null, 100, 19, true),
-    (2, '아이템20', '이 아이템은 더 좋습니다.', 'L', 75000, NULL, 50, 20, true);
+    (1, 'Two Tuck Wide Black Jeans', '투턱 디테일과 사선 포켓 활용으로 입체적인 핏 감의 네츄럴한 무드 연출.', 'L', 32000, NULL, 50, 8, true),
+    (2, '크롭 숏 가디건 자켓', 'Basic하면서 유니크한 디자인으로 기본으로 입어도 좋고 이너로 입어도 잘 어울리는 가디건입니다.', 'L', 75000, null, 200, 9, true),
+    (2, '투턱 세미 와이드 슬랙스', '투턱 와이드의 정석으로 어느 상의와도 매치하기 좋습니다.', 'M', 50000, null, 100, 10, true),
+    (2, '오버핏 미니멀 셔츠 남방', '미니멀 셔츠 남방으로 이너로도 입기 좋고 쌀쌀 할 때 가디건 하나 걸쳐도 잘어룰리는 룩입니다.', 'L', 43000, NULL, 50, 11, true),
+    (3, '오버핏 무지 티셔츠', '간절기에 입기 좋은 무지 티셔츠입니다.', 'XL', 43000, null, 200, 12, true),
+    (3, '코튼 면팬츠 와이드 슬랙스', '코튼 면팬츠 와이드 슬랙스의 정석으로 어느 상의와도 잘 어룰리는 와이드 슬랙스 입니다.', 'M', 50000, null, 100, 13, true),
+    (1, '반팔 니트 가디건', '여름에 입을 수 있는 가디건으로 이너와 아우터로 착용 가능합니다.', 'L', 75000, NULL, 50, 14, true),
+    (1, '핀턱 와이드 슬랙스 팬츠', '핀턱이 잡혀있고 재질이 얇아 여름에 입기 좋은 상품입니다.', 'XL', 50000, null, 200, 15, true),
+    (2, '긴팔 라운드 니트', '간절기에 입기 좋은 재질로 구성됐습니다.', 'L', 50000, null, 100, 16, true),
+    (2, '다리가 길어보이는 투턱 세미 와이드 슬랙스 팬츠', '다리가 길어보이는 투턱 세미 와이드 팬츠로 어느룩에든 잘 어울립니다.', 'L', 75000, NULL, 50, 17, true);
+
 
 -- 장바구니 더미데이터
 INSERT INTO cart_tb (user_id, items_id, quantity, total_amount)
@@ -102,19 +98,15 @@ VALUES (1, 15, 2, 200000),
 
 -- 코디 테이블 더미
 insert into codi_tb (user_id, title, description, created_at)
-values (1, '바캉스룩', '여름 바캉스 갈때 입기 좋은 룩입니다.', NOW()),
-       (1, '시크한 대학 선배 룩', '힙하게 이미지가 강렬하게 보이고 싶을 때 추천드리는 룩입니다.', NOW()),
-       (3, '잘생긴 연하남룩', '톤온톤 매치로 보편적이지 않은 매치지만 기본 디자인으로 꾸안꾸 느낌의 룩입니다.', NOW()),
+values (3, '잘생긴 연하남룩', '톤온톤 매치로 보편적이지 않은 매치지만 기본 디자인으로 꾸안꾸 느낌의 룩입니다.', NOW()),
        (3, '집 앞 꾸안꾸 룩', '집 앞 카페에 갈 때 꾸민듯 안꾸민듯의 정석인 룩입니다.', NOW()),
-       (2, '코디5', '좋은 코디입니다.', NOW()),
-       (2, '코디6', '좋은 코디입니다.', NOW()),
-       (2, '코디7', '좋은 코디입니다.', NOW()),
-       (1, '코디8', '좋은 코디입니다.', NOW()),
-       (1, '코디9', '좋은 코디입니다.', NOW()),
-       (1, '코디10', '좋은 코디입니다.', NOW()),
-       (4, '코디11', '좋은 코디입니다.', NOW()),
-       (4, '코디12', '좋은 코디입니다.', NOW()),
-       (4, '코디13', '좋은 코디입니다.', NOW());
+       (6, '남친룩의 정석', '전형적인 봄의 남자의 정석 룩 입니다.', NOW()),
+       (7, '간절기 바캉스룩', '선선하니 바닷가에 놀러갈 때 입기 좋은 룩입니다.', NOW()),
+       (8, '톤온톤 남친룩', '부담스럽지 않게 자연스럽게 스며 들 수 있는 꾸안 꾸 룩입니다.', NOW()),
+       (9, '잘생긴 복학생 룩', '복학생 선배가 트랜드에 뒤쳐지지 않아 보이는 룩 입니다.', NOW()),
+       (10, '바캉스룩', '여름 바캉스 갈때 입기 좋은 룩입니다.', NOW()),
+       (10, '시크한 대학 선배 룩', '힙하게 이미지가 강렬하게 보이고 싶을 때 추천드리는 룩입니다.', NOW());
+
 
 
 -- 코디랑 아이템을 연결해주는 테이블
@@ -126,7 +118,16 @@ values (16, 1),
        (5, 3),
        (6, 3),
        (7, 4),
-       (8, 4);
+       (8, 4),
+       (9, 5),
+       (10, 5),
+       (11, 5),
+       (12, 6),
+       (13, 6),
+       (14, 7),
+       (15, 7),
+       (16, 8),
+       (17, 8);
 
 -- 사진 테이블 더미
 insert into photo_tb (uuid_name, original_file_name, path, sort, admin_id, user_id, codi_id, items_id, created_at,
@@ -155,6 +156,14 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_코디사진6', '코디사진6', '/upload/codi/codi-3-1.webp', 'CODI', null, null, 3, null, NOW(), false),
        ('uuid_코디사진7', '코디사진7', '/upload/codi/codi-4.webp', 'CODI', null, null, 4, null, NOW(), true),
        ('uuid_코디사진8', '코디사진8', '/upload/codi/codi-4-1.webp', 'CODI', null, null, 4, null, NOW(), false),
+       ('uuid_코디사진5', '코디사진5', '/upload/codi/user-6-codi.jpg', 'CODI', null, null, 5, null, NOW(), true),
+       ('uuid_코디서브사진5', '코디서브사진5', '/upload/codi/user-6-codi-detail.jpg', 'CODI', null, null, 5, null, NOW(), false),
+       ('uuid_코디사진6', '코디사진6', '/upload/codi/user-7-codi.jpg', 'CODI', null, null, 6, null, NOW(), true),
+       ('uuid_코디서브사진6', '코디서브사진6', '/upload/codi/user-7-codi-detail.jpg', 'CODI', null, null, 6, null, NOW(), false),
+       ('uuid_코디사진7', '코디사진7', '/upload/codi/user-8-codi.jpg', 'CODI', null, null, 7, null, NOW(), true),
+       ('uuid_코디서브사진7', '코디서브사진7', '/upload/codi/user-8-codi-detail.jpg', 'CODI', null, null, 7, null, NOW(), false),
+       ('uuid_코디사진8', '코디사진8', '/upload/codi/user-9-codi.jpg', 'CODI', null, null, 8, null, NOW(), true),
+       ('uuid_코디서브사진8', '코디서브사진8', '/upload/codi/user-9-codi-detail.jpg', 'CODI', null, null, 8, null, NOW(), false),
        ('uuid_아이템사진1', '아이템사진1', '/upload/items/item01/mainItemPhoto.jpg', 'ITEM', null, null, null, 1, NOW(), true),
        ('uuid_아이템사진1서브', '아이템서브사진1', '/upload/items/item01/detail01.jpg', 'ITEM', null, null, null, 1, NOW(), false),
        ('uuid_아이템사진1서브', '아이템서브사진1', '/upload/items/item01/detail02.jpg', 'ITEM', null, null, null, 1, NOW(), false),
@@ -187,12 +196,24 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_아이템사진8서브', '아이템사진서브사진8', '/upload/items/item08/detail01.jpg', 'ITEM', null, null, null, 8, NOW(), false),
        ('uuid_아이템사진8서브', '아이템사진서브사진8', '/upload/items/item08/detail02.jpg', 'ITEM', null, null, null, 8, NOW(), false),
        ('uuid_아이템사진8서브', '아이템사진서브사진8', '/upload/items/item08/detail03.jpg', 'ITEM', null, null, null, 8, NOW(), false),
-       ('uuid_아이템사진9', '아이템사진사진9', '/upload/items/item09/mainItemPhoto.jpg', 'ITEM', null, null, null, 9, NOW(), true),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail01.jpg', 'ITEM', null, null, null, 9, NOW(), false),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail02.jpg', 'ITEM', null, null, null, 9, NOW(), false),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail03.jpg', 'ITEM', null, null, null, 9, NOW(), false),
-       ('uuid_아이템사진9서브', '아이템사진서브사진9', '/upload/items/item09/detail04.jpg', 'ITEM', null, null, null, 9, NOW(), false);
-
+       ('uuid_아이템사진9', '아이템사진9', '/upload/items/item09/mainItemPhoto.jpg', 'ITEM', null, null, null, 9, NOW(), true),
+       ('uuid_아이템사진9서브', '아이템서브사진9', '/upload/items/item09/detail01.jpg', 'ITEM', null, null, null, 9, NOW(), false),
+       ('uuid_아이템사진10', '아이템사진10', '/upload/items/item10/mainItemPhoto.jpg', 'ITEM', null, null, null, 10, NOW(), true),
+       ('uuid_아이템사진10서브', '아이템서브사진10', '/upload/items/item10/detail01.jpg', 'ITEM', null, null, null, 10, NOW(), false),
+       ('uuid_아이템사진11', '아이템사진11', '/upload/items/item11/mainItemPhoto.jpg', 'ITEM', null, null, null, 11, NOW(), true),
+       ('uuid_아이템사진서브11', '아이템서브사진11', '/upload/items/item11/detail01.jpg', 'ITEM', null, null, null, 11, NOW(), false),
+       ('uuid_아이템사진12', '아이템사진12', '/upload/items/item12/mainItemPhoto.jpg', 'ITEM', null, null, null, 12, NOW(), true),
+       ('uuid_아이템사진12서브', '아이템서브사진12', '/upload/items/item12/detail01.jpg', 'ITEM', null, null, null, 12, NOW(), false),
+       ('uuid_아이템사진13', '아이템사진13', '/upload/items/item13/mainItemPhoto.jpg', 'ITEM', null, null, null, 13, NOW(), true),
+       ('uuid_아이템사진13서브', '아이템서브사진13', '/upload/items/item13/detail01.jpg', 'ITEM', null, null, null, 13, NOW(), false),
+       ('uuid_아이템사진14', '아이템사진14', '/upload/items/item14/mainItemPhoto.jpg', 'ITEM', null, null, null, 14, NOW(), true),
+       ('uuid_아이템사진14서브', '아이템서브사진14', '/upload/items/item14/detail01.jpg', 'ITEM', null, null, null, 14, NOW(), false),
+       ('uuid_아이템사진15', '아이템사진15', '/upload/items/item15/mainItemPhoto.jpg', 'ITEM', null, null, null, 15, NOW(), true),
+       ('uuid_아이템사진15서브', '아이템서브사진15', '/upload/items/item15/detail01.jpg', 'ITEM', null, null, null, 15, NOW(), false),
+       ('uuid_아이템사진16', '아이템사진16', '/upload/items/item16/mainItemPhoto.jpg', 'ITEM', null, null, null, 16, NOW(), true),
+       ('uuid_아이템사진16서브', '아이템서브사진16', '/upload/items/item16/detail01.jpg', 'ITEM', null, null, null, 16, NOW(), false),
+       ('uuid_아이템사진17', '아이템사진17', '/upload/items/item17/mainItemPhoto.jpg', 'ITEM', null, null, null, 17, NOW(), true),
+       ('uuid_아이템사진17서브', '아이템서브사진17', '/upload/items/item17/detail01.jpg', 'ITEM', null, null, null, 17, NOW(), false);
 
 -- 좋아요 기능
 insert into love_tb (user_id, codi_id, is_loved)

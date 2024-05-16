@@ -70,17 +70,13 @@ public class CodiResponse {
     @Data
     public static class BrandInfo {
         private Integer brandId;
-        private String brandName;
         private Integer photoId;
-        private String photoName;
         private String base64;
         private List<ItemInfo> itemInfo;
 
         public BrandInfo(Admin admin, List<Items> items) {
             this.brandId = admin.getId();
-            this.brandName = admin.getBrandName();
             this.photoId = admin.getPhoto().getId();
-            this.photoName = admin.getPhoto().getUuidName();
             this.base64 = admin.getPhoto().toBase64(admin.getPhoto());
             this.itemInfo = items.stream().map(ItemInfo::new).toList();
         }
@@ -89,16 +85,12 @@ public class CodiResponse {
         public static class ItemInfo {
             private Integer itemId;
             private String itemName;
-            private String photoName;
             private String base64;
-            private Boolean isMainPhoto;
 
             public ItemInfo(Items items) {
                 this.itemId = items.getId();
                 this.itemName = items.getName();
-                this.photoName = items.getPhotos().getFirst().getUuidName();
                 this.base64 = items.getPhotos().getFirst().toBase64(items.getPhotos().getFirst());
-                this.isMainPhoto = items.getPhotos().getFirst().getIsMainPhoto();
             }
         }
     }

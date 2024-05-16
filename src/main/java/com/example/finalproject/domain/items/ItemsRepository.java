@@ -54,4 +54,11 @@ public interface ItemsRepository extends JpaRepository<Items, Integer> {
 
     @Query("select i from Items i join fetch i.photos p where p.isMainPhoto = true order by i.id desc")
     List<Items> findAllByOrderByDateDescWithPhoto();
+
+    // 카테고리별 모든 아이템 조회
+    @Query("select it from Items it join fetch it.admin a join fetch it.photos p join fetch a.photo ap " +
+            "where p.isMainPhoto = true and it.id in (select i.id from Items i where i.category.main = :category)")
+    List<Items> findTopItemsWithAdminAndPhoto(@Param("category") String category);
+
+
 }

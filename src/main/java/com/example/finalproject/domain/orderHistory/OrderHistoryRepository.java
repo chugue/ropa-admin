@@ -7,8 +7,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Integer> {
+    //
+    @Query("SELECT CAST(SUM(oh.orderItemQty) AS INTEGER) FROM OrderHistory oh WHERE oh.order.user.id = :userId")
+    Integer getTotalOrderItemQtyByUserId(@Param("userId") Long userId);
 
     //관리자의 브랜드별 매출 목록보기
     @Query("SELECT NEW com.example.finalproject.domain.admin.AdminResponse$SalesList(oh.admin ,SUM(oh.orderItemPrice), SUM(oh.fee)) " +

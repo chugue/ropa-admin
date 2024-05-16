@@ -7,12 +7,16 @@ import com.example.finalproject.domain.codi.CodiResponse;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.items.ItemsResponse;
+import com.example.finalproject.domain.order.OrderRepository;
+import com.example.finalproject.domain.orderHistory.OrderHistory;
+import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +25,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final CodiRepository codiRepository;
     private final ItemsRepository itemsRepository;
+    private final OrderHistoryRepository orderHistoryRepository;
 
     //회원가입
     @Transactional
@@ -88,9 +93,9 @@ public class UserService {
     }
 
     //크리에이터 뷰 페이지
-    public UserResponse.CreatorViewDTO creatorView(SessionUser sessionUser, int userId) {
-        // 1. 세션에서 사용자 정보 가져오기
-        User user = userRepository.findById(sessionUser.getId())
+    public UserResponse.CreatorViewDTO creatorView(Integer userId) {
+        // 1. 크리에이터 정보 불러오기
+        User user = userRepository.findUsersByBlueCheckedAndPhoto(userId)
                 .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
         // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
@@ -110,9 +115,22 @@ public class UserService {
                 .distinct()
                 .collect(Collectors.toList());
 
-        UserResponse.UserInfo userDTO = new UserResponse.UserInfo(user);
+        UserResponse.CreatorInfo userDTO = new UserResponse.CreatorInfo(user);
 
         return new UserResponse.CreatorViewDTO(userDTO, codiDTOs, itemDTOs);
+    }
+
+    //유저 마이페이지
+    public UserResponse.UserMyPage userMyPage(SessionUser sessionUser) {
+        // 1. 유저 정보 불러오기
+        User user = userRepository.findByUserIdWithPhoto(sessionUser.getId())
+                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+
+        // 2. 주문 총 량 찾아오기
+        Integer sumOrderItemQty =  orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));
+
+        // 3. UserResponse.UserMyPage 객체 생성 및 반환
+        return new UserResponse.UserMyPage(user, sumOrderItemQty);
     }
 
     // 유저 아이템, 코디 통합 검색

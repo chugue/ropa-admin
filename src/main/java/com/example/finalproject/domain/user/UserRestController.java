@@ -73,10 +73,19 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
+    //크리에이터 뷰 페이지
     @GetMapping("/app/creator-view/{userId}")
-    public ResponseEntity<?> creatorView(@PathVariable int userId) {
+    public ResponseEntity<?> creatorView(@PathVariable Integer userId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.CreatorViewDTO respDTO = userService.creatorView(sessionUser, userId);
+        UserResponse.CreatorViewDTO respDTO = userService.creatorView(userId);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    //유저 마이페이지
+    @GetMapping("/app/user-my-page")
+    public ResponseEntity<?> usrMyPage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.UserMyPage respDTO = userService.userMyPage(sessionUser);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

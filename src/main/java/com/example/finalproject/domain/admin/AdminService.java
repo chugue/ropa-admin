@@ -45,12 +45,11 @@ public class AdminService {
         }
         List<AdminResponse.BrandOrderHistoryList> brandOrderHistory = brandOrderHistoryDTO.stream()
                 .map(AdminResponse.BrandOrderHistoryList::new).collect(Collectors.toList());
-        int totalSalesAmount = brandOrderHistory.stream().mapToInt(AdminResponse.BrandOrderHistoryList::getTotalPrice).sum();
+        int totalSalesAmount = orderHistoryRepository.findByAdminAndOrderItemPrice(adminId);
         int fee = (int) (totalSalesAmount * 0.1);
 
         return new AdminResponse.BrandSalesManagement(Formatter.number(totalSalesAmount), Formatter.number(fee), brandOrderHistory);
     }
-
 
     //관리자가 로그인 했을 때 주문 목록 보기
     public List<OrderHistory> adminOrderHistory(Integer adminId) {

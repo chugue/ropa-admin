@@ -81,6 +81,14 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
+    //크리에이터 마이 페이지
+    @GetMapping("/app/creator-my-page")
+    public ResponseEntity<?> creatorMyPage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.CreatorMyPage respDTO = userService.creatorMyPage(sessionUser);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
     //유저 마이페이지
     @GetMapping("/app/user-my-page")
     public ResponseEntity<?> usrMyPage() {

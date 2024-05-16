@@ -199,22 +199,15 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
 
 -- 좋아요 기능
 insert into love_tb (user_id, codi_id, is_loved)
-values (1, 1, true),
-       (2, 2, true),
-       (3, 3, true),
-       (4, 4, true),
-       (5, 5, true),
-       (6, 6, true),
-       (7, 7, true),
-       (8, 8, true),
-       (8, 1, true),
-       (7, 2, true),
-       (3, 3, true),
-       (5, 4, true),
+values (1, 2, true),
+       (2, 3, true),
+       (3, 4, true),
        (4, 5, true),
-       (3, 6, true),
-       (2, 7, true),
-       (1, 8, true);
+       (5, 6, true),
+       (6, 7, true),
+       (7, 8, true),
+       (8, 1, true);
+
 
 -- 배송(Delivery) 더미 데이터 삽입
 INSERT INTO delivery_tb (status, start_date, end_date, recipient, postal_code, address, address_detail, phone_number)
@@ -229,8 +222,8 @@ INSERT INTO order_tb (user_id, delivery_id, purchase_amount, fee, order_date, de
 VALUES (1, 1, 122000, 12200, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 정해인이 반팔티 2개랑 바지 1개 구매
        (2, 2, 105000, 10500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 임시완이 반팔 셔츠랑 유틸팬츠 각 1개 구매
        (3, 3, 115000, 11500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 변우석이 고랑 니트랑 데님팬츠 각 1개 구매
-       (4, 3, 91000, 9100, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 김지용이 집업 니트랑 블랙 진 각 1개 구매
-       (5, 3, 125000, 12500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'); -- 김수현이 가디건 자켓이랑 세미 와이드 슬랙스 각 1개 구매
+       (4, 4, 91000, 9100, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 김지용이 집업 니트랑 블랙 진 각 1개 구매
+       (5, 5, 125000, 12500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'); -- 김수현이 가디건 자켓이랑 세미 와이드 슬랙스 각 1개 구매
 
 
 INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)

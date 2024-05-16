@@ -60,5 +60,6 @@ public class Inquiry {
         this.setId(reqDTO.getInquiryId());
         this.setComment(reqDTO.getComment());
         this.setCommentedAt(reqDTO.getCommentedAt());
+        this.setStatus(true);
     }
 }

@@ -18,11 +18,13 @@ public class InquiryRequest {
         @Size(min = 1, max = 20, message = "답변 길이는 최소 1자 이상 20장 이하여야 합니다")
         private String comment;
         private Timestamp commentedAt;
+        private Boolean status;
 
-        public ReplyDTO(Integer inquiryId, String comment) {
+        public ReplyDTO(Integer inquiryId, String comment, Boolean status) {
             this.inquiryId = inquiryId;
             this.comment = comment;
             this.commentedAt = Timestamp.from(Instant.now());
+            this.status = status;
         }
     }
 

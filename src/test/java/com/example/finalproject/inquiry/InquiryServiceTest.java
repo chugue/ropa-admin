@@ -2,13 +2,15 @@ package com.example.finalproject.inquiry;
 
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
-import com.example.finalproject.domain.inquiry.*;
+import com.example.finalproject.domain.inquiry.Inquiry;
+import com.example.finalproject.domain.inquiry.InquiryRepository;
+import com.example.finalproject.domain.inquiry.InquiryRequest;
+import com.example.finalproject.domain.inquiry.InquiryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
-import java.util.List;
 import java.util.Optional;
 
 @Import(InquiryService.class)
@@ -39,8 +41,9 @@ public class InquiryServiceTest {
         // given
         Integer id = 1;
         String comment = "야!!!!";
+        Boolean status = true;
         InquiryRequest.ReplyDTO reqDTO
-                = new InquiryRequest.ReplyDTO(id, comment);
+                = new InquiryRequest.ReplyDTO(id, comment, status);
         Optional<Admin> admin = adminRepository.findById(1);
         // when
         inquiryService.inquiryReplyUpdate(reqDTO, admin.get());

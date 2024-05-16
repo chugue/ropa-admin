@@ -15,28 +15,28 @@ VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별�
        ('limsiwan@example.com', '1234', 'limsiwan', '임시완', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
         '키작고 마른 체형', 'yim_siwang',
         '승인 대기', FALSE, 0),
-       ('bunwuseok@example.com', '1234', 'bunwuseok', '변우석', '인천광역시 남동구', '010-5555-5555', '180cm', '75kg', '직장인',
+       ('bunwuseok@example.com', '1234', 'bunwuseok', '변우석', '인천광역시 남동구', '010-3333-3333', '180cm', '75kg', '직장인',
         '연예인 체형', 'byeonwooseok',
         '승인', TRUE, 3000),
        ('gd@example.com', '1234', 'gd', '김지용', '인천광역시 남동구', '010-5555-5555', '180cm', '70kg', '학생',
         '키크고 마른 체형', 'xxxibgdrgn',
         '신청 전', FALSE, 0),
-       ('kimsuhyun@example.com', '1234', 'kimsuhyun', '김수현', '인천광역시 남동구', '010-5555-5555', '180cm', '85kg', '학생',
+       ('kimsuhyun@example.com', '1234', 'kimsuhyun', '김수현', '인천광역시 남동구', '010-6666-6666', '180cm', '85kg', '학생',
         '키크고 덩치가 있는 체형', 'soohyun_k216',
         '신청 전', FALSE, 5000),
-       ('wehajun@example.com', '1234', 'wehajun', '위하준', '서울특별시 강남구', '010-5555-5555', '180cm', '75kg', '직장인',
+       ('wehajun@example.com', '1234', 'wehajun', '위하준', '서울특별시 강남구', '010-7777-7777', '180cm', '75kg', '직장인',
         '연예인 체형', 'wi__wi__wi',
         '승인', TRUE, 3000),
-       ('jisung@example.com', '1234', 'jisung', '지성', '서울특별시 노원구', '010-5555-5555', '180cm', '75kg', '직장인',
+       ('jisung@example.com', '1234', 'jisung', '지성', '서울특별시 노원구', '010-8888-8888', '180cm', '75kg', '직장인',
         '상체가 있는 체형', 'justin_jisung',
         '승인', TRUE, 3000),
-       ('hwangminhyun@example.com', '1234', 'hwangminhyun', '황민현', ' 남동구', '010-5555-5555', '178cm', '72kg', '학생',
+       ('hwangminhyun@example.com', '1234', 'hwangminhyun', '황민현', ' 남동구', '010-9999-9999', '178cm', '72kg', '학생',
         '평범한 체형', 'optimushwang',
         '승인', TRUE, 3000),
-       ('seokangjoon@example.com', '1234', 'seokangjoon', '서강준', '인천광역시 남동구', '010-5555-5555', '182cm', '75kg', '학생',
+       ('seokangjoon@example.com', '1234', 'seokangjoon', '서강준', '인천광역시 남동구', '010-1212-1212', '182cm', '75kg', '학생',
         '모델 체형', 'seokj1012',
         '승인', TRUE, 3000),
-       ('kimheechul@example.com', '1234', 'kimheechul', '김희철', '인천광역시 남동구', '010-5555-5555', '176cm', '65kg', '직장인',
+       ('kimheechul@example.com', '1234', 'kimheechul', '김희철', '인천광역시 남동구', '010-3434-3434', '176cm', '65kg', '직장인',
         '하체가 길어 키가 커보이는 체형', 'kimheenim',
         '승인', TRUE, 3000);
 
@@ -68,7 +68,7 @@ VALUES (1, 'SCRAPPED 티셔츠(WHITE)', '힙하고 유니크한 반팔로 어느
        (2, 'CHAIN STITCH OPEN COLLAR HALF SHIRT_BLACK', '빈티지 무드의 자수 그래픽이 사용된 오픈 카라 셔츠입니다.', 'L', 55000, null, 200, 3, true),
        (2, '나일론 립스탑 유틸리티 팬츠_BLACK', '현대식 디자인에 맞춘 카고 팬츠입니다.', 'M', 50000, null, 100, 4, true),
        (3, 'crop cable sweater', '방모 원사임에도 모달이 섞여 기분좋은 찰랑거림이 있는게 매력적입니다.', 'L', 75000, NULL, 50, 5, true),
-       (3, '라이트블루 데님팬츠', '셀비지 원단으로 만들어진 라이트 불루 데님.', 'L', 80000, null, 200, 6, true),
+       (3, '라이트블루 데님팬츠', '셀비지 원단으로 만들어진 라이트 불루 데님.', 'L', 40000, null, 200, 6, true),
        (1, 'Bulky wool full zip knit', '고급스러운 컬러감을 선택하여 단품으로도 한겨울에 이너로도 활용도가 높은 아이템.', 'L', 59000, null, 100, 7, true),
        (1, 'Two Tuck Wide Black Jeans', '투턱 디테일과 사선 포켓 활용으로 입체적인 핏 감의 네츄럴한 무드 연출.', 'L', 32000, NULL, 50, 8, true),
        (2, '크롭 숏 가디건 자켓', 'Basic하면서 유니크한 디자인으로 기본으로 입어도 좋고 이너로 입어도 잘 어울리는 가디건입니다.', 'L', 75000, null, 200, 9, true),
@@ -89,10 +89,10 @@ VALUES (1, 1, 2, 90000), -- 정해인이 1번 반팔을 2개를 장바구니에 
        (2, 3, 1, 55000), -- 임시완이 3번 반팔 셔츠 1개를 장바구니에 담음 총 가격 55,000
        (2, 4, 1, 50000), -- 임시완이 4번 유틸리티 팬츠  1개를 장바구니에 담음 50000
        (3, 5, 1, 75000), -- 변우석이 스웨터 1개를 장바구니에 담음 75000
-       (3, 6, 1, 80000),  -- 변우석이 데님 팬츠 1개를 장바구니에 담음 80000
+       (3, 6, 1, 40000),  -- 변우석이 데님 팬츠 1개를 장바구니에 담음 40000
        (4, 7, 1, 59000), -- 김지용이 집업 니트 1개를 장바구니에 담음 59000
        (4, 8, 1, 32000), -- 김지용이 블랙 진  1개를 장바구니에 담음 32000
-       (5, 9, 1, 100000), -- 김수현이 가디건 자켓을 1개를 장바구니에 담음 75000
+       (5, 9, 1, 75000), -- 김수현이 가디건 자켓을 1개를 장바구니에 담음 75000
        (5, 10, 1, 50000); -- 김수현이 세미 와이드 슬랙스 1개를 장바구니에 담음 50000
 
 -- 코디 테이블 더미
@@ -218,15 +218,19 @@ values (1, 1, true),
 
 -- 배송(Delivery) 더미 데이터 삽입
 INSERT INTO delivery_tb (status, start_date, end_date, recipient, postal_code, address, address_detail, phone_number)
-VALUES ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인1', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1111-1111'),
-       ('배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인2', '54321', '경기도 분당구', '판교로 456번길', '010-2222-2222'),
-       ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '수령인3', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333');
+VALUES ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '정해인', '12345', '서울특별시 강남구', '테헤란로 123길', '010-1234-5678'),
+       ('배송완료', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '임시완', '54321', '경기도 분당구', '판교로 456번길', '010-9876-5432'),
+       ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '변우석', '98765', '인천광역시 남동구', '구월로 789번길', '010-3333-3333'),
+       ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '김지용', '48574', '인천광역시 남동구', '구월로 788번길', '010-5555-5555'),
+       ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '김수현', '34983', '인천광역시 남동구', '구월로 787번길', '010-6666-6666');
 
 -- 주문(Order) 더미 데이터 삽입
 INSERT INTO order_tb (user_id, delivery_id, purchase_amount, fee, order_date, delivery_type, pay_method)
-VALUES (1, 1, 50000, 5000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
-       (2, 2, 75000, 7500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'),
-       (3, 3, 100000, 10000, CURRENT_TIMESTAMP, 'FREE', 'CREDIT');
+VALUES (1, 1, 122000, 12200, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 정해인이 반팔티 2개랑 바지 1개 구매
+       (2, 2, 105000, 10500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 임시완이 반팔 셔츠랑 유틸팬츠 각 1개 구매
+       (3, 3, 115000, 11500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 변우석이 고랑 니트랑 데님팬츠 각 1개 구매
+       (4, 3, 91000, 9100, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 김지용이 집업 니트랑 블랙 진 각 1개 구매
+       (5, 3, 125000, 12500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'); -- 김수현이 가디건 자켓이랑 세미 와이드 슬랙스 각 1개 구매
 
 
 INSERT INTO inquiry_tb (status, title, content, comment, user_id, admin_id, commented_at, created_at)

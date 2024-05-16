@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.codi;
 
-import com.example.finalproject.domain.items.Items;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,6 +25,10 @@ public interface CodiRepository extends JpaRepository<Codi, Integer> {
     // 코디 최신순 정렬
     @Query("select c from Codi c order by c.createdAt desc")
     List<Codi> findAllByOrderByDateDesc();
+
+    // 코디 최신순 정렬 + 사진까지
+    @Query("select c from Codi c join fetch c.photos p where p.isMainPhoto = true order by c.createdAt desc")
+    List<Codi> findAllByOrderByDateDescWithPhoto();
 
     @Query("select c from Codi c join fetch c.photos p")
     List<Codi> findByAllCodi();

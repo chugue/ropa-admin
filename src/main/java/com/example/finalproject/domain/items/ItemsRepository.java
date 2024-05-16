@@ -50,4 +50,8 @@ public interface ItemsRepository extends JpaRepository<Items, Integer> {
 
     @Query("select i from Items i join fetch i.photos p where i.name like %:keyword%")
     List<Items> findItemsByItemName(String keyword);
+
+
+    @Query("select i from Items i join fetch i.photos p where p.isMainPhoto = true order by i.id desc")
+    List<Items> findAllByOrderByDateDescWithPhoto();
 }

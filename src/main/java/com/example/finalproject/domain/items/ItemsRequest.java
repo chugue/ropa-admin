@@ -27,12 +27,12 @@ public class ItemsRequest {
         @Pattern(regexp = "^(S|M|L|XL)$", message = "상품 사이즈는 공백일 수 없습니다")
         private String size;
 
-        @NotEmpty(message = "상품에 가격은 공백일 수 없습니다.")
+        @NotNull(message = "상품에 가격은 공백일 수 없습니다.")
         @Size(min = 1, max = 20, message = "상품 가격은 최소 1자 이상 최대 20자 이하여야 합니다")
         private Integer price;
         private Integer discountPrice;
 
-        @NotEmpty(message = "상품에 재고는 공백일 수 없습니다.")
+        @NotNull(message = "상품에 재고는 공백일 수 없습니다.")
         @Size(min = 1, message = "상품 재고 숫자는 최소 1자 이상이여야 합니다.")
         private Integer stock;
 

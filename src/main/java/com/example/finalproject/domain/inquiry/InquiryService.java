@@ -3,6 +3,7 @@ package com.example.finalproject.domain.inquiry;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception403;
 import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject._core.error.exception.SSRException404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.user.SessionUser;
@@ -75,7 +76,7 @@ public class InquiryService {
     // 문의 내용 확인하기
     public InquiryResponse.Reply findByInquiryId(Integer inquiryId) {
         Inquiry inquiry = inquiryRepository.findByInquiryIdWithUser(inquiryId)
-                .orElseThrow(() -> new Exception404("해당 게시물을 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException404("해당 게시물을 찾을 수 없습니다."));
 
         return new InquiryResponse.Reply(inquiry, inquiry.getUser());
     }
@@ -84,7 +85,7 @@ public class InquiryService {
     @Transactional
     public void inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO, Admin sessionAdmin) {
         Inquiry inquiry = inquiryRepository.findById(reqDTO.getInquiryId())
-                .orElseThrow(() -> new Exception404("해당 게시글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException404("해당 게시글을 찾을 수 없습니다."));
 
         if (inquiry.getAdmin().getId() != sessionAdmin.getId()) {
             throw new Exception401("권한이 없습니다.");

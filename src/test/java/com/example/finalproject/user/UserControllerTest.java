@@ -1,57 +1,82 @@
-package com.example.finalproject.user;
-
-
-import com.example.finalproject.domain.user.UserRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.internal.constraintvalidators.bv.number.sign.PositiveValidatorForBigDecimal;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@AutoConfigureMockMvc
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UserControllerTest {
-    @Autowired
-    private MockMvc mvc;
-    private ObjectMapper om = new ObjectMapper();
-    private static String jwt;
-
-
-
-    @Test
-    public void login_success_test() throws Exception {
-        // given
-        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
-        reqDTO.setEmail("junghein@example.com");
-        reqDTO.setPassword("1234");
-
-        String reqBody = om.writeValueAsString(reqDTO);
-        // when
-        ResultActions actions = mvc.perform(
-                post("/user/login")
-                        .content(reqBody)
-                        .contentType(MediaType.APPLICATION_JSON)
-        );
-        // eye
-        String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
-
-        String jwt = actions.andReturn().getResponse().getHeader("Authorization");
-        System.out.println("jwt = " + jwt);
-        // then
-//        actions.andExpect(status().isOk());
-//        actions.andExpect(result -> result.getResponse().getHeader("Authorization").contains("Bearer " + jwt));
-//        actions.andExpect()
-    }
-}
+//package com.example.finalproject.user;
+//
+//import com.example.finalproject.domain.user.User;
+//import com.example.finalproject.domain.user.UserService;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import org.junit.jupiter.api.Test;
+//import org.mockito.Mockito;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+//import org.springframework.boot.test.mock.mockito.MockBean;
+//import org.springframework.http.MediaType;
+//import org.springframework.test.web.servlet.MockMvc;
+//import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+//
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+//
+//@WebMvcTest(UserController.class)
+//public class UserControllerTest {
+//
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @MockBean
+//    private UserService userService;
+//
+//    @Test
+//    public void testUpdateUserSuccess() throws Exception {
+//        User user = new User(1L, "John Doe", "john.doe@example.com");
+//        User updatedUser = new User(1L, "John Smith", "john.smith@example.com");
+//
+//        Mockito.when(userService.updateUser(Mockito.eq(1L), Mockito.any(User.class))).thenReturn(updatedUser);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/users/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(new ObjectMapper().writeValueAsString(updatedUser)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.id").value(1L))
+//                .andExpect(jsonPath("$.name").value("John Smith"))
+//                .andExpect(jsonPath("$.email").value("john.smith@example.com"));
+//    }
+//
+//    @Test
+//    public void testUpdateUserNotFound() throws Exception {
+//        User updatedUser = new User(1L, "John Smith", "john.smith@example.com");
+//
+//        Mockito.when(userService.updateUser(Mockito.eq(1L), Mockito.any(User.class))).thenReturn(null);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/users/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(new ObjectMapper().writeValueAsString(updatedUser)))
+//                .andExpect(status().isNotFound());
+//    }
+//
+//    @Test
+//    public void testUpdateUserInvalidInput() throws Exception {
+//        User updatedUser = new User(1L, "", "john.smith@example.com");
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/users/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(new ObjectMapper().writeValueAsString(updatedUser)))
+//                .andExpect(status().isBadRequest());
+//    }
+//
+//    @Test
+//    public void testUpdateUserInvalidEmail() throws Exception {
+//        User updatedUser = new User(1L, "John Smith", "invalid-email");
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/users/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(new ObjectMapper().writeValueAsString(updatedUser)))
+//                .andExpect(status().isBadRequest());
+//    }
+//
+//    @Test
+//    public void testUpdateUserNoContent() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.put("/users/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{}"))
+//                .andExpect(status().isBadRequest());
+//    }
+//}

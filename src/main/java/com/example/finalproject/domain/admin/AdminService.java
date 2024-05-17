@@ -103,7 +103,7 @@ public class AdminService {
     //로그인
     public Admin login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+                .orElseThrow(() -> new Exception401("존재 하지 않는 계정입니다."));
         return admin;
     }
 

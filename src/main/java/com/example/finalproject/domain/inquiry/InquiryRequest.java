@@ -14,8 +14,8 @@ public class InquiryRequest {
     public static class ReplyDTO {
         private Integer inquiryId;
 
-        @NotEmpty(message = "뮨의 답변은 공백일 수 없습니다")
-        @Size(min = 1, max = 20, message = "답변 길이는 최소 1자 이상 20장 이하여야 합니다")
+        @NotEmpty(message = "뮨의 답변은 공백일 수 없습니다.")
+        @Size(min = 1, max = 20, message = "답변 길이는 최소 1자 이상 20장 이하여야 합니다.")
         private String comment;
         private Timestamp commentedAt;
         private Boolean status;

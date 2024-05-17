@@ -42,6 +42,6 @@ public class InquiryController {
     public String inquiryReplyUpdate(@Valid InquiryRequest.ReplyDTO reqDTO) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
         inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
-        return "redirect:/api/inquiry-reply/" + reqDTO.getInquiryId();
+        return "redirect:/api/inquiry-manage";
     }
 }

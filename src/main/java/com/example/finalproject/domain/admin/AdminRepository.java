@@ -9,7 +9,9 @@ import java.util.Optional;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
     @Query("select a from Admin a join fetch a.photo")
-    List<Admin> findAdminByPhoto();
+    List<Admin> findAllAdminWithPhoto();
+
+
 
     Optional<Admin> findByEmail(@Param("email") String email);
 
@@ -17,4 +19,7 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
     @Query("SELECT a FROM Admin a ")
     Optional<Admin> findFirst();
+
+    @Query("select a from Admin a join fetch a.photo p where a.id = :userId")
+    Optional<Admin> findByIdWithPhoto(@Param("userId") Integer userId);
 }

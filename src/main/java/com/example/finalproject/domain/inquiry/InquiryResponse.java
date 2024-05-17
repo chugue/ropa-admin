@@ -17,7 +17,7 @@ public class InquiryResponse {
         private Integer userId;
         private String title;
         private String content;
-        private String  createdAt;
+        private String createdAt;
         private Comment commentDTO;
 
         public Detail(Inquiry inquiry, Comment commentDTO) {
@@ -34,7 +34,7 @@ public class InquiryResponse {
         //브랜드의 답변  DTO
         @Data
         public static class Comment {
-            private Integer  brandId;
+            private Integer brandId;
             private String brandName;
             private Boolean status;
             private String comment;
@@ -59,7 +59,7 @@ public class InquiryResponse {
 
             }
         }
-        }
+    }
 
 
     @Data // 문의 저장후 확인 데이터
@@ -115,6 +115,8 @@ public class InquiryResponse {
         private String statusMsg;
 
         private String createdAt;
+        private String commentedAt;
+
         public List(Inquiry inquiry, User user) {
             this.id = inquiry.getId();
             this.myName = user.getMyName();
@@ -123,14 +125,16 @@ public class InquiryResponse {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             this.createdAt = dateFormat.format(inquiry.getCreatedAt());
 
-            if (inquiry.getStatus() == false) {
+            if (!inquiry.getStatus()) {
                 this.statusMsg = "미응답";
+                this.commentedAt = "";
             } else {
                 this.statusMsg = "응답완료";
+                this.commentedAt = dateFormat.format(inquiry.getCommentedAt());
             }
         }
-
     }
+
     @Data
     public static class Reply {
         private Integer id;
@@ -142,6 +146,7 @@ public class InquiryResponse {
         private Boolean isReplied;
 
         private String commentedAt;
+
         public Reply(Inquiry inquiry, User user) {
             this.id = inquiry.getId();
             this.myName = user.getMyName();
@@ -149,7 +154,7 @@ public class InquiryResponse {
             this.content = inquiry.getContent();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = Date.from(Instant.now());
-            if (inquiry.getComment().equals("")) {
+            if (inquiry.getComment().isEmpty()) {
                 // 문의 답변이 없는 경우 해당 칸 비움
                 this.comment = "";
                 this.commentedAt = "";

@@ -17,11 +17,6 @@ public class CodiRestController {
     private final CodiService codiService;
     private final HttpSession session;
 
-    // 검색 화면 페이지
-    @GetMapping("/app/search-page")
-    public void searchPage() {
-        codiService.findAllcodiAllItems();
-    }
 
     // 코디 수정 페이지
     @GetMapping("/app/codi-update-page/{codiId}")
@@ -33,9 +28,9 @@ public class CodiRestController {
 
 
     //앱] 코디 등록 - 아이템 연결 페이지
-    @GetMapping("/app/codi-register/add-item-page")
-    public ResponseEntity<?> clickItemSave() {
-        List<CodiResponse.BrandInfo> respDTO = codiService.addItemPage();
+    @GetMapping("/app/codi-register/add-item/{category}")
+    public ResponseEntity<?> topItemSave(@PathVariable String category) {
+        List<CodiResponse.BrandInfo> respDTO = codiService.addItemPage(category);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

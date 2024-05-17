@@ -3,6 +3,8 @@ package com.example.finalproject.domain.items;
 
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject._core.error.exception.SSRException401;
+import com.example.finalproject._core.error.exception.SSRException404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.category.Category;
@@ -33,11 +35,11 @@ public class ItemsService {
     public void updateItem(Integer itemId, ItemsRequest.UpdateDTO reqDTO, Integer sessionBrandId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
-                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         // 아이템 정보 조회
         Items items = itemsRepository.findById(itemId)
-                .orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException404("아이템을 찾을 수 없습니다."));
 
         List<Photo> itemsPhotos = photoRepository.findAllByItemsId(itemId);
 
@@ -93,7 +95,7 @@ public class ItemsService {
     public void saveItem(ItemsRequest.SaveDTO reqDTO, Integer sessionBrandId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
-                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException401("브랜드 관리자의 정보를 찾을 수 없습니다."));
         Items savedItems = itemsRepository.save(reqDTO.toEntity(admin));
 
         photoService.uploadItemMainImage(reqDTO.getMainImage(), savedItems);
@@ -104,7 +106,7 @@ public class ItemsService {
     public List<ItemsResponse.list> findItemsByAdminId(Integer sessionBrandId, String searchBy, String keyword) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionBrandId)
-                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         List<Items> items = switch (searchBy) {
             case "itemId" -> itemsRepository.findItemsByAdminIdAndItemId(admin.getId(), keyword);
@@ -121,11 +123,11 @@ public class ItemsService {
     public ItemsResponse.Detail findItemsByAdminIdAndItemId(Integer sessionAdminId, Integer itemId) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionAdminId)
-                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         // 아이템 정보 조회
         Items items = itemsRepository.findItemsByAdminIdAndItemId(admin.getId(), itemId)
-                .orElseThrow(() -> new Exception404("브랜드 아이템 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException404("브랜드 아이템 정보를 찾을 수 없습니다."));
 
         // 아이템 사진 조회
         List<Photo> itemPhotos = photoRepository.findAllByItemsId(itemId);
@@ -139,11 +141,11 @@ public class ItemsService {
     public void deleteItem(Integer itemId, Admin sessionAdmin) {
         // Admin 정보 조회
         Admin admin = adminRepository.findById(sessionAdmin.getId())
-                .orElseThrow(() -> new Exception401("브랜드 관리자의 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException401("브랜드 관리자의 정보를 찾을 수 없습니다."));
 
         // 아이템 정보 조회
         Items items = itemsRepository.findById(itemId)
-                .orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException404("아이템을 찾을 수 없습니다."));
 
         // 아이템 삭제 상태 업데이트
         items.setStatus(false);

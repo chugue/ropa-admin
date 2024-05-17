@@ -16,14 +16,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/board/{id:\\d+}", "/user/login-form", "/user/login"
-                        , "/user/join-form", "/user/join", "/comp/join-form", "/comp/join"
-                        , "/comp/read-resume");
+                .excludePathPatterns();
         registry.addInterceptor(new AppInterceptor())
                 .addPathPatterns("/app/**")
-                .excludePathPatterns("/board/{id:\\d+}", "/user/login-form", "/user/login"
-                        , "/user/join-form", "/user/join", "/comp/join-form", "/comp/join"
-                        , "/comp/read-resume");
+                .excludePathPatterns();
 
     }
 

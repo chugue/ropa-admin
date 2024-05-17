@@ -1,9 +1,6 @@
 package com.example.finalproject.domain.admin;
 
-import com.example.finalproject._core.error.exception.Exception400;
-import com.example.finalproject._core.error.exception.Exception401;
-import com.example.finalproject._core.error.exception.Exception403;
-import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject._core.error.exception.*;
 import com.example.finalproject._core.utils.Formatter;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
@@ -80,7 +77,7 @@ public class AdminService {
         List<OrderHistory> adminOrderHistoryList = orderHistoryRepository.findAll();
 
         if (adminOrderHistoryList == null) {
-            throw new Exception404("현재 주문내역이 존재 하지 않습니다.");
+            throw new SSRException404("현재 주문내역이 존재 하지 않습니다.");
         }
         return adminOrderHistoryList;
     }
@@ -103,7 +100,7 @@ public class AdminService {
     //로그인
     public Admin login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+                .orElseThrow(() -> new SSRException401("존재 하지 않는 계정입니다."));
         return admin;
     }
 
@@ -112,7 +109,7 @@ public class AdminService {
     public Admin join(AdminRequest.JoinDTO reqDTO) {
         Optional<Admin> adminOP = adminRepository.findByEmail(reqDTO.getEmail());
         if (adminOP.isPresent()) {
-            throw new Exception400("중복된 이메일이 있습니다.");
+            throw new SSRException400("중복된 이메일이 있습니다.");
         }
 
         Admin admin = adminRepository.save(reqDTO.toBrandEntity());
@@ -125,7 +122,7 @@ public class AdminService {
     @Transactional
     public void update(AdminRequest.UpdateDTO reqDTO, Integer userId) {
         Admin admin = adminRepository.findById(userId)
-                .orElseThrow(() -> new Exception404("사용자 아이디를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException404("사용자 아이디를 찾을 수 없습니다."));
 
         admin.setEmail(reqDTO.getEmail());
         admin.setPassword(reqDTO.getPassword());
@@ -142,7 +139,7 @@ public class AdminService {
     // 회원 정보 확인
     public AdminResponse.UserInfo getUserInfo(Integer userId) {
         Admin admin = adminRepository.findByIdWithPhoto(userId)
-                .orElseThrow(() -> new Exception404("사용자 아이디를 찾을 수 없습니다."));
+                .orElseThrow(() -> new SSRException404("사용자 아이디를 찾을 수 없습니다."));
         return new AdminResponse.UserInfo(admin);
     }
 
@@ -185,7 +182,7 @@ public class AdminService {
     // 유저 크리에이터 신청 승인
     public void approveCreatorStatus(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new Exception400("잘못된 사용자 아이디입니다."));
+                .orElseThrow(() -> new SSRException400("잘못된 사용자 아이디입니다."));
         if (Objects.equals(user.getStatus(), "신청 전")) {
             throw new Exception403("사용자가 크리에이터 신청한 이력이 없습니다.");
         }
@@ -197,7 +194,7 @@ public class AdminService {
     // 유저 크리에이터 신청 거절
     public void rejectCreatorStatus(Integer userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new Exception400("잘못된 사용자 아이디입니다."));
+                .orElseThrow(() -> new SSRException400("잘못된 사용자 아이디입니다."));
         if (Objects.equals(user.getStatus(), "신청 전")) {
             throw new Exception403("사용자가 크리에이터 신청한 이력이 없습니다.");
         }

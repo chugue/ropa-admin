@@ -43,9 +43,9 @@ public class CartService {
         Optional<Photo> photo = photoRepository.findByItemsId(reqDTO.getItemId());
         if (IsCartItem != null) {
             // 수량 증가
-            IsCartItem.setQuantity(reqDTO.getQuantity());
+            IsCartItem.setQuantity(IsCartItem.getQuantity() + reqDTO.getQuantity());
             // 총 금액 업데이트
-            IsCartItem.setTotalAmount((IsCartItem.getItems().getPrice() * reqDTO.getQuantity()));
+            IsCartItem.setTotalAmount((IsCartItem.getItems().getPrice() * IsCartItem.getQuantity()));
             // 장바구니에 있는 아이템 업데이트
             Cart cart = cartRepository.save(IsCartItem);
             return new CartResponse.Saved(cart, photo.get());

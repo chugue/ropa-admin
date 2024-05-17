@@ -26,34 +26,19 @@ public class UserRequest {
         @Size(min = 1, max = 20, message = "닉네임은 최소 1자 이상 최대 20자 이하여야 합니다.")
         private String nickName;
 
+        @NotEmpty(message = "실명이 공백일 수 없습니다.")
+        @Size(min = 1, max = 20, message = "닉네임은 최소 1자 이상 최대 20자 이하여야 합니다.")
+        private String myName;
+
         @NotEmpty(message = "비밀번호가 공백일 수 없습니다.")
         @Size(min = 4, max = 20, message = "비밀번호는 최소 4자 이상 최대 20자 이하여야 합니다.")
         private String password;
 
-        @NotEmpty(message = "전화번호가 공백일 수 없습니다")
-        @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "전화번호 형식이 올바르지 않습니다")
-        private String mobile;
-        private String status;
-
-        @NotEmpty(message = "SNS 주소가 공백일 수 없습니다.")
-        private String instagram;
-
-        @NotEmpty(message = "주소가 공백일 수 없습니다.")
-        private String address;
-        private Boolean blueChecked;
-        private Timestamp createdAt;
-
-        @Builder
-        public JoinDTO(String email, String nickName, String password, String mobile, String instagram,Boolean blueChecked,String status) {
+        public JoinDTO(String email, String nickName, String myName, String password) {
             this.email = email;
             this.nickName = nickName;
+            this.myName = myName;
             this.password = password;
-            this.mobile = mobile;
-            this. status = status;
-            this. instagram = instagram;
-            this.blueChecked =blueChecked;
-            this.createdAt = Timestamp.from(Instant.now());
-            ;
         }
     }
 

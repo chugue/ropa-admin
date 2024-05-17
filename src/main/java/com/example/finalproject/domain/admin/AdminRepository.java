@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.admin;
 
-import com.example.finalproject.domain.items.Items;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,4 +19,7 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
     @Query("SELECT a FROM Admin a ")
     Optional<Admin> findFirst();
+
+    @Query("select a from Admin a join fetch a.photo p where a.id = :userId")
+    Optional<Admin> findByIdWithPhoto(@Param("userId") Integer userId);
 }

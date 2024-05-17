@@ -47,15 +47,36 @@ public class AdminController {
         return "index-brand";
     }
 
-    // 회원가입 폼
+    // 로그인 폼
     @GetMapping({"/", "/login-form"})
     public String loginForm() {
         return "/admin/login-form";
     }
 
+    // 회원가입 폼
     @GetMapping("/join-form")
     public String joinForm() {
         return "/admin/join-form";
+    }
+
+    // 회원정보 수정 폼 및 정보 확인
+    @GetMapping("/api/admin-update-form")
+    public String updateForm(HttpServletRequest req) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        if (sessionBrand == null) {
+            throw new Exception403("잘못된 접근입니다.");
+        }
+        AdminResponse.UserInfo userInfo = adminService.getUserInfo(sessionBrand.getId());
+        req.setAttribute("userInfo", userInfo);
+        return "/admin/update-form";
+    }
+
+    // 회원정보 수정
+    @PostMapping("/api/admin-update")
+    public String update(AdminRequest.UpdateDTO reqDTO) {
+        Admin sessionBrand = (Admin) session.getAttribute("sessionBrand");
+        adminService.update(reqDTO, sessionBrand.getId());
+        return "index-brand";
     }
 
     // 관리자 매출관리 페이지

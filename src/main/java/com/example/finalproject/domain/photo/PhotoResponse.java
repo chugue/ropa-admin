@@ -21,13 +21,13 @@ public class PhotoResponse {
         private class CodiPhoto{
             private Integer photoId;
             private Integer codiId;
-            private String codiBase64;
+            private String photoPath;
 
             public CodiPhoto(Codi codi) {
                 this.photoId = codi.getPhotos().getFirst().getId();
                 this.codiId = codi.getId();
-                this.codiBase64 = codi.getPhotos().getFirst()
-                        .toBase64(codi.getPhotos().getFirst());
+                this.photoPath = codi.getPhotos().getFirst()
+                        .getPath();
             }
         }
 
@@ -38,7 +38,7 @@ public class PhotoResponse {
             private String itemDescription;
             private Integer itemPrice;
             private Integer photoId;
-            private String base64;
+            private String photoPath;
 
             public ItemPhoto(Items items) {
                 this.itemsId = items.getId();
@@ -46,7 +46,7 @@ public class PhotoResponse {
                 this.itemDescription = items.getDescription();
                 this.itemPrice = items.getPrice();
                 this.photoId = items.getPhotos().getFirst().getId();
-                this.base64 = items.getPhotos().getFirst().toBase64(items.getPhotos().getFirst());
+                this.photoPath = items.getPhotos().getFirst().getPath();
             }
         }
     }
@@ -68,7 +68,7 @@ public class PhotoResponse {
         public class CreatorPhoto {
             private Integer photoId;
             private String name;
-            private String base64;
+            private String photoPath;
             private Photo.Sort sort;
             private Integer creatorId;
 
@@ -76,7 +76,7 @@ public class PhotoResponse {
                 this.photoId = photo.getId();
                 this.creatorId = photo.getUser().getId();
                 this.name = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.sort = photo.getSort();
             }
         }
@@ -86,7 +86,7 @@ public class PhotoResponse {
             private Integer photoId;
             private String name;
             private Photo.Sort sort;
-            private String base64;
+            private String photoPath;
             private Integer itemsId;
             private AdminInfo adminInfo;
 
@@ -94,7 +94,7 @@ public class PhotoResponse {
                 this.photoId = photo.getId();
                 this.itemsId = photo.getItems().getId();
                 this.name = photo.getItems().getName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.sort = photo.getSort();
                 this.adminInfo = new AdminInfo(admin);
             }
@@ -116,7 +116,7 @@ public class PhotoResponse {
             private Integer photoId;
             private Integer codiId;
             private String name;
-            private String base64;
+            private String photoPath;
             private Photo.Sort sort;
             private Boolean isMainPhoto;
 
@@ -124,7 +124,7 @@ public class PhotoResponse {
                 this.photoId = photo.getId();
                 this.codiId = photo.getCodi().getId();
                 this.name = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.sort = photo.getSort();
                 this.isMainPhoto = photo.getIsMainPhoto();
             }

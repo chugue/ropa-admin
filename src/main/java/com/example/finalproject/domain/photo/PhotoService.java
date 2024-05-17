@@ -76,7 +76,6 @@ public class PhotoService {
     }
 
 
-
     // 브랜드 회원 정보 업데이트
     @Transactional
     public void updateBrandImage(MultipartFile brandImage, Admin admin) {
@@ -87,7 +86,8 @@ public class PhotoService {
         // admin ID로 사진을 조회
         Optional<Photo> existingPhotoOpt = photoRepository.findByAdminId(admin.getId());
 
-        String brandPath = "admin/" + admin.getBrandName().toLowerCase();
+        // brand명대로 폴더 만들어서 경로 저장
+        String brandPath = "brand/" + admin.getBrandName().toLowerCase();
         String imgFilename = UUID.randomUUID() + "_" + brandImage.getOriginalFilename();
         Path imgPath = Paths.get(uploadPath, brandPath, imgFilename);
 
@@ -101,32 +101,11 @@ public class PhotoService {
             }
 
             // 경로 업데이트
-            String dbPath = "/upload/" + brandPath + "/" + imgFilename;
-
-            // 기존 사진 업데이트
-            existingPhoto.setPath(dbPath);
-            existingPhoto.setUuidName(imgFilename);
-            existingPhoto.setOriginalFileName(brandImage.getOriginalFilename());
-            existingPhoto.setUpdateAt(Timestamp.from(Instant.now())); // update 시간을 기록하려면 이 필드가 필요함
-
-            // 업데이트된 사진을 저장
-            photoRepository.save(existingPhoto);
+            updateBrandPhoto(existingPhoto, imgFilename, brandPath, brandImage.getOriginalFilename());
         } else {
             // 새로운 사진 등록
             validationCheckAndSave(brandImage, imgPath);
-
-            String dbPath = "/upload/" + brandPath + "/" + imgFilename;
-
-            // 새로운 사진 객체 생성 및 저장
-            photoRepository.save(Photo.builder()
-                    .admin(admin)
-                    .path(dbPath)
-                    .uuidName(imgFilename)
-                    .originalFileName(brandImage.getOriginalFilename())
-                    .sort(Photo.Sort.BRAND)
-                    .isMainPhoto(true)  // 대표 사진이라면 꼭 true로 설정
-                    .createdAt(Timestamp.from(Instant.now()))
-                    .build());
+            saveNewBrandPhoto(admin, imgFilename, brandPath, brandImage.getOriginalFilename());
         }
     }
 
@@ -162,23 +141,6 @@ public class PhotoService {
                 .createdAt(Timestamp.from(Instant.now())).build());
     }
 
-    // 아이템 메인사진 없데이트
-    @Transactional
-    public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getOriginalFileName())) {
-            uploadItemMainImage(updateImage, items);
-            deleteItemImage(dbPhoto);
-        }
-    }
-
-    // 아이템 상세보기 사진 업데이트
-    @Transactional
-    public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
-        if (!updateImage.getOriginalFilename().equals(dbPhoto.getOriginalFileName())) {
-            uploadItemDetailImage(updateImage, items);
-            deleteItemImage(dbPhoto);
-        }
-    }
 
 
     // 파일로 저장 + 예외처리
@@ -284,5 +246,49 @@ public class PhotoService {
                 .createdAt(Timestamp.from(Instant.now())).build());
     }
 
+    // 브랜드 사진 업데이트
+    private void updateBrandPhoto(Photo existingPhoto, String imgFilename, String brandPath, String originalFileName) {
+        String dbPath = "/upload/" + brandPath + "/" + imgFilename;
 
+        existingPhoto.setPath(dbPath);
+        existingPhoto.setUuidName(imgFilename);
+        existingPhoto.setOriginalFileName(originalFileName);
+        existingPhoto.setUpdateAt(Timestamp.from(Instant.now())); // update 시간을 기록하려면 이 필드가 필요함
+
+        photoRepository.save(existingPhoto);
+    }
+
+    // 브랜드 사진 저장
+    private void saveNewBrandPhoto(Admin admin, String imgFilename, String brandPath, String originalFileName) {
+        String dbPath = "/upload/" + brandPath + "/" + imgFilename;
+
+        photoRepository.save(Photo.builder()
+                .admin(admin)
+                .path(dbPath)
+                .uuidName(imgFilename)
+                .originalFileName(originalFileName)
+                .sort(Photo.Sort.BRAND)
+                .isMainPhoto(true)  // 대표 사진이라면 꼭 true로 설정
+                .createdAt(Timestamp.from(Instant.now()))
+                .build());
+    }
+
+
+    // 아이템 메인사진 없데이트
+    @Transactional
+    public void updateMainImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getOriginalFileName())) {
+            uploadItemMainImage(updateImage, items);
+            deleteItemImage(dbPhoto);
+        }
+    }
+
+    // 아이템 상세보기 사진 업데이트
+    @Transactional
+    public void updateDetailImage(MultipartFile updateImage, Photo dbPhoto, Items items) throws IOException {
+        if (!updateImage.getOriginalFilename().equals(dbPhoto.getOriginalFileName())) {
+            uploadItemDetailImage(updateImage, items);
+            deleteItemImage(dbPhoto);
+        }
+    }
 }

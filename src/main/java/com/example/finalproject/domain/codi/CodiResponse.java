@@ -34,14 +34,14 @@ public class CodiResponse {
         public class CodiPhoto {
             private Integer photoId;
             private Integer codiId;
-            private String base64;
+            private String photoPath;
             private Boolean isMainPhoto;
             private Photo.Sort sort;
 
             public CodiPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.codiId = photo.getCodi().getId();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.isMainPhoto = photo.getIsMainPhoto();
                 this.sort = photo.getSort();
             }
@@ -51,14 +51,14 @@ public class CodiResponse {
         public class CodiItemPhoto {
             private Integer photoId;
             private Integer itemId;
-            private String base64;
+            private String photoPath;
             private String categoryName;
             private Photo.Sort sort;
 
             public CodiItemPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.itemId = photo.getItems().getId();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.categoryName = photo.getItems().getCategory().getMain();
                 this.sort = photo.getSort();
             }
@@ -71,13 +71,13 @@ public class CodiResponse {
     public static class BrandInfo {
         private Integer brandId;
         private Integer photoId;
-        private String base64;
+        private String photoPath;
         private List<ItemInfo> itemInfo;
 
         public BrandInfo(Admin admin, List<Items> items) {
             this.brandId = admin.getId();
             this.photoId = admin.getPhoto().getId();
-            this.base64 = admin.getPhoto().toBase64(admin.getPhoto());
+            this.photoPath = admin.getPhoto().getPath();
             this.itemInfo = items.stream().map(ItemInfo::new).toList();
         }
 
@@ -85,12 +85,12 @@ public class CodiResponse {
         public static class ItemInfo {
             private Integer itemId;
             private String itemName;
-            private String base64;
+            private String photoPath;
 
             public ItemInfo(Items items) {
                 this.itemId = items.getId();
                 this.itemName = items.getName();
-                this.base64 = items.getPhotos().getFirst().toBase64(items.getPhotos().getFirst());
+                this.photoPath = items.getPhotos().getFirst().getPath();
             }
         }
     }
@@ -169,13 +169,13 @@ public class CodiResponse {
         public class MainPhoto {
             private Integer mainPhotoId;
             private String mainPhotoName;
-            private String base64;
+            private String photoPath;
             private Boolean isMainPhoto;
 
             public MainPhoto(Photo mainPhoto) {
                 this.mainPhotoId = mainPhoto.getId();
                 this.mainPhotoName = mainPhoto.getUuidName();
-                this.base64 = mainPhoto.toBase64(mainPhoto);
+                this.photoPath = mainPhoto.getPath();
                 this.isMainPhoto = mainPhoto.getIsMainPhoto();
             }
         }
@@ -185,14 +185,14 @@ public class CodiResponse {
             private Integer itemsPhotoId;
             private Integer itemsId;
             private String itemsPhotoName;
-            private String base64;
+            private String photoPath;
             private Boolean isMainPhoto;
 
             public ItemsPhoto(Photo photo) {
                 this.itemsPhotoId = photo.getId();
                 this.itemsId = photo.getItems().getId();
                 this.itemsPhotoName = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
@@ -202,14 +202,14 @@ public class CodiResponse {
             private Integer codiId;
             private Integer codiPhotoId;
             private String codiPhotoName;
-            private String base64;
+            private String photoPath;
             private Boolean isMainPhoto;
 
             public CodiPhoto(Photo photo) {
                 this.codiId = photo.getCodi().getId();
                 this.codiPhotoId = photo.getId();
                 this.codiPhotoName = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
@@ -246,13 +246,13 @@ public class CodiResponse {
         public class MainPhoto {
             private Integer mainPhotoId;
             private String mainPhotoName;
-            private String base64;
+            private String photoPath;
             private Boolean isMainPhoto;
 
             public MainPhoto(Photo mainPhoto) {
                 this.mainPhotoId = mainPhoto.getId();
                 this.mainPhotoName = mainPhoto.getUuidName();
-                this.base64 = mainPhoto.toBase64(mainPhoto);
+                this.photoPath = mainPhoto.getPath();
                 this.isMainPhoto = mainPhoto.getIsMainPhoto();
             }
         }
@@ -262,14 +262,14 @@ public class CodiResponse {
             private Integer itemsPhotoId;
             private Integer itemsId;
             private String itemsPhotoName;
-            private String base64;
+            private String photoPath;
             private Boolean isMainPhoto;
 
             public ItemsPhoto(Photo photo) {
                 this.itemsPhotoId = photo.getId();
                 this.itemsId = photo.getItems().getId();
                 this.itemsPhotoName = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
@@ -279,14 +279,14 @@ public class CodiResponse {
             private Integer codiPhotoId;
             private Integer codiId;
             private String codiPhotoName;
-            private String base64;
+            private String photoPath;
             private Boolean isMainPhoto;
 
             public CodiPhoto(Photo photo) {
                 this.codiPhotoId = photo.getId();
                 this.codiId = photo.getCodi().getId();
                 this.codiPhotoName = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.isMainPhoto = photo.getIsMainPhoto();
             }
         }
@@ -299,7 +299,7 @@ public class CodiResponse {
         private String title;
         private Integer codiPhotoId;
         private String photoName;
-        private String base64;
+        private String photoPath;
 
         public CodiListDTO(Codi codi) {
             this.codiId = codi.getId();
@@ -309,7 +309,7 @@ public class CodiResponse {
                 Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
                 this.codiPhotoId = codiPhoto.getId();
                 this.photoName = codiPhoto.getUuidName();
-                this.base64 = codiPhoto.toBase64(codiPhoto);
+                this.photoPath = codiPhoto.getPath();
             }
         }
     }

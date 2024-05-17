@@ -14,11 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,24 +26,51 @@ public class AdminService {
     private final PhotoService photoService;
 
     //브랜드가 로그인 했을 때 매출 목록보기
-    public AdminResponse.BrandSalesManagement brandOrderHistory(int adminId, LocalDateTime startDate, LocalDateTime endDate) {
-        List<OrderHistory> brandOrderHistoryDTO;
+    public AdminResponse.BrandSalesManagement brandOrderHistory(int adminId) {
+        // 해당 adminId로 주문 내역을 조회
+        List<OrderHistory> brandOrderHistoryDTO = orderHistoryRepository.findByAdminIdWithItems(adminId);
 
-        if (startDate == null || endDate == null) {
-            brandOrderHistoryDTO = orderHistoryRepository.findByAdminIdWithItems(adminId);
-        } else {
-            Timestamp startTimestamp = Timestamp.valueOf(startDate);
-            Timestamp endTimestamp = Timestamp.valueOf(endDate);
-            brandOrderHistoryDTO = orderHistoryRepository.findByAdminIdWithItemsAndDate(adminId, startTimestamp, endTimestamp);
-        }
-        if (brandOrderHistoryDTO == null) {
+        // 주문 내역이 존재하지 않으면 404 예외를 발생
+        if (brandOrderHistoryDTO == null || brandOrderHistoryDTO.isEmpty()) {
             throw new Exception404("현재 주문 내역이 존재하지 않습니다.");
         }
-        List<AdminResponse.BrandOrderHistoryList> brandOrderHistory = brandOrderHistoryDTO.stream()
-                .map(AdminResponse.BrandOrderHistoryList::new).collect(Collectors.toList());
-        int totalSalesAmount = orderHistoryRepository.findByAdminAndOrderItemPrice(adminId);
+
+        // 아이템 ID를 키로 하여 주문 내역을 저장할 맵을 생성
+        Map<Integer, AdminResponse.BrandOrderHistoryList> orderHistoryMap = new HashMap<>();
+
+        // 조회된 주문 내역을 반복 처리
+        for (OrderHistory orderHistory : brandOrderHistoryDTO) {
+            // 각 주문 내역의 아이템 ID를 찾기
+            int itemId = orderHistory.getItems().getId();
+            // 아이템 ID를 키로 하여 기존의 주문 내역을 맵에서 조회
+            AdminResponse.BrandOrderHistoryList existing = orderHistoryMap.get(itemId);
+
+            // 맵에 기존에 없는 아이템이면 새로 추가
+            if (existing == null) {
+                // 새로운 주문 내역 리스트 항목을 생성하고 맵에 추가
+                AdminResponse.BrandOrderHistoryList newEntry = new AdminResponse.BrandOrderHistoryList(orderHistory);
+                orderHistoryMap.put(itemId, newEntry);
+            } else {
+                // 기존에 있는 아이템이면 가격과 수량을 합산하여 업데이트
+                // 기존 총 가격을 숫자로 변환
+                int currentTotalPrice = Formatter.parseNumber(existing.getTotalPrice());
+                // 새로운 총 가격을 계산
+                int newTotalPrice = currentTotalPrice + orderHistory.getOrderItemPrice();
+                // 계산된 총 가격을 포맷하여 설정
+                existing.setTotalPrice(Formatter.number(newTotalPrice));
+                // 총 수량을 합산하여 설정
+                existing.setTotalQuantity(existing.getTotalQuantity() + orderHistory.getOrderItemQty());
+            }
+        }
+
+        // 맵에 저장된 주문 내역 리스트를 생성
+        List<AdminResponse.BrandOrderHistoryList> brandOrderHistory = new ArrayList<>(orderHistoryMap.values());
+        // 총 매출 금액을 계산
+        int totalSalesAmount = brandOrderHistory.stream().mapToInt(item -> Formatter.parseNumber(item.getTotalPrice())).sum();
+        // 수수료를 계산 (총 매출 금액의 10%)
         int fee = (int) (totalSalesAmount * 0.1);
 
+        // 최종 결과를 AdminResponse.BrandSalesManagement 객체로 반환
         return new AdminResponse.BrandSalesManagement(Formatter.number(totalSalesAmount), Formatter.number(fee), brandOrderHistory);
     }
 

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class UserRequest {
 
     // 프로필변경
+    @NoArgsConstructor
     @Data
     public static class ProfileUpdateDTO {
         @NotEmpty(message = "실명이 공백일 수 없습니다.")
@@ -31,7 +32,7 @@ public class UserRequest {
             this.password = password;
             this.photo = photo;
         }
-
+        @NoArgsConstructor
         @Data
         public static class PhotoDTO {
             private String name;
@@ -92,6 +93,7 @@ public class UserRequest {
     }
 
     // 앱 크리에이터 지원 요청
+    @NoArgsConstructor
     @Data
     public static class CreatorApplyDTO {
         @NotEmpty(message = "키는 공백일 수 없습니다")

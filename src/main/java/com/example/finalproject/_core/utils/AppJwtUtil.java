@@ -8,7 +8,7 @@ import com.example.finalproject.domain.user.User;
 
 import java.util.Date;
 
-public class AppJwtUtill {
+public class AppJwtUtil {
     public static String create(User user) {
         // JWT 토큰 생성
         String jwt = JWT.create()

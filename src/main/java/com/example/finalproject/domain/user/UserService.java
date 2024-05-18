@@ -148,7 +148,7 @@ public class UserService {
     // 앱 사용자 로그인
     public User login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception401("사용자 정보를 찾을 수 없습니다."));
         return user;
     }
 
@@ -197,7 +197,7 @@ public class UserService {
     public UserResponse.CreatorViewDTO creatorView(Integer userId) {
         // 1. 크리에이터 정보 불러오기
         User user = userRepository.findUsersByBlueCheckedAndPhoto(userId)
-                .orElseThrow(() -> new Exception404("정보를 찾을 수 없습니다"));
+                .orElseThrow(() -> new Exception401("크리에이터가 아닙니다."));
 
         // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
         List<Codi> codis = codiRepository.findCodiByUserId(userId);

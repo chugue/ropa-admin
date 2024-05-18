@@ -1,6 +1,7 @@
 package com.example.finalproject.domain.cart;
 
-import com.example.finalproject._core.utils.AppJwtUtill;
+
+import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,7 +29,7 @@ public class CartRestControllerTest {
 
     @BeforeAll
     public static void setUp() {
-        jwt = AppJwtUtill.create(
+        jwt = AppJwtUtil.create(
                 User.builder()
                         .id(1)
                         .email("junghein@example.com")

@@ -24,7 +24,7 @@ public class AdminController {
 
     //로그인
     @PostMapping("/login")
-    public String login(@Valid AdminRequest.LoginDTO reqDTO) {
+    public String login(AdminRequest.LoginDTO reqDTO) {
         Admin admin = adminService.login(reqDTO);
         if (admin.getRole().equals(ADMIN)) {
             session.setAttribute("sessionAdmin", admin);
@@ -38,7 +38,7 @@ public class AdminController {
 
     //회원가입 관리자/브랜드
     @PostMapping("/join")
-    public String join(@Valid AdminRequest.JoinDTO reqDTO) {
+    public String join(AdminRequest.JoinDTO reqDTO) {
         Admin admin = adminService.join(reqDTO);
 
         session.setAttribute("sessionBrand", admin);

@@ -39,7 +39,7 @@ public class InquiryController {
 
     // 문의 답변 업데이트
     @PostMapping("/api/inquiry-reply-update")
-    public String inquiryReplyUpdate(@Valid InquiryRequest.ReplyDTO reqDTO) {
+    public String inquiryReplyUpdate(InquiryRequest.ReplyDTO reqDTO) {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionBrand");
         inquiryService.inquiryReplyUpdate(reqDTO, sessionAdmin);
         return "redirect:/api/inquiry-manage";

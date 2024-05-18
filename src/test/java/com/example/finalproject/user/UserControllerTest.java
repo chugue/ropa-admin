@@ -32,12 +32,13 @@ public class UserControllerTest {
     public static void setUp() {
         jwt = AppJwtUtil.create(
                 User.builder()
-                        .id(1)
-                        .myName("정해인")
-                        .email("junghein@example.com")
-                        .blueChecked(false)
+                        .id(3)
+                        .myName("변우석")
+                        .email("bunwuseok@example.com")
+                        .blueChecked(true)
                         .build());
     }
+
     //회원가입
     @Test
     public void join_test() throws Exception {
@@ -338,7 +339,7 @@ public class UserControllerTest {
 
         // when
         ResultActions actions = mvc.perform(
-                get("/app/creator-view/"+userId)
+                get("/app/creator-view/" + userId)
                         .header("Authorization", "Bearer " + jwt)
         );
 
@@ -349,12 +350,84 @@ public class UserControllerTest {
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
-        actions.andExpect(jsonPath("$.response.nickName").value("bunwuseok"));
-        actions.andExpect(jsonPath("$.response.codiId").value(1));
+        actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bunwuseok"));
+        actions.andExpect(jsonPath("$.response.codiList[0].codiId").value(1));// Json데이터가 배열이면 몇번지의 데이터인지 기입해줘야 함.
+    }
+
+    //유저 마이페이지
+    @Test
+    public void user_my_page_test() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/user-my-page")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.userId").value(1));
+        actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
+        actions.andExpect(jsonPath("$.response.orderCount").value(3));
 
     }
 
+    @Test
+    public void search_all_multiple_results_test() throws Exception {
+        // given
 
 
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/search-all")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.codiListDTOS.length()").value(8)); //
+        actions.andExpect(jsonPath("$.response.itemListDTOS.length()").value(17)); // Assuming 2 items
+
+        //첫번째 코디
+        actions.andExpect(jsonPath("$.response.codiListDTOS[0].codiId").value(1));
+        actions.andExpect(jsonPath("$.response.codiListDTOS[0].codiPhotoId").value(14));
+
+        // 첫번째 아이템
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemId").value(1));
+
+    }
+
+    @Test
+    public void creator_my_page_test() throws Exception {
+        // given
+
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/creator-my-page")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.userDTO.creatorId").value(3));
+        actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bunwuseok"));
+
+    }
 
 }

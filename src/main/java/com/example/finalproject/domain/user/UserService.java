@@ -100,7 +100,7 @@ public class UserService {
     public UserResponse.CreatorViewDTO creatorView(Integer userId) {
         // 1. 크리에이터 정보 불러오기
         User user = userRepository.findUsersByBlueCheckedAndPhoto(userId)
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+                .orElseThrow(() -> new Exception401("크리에이터가 아닙니다."));
 
         // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
         List<Codi> codis = codiRepository.findCodiByUserId(userId);

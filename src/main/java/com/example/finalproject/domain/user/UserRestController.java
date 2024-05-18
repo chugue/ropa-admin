@@ -2,7 +2,7 @@ package com.example.finalproject.domain.user;
 
 
 import com.example.finalproject._core.utils.ApiUtil;
-import com.example.finalproject._core.utils.AppJwtUtill;
+import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject._core.utils.JwtVO;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ public class UserRestController {
     public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
         User user = userService.login(reqDTO);
         UserResponse.LoginInfo respDTO = new UserResponse.LoginInfo(user);
-        String jwt = AppJwtUtill.create(user);
+        String jwt = AppJwtUtil.create(user);
         return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil<>(respDTO)); // header 문법
     }
 
@@ -37,12 +37,12 @@ public class UserRestController {
     @PostMapping("/user/join")
     public ResponseEntity<?> join(@Valid @RequestBody UserRequest.JoinDTO reqDTO, Errors erros) {
         User user = userService.join(reqDTO);
-        String jwt = AppJwtUtill.create(user);
+        String jwt = AppJwtUtil.create(user);
         UserResponse.JoinInfo respDTO = new UserResponse.JoinInfo(user);
         return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil(respDTO));
     }
 
-    // 앱 세팅 화면
+    // 앱 세팅 화면 (사용자 정보 변경)
     @GetMapping("/app/setting")
     public ResponseEntity<?> settingPage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
@@ -50,7 +50,7 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    // 앱 프로필 화면
+    // 앱 프로필 화면 (사진변경 -프로필)
     @GetMapping("/app/profile")
     public ResponseEntity<?> profilePage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");

@@ -62,6 +62,7 @@ public class UserRequest {
     }
 
     // 앱 크리에이터 지원 요청
+    @NoArgsConstructor
     @Data
     public static class CreatorApplyDTO {
         @NotEmpty(message = "키는 공백일 수 없습니다")

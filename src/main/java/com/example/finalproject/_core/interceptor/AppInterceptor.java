@@ -4,7 +4,7 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception500;
-import com.example.finalproject._core.utils.AppJwtUtill;
+import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.user.SessionUser;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ public class AppInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession();
 
         try {
-            SessionUser sessionUser = AppJwtUtill.verify(jwt);
+            SessionUser sessionUser = AppJwtUtil.verify(jwt);
             session.setAttribute("sessionUser", sessionUser);
         } catch (TokenExpiredException e) {
             throw new Exception401("토큰 만료 시간이 지났습니다. 다시 로그인 하세요");

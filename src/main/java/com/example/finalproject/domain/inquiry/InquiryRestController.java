@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class InquiryRestController {
     }
     // 문의 등록
     @PostMapping("/app/inquiries")
-    public ResponseEntity<?> inquirySave(@Valid  @RequestBody InquiryRequest.SaveDTO reqDTO){
+    public ResponseEntity<?> inquirySave(@Valid  @RequestBody InquiryRequest.SaveDTO reqDTO, Errors errors){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         InquiryResponse.Save respDTO = inquiryService.saveInquiry(reqDTO, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

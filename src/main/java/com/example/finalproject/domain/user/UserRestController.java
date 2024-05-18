@@ -19,7 +19,7 @@ public class UserRestController {
 
     // 앱] 로그인 요청
     @PostMapping("/user/login")
-    public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
         User user = userService.login(reqDTO);
         UserResponse.LoginInfo respDTO = new UserResponse.LoginInfo(user);
         String jwt = AppJwtUtill.create(user);

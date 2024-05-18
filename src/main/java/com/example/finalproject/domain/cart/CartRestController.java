@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class CartRestController {
 
     // 장바구니 추가
     @PostMapping("/app/carts/save")
-    public ResponseEntity<?> CartSave(@Valid @RequestBody CartRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> CartSave(@Valid @RequestBody CartRequest.SaveDTO reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         CartResponse.Saved respDTO = cartService.save(reqDTO, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

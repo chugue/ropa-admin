@@ -430,4 +430,48 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    public void user_profile_update_success_test() throws Exception {
+        // given
+        Integer userId = 3;
+
+        UserRequest.ProfileUpdateDTO reqDTO = new UserRequest.ProfileUpdateDTO();
+        reqDTO.setMyName("변우식");
+        reqDTO.setNickName("bun");
+        reqDTO.setPassword("12345");
+
+
+
+        UserRequest.ProfileUpdateDTO.PhotoDTO photoDTO = new UserRequest.ProfileUpdateDTO.PhotoDTO();
+        photoDTO.setName("uuid_사용자사진3");
+        photoDTO.setBase64("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9");
+        reqDTO.setPhoto(photoDTO);
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                put("/user/profile/"+userId)
+                        .header("Authorization", "Bearer " + jwt)
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        //eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+
+        String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
+        // then
+        actions.andExpect(status().isOk()); // 상태 코드 검증
+        if (respJwt != null) {
+            assertTrue(respJwt.contains("Bearer "));
+        }
+
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.myName").value("변우식"));
+        actions.andExpect(jsonPath("$.response.nickName").value("bun"));
+    }
+
+
 }

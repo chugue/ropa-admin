@@ -65,14 +65,6 @@ public class UserRestController {
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 
-    // 앱 프로필 화면 (사진변경 -프로필)
-    @GetMapping("/app/profile")
-    public ResponseEntity<?> profilePage() {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        UserResponse.ProfilePage respDTO = userService.profilePage(sessionUser);
-        return ResponseEntity.ok(new ApiUtil(respDTO));
-    }
-
     // 앱 사용자 크리에이터 지원 페이지
     @GetMapping("/app/creator-apply-form")
     public ResponseEntity<?> creatorApplyPage() {

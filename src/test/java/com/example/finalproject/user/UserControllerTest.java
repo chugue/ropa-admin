@@ -441,7 +441,6 @@ public class UserControllerTest {
         reqDTO.setPassword("12345");
 
 
-
         UserRequest.ProfileUpdateDTO.PhotoDTO photoDTO = new UserRequest.ProfileUpdateDTO.PhotoDTO();
         photoDTO.setName("uuid_사용자사진3");
         photoDTO.setBase64("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9");
@@ -451,7 +450,7 @@ public class UserControllerTest {
 
         // when
         ResultActions actions = mvc.perform(
-                put("/user/profile/"+userId)
+                put("/user/profile/" + userId)
                         .header("Authorization", "Bearer " + jwt)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -473,5 +472,64 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.nickName").value("bun"));
     }
 
+    @Test
+    public void user_profile_update_fail_test() throws Exception {
+        // given
+        Integer userId = 3;
 
+        UserRequest.ProfileUpdateDTO reqDTO = new UserRequest.ProfileUpdateDTO();
+        reqDTO.setMyName(""); // Invalid myName
+        reqDTO.setNickName("bun");
+        reqDTO.setPassword("12345");
+
+        UserRequest.ProfileUpdateDTO.PhotoDTO photoDTO = new UserRequest.ProfileUpdateDTO.PhotoDTO();
+        photoDTO.setName("uuid_사용자사진3");
+        photoDTO.setBase64("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9");
+        reqDTO.setPhoto(photoDTO);
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                put("/user/profile/" + userId)
+                        .header("Authorization", "Bearer " + jwt)
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        actions.andExpect(status().isBadRequest()); // Status code validation
+    }
+
+    @Test
+    public void user_profile_update_valid_fail_test() throws Exception {
+        // given
+        Integer userId = 3;
+
+        UserRequest.ProfileUpdateDTO reqDTO = new UserRequest.ProfileUpdateDTO();
+        reqDTO.setMyName("됐다됐다"); // Invalid myName
+        reqDTO.setNickName("bun");
+        reqDTO.setPassword("12");
+
+        UserRequest.ProfileUpdateDTO.PhotoDTO photoDTO = new UserRequest.ProfileUpdateDTO.PhotoDTO();
+        photoDTO.setName("uuid_사용자사진3");
+        photoDTO.setBase64("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9");
+        reqDTO.setPhoto(photoDTO);
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                put("/user/profile/" + userId)
+                        .header("Authorization", "Bearer " + jwt)
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        actions.andExpect(status().isBadRequest());
+        actions.andExpect(jsonPath("$.status").value(400));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("비밀번호는 최소 4자 이상 최대 20자 이하여야 합니다. : password"));
+    }
 }

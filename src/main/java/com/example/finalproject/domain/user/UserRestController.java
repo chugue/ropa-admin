@@ -19,7 +19,7 @@ public class UserRestController {
 
     // 프로필 변경
     @PutMapping("/user/profile/{userId}")
-    public ResponseEntity<?> profileUpdate(@Valid @RequestBody UserRequest.ProfileUpdateDTO reqDTO, @PathVariable(name = "userId") Integer userId, Error errors) {
+    public ResponseEntity<?> profileUpdate(@Valid @RequestBody UserRequest.ProfileUpdateDTO reqDTO, Errors errors, @PathVariable(name = "userId") Integer userId) {
         UserResponse.ProfileUpdate respDTO = userService.updateProfile(reqDTO, userId);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }

@@ -2,17 +2,47 @@ package com.example.finalproject.domain.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-
 public class UserRequest {
+
+    // 프로필변경
+    @Data
+    public static class ProfileUpdateDTO {
+        @NotEmpty(message = "실명이 공백일 수 없습니다.")
+        @Size(min = 1, max = 20, message = "닉네임은 최소 1자 이상 최대 20자 이하여야 합니다.")
+        private String myName;
+        @NotEmpty(message = "닉네임이 공백일 수 없습니다.")
+        @Size(min = 1, max = 20, message = "닉네임은 최소 1자 이상 최대 20자 이하여야 합니다.")
+        private String nickName;
+        private String mobile;
+        @NotEmpty(message = "비밀번호가 공백일 수 없습니다.")
+        @Size(min = 4, max = 20, message = "비밀번호는 최소 4자 이상 최대 20자 이하여야 합니다.")
+        private String password;
+        private PhotoDTO photo;
+
+        public ProfileUpdateDTO(String myName, String nickName, String mobile, String password, PhotoDTO photo) {
+            this.myName = myName;
+            this.nickName = nickName;
+            this.mobile = mobile;
+            this.password = password;
+            this.photo = photo;
+        }
+
+        @Data
+        public static class PhotoDTO {
+            private String name;
+            private String base64;
+
+            public PhotoDTO(String name, String base64) {
+                this.name = name;
+                this.base64 = base64;
+            }
+        }
+    }
 
     //회원가입
     @NoArgsConstructor
@@ -88,4 +118,5 @@ public class UserRequest {
             this.job = job;
         }
     }
+
 }

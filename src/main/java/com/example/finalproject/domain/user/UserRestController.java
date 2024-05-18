@@ -17,6 +17,21 @@ public class UserRestController {
     private final UserService userService;
     private final HttpSession session;
 
+    // 프로필 변경
+    @PutMapping("/user/profile/{userId}")
+    public ResponseEntity<?> profileUpdate(@Valid @RequestBody UserRequest.ProfileUpdateDTO reqDTO, @PathVariable(name = "userId") Integer userId, Error errors) {
+        UserResponse.ProfileUpdate respDTO = userService.updateProfile(reqDTO, userId);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
+    // 앱 프로필 화면
+    @GetMapping("/app/profile")
+    public ResponseEntity<?> profilePage() {
+        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
+        UserResponse.ProfilePage respDTO = userService.profilePage(sessionUser);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
     // 앱] 로그인 요청
     @PostMapping("/user/login")
     public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
@@ -77,7 +92,6 @@ public class UserRestController {
     //크리에이터 뷰 페이지
     @GetMapping("/app/creator-view/{userId}")
     public ResponseEntity<?> creatorView(@PathVariable Integer userId) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.CreatorViewDTO respDTO = userService.creatorView(userId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

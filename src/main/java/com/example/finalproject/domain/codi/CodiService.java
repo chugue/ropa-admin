@@ -42,11 +42,19 @@ public class CodiService {
     //코디 등록 페이지 - 아이템 연결
     public List<CodiResponse.BrandInfo> addItemPage(String category) {
         //모든 브랜드 정보 불러오기
-
+        System.out.println("category = " + category);
         List<Items> itemsList = itemsRepository.findTopItemsWithAdminAndPhoto(category);
+
+        System.out.println("itemsList.size() = " + itemsList.size());
         // Admin 별로 Items 리스트를 그룹화
         Map<Integer, List<Items>> adminItemMap = itemsList.stream()
                 .collect(Collectors.groupingBy(item -> Integer.valueOf(item.getAdmin().getId())));
+
+        // 콘솔에 출력
+        adminItemMap.forEach((adminId, itemList) -> {
+            System.out.println("Admin ID: " + adminId);
+            itemList.forEach(item -> System.out.println("    " + item));
+        });
 
         // 그룹화된 데이터를 기반으로 BrandInfo 리스트 생성
         return adminItemMap.entrySet().stream()
@@ -119,7 +127,6 @@ public class CodiService {
 
         // 새로운 코디 객체 생성
         Codi savedCodi = codiRepository.save(Codi.builder()
-                .title(reqDTO.getTitle())
                 .description(reqDTO.getDescription())
                 .user(user).build());
 

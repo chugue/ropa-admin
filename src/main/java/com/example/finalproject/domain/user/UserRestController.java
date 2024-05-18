@@ -76,7 +76,6 @@ public class UserRestController {
     //크리에이터 뷰 페이지
     @GetMapping("/app/creator-view/{userId}")
     public ResponseEntity<?> creatorView(@PathVariable Integer userId) {
-        SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.CreatorViewDTO respDTO = userService.creatorView(userId);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

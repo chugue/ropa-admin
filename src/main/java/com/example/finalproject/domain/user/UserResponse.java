@@ -92,7 +92,6 @@ public class UserResponse {
         }
     }
 
-
     //크리에이터  뷰 페이지
     @Data
     public static class CreatorViewDTO {

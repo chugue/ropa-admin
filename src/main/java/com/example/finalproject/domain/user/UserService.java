@@ -8,8 +8,6 @@ import com.example.finalproject.domain.codi.CodiResponse;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.items.ItemsResponse;
-import com.example.finalproject.domain.order.OrderRepository;
-import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,7 +90,7 @@ public class UserService {
     public UserResponse.CreatorViewDTO creatorView(Integer userId) {
         // 1. 크리에이터 정보 불러오기
         User user = userRepository.findUsersByBlueCheckedAndPhoto(userId)
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+                .orElseThrow(() -> new Exception404("정보를 찾을 수 없습니다"));
 
         // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
         List<Codi> codis = codiRepository.findCodiByUserId(userId);

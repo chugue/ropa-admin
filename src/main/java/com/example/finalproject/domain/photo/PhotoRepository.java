@@ -43,4 +43,8 @@ public interface PhotoRepository extends JpaRepository<Photo, Integer> {
 
     @Query("select p from Photo p where p.admin.id = :adminId")
     Optional<Photo> findByAdminId(@Param("adminId") Integer adminId);
+
+    // 사용자 사진 찾기
+    @Query("select p from Photo p where p.user.id = :userId")
+    Optional<Photo> findByOneUserId(@Param("userId") Integer userId);
 }

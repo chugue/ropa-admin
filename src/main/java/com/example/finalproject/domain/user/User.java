@@ -89,4 +89,29 @@ public class User {
         this.updateAt = updateAt;
         this.applyTime = applyTime;
     }
+//    private Integer userId;
+//    @NotEmpty(message = "이메일이 공백일 수 없습니다.")
+//    @Size(min = 1, max = 20, message = "이메일은 최소
+//            @Email(message = "올바른 이메일 형식이어야 합니다")
+//            private String email;
+//            @NotEmpty(message = "실명이 공백일 수 없습니다.")
+//            @Size(min = 1, max = 20, message = "닉네임은 최소
+//            private String myName;
+//            @NotEmpty(message = "닉네임이 공백일 수 없습니다.")
+//            @Size(min = 1, max = 20, message = "닉네임은 최소
+//            private String nickName;
+//            private String mobile;
+//            @NotEmpty(message = "비밀번호가 공백일 수 없습니다.")
+//            @Size(min = 4, max = 20, message = "비밀번호는 최
+//            private String password;
+//            private PhotoDTO photo;
+
+    public User toUpdate(UserRequest.ProfileUpdateDTO reqDTO) {
+        this.myName = reqDTO.getMyName();
+        this.nickName = reqDTO.getNickName();
+        this.password = reqDTO.getPassword();
+        this.mobile = reqDTO.getMobile();
+
+        return this;
+    }
 }

@@ -2,7 +2,6 @@ package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.utils.ApiUtil;
 import com.example.finalproject.domain.user.SessionUser;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,13 @@ public class CodiRestController {
     private final HttpSession session;
 
 
+    // 앱] 코디 등록
+    @PostMapping("/app/codi-register")
+    public ResponseEntity<?> codiRegister(@Valid @RequestBody CodiRequest.SaveDTO reqDTO) {
+        CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
+        return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
     // 코디 수정 페이지
     @GetMapping("/app/codi-update-page/{codiId}")
     public ResponseEntity<?> updatePage(@PathVariable Integer codiId) {
@@ -27,18 +33,10 @@ public class CodiRestController {
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 
-
     //앱] 코디 등록 - 아이템 연결 페이지
     @GetMapping("/app/codi-register/add-item/{category}")
     public ResponseEntity<?> topItemSave(@PathVariable String category) {
         List<CodiResponse.BrandInfo> respDTO = codiService.addItemPage(category);
-        return ResponseEntity.ok(new ApiUtil<>(respDTO));
-    }
-
-    // 앱] 코디 등록
-    @PostMapping("/app/codi-register")
-    public ResponseEntity<?> codiRegister(@Valid  @RequestBody CodiRequest.SaveDTO reqDTO, Errors errors) {
-        CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

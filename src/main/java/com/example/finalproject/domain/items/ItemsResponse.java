@@ -34,13 +34,13 @@ public class ItemsResponse {
         public class MainPhoto {
             private Integer photoId;
             private String mainPhotoName;
-            private String mainPhotoBase64;
+            private String photoPath;
             private Photo.Sort sort;
 
             public MainPhoto(Photo photo) {
                 this.photoId = photo.getId();
                 this.mainPhotoName = photo.getUuidName();
-                this.mainPhotoBase64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.sort = photo.getSort();
             }
         }
@@ -49,14 +49,14 @@ public class ItemsResponse {
         public class DetailPhoto {
             private Integer itemPhotoId;
             private String subPhotoName;
-            private String subPhotoBase64;
+            private String photoPath;
             private Boolean isMainPhoto;
             private Photo.Sort sort;
 
             public DetailPhoto(Photo photo) {
                 this.itemPhotoId = photo.getId();
                 this.subPhotoName = photo.getUuidName();
-                this.subPhotoBase64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
                 this.isMainPhoto = photo.getIsMainPhoto();
                 this.sort = photo.getSort();
             }
@@ -125,7 +125,7 @@ public class ItemsResponse {
         private Integer price;
         private Integer itemPhotoId;
         private String itemPhotoName;
-        private String base64;
+        private String photoPath;
 
         public ItemListDTO(Items items) {
             this.itemId = items.getId();
@@ -137,7 +137,7 @@ public class ItemsResponse {
                 Photo itemPhoto = itemPhotos.get(0); // 첫 번째 포토만 사용
                 this.itemPhotoId = itemPhoto.getId();
                 this.itemPhotoName = itemPhoto.getUuidName();
-                this.base64 = itemPhoto.toBase64(itemPhoto);
+                this.photoPath = itemPhoto.getPath();
             }
         }
     }

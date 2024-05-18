@@ -1,6 +1,5 @@
 package com.example.finalproject.domain.codi;
 
-import com.example.finalproject.domain.items.ItemsRequest;
 import com.example.finalproject.domain.photo.Photo;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

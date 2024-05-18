@@ -86,7 +86,7 @@ public class OrderHistoryResponse {
         private Integer itemId; // 주문자
         private String itemName; // 아이템명
         private String itemPhotoName; //아이템 사진 이름
-        private String itemBase64; // 아이템 사진
+        private String photoPath; // 아이템 사진
         private Integer itemCount; // 하나의 아이템 개수
         private Integer itemPrice; // 하나의 아이템 금액
         private Integer itemTotalPrice; // 하나의 아이템 총 금액
@@ -98,7 +98,7 @@ public class OrderHistoryResponse {
             this.itemId = orderHistory.getItems().getId();
             this.itemName = orderHistory.getItems().getName();
             this.itemPhotoName = orderHistory.getItems().getPhotos().getFirst().getUuidName();
-            this.itemBase64 = orderHistory.getItems().getPhotos().getFirst().toBase64(orderHistory.getItems().getPhotos().getFirst());
+            this.photoPath = orderHistory.getItems().getPhotos().getFirst().getPath();
             this.itemCount = orderHistory.getOrderItemQty();
             this.itemPrice = orderHistory.getItems().getPrice();
             this.itemTotalPrice = (this.itemCount * this.itemPrice);

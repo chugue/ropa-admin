@@ -4,10 +4,8 @@ import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiResponse;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsResponse;
-import com.example.finalproject.domain.order.Order;
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;
-import org.hibernate.id.IntegralDataTypeHolder;
 
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class UserResponse {
         private Integer creatorId; //크리에이터 아이디
         private Boolean blueChecked;    //true -> 크리에이터
         private String photoName;   // 크리에이터 사진 이름
-        private String base64;   // 크리에이터 사진 base64
+        private String photoPath;   // 크리에이터 사진 base64
         private String nickName;    //별명
         private String height; //키
         private String weight;  // 체중
@@ -44,7 +42,7 @@ public class UserResponse {
             this.creatorId = user.getId();
             this.blueChecked = user.getBlueChecked();
             this.photoName = user.getPhoto().getUuidName();
-            this.base64 = user.getPhoto().toBase64(user.getPhoto());
+            this.photoPath = user.getPhoto().getPath();
             this.nickName = user.getNickName();
             this.height = user.getHeight();
             this.weight = user.getWeight();
@@ -60,7 +58,7 @@ public class UserResponse {
         private Integer codiId;
         private Integer codiPhotoId;
         private String photoName;
-        private String base64;
+        private String photoPath;
         private Photo.Sort codiPhoto;
 
         public MyCodiList(Codi codi) {
@@ -70,7 +68,7 @@ public class UserResponse {
                 Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
                 this.codiPhotoId = codiPhoto.getId();
                 this.photoName = codiPhoto.getUuidName();
-                this.base64 = codiPhoto.toBase64(codiPhoto);
+                this.photoPath = codiPhoto.getPath();
                 this.codiPhoto = codiPhoto.getSort();
             }
         }
@@ -81,14 +79,14 @@ public class UserResponse {
     public static class UserMyPage {
         private Integer userId; //로그인한 유저 아이디
         private String photoName;   // 크리에이터 사진 이름
-        private String base64;   // 크리에이터 사진 base64
+        private String photoPath;   // 크리에이터 사진 base64
         private String nickName;  //별명
         private Integer orderCount; // 주문 갯수
 
         public UserMyPage(User user, Integer orderCount) {
             this.userId = user.getId();
             this.photoName = user.getPhoto().getUuidName();
-            this.base64 = user.getPhoto().toBase64(user.getPhoto());
+            this.photoPath = user.getPhoto().getPath();
             this.nickName = user.getNickName();
             this.orderCount = orderCount;
         }
@@ -114,7 +112,7 @@ public class UserResponse {
         private Integer creatorId; //크리에이터 아이디
         private Boolean blueChecked;    //true -> 크리에이터
         private String photoName;   // 크리에이터 사진 이름
-        private String base64;   // 크리에이터 사진 base64
+        private String photoPath;   // 크리에이터 사진 base64
         private String nickName;    //별명
         private String height; //키
         private String weight;  // 체중
@@ -125,7 +123,7 @@ public class UserResponse {
             this.creatorId = user.getId();
             this.blueChecked = user.getBlueChecked();
             this.photoName = user.getPhoto().getUuidName();
-            this.base64 = user.getPhoto().toBase64(user.getPhoto());
+            this.photoPath = user.getPhoto().getPath();
             this.nickName = user.getNickName();
             this.height = user.getHeight();
             this.weight = user.getWeight();
@@ -139,7 +137,7 @@ public class UserResponse {
         private Integer codiId;
         private Integer codiPhotoId;
         private String photoName;
-        private String base64;
+        private String photoPath;
         private Photo.Sort codiPhoto;
 
         public CodiList(Codi codi) {
@@ -149,7 +147,7 @@ public class UserResponse {
                 Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
                 this.codiPhotoId = codiPhoto.getId();
                 this.photoName = codiPhoto.getUuidName();
-                this.base64 = codiPhoto.toBase64(codiPhoto);
+                this.photoPath = codiPhoto.getPath();
                 this.codiPhoto = codiPhoto.getSort();
             }
         }
@@ -163,7 +161,7 @@ public class UserResponse {
         private Integer price;
         private Integer itemPhotoId;
         private String itemPhotoName;
-        private String base64;
+        private String photoPath;
         private Photo.Sort itemPhoto;
 
         public ItemList(Items items) {
@@ -176,7 +174,7 @@ public class UserResponse {
                 Photo itemPhoto = itemPhotos.get(0); // 첫 번째 포토만 사용
                 this.itemPhotoId = itemPhoto.getId();
                 this.itemPhotoName = itemPhoto.getUuidName();
-                this.base64 = itemPhoto.toBase64(itemPhoto);
+                this.photoPath = itemPhoto.getPath();
                 this.itemPhoto = itemPhoto.getSort();
             }
         }
@@ -290,12 +288,12 @@ public class UserResponse {
         public static class PhotoInfo {
             private Integer id;
             private String name;
-            private String base64;
+            private String photoPath;
 
             public PhotoInfo(Photo photo) {
                 this.id = photo.getId();
                 this.name = photo.getUuidName();
-                this.base64 = photo.toBase64(photo);
+                this.photoPath = photo.getPath();
             }
         }
     }

@@ -148,7 +148,7 @@ public class AdminService {
         List<User> userList = switch (searchBy) {
             case "myName" -> userRepository.findByMyName(keyword);
             case "nickName" -> userRepository.findByNickName(keyword);
-            case "email" -> userRepository.findByEmail(keyword);
+            case "email" -> userRepository.findByEmailKeyword(keyword);
             case null, default -> userRepository.findAll();
         };
 
@@ -172,7 +172,7 @@ public class AdminService {
         List<User> userList = switch (searchBy) {
             case "myName" -> userRepository.findByMyName(keyword);
             case "nickName" -> userRepository.findByNickName(keyword);
-            case "email" -> userRepository.findByEmail(keyword);
+            case "email" -> userRepository.findByEmailKeyword(keyword);
             case null, default -> userRepository.findAll();
         };
         return userList.stream().map(AdminResponse.UserList::new).toList();

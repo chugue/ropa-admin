@@ -8,14 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-
-
+    //이메일 중복 체크
+    Optional<User> findByEmail(@Param("email") String email);
 
     //크리에이터의 정보 불러오기
     @Query("select u from User u join fetch u.photo where u.id = :userId and u.blueChecked = true ")
     Optional<User> findUsersByBlueCheckedAndPhoto(@Param("userId") Integer userId);
-
-
 
     @Query("select u from User u where u.email = :email and u.password = :password")
     Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
@@ -36,5 +34,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     // 유저 이메일 검색
     @Query("SELECT u FROM User u where u.email like %:keyword%")
-    List<User> findByEmail(@Param("keyword") String keyword);
+    List<User> findByEmailKeyword(@Param("keyword") String keyword);
 }

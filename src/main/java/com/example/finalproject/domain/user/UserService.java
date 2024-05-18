@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.user;
 
+import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.codi.Codi;
@@ -31,6 +32,12 @@ public class UserService {
     //회원가입
     @Transactional
     public User join(UserRequest.JoinDTO reqDTO) {
+        Optional<User> userOp = userRepository.findByEmail(reqDTO.getEmail());
+
+        if (userOp.isPresent()){
+            throw new Exception400("중복된 이메일이 있습니다.");
+        }
+
         User user = userRepository.save(User.builder()
                 .email(reqDTO.getEmail())
                 .password(reqDTO.getPassword())

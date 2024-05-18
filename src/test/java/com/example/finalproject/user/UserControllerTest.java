@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -23,6 +24,8 @@ public class UserControllerTest {
     @Autowired
     private MockMvc mvc;
 
+
+    //회원가입
     @Test
     public void join_test() throws Exception {
         // given
@@ -33,7 +36,6 @@ public class UserControllerTest {
         reqDTO.setPassword("1234");
 
         String reqBody = om.writeValueAsString(reqDTO);
-//        System.out.println("reqBody: " + reqBody);
 
         // when
         ResultActions actions = mvc.perform(
@@ -53,6 +55,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.nickName").value("cat"));
     }
 
+    //아이디 중복체크
     @Test
     public void join_username_same_fail_test() throws Exception {
         // given
@@ -63,7 +66,6 @@ public class UserControllerTest {
         reqDTO.setPassword("1234");
 
         String reqBody = om.writeValueAsString(reqDTO);
-//        System.out.println("reqBody: " + reqBody);
 
         // when
         ResultActions actions = mvc.perform(
@@ -82,6 +84,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.errorMessage").value("중복된 이메일이 있습니다."));
     }
 
+    //회원가입 유효성검사
     @Test
     public void join_username_valid_fail_test() throws Exception {
         // given
@@ -92,7 +95,6 @@ public class UserControllerTest {
         reqDTO.setPassword("1234");
 
         String reqBody = om.writeValueAsString(reqDTO);
-//        System.out.println("reqBody: " + reqBody);
 
         // when
         ResultActions actions = mvc.perform(
@@ -109,4 +111,89 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.errorMessage").value("이메일은 최소 1자 이상 최대 20자 이하여야 합니다. : email"));
     }
+
+    //로그인
+    @Test
+    public void login_success_test() throws Exception {
+        // given
+        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
+        reqDTO.setEmail("junghein@example.com");
+        reqDTO.setPassword("1234");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/user/login")
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        //eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        String jwt = actions.andReturn().getResponse().getHeader("Authorization");
+
+        // then
+        actions.andExpect(status().isOk()); // header 검증
+        actions.andExpect(result -> result.getResponse().getHeader("Authorization").contains("Bearer " + jwt));
+
+
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
+    }
+
+    //로그인 실패 테스트
+    @Test
+    public void login_fail_test() throws Exception {
+        // given
+        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
+        reqDTO.setEmail("junghein@example.com");
+        reqDTO.setPassword("12345");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/user/login")
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        actions.andExpect(status().isUnauthorized()); // header 검증
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.errorMessage").value("사용자 정보를 찾을 수 없습니다."));
+        actions.andExpect(jsonPath("$.response").isEmpty());
+    }
+
+    //로그인 유효성검사
+    @Test
+    public void login_username_valid_fail_test() throws Exception {
+        // given
+        UserRequest.LoginDTO reqDTO = new UserRequest.LoginDTO();
+        reqDTO.setEmail("");
+        reqDTO.setPassword("1234");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/user/login")
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(400));
+        actions.andExpect(jsonPath("$.errorMessage").value("이메일이 공백일 수 없습니다 : email"));
+    }
+
+
+
+
+
 }

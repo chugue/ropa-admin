@@ -51,7 +51,7 @@ public class UserService {
     // 앱 사용자 로그인
     public User login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception401("사용자 정보를 찾을 수 없습니다."));
         return user;
     }
 

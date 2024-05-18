@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class CodiRestController {
 
     // 앱] 코디 등록
     @PostMapping("/app/codi-register")
-    public ResponseEntity<?> codiRegister(@Valid  @RequestBody CodiRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> codiRegister(@Valid  @RequestBody CodiRequest.SaveDTO reqDTO, Errors errors) {
         CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

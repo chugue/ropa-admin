@@ -16,6 +16,7 @@ public class CodiRestController {
     private final CodiService codiService;
     private final HttpSession session;
 
+
     // 앱] 코디 등록
     @PostMapping("/app/codi-register")
     public ResponseEntity<?> codiRegister(@Valid @RequestBody CodiRequest.SaveDTO reqDTO) {
@@ -24,7 +25,6 @@ public class CodiRestController {
     }
 
     // 코디 수정 페이지
-
     @GetMapping("/app/codi-update-page/{codiId}")
     public ResponseEntity<?> updatePage(@PathVariable Integer codiId) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");

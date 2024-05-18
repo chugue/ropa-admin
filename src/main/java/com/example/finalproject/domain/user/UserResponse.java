@@ -326,5 +326,35 @@ public class UserResponse {
             this.itemListDTOS = itemListDTOS;
         }
     }
+
+    @Data
+    public static class ProfileUpdate {
+        private Integer userId;
+        private String email;
+        private String myName;
+        private String nickName;
+        private String mobile;
+        private PhotoDTO photo;
+
+        public ProfileUpdate(User user, Photo photo) {
+            this.userId = user.getId();
+            this.email = user.getEmail();
+            this.myName = user.getMyName();
+            this.nickName = user.getNickName();
+            this.mobile = user.getMobile();
+            this.photo = new PhotoDTO(photo);
+        }
+
+        @Data
+        public class PhotoDTO {
+            private Integer photoId;
+            private String photoPath;
+
+            public PhotoDTO(Photo photo) {
+                this.photoId = photo.getId();
+                this.photoPath = photo.getPath();
+            }
+        }
+    }
 }
 

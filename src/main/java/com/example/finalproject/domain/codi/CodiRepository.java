@@ -33,6 +33,6 @@ public interface CodiRepository extends JpaRepository<Codi, Integer> {
     @Query("select c from Codi c join fetch c.photos p")
     List<Codi> findByAllCodi();
 
-    @Query("select c from Codi c join fetch c.photos p where c.title like %:keyword%")
+    @Query("select c from Codi c join fetch c.photos p where c.description like %:keyword%")
     List<Codi> findItemsByCodiTitle(String keyword);
 }

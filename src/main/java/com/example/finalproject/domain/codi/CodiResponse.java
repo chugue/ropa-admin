@@ -111,11 +111,11 @@ public class CodiResponse {
         @Data
         public class SavedPhoto {
             private Integer photoId;
-            private String photoName;
+            private String photoPath;
 
             public SavedPhoto(Photo photo) {
                 this.photoId = photo.getId();
-                this.photoName = photo.getUuidName();
+                this.photoPath = photo.getPath();
             }
         }
 

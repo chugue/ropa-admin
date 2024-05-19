@@ -4,8 +4,10 @@ import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.user.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -62,7 +64,7 @@ public class OrderRequest {
         private String deliveryRequest;
         private Boolean isBaseAddress;
 
-        @NotEmpty(message = "결제정보를 정해 주셔야 합니다.")
+        @NotNull(message = "결제정보를 정해 주셔야 합니다.")
         private PurchaseInfo purchaseInfo;
 
         public SaveOrder(String name, String phone, String email, String postCode, String address, String detailAddress, String deliveryRequest, Boolean isBaseAddress, PurchaseInfo purchaseInfo) {

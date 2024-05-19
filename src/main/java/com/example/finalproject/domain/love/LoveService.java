@@ -23,7 +23,7 @@ public class LoveService {
     public LoveResponse.SaveUserLove saveLove(Integer codiId, Integer userId) {
         Optional<Love> loveStatus = loveRepository.findByCodiIdAndUserLoveStatus(codiId, userId);
         Codi codi = codiRepository.findByCodiIdAndUser(codiId).orElseThrow(() ->
-                new Exception404("해당 게시물을 찾을 수 없습니다. "));
+                new Exception404("해당 게시물을 찾을 수 없습니다."));
         Love love;
         if (loveStatus.isEmpty()) {
             love = loveRepository.save(Love.builder()

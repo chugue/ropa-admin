@@ -245,7 +245,9 @@ public class CodiService {
             return codiList.stream().map(CodiResponse.CodiListDTO::new).collect(Collectors.toList());
         }
 
-        codiList = codiRepository.findItemsByCodiDescription(keyword.trim());
+        System.out.println("✅✅✅✅✅"+ keyword.trim());
+        codiList = codiRepository.findItemsByCodiDescription(keyword);
+        System.out.println(codiList.size());
         return codiList.stream().map(CodiResponse.CodiListDTO::new).collect(Collectors.toList());
     }
 }

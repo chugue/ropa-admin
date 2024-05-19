@@ -55,12 +55,11 @@ public class CodiControllerTest {
     @Test
     public void searchCodi_success_test() throws Exception {
         // given
-        String keyword = "";
+        String keyword = "꾸안꾸";
 
         // when
         ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/app/search-codi")
                 .param("keyword", keyword)
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + jwt));
 
         // eye

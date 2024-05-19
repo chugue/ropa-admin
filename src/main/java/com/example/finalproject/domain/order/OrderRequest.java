@@ -1,10 +1,9 @@
 package com.example.finalproject.domain.order;
 
-import com.example.finalproject.domain.cart.Cart;
+import com.example.finalproject.cart.Cart;
 import com.example.finalproject.domain.user.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 

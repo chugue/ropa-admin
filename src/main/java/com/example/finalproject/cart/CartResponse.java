@@ -1,4 +1,4 @@
-package com.example.finalproject.domain.cart;
+package com.example.finalproject.cart;
 
 import com.example.finalproject.domain.photo.Photo;
 import lombok.Data;

@@ -72,7 +72,6 @@ public class UserService {
         // 파일명 중복 방지를 위해 UUID 사용
         String imgFilename = UUID.randomUUID() + "_" + photo.getName();
 
-        // resourceHandler로 해당 폴더 개방 작업을 WebConfig에서 등록하고 여기 와야됨
         // 파일이름이랑 개방된 폴더를 조합해서 경로 생성
         Path imgPath = Paths.get(uploadPath, userPath, imgFilename);
 

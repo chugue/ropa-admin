@@ -1,4 +1,4 @@
-package com.example.finalproject.domain.cart;
+package com.example.finalproject.cart;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

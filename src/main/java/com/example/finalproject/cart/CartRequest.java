@@ -1,4 +1,4 @@
-package com.example.finalproject.domain.cart;
+package com.example.finalproject.cart;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

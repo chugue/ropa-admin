@@ -252,7 +252,7 @@ public class UserService {
     public UserResponse.UserMyPage userMyPage(SessionUser sessionUser) {
         // 1. 유저 정보 불러오기
         User user = userRepository.findByUserIdWithPhoto(sessionUser.getId())
-                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
         // 2. 주문 총 량 찾아오기
         Integer sumOrderItemQty = orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));

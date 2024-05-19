@@ -1,7 +1,8 @@
-package com.example.finalproject.domain.cart;
+package com.example.finalproject.cart;
 
 
 import com.example.finalproject._core.utils.AppJwtUtil;
+import com.example.finalproject.domain.cart.CartRequest;
 import com.example.finalproject.domain.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;

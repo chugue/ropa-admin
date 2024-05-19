@@ -26,9 +26,6 @@ public class Codi {
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 사용자 고유번호
 
-    @Column(nullable = false)
-    private String title; // 코디 제목
-
     private String description; // 코디 설명
 
     @OneToMany(mappedBy = "codi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -44,10 +41,9 @@ public class Codi {
     private Timestamp updatedAt; // 수정시간
 
     @Builder
-    public Codi(Integer id, User user, String title, String description, Timestamp createdAt, Timestamp updatedAt) {
+    public Codi(Integer id, User user, String description, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.user = user;
-        this.title = title;
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

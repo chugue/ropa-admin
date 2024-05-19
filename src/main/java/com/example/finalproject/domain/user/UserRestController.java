@@ -50,7 +50,7 @@ public class UserRestController {
 
     // 앱] 회원가입
     @PostMapping("/user/join")
-    public ResponseEntity<?> join(@Valid @RequestBody UserRequest.JoinDTO reqDTO, Errors erros) {
+    public ResponseEntity<?> join(@Valid @RequestBody UserRequest.JoinDTO reqDTO, Errors errors) {
         User user = userService.join(reqDTO);
         String jwt = AppJwtUtil.create(user);
         UserResponse.JoinInfo respDTO = new UserResponse.JoinInfo(user);

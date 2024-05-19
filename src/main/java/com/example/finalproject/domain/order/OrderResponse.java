@@ -1,6 +1,6 @@
 package com.example.finalproject.domain.order;
 
-import com.example.finalproject.cart.Cart;
+import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.delivery.Delivery;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.photo.Photo;

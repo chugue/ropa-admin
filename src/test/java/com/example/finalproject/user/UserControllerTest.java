@@ -32,10 +32,10 @@ public class UserControllerTest {
     public static void setUp() {
         jwt = AppJwtUtil.create(
                 User.builder()
-                        .id(3)
-                        .myName("변우석")
-                        .email("bunwuseok@example.com")
-                        .blueChecked(true)
+                        .id(1)
+                        .myName("정해인")
+                        .email("junghein@example.com")
+                        .blueChecked(false)
                         .build());
     }
 
@@ -208,7 +208,7 @@ public class UserControllerTest {
 
     //앱 세팅 테스트 (사용자 변경)
     @Test
-    public void setting_test() throws Exception {
+    public void setting_success_test() throws Exception {
         // given
 
         // when
@@ -228,30 +228,30 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
     }
 
-//    @Test
-//    public void setting_fail_test() throws Exception {
-//        // given
-//
-//        // when
-//        ResultActions actions = mvc.perform(
-//                get("/app/setting")
-//                        .header("Authorization", "Bearer " + jwt)
-//        );
-//
-//        // eye
-//        String respBody = actions.andReturn().getResponse().getContentAsString();
-//
-//        // then
-//        actions.andExpect(jsonPath("$.status").value(400)); // Change expected status to 400
-//        actions.andExpect(jsonPath("$.success").value(false)); // Change expected success to false
-//        actions.andExpect(jsonPath("$.response.id").value(2)); // Change expected id to 2
-//        actions.andExpect(jsonPath("$.response.myName").value("임시완")); // Change expected myName
-//        actions.andExpect(jsonPath("$.response.email").value("limsiwan@example.com")); // Change expected email
-//    }
+    @Test
+    public void setting_fail_test() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/setting")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody: " + respBody);
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
+
+    }
 
     //앱 프로필 테스트
     @Test
-    public void profile_test() throws Exception {
+    public void profile_success_test() throws Exception {
         // given
 
         // when
@@ -271,9 +271,29 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
     }
 
-    // 크리에이터 지원 페이
+
     @Test
-    public void creator_apply_form_test() throws Exception {
+    public void profile_fail_test() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/profile")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
+    }
+
+    // 크리에이터 지원 페이지
+    @Test
+    public void creator_apply_form_success_test() throws Exception {
         // given
 
         // when
@@ -292,6 +312,25 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.instagram").value("holyhaein"));
         actions.andExpect(jsonPath("$.response.blueChecked").value("false"));
         actions.andExpect(jsonPath("$.response.status").value("신청 전"));
+    }
+
+    @Test
+    public void creator_apply_form_fail_test() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/creator-apply-form")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
     }
 
     //사용자 크리에이터 지원하기
@@ -331,9 +370,43 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.status").value("승인 대기"));
     }
 
+    @Test
+    public void creator_apply_fail_test() throws Exception {
+        // given
+        UserRequest.CreatorApplyDTO reqDTO = new UserRequest.CreatorApplyDTO();
+        reqDTO.setHeight("");
+        reqDTO.setComment("키 182 연예인 체형입니다.");
+        reqDTO.setInstagram("abc@naver.com");
+        reqDTO.setJob("학생");
+        reqDTO.setWeight("72");
+
+        String reqBody = om.writeValueAsString(reqDTO);
+
+        // when
+        ResultActions actions = mvc.perform(
+                put("/app/creator-apply")
+                        .header("Authorization", "Bearer " + jwt)
+                        .content(reqBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        //eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
+
+        // then
+        if (respJwt != null) {
+            assertTrue(respJwt.contains("Bearer "));
+        }
+
+        actions.andExpect(jsonPath("$.status").value(400));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("키는 공백일 수 없습니다 : height"));
+    }
+
     //크리에이터 뷰 페이지
     @Test
-    public void creator_view_test() throws Exception {
+    public void creator_view_success_test() throws Exception {
         // given
         Integer userId = 3;
 
@@ -354,9 +427,30 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.codiList[0].codiId").value(1));// Json데이터가 배열이면 몇번지의 데이터인지 기입해줘야 함.
     }
 
+    @Test
+    public void creator_view_fail_test() throws Exception {
+        // given
+        Integer userId = 999;
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/creator-view/" + userId)
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody: " + respBody);
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("크리에이터가 아닙니다."));
+    }
+
     //유저 마이페이지
     @Test
-    public void user_my_page_test() throws Exception {
+    public void user_my_page_success_test() throws Exception {
         // given
 
         // when
@@ -379,7 +473,29 @@ public class UserControllerTest {
     }
 
     @Test
-    public void search_all_multiple_results_test() throws Exception {
+    public void user_my_page_fail_test() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/user-my-page")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
+
+    }
+
+
+    @Test
+    public void search_all_multiple_results_success_test() throws Exception {
         // given
 
 
@@ -408,7 +524,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void creator_my_page_test() throws Exception {
+    public void creator_my_page_success_test() throws Exception {
         // given
 
 
@@ -428,6 +544,27 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.userDTO.creatorId").value(3));
         actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bunwuseok"));
 
+    }
+
+    @Test
+    public void creator_my_page_fail_test() throws Exception {
+        // given
+
+
+        // when
+        ResultActions actions = mvc.perform(
+                get("/app/creator-my-page")
+                        .header("Authorization", "Bearer " + jwt)
+        );
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+        actions.andExpect(jsonPath("$.status").value(401));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("인증 되지 않았습니다."));
     }
 
     @Test

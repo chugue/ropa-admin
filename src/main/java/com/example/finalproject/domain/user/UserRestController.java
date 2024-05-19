@@ -2,7 +2,7 @@ package com.example.finalproject.domain.user;
 
 
 import com.example.finalproject._core.utils.ApiUtil;
-import com.example.finalproject._core.utils.AppJwtUtill;
+import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject._core.utils.JwtVO;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class UserRestController {
 
     // 프로필 변경
     @PutMapping("/user/profile/{userId}")
-    public ResponseEntity<?> profileUpdate(@Valid @RequestBody UserRequest.ProfileUpdateDTO reqDTO, @PathVariable(name = "userId") Integer userId, Error errors) {
+    public ResponseEntity<?> profileUpdate(@Valid @RequestBody UserRequest.ProfileUpdateDTO reqDTO, Errors errors, @PathVariable(name = "userId") Integer userId) {
         UserResponse.ProfileUpdate respDTO = userService.updateProfile(reqDTO, userId);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
@@ -37,7 +37,7 @@ public class UserRestController {
     public ResponseEntity<?> login(@Valid @RequestBody UserRequest.LoginDTO reqDTO, Errors errors) {
         User user = userService.login(reqDTO);
         UserResponse.LoginInfo respDTO = new UserResponse.LoginInfo(user);
-        String jwt = AppJwtUtill.create(user);
+        String jwt = AppJwtUtil.create(user);
         return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil<>(respDTO)); // header 문법
     }
 
@@ -52,19 +52,18 @@ public class UserRestController {
     @PostMapping("/user/join")
     public ResponseEntity<?> join(@Valid @RequestBody UserRequest.JoinDTO reqDTO, Errors errors) {
         User user = userService.join(reqDTO);
-        String jwt = AppJwtUtill.create(user);
+        String jwt = AppJwtUtil.create(user);
         UserResponse.JoinInfo respDTO = new UserResponse.JoinInfo(user);
         return ResponseEntity.ok().header(JwtVO.HEADER, JwtVO.PREFIX + jwt).body(new ApiUtil(respDTO));
     }
 
-    // 앱 세팅 화면
+    // 앱 세팅 화면 (사용자 정보 변경)
     @GetMapping("/app/setting")
     public ResponseEntity<?> settingPage() {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         UserResponse.SettingPage respDTO = userService.settingPage(sessionUser);
         return ResponseEntity.ok(new ApiUtil(respDTO));
     }
-
 
     // 앱 사용자 크리에이터 지원 페이지
     @GetMapping("/app/creator-apply-form")

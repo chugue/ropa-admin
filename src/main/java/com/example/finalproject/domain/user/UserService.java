@@ -284,7 +284,7 @@ public class UserService {
         }
 
         items = itemsRepository.findItemsByItemName(keyword);
-        codiList = codiRepository.findItemsByCodiTitle(keyword);
+        codiList = codiRepository.findItemsByCodiDescription(keyword);
 
         codiListDTO = codiList.stream()
                 .map(CodiResponse.CodiListDTO::new).toList();

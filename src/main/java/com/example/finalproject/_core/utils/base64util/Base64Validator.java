@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Base64Validator {
-    String message() default "Invalid Base64 format";
+    String message() default "Base24 포맷이 아닙니다.";
 
     Class<?>[] groups() default {};
 

@@ -39,6 +39,162 @@ public class CodiControllerTest {
                         .build());
     }
 
+    //@GetMapping("/app/search-codi")
+    @Test
+    public void searchCodi_fail_test() {
+        // given
+
+        // when
+
+        // eye
+
+        // then
+
+    }
+
+    @Test
+    public void searchCodi_success_test() throws Exception {
+        // given
+        String keyword = "";
+
+        // when
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/app/search-codi")
+                .param("keyword", keyword)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + jwt));
+
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+
+        // then
+//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
+//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].codiId").value(1));
+//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].codiPhotoId").value(14));
+//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoName").exists());
+//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+    }
+
+
+    @Test
+    public void openCodiPage_fail_test() throws Exception {
+        // when
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/codi-pages/60")
+                .header("Authorization", "Bearer " + jwt));
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+        //respBody = {"status":404,"success":false,"response":null,"errorMessage":"정보를 찾을 수 없습니다."}
+
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(404));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("정보를 찾을 수 없습니다."));
+
+    }
+
+    @Test
+    public void openCodiPage_success_test() throws Exception {
+        // when
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/codi-pages/1")
+                .header("Authorization", "Bearer " + jwt));
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.description").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-19"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.isloved").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.loveCount").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoId").value(14));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].isMainPhoto").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoId").value(38));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsId").value(5));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].isMainPhoto").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoId").value(14));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].isMainPhoto").value(true));
+    }
+
+
+    @Test
+    public void appCodiPage_fail_test() throws Exception {
+        // when
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/app/codi-pages/60")
+                .header("Authorization", "Bearer " + jwt));
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+        // {"status":404,"success":false,"response":null,"errorMessage":"정보를 찾을 수 없습니다."}
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(404));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("정보를 찾을 수 없습니다."));
+
+    }
+
+    @Test
+    public void appCodiPage_success_test() throws Exception {
+        // when
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/app/codi-pages/1")
+                .header("Authorization", "Bearer " + jwt));
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.description").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-19"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.isloved").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.loveCount").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoId").value(14));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].isMainPhoto").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].mainPhotoId").value(15));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].mainPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].photoPath").value("/upload/codi/user-3-codi1-detail.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].isMainPhoto").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoId").value(38));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsId").value(5));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].isMainPhoto").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].itemsPhotoId").value(40));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].itemsId").value(6));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].itemsPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].photoPath").value("/upload/items/item06/mainItemPhoto.jpg"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].isMainPhoto").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoId").value(14));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].isMainPhoto").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].codiId").value(2));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].codiPhotoId").value(16));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].codiPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].photoPath").value("/upload/codi/user-3-codi2.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].isMainPhoto").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+
+
+    }
+
     @Test
     public void topItemSave_fail_test() throws Exception {
         // when
@@ -46,15 +202,15 @@ public class CodiControllerTest {
                 .header("Authorization", "Bearer " + jwt));
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-//        System.out.println("respBody = " + respBody);
-//        {"status":400,"success":false,"response":null,"errorMessage":"유효한 카테고리 이름이 아닙니다."}
+        //System.out.println("respBody = " + respBody);
+        //{"status":400,"success":false,"response":null,"errorMessage":"유효한 카테고리 이름이 아닙니다."}
         // then
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(400));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("유효한 카테고리 이름이 아닙니다."));
     }
-    
+
     @Test
     public void topItemSave_success_test() throws Exception {
         // when
@@ -161,7 +317,6 @@ public class CodiControllerTest {
     }
 
 
-
     @Test
     public void codiRegister_fail_test() throws Exception {
         // given
@@ -228,13 +383,9 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiId").value(9));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.userId").value(1));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.savedPhotos[0].photoId").value(67));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.savedPhotos[0].photoPath").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.savedPhotos[1].photoId").value(68));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.savedPhotos[1].photoPath").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.linkedItems[0].codiId").value(9));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.linkedItems[0].itemId").value(1));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.linkedItems[1].codiId").value(9));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.linkedItems[1].itemId").value(2));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.photoId").value(67));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.photoPath").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+
     }
 }

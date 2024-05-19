@@ -2,7 +2,6 @@ package com.example.finalproject._core.utils;
 
 
 import com.example.finalproject._core.error.exception.Exception500;
-import com.example.finalproject._core.utils.base64util.Base64Util;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

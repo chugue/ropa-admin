@@ -15,7 +15,6 @@ public class CodiRequest {
     public static class SaveDTO {
         private Integer userId;
 
-
         @NotEmpty(message = "코디 설명을 작성 해야 합니다.")
         @Size(min = 1, max = 20, message = "코디 제목은 최소 1자 이상 최대 20자 이하여야 합니다")
         private String description;

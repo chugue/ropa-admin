@@ -100,14 +100,12 @@ public class CodiResponse {
     public static class NewLinkItems {
         private Integer codiId;
         private Integer userId;
-        private String codiTitle;
         private List<SavedPhoto> savedPhotos;
         private List<LinkedItem> linkedItems;
 
         public NewLinkItems(Codi saveCodi, List<Photo> savedPhotos, List<CodiItems> linkedCodiItems) {
             this.codiId = saveCodi.getId();
             this.userId = saveCodi.getUser().getId();
-            this.codiTitle = saveCodi.getTitle();
             this.savedPhotos = savedPhotos.stream().map(SavedPhoto::new).toList();
             this.linkedItems = linkedCodiItems.stream().map(LinkedItem::new).toList();
         }
@@ -115,11 +113,11 @@ public class CodiResponse {
         @Data
         public class SavedPhoto {
             private Integer photoId;
-            private String photoName;
+            private String photoPath;
 
             public SavedPhoto(Photo photo) {
                 this.photoId = photo.getId();
-                this.photoName = photo.getUuidName();
+                this.photoPath = photo.getPath();
             }
         }
 

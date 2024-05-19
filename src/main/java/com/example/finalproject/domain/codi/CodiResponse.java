@@ -17,14 +17,12 @@ public class CodiResponse {
     @Data
     public static class UpdatePage {
         private Integer codiId;
-        private String codiTitle;
         private String description;
         private List<CodiPhoto> codiPhotos;
         private List<CodiItemPhoto> codiItemPhotos;
 
         public UpdatePage(Codi codi, List<Photo> codiPhotos, List<Photo> codiItemPhotos) {
             this.codiId = codi.getId();
-            this.codiTitle = codi.getTitle();
             this.description = codi.getDescription();
             this.codiPhotos = codiPhotos.stream().map(CodiPhoto::new).toList();
             this.codiItemPhotos = codiItemPhotos.stream().map(CodiItemPhoto::new).toList();
@@ -301,7 +299,6 @@ public class CodiResponse {
 
         public CodiListDTO(Codi codi) {
             this.codiId = codi.getId();
-            this.title = codi.getTitle();
             List<Photo> codiPhotos = codi.getPhotos();
             if (codiPhotos != null && !codiPhotos.isEmpty()) {
                 Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용

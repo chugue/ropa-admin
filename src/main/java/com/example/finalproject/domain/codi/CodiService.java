@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.codi;
 
+import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
@@ -39,20 +40,16 @@ public class CodiService {
 
     //코디 등록 페이지 - 아이템 연결
     public List<CodiResponse.BrandInfo> addItemPage(String category) {
+        // 카테고리 이름 유효성 검사
+        if (!category.equals("top") && !category.equals("bottom")) {
+            throw new Exception400("유효한 카테고리 이름이 아닙니다.");
+        }
         //모든 브랜드 정보 불러오기
-        System.out.println("category = " + category);
         List<Items> itemsList = itemsRepository.findTopItemsWithAdminAndPhoto(category);
 
-        System.out.println("itemsList.size() = " + itemsList.size());
         // Admin 별로 Items 리스트를 그룹화
         Map<Integer, List<Items>> adminItemMap = itemsList.stream()
                 .collect(Collectors.groupingBy(item -> Integer.valueOf(item.getAdmin().getId())));
-
-        // 콘솔에 출력
-        adminItemMap.forEach((adminId, itemList) -> {
-            System.out.println("Admin ID: " + adminId);
-            itemList.forEach(item -> System.out.println("    " + item));
-        });
 
         // 그룹화된 데이터를 기반으로 BrandInfo 리스트 생성
         return adminItemMap.entrySet().stream()

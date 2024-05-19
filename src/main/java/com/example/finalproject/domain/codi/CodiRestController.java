@@ -20,7 +20,7 @@ public class CodiRestController {
 
     // 앱] 코디 등록
     @PostMapping("/app/codi-register")
-    public ResponseEntity<?> codiRegister(@Valid @RequestBody CodiRequest.SaveDTO reqDTO) {
+    public ResponseEntity<?> codiRegister(@Valid @RequestBody CodiRequest.SaveDTO reqDTO, Errors errors) {
         CodiResponse.NewLinkItems respDTO = codiService.saveCodiAndItems(reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }

@@ -1,4 +1,4 @@
-package com.example.finalproject._core.utils;
+package com.example.finalproject._core.utils.base64util;
 
 import java.util.Base64;
 

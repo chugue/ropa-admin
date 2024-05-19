@@ -1,7 +1,6 @@
 package com.example.finalproject.domain.codi;
 
 import com.example.finalproject.domain.admin.Admin;
-import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.love.Love;
 import com.example.finalproject.domain.photo.Photo;
@@ -95,39 +94,17 @@ public class CodiResponse {
 
     // 코디 등록할 때 사용하는 DTO
     @Data
-    public static class NewLinkItems {
+    public static class SavedCodi {
         private Integer codiId;
         private Integer userId;
-        private List<SavedPhoto> savedPhotos;
-        private List<LinkedItem> linkedItems;
+        private Integer photoId;
+        private String photoPath;
 
-        public NewLinkItems(Codi saveCodi, List<Photo> savedPhotos, List<CodiItems> linkedCodiItems) {
+        public SavedCodi(Codi saveCodi, Photo photo) {
             this.codiId = saveCodi.getId();
             this.userId = saveCodi.getUser().getId();
-            this.savedPhotos = savedPhotos.stream().map(SavedPhoto::new).toList();
-            this.linkedItems = linkedCodiItems.stream().map(LinkedItem::new).toList();
-        }
-
-        @Data
-        public class SavedPhoto {
-            private Integer photoId;
-            private String photoPath;
-
-            public SavedPhoto(Photo photo) {
-                this.photoId = photo.getId();
-                this.photoPath = photo.getPath();
-            }
-        }
-
-        @Data
-        public class LinkedItem {
-            private Integer codiId;
-            private Integer itemId;
-
-            public LinkedItem(CodiItems codiItems) {
-                this.codiId = codiItems.getCodi().getId();
-                this.itemId = codiItems.getItems().getId();
-            }
+            this.photoId = photo.getId();
+            this.photoPath = photo.getPath();
         }
     }
 
@@ -292,7 +269,6 @@ public class CodiResponse {
     @Data
     public static class CodiListDTO {
         private Integer codiId;
-        private String title;
         private Integer codiPhotoId;
         private String photoName;
         private String photoPath;
@@ -301,7 +277,7 @@ public class CodiResponse {
             this.codiId = codi.getId();
             List<Photo> codiPhotos = codi.getPhotos();
             if (codiPhotos != null && !codiPhotos.isEmpty()) {
-                Photo codiPhoto = codiPhotos.get(0); // 첫 번째 포토만 사용
+                Photo codiPhoto = codiPhotos.getFirst(); // 첫 번째 포토만 사용
                 this.codiPhotoId = codiPhoto.getId();
                 this.photoName = codiPhoto.getUuidName();
                 this.photoPath = codiPhoto.getPath();

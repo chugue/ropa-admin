@@ -12,6 +12,14 @@ import org.springframework.validation.FieldError;
 @Aspect // AOP 등록
 @Component // IoC 등록
 public class MyValidationHandler {
+//    com/example/finalproject/domain/codi/CodiService.java
+
+    @Before("execution(* com.example.finalproject.domain.codi.CodiService.searchCodi(..)) && args(keyword)")
+    public void validateKeyword(JoinPoint joinPoint, String keyword) {
+       if (keyword.length() > 10) {
+           throw new Exception400("검색어는 10글자 이하로 입력해주세요.");
+       }
+    }
 
     // Advice (부가 로직 메서드)
     // Advice가 수행될 위치 == PointCut

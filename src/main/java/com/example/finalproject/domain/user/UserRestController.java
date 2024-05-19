@@ -4,6 +4,7 @@ package com.example.finalproject.domain.user;
 import com.example.finalproject._core.utils.ApiUtil;
 import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject._core.utils.JwtVO;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,15 @@ import org.springframework.web.bind.annotation.*;
 public class UserRestController {
     private final UserService userService;
     private final HttpSession session;
+
+    //자동로그인
+    @PostMapping("/app/auto/login")
+    public ResponseEntity<?> autoLogin(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        UserResponse.AutoLoginDTO respDTO = userService.autoLogin(accessToken);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
+    }
+
 
     // 프로필 변경
     @PutMapping("/user/profile/{userId}")

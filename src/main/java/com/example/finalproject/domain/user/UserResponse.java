@@ -10,6 +10,22 @@ import lombok.Data;
 import java.util.List;
 
 public class UserResponse {
+    // 자동 로그인
+    @Data
+    public static class AutoLoginDTO {
+
+        private int id; // 아이디
+        private String email; // 아이디
+        private String Photo; // 아이디
+
+        public AutoLoginDTO(User user, Photo photo) {
+            this.id = user.getId();
+            this.email = user.getEmail();
+            Photo = photo.getPath();
+        }
+    }
+
+
     //크리에이터 마이 페이지
     @Data
     public static class CreatorMyPage {

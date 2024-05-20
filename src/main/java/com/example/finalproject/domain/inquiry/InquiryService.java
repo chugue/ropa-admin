@@ -1,9 +1,6 @@
 package com.example.finalproject.domain.inquiry;
 
-import com.example.finalproject._core.error.exception.Exception401;
-import com.example.finalproject._core.error.exception.Exception403;
-import com.example.finalproject._core.error.exception.Exception404;
-import com.example.finalproject._core.error.exception.SSRException404;
+import com.example.finalproject._core.error.exception.*;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.user.SessionUser;
@@ -27,7 +24,8 @@ public class InquiryService {
         Admin admin = adminRepository.findById(sessionUser.getId())
                 .orElseThrow(() -> new Exception403("페이지의 접근 권한이없습니다."));
 
-        Inquiry inquiry = inquiryRepository.findByInquiryId(inquiryId);
+        Inquiry inquiry = inquiryRepository.findByInquiryId(inquiryId)
+                .orElseThrow(() -> new Exception404("페이지를 찾을 수 업습니다."));
 
         return new InquiryResponse.Detail(inquiry, new InquiryResponse.Detail.Comment(inquiry));
 
@@ -95,7 +93,9 @@ public class InquiryService {
 
     // 문의 페이지 모든 문희 조회
     public List<InquiryResponse.UserPage> inquiryPage(Integer userId) {
-        List<Inquiry> inquiries = inquiryRepository.findAllByUserId(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new Exception400("해당 문의 목록 조회 권한이 없습니다."));
+        List<Inquiry> inquiries = inquiryRepository.findAllByUserId(user.getId());
         return inquiries.stream().map(InquiryResponse.UserPage::new).toList();
     }
 }

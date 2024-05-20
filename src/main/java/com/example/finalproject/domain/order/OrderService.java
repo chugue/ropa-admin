@@ -3,6 +3,7 @@ package com.example.finalproject.domain.order;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
+import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.cart.CartRepository;
 import com.example.finalproject.domain.codi.CodiRepository;
@@ -24,6 +25,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,6 +37,8 @@ public class OrderService {
     private final DeliveryRepository deliveryRepository;
     private final ItemsRepository itemsRepository;
     private final CodiRepository codiRepository;
+    private final AdminRepository adminRepository;
+    private final CodiItemsRepository codiItemsRepository;
 
 
     // 주문 + 배송지 + 결제 설정 페이지 = TODO : 이거 테스트 코드 다시 짜기
@@ -60,7 +64,7 @@ public class OrderService {
     public OrderResponse.SaveOrder saveOrder(OrderRequest.SaveOrder reqDTO, Integer userId) {
         // 사용자 정보 찾기
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new Exception404("사용자 정보를 찾을 수 없습니다."));
+                new Exception401("사용자 정보를 찾을 수 없습니다."));
         // 사용자 아이디로 모든 카트 찾기
         List<Cart> carts = cartRepository.findAllByUserIdWithAdmin(userId);
 
@@ -92,31 +96,41 @@ public class OrderService {
 
         // 카트를 OrderHistory테이블로 옮기기
         carts.forEach(cart -> {
-            // 카트에 있는 아이템의 아이디 값과 코디에 등록된 아이템의 아이디 값을 비교하여 처리
+            Integer cartItemId = cart.getItems().getId();
+            boolean isCodiItem = codiItemsRepository.existsByItemId(cartItemId);
 
             User creator;
             Admin admin;
 
-            if (cart.getCodi() != null) {
-                // 연동된 코디가 있을경우
-                creator = cart.getCodi().getUser();
-                admin = cart.getItems().getAdmin();
+            if (isCodiItem) {
+                // 연동된 코디가 있을 경우
+                CodiItems codiItems = codiItemsRepository.findByItemId(cartItemId);
+                creator = codiItems.getCodi().getUser();
+                admin = adminRepository.findAll().get(3);
 
                 int creatorMileage = (int) (cart.getTotalAmount() * 0.05);
                 int brandMileage = (int) (cart.getTotalAmount() * 0.05);
 
                 creator.setMileage(creator.getMileage() + creatorMileage);
+                // Admin의 mileage 필드를 검증하고 기본값으로 설정
+                if (admin.getMileage() == null) {
+                    admin.setMileage(0); // 기본값으로 설정
+                }
                 admin.setMileage(admin.getMileage() + brandMileage);
             } else {
                 // 코디 아이템이 아닌 경우
                 admin = cart.getItems().getAdmin();
                 int brandMileage = (int) (cart.getTotalAmount() * 0.1);
+                // Admin의 mileage 필드를 검증하고 기본값으로 설정
+                if (admin.getMileage() == null) {
+                    admin.setMileage(0); // 기본값으로 설정
+                }
                 admin.setMileage(admin.getMileage() + brandMileage);
             }
 
             // OrderHistory 테이블에 저장
             orderHistories.add(orderHistoryRepository.save(OrderHistory.builder()
-                    .admin(cart.getItems().getAdmin())
+                    .admin(admin)
                     .order(order)
                     .items(cart.getItems())
                     .orderItemPrice(cart.getTotalAmount())

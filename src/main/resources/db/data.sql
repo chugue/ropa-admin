@@ -11,7 +11,7 @@ INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, heigh
                      status, blue_checked, mileage)
 VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
         '어깨 넓은 보통 체형',
-        'holyhaein', '신청 전', FALSE, 2000),
+        'holyhaein', '신청 전', FALSE, 0),
        ('limsiwan@example.com', '1234', 'limsiwan', '임시완', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
         '키작고 마른 체형', 'yim_siwang',
         '승인 대기', FALSE, 0),
@@ -23,7 +23,7 @@ VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별�
         '신청 전', FALSE, 0),
        ('kimsuhyun@example.com', '1234', 'kimsuhyun', '김수현', '인천광역시 남동구', '010-6666-6666', '180cm', '85kg', '학생',
         '키크고 덩치가 있는 체형', 'soohyun_k216',
-        '신청 전', FALSE, 5000),
+        '신청 전', FALSE, 0),
        ('wehajun@example.com', '1234', 'wehajun', '위하준', '서울특별시 강남구', '010-7777-7777', '180cm', '75kg', '직장인',
         '연예인 체형', 'wi__wi__wi',
         '승인', TRUE, 3000),

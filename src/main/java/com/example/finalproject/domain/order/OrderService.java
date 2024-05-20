@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.order;
 
+import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.cart.Cart;
@@ -56,7 +57,7 @@ public class OrderService {
     public OrderResponse.SaveOrder saveOrder(OrderRequest.SaveOrder reqDTO, Integer userId) {
         // 사용자 정보 찾기
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new Exception404("사용자 정보를 찾을 수 없습니다."));
+                new Exception401("사용자 정보를 찾을 수 없습니다."));
         // 사용자 아이디로 모든 카트 찾기
         List<Cart> carts = cartRepository.findAllByUserIdWithAdmin(userId);
 

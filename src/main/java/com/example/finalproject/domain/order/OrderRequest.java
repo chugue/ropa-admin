@@ -14,6 +14,7 @@ import java.util.List;
 
 public class OrderRequest {
 
+    @NoArgsConstructor
     @Data
     public static class OrderPage {
         private Integer itemId;
@@ -51,6 +52,7 @@ public class OrderRequest {
         }
     }
 
+    @NoArgsConstructor
     @Data
     public static class SaveOrder {
         @NotEmpty(message = "주문자 이름은 공백 일 수 없습니다.")
@@ -90,6 +92,7 @@ public class OrderRequest {
             this.purchaseInfo = purchaseInfo;
         }
 
+        @NoArgsConstructor
         @Data
         public static class PurchaseInfo {
             private Integer orderAmount;

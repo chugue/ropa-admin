@@ -1,12 +1,9 @@
 package com.example.finalproject.domain.love;
 
 
-import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiRepository;
-import com.example.finalproject.domain.user.User;
-import com.example.finalproject.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +20,7 @@ public class LoveService {
     public LoveResponse.SaveUserLove saveLove(Integer codiId, Integer userId) {
         Optional<Love> loveStatus = loveRepository.findByCodiIdAndUserLoveStatus(codiId, userId);
         Codi codi = codiRepository.findByCodiIdAndUser(codiId).orElseThrow(() ->
-                new Exception404("해당 게시물을 찾을 수 없습니다. "));
+                new Exception404("해당 게시물을 찾을 수 없습니다."));
         Love love;
         if (loveStatus.isEmpty()) {
             love = loveRepository.save(Love.builder()
@@ -42,7 +39,9 @@ public class LoveService {
     // 좋아요 취소
     @Transactional
     public LoveResponse.DeleteInfo deleteLove(Integer codiId, Integer userId) {
-        Optional<Love> loveOP = loveRepository.findByCodiIdAndUserLoveStatus(codiId, userId);
+        Codi codi = codiRepository.findByCodiIdAndUser(codiId).orElseThrow(() ->
+                new Exception404("해당 게시물을 찾을 수 없습니다."));
+        Optional<Love> loveOP = loveRepository.findByCodiIdAndUserLoveStatus(codi.getId(), userId);
 
         if (loveOP.isPresent()) {
             loveRepository.delete(loveOP.get());

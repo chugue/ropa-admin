@@ -5,7 +5,7 @@ import lombok.Data;
 public class LoveResponse {
 
     @Data
-    public static class DeleteInfo{
+    public static class DeleteInfo {
         private Integer codiId;
         private Integer userId;
         private Boolean isLoved;
@@ -21,16 +21,16 @@ public class LoveResponse {
     }
 
     @Data
-    public static class SaveUserLove{
+    public static class SaveUserLove {
         private Integer userId;
         private Integer codiId;
-        private Boolean isloved;
+        private Boolean isLoved;
         private Long loveCount;
 
         public SaveUserLove(Love love, Long loveCount) {
             this.userId = love.getUser().getId();
             this.codiId = love.getCodi().getId();
-            this.isloved = love.getIsLoved();
+            this.isLoved = love.getIsLoved();
             this.loveCount = loveCount;
         }
     }

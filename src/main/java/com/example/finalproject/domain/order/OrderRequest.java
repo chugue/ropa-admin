@@ -12,6 +12,17 @@ import java.util.List;
 
 public class OrderRequest {
 
+    @Data
+    public static class OrderPage {
+        private Integer itemId;
+        private Integer codiId;
+
+        public OrderPage(Integer itemId, Integer codiId) {
+            this.itemId = itemId;
+            this.codiId = codiId;
+        }
+    }
+
     // 주문하기
     @Data
     public static class SaveDTO {
@@ -98,4 +109,5 @@ public class OrderRequest {
             }
         }
     }
+
 }

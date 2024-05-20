@@ -21,6 +21,13 @@ public class MyValidationHandler {
        }
     }
 
+    @Before("execution(* com.example.finalproject.domain.items.ItemsService.searchItems(..)) && args(keyword)")
+    public void validateItemKeyword(JoinPoint joinPoint, String keyword) {
+        if (keyword.length() > 10) {
+            throw new Exception400("검색어는 10글자 이하로 입력해주세요.");
+        }
+    }
+
     // Advice (부가 로직 메서드)
     // Advice가 수행될 위치 == PointCut
     @Before("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.PutMapping)")

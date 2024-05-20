@@ -26,8 +26,10 @@ spring:
       enabled: true
   sql:
     init:
+      mode: always
       data-locations:
         - classpath:db/data.sql
+
   jpa:
     hibernate:
       ddl-auto: create

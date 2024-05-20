@@ -2,36 +2,30 @@ package com.example.finalproject.domain.user;
 
 
 import com.example.finalproject._core.utils.AppJwtUtil;
+import com.example.finalproject.domain.MyRestDoc;
 import com.example.finalproject.domain.photo.Photo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UserRestControllerTest {
-    private ObjectMapper om = new ObjectMapper();
-
-    @Autowired
-    private MockMvc mvc;
+public class UserRestControllerTest extends MyRestDoc {
     private static String jwt;
+    private ObjectMapper om = new ObjectMapper();
 
     @BeforeAll
     public static void setUp() {
@@ -73,6 +67,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.email").value("p4rk@naver.com"));
         actions.andExpect(jsonPath("$.response.nickName").value("cat"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //아이디 중복체크
@@ -102,6 +97,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("중복된 이메일이 있습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //회원가입 유효성검사
@@ -131,6 +127,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("이메일은 최소 3자 이상 최대 20자 이하여야 합니다. : email"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //로그인
@@ -163,6 +160,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //로그인 실패 테스트
@@ -187,6 +185,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.errorMessage").value("사용자 정보를 찾을 수 없습니다."));
         actions.andExpect(jsonPath("$.response").isEmpty());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //로그인 유효성검사
@@ -212,6 +211,7 @@ public class UserRestControllerTest {
         // then
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.errorMessage").value("이메일이 공백일 수 없습니다 : email"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //앱 세팅 테스트 (사용자 변경)
@@ -242,6 +242,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.nickName").value("limsiwan"));
         actions.andExpect(jsonPath("$.response.mobile").value("010-9876-5432"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -265,6 +266,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -298,6 +300,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.photoDTO.name").exists());
         actions.andExpect(jsonPath("$.response.photoDTO.photoPath").value("/upload/user/user2.webp"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -321,6 +324,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     // 크리에이터 지원 페이지
@@ -358,6 +362,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.blueChecked").value("false"));
         actions.andExpect(jsonPath("$.response.status").value("신청 전"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -381,6 +386,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //사용자 크리에이터 지원하기
@@ -433,6 +439,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.blueChecked").value(false));
         actions.andExpect(jsonPath("$.response.status").value("승인 대기"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -468,6 +475,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("키는 공백일 수 없습니다 : height"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //크리에이터 뷰 페이지
@@ -505,6 +513,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.codiList[0].photoPath").exists());
         actions.andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -526,6 +535,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("크리에이터가 아닙니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //유저 마이페이지
@@ -554,6 +564,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.nickName").value("bun"));
         actions.andExpect(jsonPath("$.response.orderCount").value(4));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -578,6 +589,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("인증되지 않았습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -619,6 +631,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoName").value("uuid_아이템사진1"));
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].photoPath").value("/upload/items/item01/mainItemPhoto.jpg"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -667,6 +680,7 @@ public class UserRestControllerTest {
                 .andExpect(jsonPath("$.response.itemList[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"))
                 .andExpect(jsonPath("$.response.itemList[0].itemPhoto").value("ITEM"))
                 .andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -702,6 +716,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(401));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("인증 되지 않았습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -751,6 +766,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.photo.photoId").value(6));
         actions.andExpect(jsonPath("$.response.photo.photoPath").exists());//uuid같은 경우 값이 계속 바뀌기 때문에 존재하는지만 체크
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -786,6 +802,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.response").doesNotExist());
         actions.andExpect(jsonPath("$.errorMessage").value("실명은 최소 2자 이상 최대 20자 이하여야 합니다. : myName"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -818,6 +835,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.status").value(400));
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("비밀번호는 최소 4자 이상 최대 20자 이하여야 합니다. : password"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //자동 로그인
@@ -850,6 +868,7 @@ public class UserRestControllerTest {
         actions.andExpect(jsonPath("$.response.email").value("bunwuseok@example.com"));
         actions.andExpect(jsonPath("$.response.photo").exists());
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -877,6 +896,7 @@ public class UserRestControllerTest {
 
         actions.andExpect(status().isUnauthorized()) // 상태 코드가 401(Unauthorized)인지 검증
                 .andExpect(content().string(containsString("토큰이 유효하지 않습니다."))); // 응답 본문에 특정 메시지가
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 

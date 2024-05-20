@@ -1,25 +1,24 @@
 package com.example.finalproject.domain.items;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
+import com.example.finalproject.domain.MyRestDoc;
 import com.example.finalproject.domain.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ItemsRestControllerTest {
-    @Autowired
-    private MockMvc mvc;
-    private ObjectMapper om = new ObjectMapper();
+public class ItemsRestControllerTest extends MyRestDoc {
     private static String jwt;
+
+    private ObjectMapper om = new ObjectMapper();
 
     @BeforeAll
     public static void setUp() {
@@ -48,6 +47,7 @@ public class ItemsRestControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("검색어는 10글자 이하로 입력해주세요."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -74,6 +74,7 @@ public class ItemsRestControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].itemPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoPath").value("/upload/items/item02/mainItemPhoto.jpg"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -90,6 +91,7 @@ public class ItemsRestControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("등록된 아이템이 아닙니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -120,5 +122,6 @@ public class ItemsRestControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.detailPhotos[0].isMainPhoto").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.detailPhotos[0].sort").value("ITEM"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

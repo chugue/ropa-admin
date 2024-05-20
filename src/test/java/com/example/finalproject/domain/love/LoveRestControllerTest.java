@@ -1,4 +1,4 @@
-package com.example.finalproject.love;
+package com.example.finalproject.domain.love;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.user.User;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class LoveControllerTest {
+class LoveRestControllerTest {
 
     private static String jwt;
     private ObjectMapper om = new ObjectMapper();

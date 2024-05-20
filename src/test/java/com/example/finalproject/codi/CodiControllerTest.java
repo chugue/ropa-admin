@@ -39,7 +39,6 @@ public class CodiControllerTest {
                         .build());
     }
 
-    //@GetMapping("/app/search-codi")
     @Test
     public void searchCodi_fail_test() throws Exception {
         // given

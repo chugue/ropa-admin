@@ -1,21 +1,21 @@
-# "ROPA" - 2조 파이널 프로젝트 
-
-<div align="center">
-<img width="329" alt="image" src="upload/teamlogo11.png">
+# 🚀 "ROPA" - 2조 파이널 프로젝트
 
 
-</div>
+![image](https://github.com/chugue/ropa-admin/assets/30003848/70af4146-2333-412b-b2fd-8eb1be45f8e7)
 
-# 코디 아이템 중개 플랫폼
+<br>
+
+# 👉 코디 아이템 중개 플랫폼
 
 ---
 > ### 개발기간: 2024.04.17 ~ 2024.05.22
 
 ## 배포 주소
-> **프론트 서버** : [https://github.com/chugue/ropa-admin](https://github.com/chugue/ropa-admin)<br>
-> **백엔드 서버** : [http://voluntain.cs.skku.edu:2223/](http://voluntain.cs.skku.edu:2223/)<br>
+> ####  프론트 서버 : [https://github.com/chugue/ropa-admin](https://github.com/chugue/ropa-admin)<br>
+> #### 백엔드 서버 : [http://voluntain.cs.skku.edu:2223/](http://voluntain.cs.skku.edu:2223/)<br>
+<br>
 
-# 개발팀 소개
+# 👉 개발팀 소개
 
 ---
 
@@ -24,29 +24,112 @@
 | <img width="160px" src="https://avatars.githubusercontent.com/u/30003848?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/153582123?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/97007464?v=4"/> | <img width="160px" src="https://avatars.githubusercontent.com/u/81667935?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/153582360?v=4" /> |
 |                       [@chugue](https://github.com/chugue)                       |                    [@LifeIsOne](https://github.com/LifeIsOne)                     |                   [@LifeIsOne](https://github.com/LifeIsOne)                    |                   [@tkffkels93](https://github.com/tkffkels93)                   |                       [@p4rksk](https://github.com/p4rksk)                        |
 
+<br>
 
-# 프로젝트 소개 (핵심로직 설명)
+# 👉프로젝트 소개 (핵심로직 설명)
 
 ---
 > ### 로파는 의류를 판매하는 쇼핑몰 앱입니다.
 > ### 브랜드는 로파 플랫폼에 입점을 하여서 상품을 등록하고
 > ### 개성있는 크리에이터들은 자신의 코디를 자랑하며 보다 활용성 있게 브랜드 제품을 홍보하고,
-> ### 사용자는 맘에 드는 코디를 발견하면 해당 아이템을 바로 구매 할 수 있습니다. 
-> ### 코디를 통해 판매된 제품은 해당 브랜드가 크리에이터와 플랫폼에게 수수료를 지불합니다. 
-> ### 때문에 브랜드는 홍보비를 아낄 수 있고, 크리에이터는 자신의 표현과 수익을 얻을 수 있는 환경을 제공합니다. 
+> ### 사용자는 맘에 드는 코디를 발견하면 해당 아이템을 바로 구매 할 수 있습니다.
+> ### 코디를 통해 판매된 제품은 해당 브랜드가 크리에이터와 플랫폼에게 수수료를 지불합니다.
+> ### 때문에 브랜드는 홍보비를 아낄 수 있고, 크리에이터에겐 자신의 표현과 수익을 얻을 수 있는 환경을 제공합니다.
+
+
+<div style="display: flex; flex-direction: row; gap: 10px;">
+  <div style="width: 20%; height: 20%; ">
+    <img src="https://github.com/chugue/ropa-admin/assets/30003848/be6278ad-77fc-4cc7-8d8f-f4e735ce2a2f" alt="시연01" style="width: 100%; height: auto;"/>
+  </div>
+  <div style="width: 80%; height: 20%; ">
+    <img src="https://github.com/chugue/ropa-admin/assets/30003848/014532ae-1d72-4dcd-b99d-a6fc5dbccb51" alt="시연02" style="width: 100%; height: auto;"/>
+  </div>
+</div>
+
+<br>
+
+#  👉 Stacks
+
+---
+
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![BootStrap](https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![Flutter](https://img.shields.io/badge/flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![AmazonAWS](https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Gradle](https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)	![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white)
+
+### Communication
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white)
+![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
+
+<br>
+
+# 👉 Dependencies
+
+---
+```
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-mustache'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation group: 'com.auth0', name: 'java-jwt', version: '4.3.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'org.qlrm', name: 'qlrm', version: '4.0.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'commons-codec:commons-codec:1.15'
+}
+```
+<br>
+
+# 👉 테이블 설계
+
+---
+![테이블설계](https://github.com/chugue/ropa-admin/assets/30003848/32b69b90-bf14-445d-a710-7fdb83cad700)
 
 
 
+<br>
 
-#### Voluntain will share the knowledge of programming.
-You can take easy-to-understand lectures created by our team, including Scratch and Python. Also, improve your understanding and application skills of programming with exercise questions in the lecture videos.
+# 👉 프로젝트 구축 과정 정리
 
-#### Voluntain's website will give you a learning-friendly environment.
+---
 
-Our website supports the following component.
-1. Various online lectures with detailed descriptions and exercise questions.
-2. Q&A section to ask questions freely.
-3. Function to check the lecture you watched recently.
+> ### 1단계
+* #### 스켈레톤 스케치  
+* #### 마인드 맵
+* #### 프로젝트 명 / 팀 로고 디자인
+* #### 앱 / 웹 시나리오 설계
+* #### 테이블 설계
+
+> ### 2단계
+* #### 앱 화면 구축
+* #### 웹 화면 구축
+* #### 엔티티 설계 / 폴더 구조 구축
+* #### Exception Handler 구축
+* #### Resource Handler 구축
+* #### 더미 데이터 설계
+
+> ### 3단계
+* #### JWT 구현
+* #### 웹] 로그인 / 회원 가입 구현
+* #### 웹] 아이템 등록 구현
+* #### 웹] MultiPartFile 사진 업로드 구현
+* #### 웹] 
+* #### Resource Handler 구축
+
 
 ## 시작 가이드
 ### Requirements
@@ -83,7 +166,6 @@ $ npm run dev
 
 ### Environment
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
 ![Github](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
 
 ### Config
@@ -97,9 +179,6 @@ $ npm run dev
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white)
 ![Material UI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=MUI&logoColor=white)
 
-### Communication
-![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white)
-![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 ![GoogleMeet](https://img.shields.io/badge/GoogleMeet-00897B?style=for-the-badge&logo=Google%20Meet&logoColor=white)
 
 ---

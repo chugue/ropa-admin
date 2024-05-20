@@ -19,10 +19,10 @@ public class OrderRestController {
     private final HttpSession session;
 
     // 총 주문 페이지 + 배송지 설정 화면
-    @GetMapping("/app/order-page")
-    public ResponseEntity<?> orderPage(){
+    @PostMapping("/app/order-page")
+    public ResponseEntity<?> orderPage(@RequestBody OrderRequest.OrderPage reqDTO){
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
-        OrderResponse.PageView respDTO = orderService.orderPage(sessionUser.getId());
+        OrderResponse.PageView respDTO = orderService.orderPage(sessionUser.getId(), reqDTO);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
     }
 

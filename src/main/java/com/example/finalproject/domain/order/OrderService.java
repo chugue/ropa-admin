@@ -5,10 +5,13 @@ import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.cart.CartRepository;
+import com.example.finalproject.domain.codi.CodiRepository;
 import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.codiItems.CodiItemsRepository;
 import com.example.finalproject.domain.delivery.Delivery;
 import com.example.finalproject.domain.delivery.DeliveryRepository;
+import com.example.finalproject.domain.items.Items;
+import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
 import com.example.finalproject.domain.user.User;
@@ -30,14 +33,22 @@ public class OrderService {
     private final UserRepository userRepository;
     private final OrderHistoryRepository orderHistoryRepository;
     private final DeliveryRepository deliveryRepository;
-    private final CodiItemsRepository codiItemsRepository;
+    private final ItemsRepository itemsRepository;
+    private final CodiRepository codiRepository;
 
-    // TODO : 배송지 정보 저장 체크해서 true일경우 조회해서 뿌리고 false면은 칸 비워주기
-    // 주문 + 배송지 + 결제 설정 페이지
-    public OrderResponse.PageView orderPage(Integer userId) {
+
+    // 주문 + 배송지 + 결제 설정 페이지 = TODO : 이거 테스트 코드 다시 짜기
+    public OrderResponse.PageView orderPage(Integer userId, OrderRequest.OrderPage reqDTO) {
+        Cart cart = Cart.builder()
+                    .items(itemsRepository.findById(reqDTO.getItemId()).orElseThrow(() -> new Exception404("해당 아이템을 찾을 수 없습니다.")))
+                    .user(userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다.")))
+                    .build();
+        if (reqDTO.getCodiId() != null) {
+            cart.setCodi(codiRepository.findById(reqDTO.getCodiId()).orElse(null));
+        }
+
         // 배송지+결제+사용자 정보 가져오기
         List<Order> order = orderRepository.findByUserId(userId);
-
         // 장바구니 내역 불러오기
         List<Cart> cartList = cartRepository.findAllByUserIdAndMainPhoto(userId);
 
@@ -82,7 +93,6 @@ public class OrderService {
         // 카트를 OrderHistory테이블로 옮기기
         carts.forEach(cart -> {
             // 카트에 있는 아이템의 아이디 값과 코디에 등록된 아이템의 아이디 값을 비교하여 처리
-            Integer cartItemId = cart.getItems().getId();
 
             User creator;
             Admin brandAdmin;

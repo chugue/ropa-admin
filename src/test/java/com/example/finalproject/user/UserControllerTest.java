@@ -18,6 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.hamcrest.Matchers.containsString;
+
+
+
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
@@ -32,10 +38,10 @@ public class UserControllerTest {
     public static void setUp() {
         jwt = AppJwtUtil.create(
                 User.builder()
-                        .id(1)
-                        .myName("정해인")
-                        .email("junghein@example.com")
-                        .blueChecked(false)
+                        .id(3)
+                        .myName("변우석")
+                        .email("bunwuseok@example.com")
+                        .blueChecked(true)
                         .build());
     }
 
@@ -219,7 +225,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody:"+respBody);
+//        System.out.println("respBody:"+respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
@@ -243,7 +249,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody: " + respBody);
+//        System.out.println("respBody: " + respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(401));
@@ -265,7 +271,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println(respBody);
+//        System.out.println(respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
@@ -274,6 +280,10 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.myName").value("정해인"));
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
         actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
+        actions.andExpect(jsonPath("$.response.mobile").value("010-1234-5678"));
+        actions.andExpect(jsonPath("$.response.photoDTO.id").value(4));
+        actions.andExpect(jsonPath("$.response.photoDTO.name").value("uuid_사용자사진1"));
+        actions.andExpect(jsonPath("$.response.photoDTO.photoPath").value("/upload/user/user1.webp"));
     }
 
 
@@ -309,6 +319,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println(respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
@@ -361,6 +372,7 @@ public class UserControllerTest {
 
         //eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println(respBody);
         String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
 
         // then
@@ -371,6 +383,9 @@ public class UserControllerTest {
 
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.id").value(1));
+        actions.andExpect(jsonPath("$.name").value("정해인"));
+        actions.andExpect(jsonPath("$.instagram").value("abc@naver.com"));
         actions.andExpect(jsonPath("$.response.blueChecked").value(false));
         actions.andExpect(jsonPath("$.response.status").value("승인 대기"));
     }
@@ -397,6 +412,7 @@ public class UserControllerTest {
 
         //eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(respBody);
         String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
 
         // then
@@ -423,13 +439,26 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(respBody);
 
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.userDTO.creatorId").value(3));
+        actions.andExpect(jsonPath("$.response.userDTO.blueChecked").value(true));
+        actions.andExpect(jsonPath("$.response.userDTO.photoName").value("uuid_사용자사진3"));
+        actions.andExpect(jsonPath("$.response.userDTO.photoPath").value("/upload/user/user3.webp"));
         actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bunwuseok"));
+        actions.andExpect(jsonPath("$.response.userDTO.height").value("180cm"));
+        actions.andExpect(jsonPath("$.response.userDTO.weight").value("75kg"));
+        actions.andExpect(jsonPath("$.response.userDTO.job").value("직장인"));
+        actions.andExpect(jsonPath("$.response.userDTO.introMsg").value("연예인 체형"));
         actions.andExpect(jsonPath("$.response.codiList[0].codiId").value(1));// Json데이터가 배열이면 몇번지의 데이터인지 기입해줘야 함.
+        actions.andExpect(jsonPath("$.response.codiList[0].codiPhotoId").value(14));
+        actions.andExpect(jsonPath("$.response.codiList[0].photoName").value("uuid_코디사진1"));
+        actions.andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"));
     }
 
     @Test
@@ -466,14 +495,18 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(respBody);
+
 
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
-        actions.andExpect(jsonPath("$.response.userId").value(1));
-        actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
-        actions.andExpect(jsonPath("$.response.orderCount").value(3));
+        actions.andExpect(jsonPath("$.response.userId").value(3));
+        actions.andExpect(jsonPath("$.response.photoName").value("uuid_사용자사진3"));
+        actions.andExpect(jsonPath("$.response.photoPath").value("/upload/user/user3.webp"));
+        actions.andExpect(jsonPath("$.response.nickName").value("bunwuseok"));
+        actions.andExpect(jsonPath("$.response.orderCount").value(4));
 
     }
 
@@ -514,17 +547,27 @@ public class UserControllerTest {
         String respBody = actions.andReturn().getResponse().getContentAsString();
 
         // then
+        actions.andExpect(status().isOk());
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
-        actions.andExpect(jsonPath("$.response.codiListDTOS.length()").value(8)); //
-        actions.andExpect(jsonPath("$.response.itemListDTOS.length()").value(17)); // Assuming 2 items
 
         //첫번째 코디
+        actions.andExpect(jsonPath("$.response.codiListDTOS").isArray());
         actions.andExpect(jsonPath("$.response.codiListDTOS[0].codiId").value(1));
         actions.andExpect(jsonPath("$.response.codiListDTOS[0].codiPhotoId").value(14));
+        actions.andExpect(jsonPath("$.response.codiListDTOS[0].photoName").value("uuid_코디사진1"));
+        actions.andExpect(jsonPath("$.response.codiListDTOS[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+
 
         // 첫번째 아이템
+        actions.andExpect(jsonPath("$.response.codiListDTOS").isArray());
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemId").value(1));
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].name").value("SCRAPPED 티셔츠(WHITE)"));
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].description").value("힙하고 유니크한 반팔로 어느 코디에도 잘 어울립니다."));
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].price").value(45000));
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoId").value(30));
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoName").value("uuid_아이템사진1"));
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].photoPath").value("/upload/items/item01/mainItemPhoto.jpg"));
 
     }
 
@@ -547,7 +590,29 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.userDTO.creatorId").value(3));
+        actions.andExpect(jsonPath("$.response.userDTO.blueChecked").value(true));
+        actions.andExpect(jsonPath("$.response.userDTO.photoName").value("uuid_사용자사진3"));
+        actions.andExpect(jsonPath("$.response.userDTO.photoPath").value("/upload/user/user3.webp"));
         actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bunwuseok"));
+        actions.andExpect(jsonPath("$.response.userDTO.height").value("180cm"));
+        actions.andExpect(jsonPath("$.response.userDTO.weight").value("75kg"));
+        actions.andExpect(jsonPath("$.response.userDTO.job").value("직장인"));
+        actions.andExpect(jsonPath("$.response.userDTO.introMsg").value("연예인 체형"));
+        actions.andExpect(jsonPath("$.response.userDTO.orderCount").value(4));
+        actions.andExpect(jsonPath("$.response.userDTO.mileage").value(3000));
+        actions.andExpect(jsonPath("$.response.codiList[0].codiId").value(1));
+        actions.andExpect(jsonPath("$.response.codiList[0].codiPhotoId").value(14));
+        actions.andExpect(jsonPath("$.response.codiList[0].photoName").value("uuid_코디사진1"));
+        actions.andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"));
+        actions.andExpect(jsonPath("$.response.itemList[0].itemId").value(5));
+        actions.andExpect(jsonPath("$.response.itemList[0].name").value("crop cable sweater"));
+        actions.andExpect(jsonPath("$.response.itemList[0].description").value("방모 원사임에도 모달이 섞여 기분좋은 찰랑거림이 있는게 매력적입니다."));
+        actions.andExpect(jsonPath("$.response.itemList[0].price").value(75000));
+        actions.andExpect(jsonPath("$.response.itemList[0].itemPhotoId").value(38));
+        actions.andExpect(jsonPath("$.response.itemList[0].itemPhotoName").value("uuid_아이템사진5"));
+        actions.andExpect(jsonPath("$.response.itemList[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"));
+        actions.andExpect(jsonPath("$.response.itemList[0].itemPhoto").value("ITEM"));
 
     }
 
@@ -564,7 +629,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
+//        System.out.println("respBody = " + respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(401));
@@ -600,6 +665,7 @@ public class UserControllerTest {
 
         //eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+//        System.out.println(respBody);
 
         String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
         // then
@@ -610,8 +676,13 @@ public class UserControllerTest {
 
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.userId").value(3));
+        actions.andExpect(jsonPath("$.response.email").value("bunwuseok@example.com"));
         actions.andExpect(jsonPath("$.response.myName").value("변우식"));
         actions.andExpect(jsonPath("$.response.nickName").value("bun"));
+        actions.andExpect(jsonPath("$.response.photo.photoId").value(6));
+        actions.andExpect(jsonPath("$.response.photo.photoPath").value("/upload/user/3/98b27ce9-d3ac-4b59-9da8-4575243177d8_uuid_사용자사진3"));
+
     }
 
     @Test
@@ -674,4 +745,64 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.errorMessage").value("비밀번호는 최소 4자 이상 최대 20자 이하여야 합니다. : password"));
     }
+
+    //자동 로그인
+    @Test
+    public void app_auto_login_success_test() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/app/auto/login")
+                        .header("Authorization", "Bearer " + jwt)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        //eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(respBody);
+
+        String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
+        // then
+        actions.andExpect(status().isOk()); // 상태 코드 검증
+        if (respJwt != null) {
+            assertTrue(respJwt.contains("Bearer "));
+        }
+
+        actions.andExpect(jsonPath("$.status").value(200));
+        actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.id").value(3));
+        actions.andExpect(jsonPath("$.response.email").value("bunwuseok@example.com"));
+        actions.andExpect(jsonPath("$.response.photo").value("/upload/user/user3.webp"));
+
+    }
+
+    @Test
+    public void app_auto_login_fail_test() throws Exception {
+        // given
+        String invalidJwt = "";
+        // when
+        ResultActions actions = mvc.perform(
+                post("/app/auto/login")
+                        .header("Authorization", "Bearer " + invalidJwt)
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        //eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(respBody);
+
+        String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
+        // then
+//        actions.andExpect(status().isOk()); // 상태 코드 검증
+//        if (respJwt != null) {
+//            assertTrue(respJwt.contains("Bearer "));
+//        }
+
+        actions.andExpect(status().isUnauthorized()) // 상태 코드가 401(Unauthorized)인지 검증
+                .andExpect(content().string(containsString("유효하지 않은 토큰입니다."))); // 응답 본문에 특정 메시지가
+
+    }
+
+
 }

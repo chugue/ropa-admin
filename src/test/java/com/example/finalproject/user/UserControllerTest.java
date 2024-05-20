@@ -219,6 +219,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody:"+respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
@@ -226,6 +227,8 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.id").value(1));
         actions.andExpect(jsonPath("$.response.myName").value("정해인"));
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
+        actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
+        actions.andExpect(jsonPath("$.response.mobile").value("010-1234-5678"));
     }
 
     @Test
@@ -262,6 +265,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println(respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
@@ -269,6 +273,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.userId").value(1));
         actions.andExpect(jsonPath("$.response.myName").value("정해인"));
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
+        actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
     }
 
 

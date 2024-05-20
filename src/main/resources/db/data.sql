@@ -42,23 +42,23 @@ VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별�
 
 -- 카테고리 테이블 더미
 INSERT INTO category_tb (main, sub)
-VALUES ('top', '반팔'),
-       ('bottom', '청바지'),
-       ('top', '반팔 셔츠'),
-       ('bottom', '카고 팬츠'),
-       ('top', '니트 집업'),
-       ('bottom', '청바지'),
-       ('top', '니트'),
-       ('bottom', '청바지'),
-       ('top', '크롭 숏 가디건 자켓'),
-       ('bottom', '슬랙스'),
-       ('top', '셔츠'),
-       ('top', '티셔츠'),
-       ('bottom', '슬랙스'),
-       ('top', '반팔 니트 가디건'),
-       ('bottom', '슬랙스'),
-       ('top', '라운드 니트'),
-       ('bottom', '슬랙스');
+VALUES ('상의', '반팔'),
+       ('하의', '청바지'),
+       ('상의', '반팔 셔츠'),
+       ('하의', '카고 팬츠'),
+       ('상의', '니트'),
+       ('하의', '청바지'),
+       ('상의', '니트 집업'),
+       ('하의', '청바지'),
+       ('상의', '크롭 숏 가디건 자켓'),
+       ('하의', '슬랙스'),
+       ('상의', '셔츠'),
+       ('상의', '티셔츠'),
+       ('하의', '슬랙스'),
+       ('상의', '반팔 니트 가디건'),
+       ('하의', '슬랙스'),
+       ('상의', '라운드 니트'),
+       ('하의', '슬랙스');
 
 
 -- 아이템(Items) 더미 데이터 삽입
@@ -93,7 +93,10 @@ VALUES (1, 1, 2, 90000), -- 정해인이 1번 반팔을 2개를 장바구니에 
        (4, 7, 1, 59000), -- 김지용이 집업 니트 1개를 장바구니에 담음 59000
        (4, 8, 1, 32000), -- 김지용이 블랙 진  1개를 장바구니에 담음 32000
        (5, 9, 1, 75000), -- 김수현이 가디건 자켓을 1개를 장바구니에 담음 75000
-       (5, 10, 1, 50000); -- 김수현이 세미 와이드 슬랙스 1개를 장바구니에 담음 50000
+       (5, 10, 1, 50000), -- 김수현이 세미 와이드 슬랙스 1개를 장바구니에 담음 50000
+       (3, 7, 1,  59000), -- 변우석이 집업니트 1개를 장바구니에 담음 59000
+       (3, 8, 1,  32000); -- 변우석이 블랙진 1개를 장바구니에 담음 32000
+
 
 -- 코디 테이블 더미
 insert into codi_tb (user_id, description, created_at)
@@ -166,7 +169,7 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_아이템사진3', '아이템사진사진3', '/upload/items/item03/mainItemPhoto.jpg', 'ITEM', null, null, null, 3, NOW(), true),
        ('uuid_아이템사진3서브', '아이템사진서브사진3', '/upload/items/item03/detail01.jpg', 'ITEM', null, null, null, 3, NOW(), false),
        ('uuid_아이템사진4', '아이템사진사진4', '/upload/items/item04/mainItemPhoto.jpg', 'ITEM', null, null, null, 4, NOW(), true),
-       ('uuid_아이템사진4서브', '아이템사진서브사진4', '/upload/items/item04/detail01.jApg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템사진4서브', '아이템사진서브사진4', '/upload/items/item04/detail01.jpg', 'ITEM', null, null, null, 4, NOW(), false),
        ('uuid_아이템사진5', '아이템사진사진5', '/upload/items/item05/mainItemPhoto.jpg', 'ITEM', null, null, null, 5, NOW(), true),
        ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail01.jpg', 'ITEM', null, null, null, 5, NOW(), false),
        ('uuid_아이템사진6', '아이템사진사진6', '/upload/items/item06/mainItemPhoto.jpg', 'ITEM', null, null, null, 6, NOW(), true),
@@ -221,7 +224,7 @@ VALUES ('배송중', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '정해인', '12345',
 INSERT INTO order_tb (user_id, delivery_id, purchase_amount, fee, order_date, delivery_type, pay_method)
 VALUES (1, 1, 122000, 12200, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 정해인이 반팔티 2개랑 바지 1개 구매
        (2, 2, 105000, 10500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 임시완이 반팔 셔츠랑 유틸팬츠 각 1개 구매
-       (3, 3, 115000, 11500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 변우석이 고랑 니트랑 데님팬츠 각 1개 구매
+       (3, 3, 206000, 20600, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 변우석이 고랑 니트랑 데님팬츠 집업니트 블랙 진 각 1개 구매
        (4, 4, 91000, 9100, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'), -- 김지용이 집업 니트랑 블랙 진 각 1개 구매
        (5, 5, 125000, 12500, CURRENT_TIMESTAMP, 'FREE', 'CREDIT'); -- 김수현이 가디건 자켓이랑 세미 와이드 슬랙스 각 1개 구매
 
@@ -247,6 +250,8 @@ VALUES (1, 1, 1, 2, 90000, 9000), --SALOMON
        (2, 2, 4, 1, 50000, 3200), --lee
        (3, 3, 5, 1, 75000, 7500), --espionage
        (3, 3, 6, 1, 40000, 4000), --espionage
+       (1, 3, 7, 1, 59000, 5900), --SALOMON
+       (1, 3, 8, 1, 32000, 3200), --SALOMON
        (1, 4, 7, 1, 59000, 5900), --SALOMON
        (1, 4, 8, 1, 32000, 3200), --SALOMON
        (2, 5, 9, 1, 75000, 7500), --lee

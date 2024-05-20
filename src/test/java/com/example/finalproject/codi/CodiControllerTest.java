@@ -41,21 +41,29 @@ public class CodiControllerTest {
 
     //@GetMapping("/app/search-codi")
     @Test
-    public void searchCodi_fail_test() {
+    public void searchCodi_fail_test() throws Exception {
         // given
+        String keyword = "입니alskdjfalksjfdlkasjdflkasjdf다";
 
         // when
-
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/app/search-codi")
+                .param("keyword", keyword)
+                .header("Authorization", "Bearer " + jwt));
         // eye
-
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
         // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(400));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("검색어는 10글자 이하로 입력해주세요."));
 
     }
 
     @Test
     public void searchCodi_success_test() throws Exception {
         // given
-        String keyword = "꾸안꾸";
+        String keyword = "입니다";
 
         // when
         ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/app/search-codi")
@@ -67,13 +75,13 @@ public class CodiControllerTest {
         System.out.println("respBody = " + respBody);
 
         // then
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].codiId").value(1));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].codiPhotoId").value(14));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoName").exists());
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].codiId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].codiPhotoId").value(14));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
     }
 
 

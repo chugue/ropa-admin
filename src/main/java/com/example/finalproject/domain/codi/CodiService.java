@@ -246,8 +246,7 @@ public class CodiService {
         }
 
         System.out.println("✅✅✅✅✅"+ keyword.trim());
-        codiList = codiRepository.findItemsByCodiDescription(keyword);
-        System.out.println(codiList.size());
+        codiList = codiRepository.findByDescriptionContaining(keyword);
         return codiList.stream().map(CodiResponse.CodiListDTO::new).collect(Collectors.toList());
     }
 }

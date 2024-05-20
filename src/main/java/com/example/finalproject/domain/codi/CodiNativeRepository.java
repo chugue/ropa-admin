@@ -14,13 +14,11 @@ public class CodiNativeRepository {
     @PersistenceContext
     private EntityManager em;
     public List<Codi> findItemsByCodiDescription(String keyword) {
-        String sql = "SELECT DISTINCT c.* " +
-                "FROM codi_tb c " +
-                "LEFT JOIN photo_tb p ON c.id = p.codi_id " +
-                "WHERE p.is_main_photo = true AND c.description LIKE :keyword";
+        String sql = "SELECT c.* " +
+                "FROM codi_tb c where c.description LIKE ?";
 
         Query query = em.createNativeQuery(sql, Codi.class);
-        query.setParameter("keyword", keyword);
+        query.setParameter('1', keyword);
 
         return query.getResultList();
     }

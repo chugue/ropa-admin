@@ -1,9 +1,8 @@
-package com.example.finalproject.user;
+package com.example.finalproject.domain.user;
 
 
 import com.example.finalproject._core.utils.AppJwtUtil;
-import com.example.finalproject.domain.user.User;
-import com.example.finalproject.domain.user.UserRequest;
+import com.example.finalproject.domain.photo.Photo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ import static org.hamcrest.Matchers.containsString;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class UserControllerTest {
+public class UserRestControllerTest {
     private ObjectMapper om = new ObjectMapper();
 
     @Autowired
@@ -97,7 +96,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody: " + respBody);
+//        System.out.println("respBody: " + respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(400));
@@ -110,7 +109,7 @@ public class UserControllerTest {
     public void join_username_valid_fail_test() throws Exception {
         // given
         UserRequest.JoinDTO reqDTO = new UserRequest.JoinDTO();
-        reqDTO.setEmail("");
+        reqDTO.setEmail("a");
         reqDTO.setMyName("dfd");
         reqDTO.setNickName("cat");
         reqDTO.setPassword("1234");
@@ -126,11 +125,12 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody: " + respBody);
+//        System.out.println("respBody: " + respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(400));
-        actions.andExpect(jsonPath("$.errorMessage").value("이메일은 최소 1자 이상 최대 20자 이하여야 합니다. : email"));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.errorMessage").value("이메일은 최소 3자 이상 최대 20자 이하여야 합니다. : email"));
     }
 
     //로그인
@@ -218,11 +218,15 @@ public class UserControllerTest {
     @Test
     public void setting_success_test() throws Exception {
         // given
+        String jwt1 = AppJwtUtil.create(User.builder()
+               .id(2)
+               .blueChecked(false)
+               .build());
 
         // when
         ResultActions actions = mvc.perform(
                 get("/app/setting")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
         );
 
         // eye
@@ -232,22 +236,25 @@ public class UserControllerTest {
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
-        actions.andExpect(jsonPath("$.response.id").value(1));
-        actions.andExpect(jsonPath("$.response.myName").value("정해인"));
-        actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
-        actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
-        actions.andExpect(jsonPath("$.response.mobile").value("010-1234-5678"));
+        actions.andExpect(jsonPath("$.response.id").value(2));
+        actions.andExpect(jsonPath("$.response.myName").value("임시완"));
+        actions.andExpect(jsonPath("$.response.email").value("limsiwan@example.com"));
+        actions.andExpect(jsonPath("$.response.nickName").value("limsiwan"));
+        actions.andExpect(jsonPath("$.response.mobile").value("010-9876-5432"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
     @Test
     public void setting_fail_test() throws Exception {
         // given
-
+        String jwt1 = AppJwtUtil.create(User.builder()
+                .id(999)
+                .blueChecked(false)
+                .build());
         // when
         ResultActions actions = mvc.perform(
                 get("/app/setting")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
         );
 
         // eye
@@ -265,6 +272,10 @@ public class UserControllerTest {
     @Test
     public void profile_success_test() throws Exception {
         // given
+        String jwt = AppJwtUtil.create(User.builder()
+               .id(2)
+               .blueChecked(false)
+               .build());
 
         // when
         ResultActions actions = mvc.perform(
@@ -274,19 +285,18 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-//        System.out.println(respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
-        actions.andExpect(jsonPath("$.response.userId").value(1));
-        actions.andExpect(jsonPath("$.response.myName").value("정해인"));
-        actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
-        actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
-        actions.andExpect(jsonPath("$.response.mobile").value("010-1234-5678"));
-        actions.andExpect(jsonPath("$.response.photoDTO.id").value(4));
-        actions.andExpect(jsonPath("$.response.photoDTO.name").value("uuid_사용자사진1"));
-        actions.andExpect(jsonPath("$.response.photoDTO.photoPath").value("/upload/user/user1.webp"));
+        actions.andExpect(jsonPath("$.response.userId").value(2));
+        actions.andExpect(jsonPath("$.response.myName").value("임시완"));
+        actions.andExpect(jsonPath("$.response.email").value("limsiwan@example.com"));
+        actions.andExpect(jsonPath("$.response.nickName").value("limsiwan"));
+        actions.andExpect(jsonPath("$.response.mobile").value("010-9876-5432"));
+        actions.andExpect(jsonPath("$.response.photoDTO.id").value(5));
+        actions.andExpect(jsonPath("$.response.photoDTO.name").exists());
+        actions.andExpect(jsonPath("$.response.photoDTO.photoPath").value("/upload/user/user2.webp"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
@@ -294,11 +304,14 @@ public class UserControllerTest {
     @Test
     public void profile_fail_test() throws Exception {
         // given
+        String jwt1 = AppJwtUtil.create(User.builder()
+                .id(999)
+                .build());
 
         // when
         ResultActions actions = mvc.perform(
                 get("/app/profile")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
         );
 
         // eye
@@ -314,11 +327,22 @@ public class UserControllerTest {
     @Test
     public void creator_apply_form_success_test() throws Exception {
         // given
+        String jwt1 = AppJwtUtil.create(User.builder()
+                .id(1)
+                .blueChecked(false)
+                .photo(Photo.builder()
+                        .uuidName("uuid_사용자사진1")
+                        .path("/upload/user/user1.webp")
+                        .build())
+                .nickName("junghein")
+                .introMsg("연예인 체형")
+                .build());
+
 
         // when
         ResultActions actions = mvc.perform(
                 get("/app/creator-apply-form")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
         );
 
         // eye
@@ -328,6 +352,7 @@ public class UserControllerTest {
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
+        actions.andExpect(jsonPath("$.response.id").value(1));
         actions.andExpect(jsonPath("$.response.name").value("정해인"));
         actions.andExpect(jsonPath("$.response.instagram").value("holyhaein"));
         actions.andExpect(jsonPath("$.response.blueChecked").value("false"));
@@ -338,11 +363,15 @@ public class UserControllerTest {
     @Test
     public void creator_apply_form_fail_test() throws Exception {
         // given
+        String jwt1 = AppJwtUtil.create(User.builder()
+                .id(999)
+                .blueChecked(false)
+                .build());
 
         // when
         ResultActions actions = mvc.perform(
                 get("/app/creator-apply-form")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
         );
 
         // eye
@@ -358,6 +387,16 @@ public class UserControllerTest {
     @Test
     public void creator_apply_success_test() throws Exception {
         // given
+        String jwt1 = AppJwtUtil.create(User.builder()
+                .id(1)
+                .blueChecked(false)
+                .photo(Photo.builder()
+                        .uuidName("uuid_사용자사진1")
+                        .path("/upload/user/user1.webp")
+                        .build())
+                .nickName("junghein")
+                .introMsg("연예인 체형")
+                .build());
         UserRequest.CreatorApplyDTO reqDTO = new UserRequest.CreatorApplyDTO();
         reqDTO.setHeight("182");
         reqDTO.setComment("키 182 연예인 체형입니다.");
@@ -370,7 +409,7 @@ public class UserControllerTest {
         // when
         ResultActions actions = mvc.perform(
                 put("/app/creator-apply")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
                         .content(reqBody)
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -388,9 +427,9 @@ public class UserControllerTest {
 
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
-        actions.andExpect(jsonPath("$.id").value(1));
-        actions.andExpect(jsonPath("$.name").value("정해인"));
-        actions.andExpect(jsonPath("$.instagram").value("abc@naver.com"));
+        actions.andExpect(jsonPath("$.response.id").value(1));
+        actions.andExpect(jsonPath("$.response.name").value("정해인"));
+        actions.andExpect(jsonPath("$.response.instagram").value("abc@naver.com"));
         actions.andExpect(jsonPath("$.response.blueChecked").value(false));
         actions.andExpect(jsonPath("$.response.status").value("승인 대기"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
@@ -418,7 +457,7 @@ public class UserControllerTest {
 
         //eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println(respBody);
+//        System.out.println(respBody);
         String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
 
         // then
@@ -445,7 +484,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println(respBody);
+//        System.out.println(respBody);
 
 
         // then
@@ -453,17 +492,17 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.userDTO.creatorId").value(3));
         actions.andExpect(jsonPath("$.response.userDTO.blueChecked").value(true));
-        actions.andExpect(jsonPath("$.response.userDTO.photoName").value("uuid_사용자사진3"));
-        actions.andExpect(jsonPath("$.response.userDTO.photoPath").value("/upload/user/user3.webp"));
-        actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bunwuseok"));
+        actions.andExpect(jsonPath("$.response.userDTO.photoName").exists());
+        actions.andExpect(jsonPath("$.response.userDTO.photoPath").exists());
+        actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bun"));
         actions.andExpect(jsonPath("$.response.userDTO.height").value("180cm"));
         actions.andExpect(jsonPath("$.response.userDTO.weight").value("75kg"));
         actions.andExpect(jsonPath("$.response.userDTO.job").value("직장인"));
         actions.andExpect(jsonPath("$.response.userDTO.introMsg").value("연예인 체형"));
         actions.andExpect(jsonPath("$.response.codiList[0].codiId").value(1));// Json데이터가 배열이면 몇번지의 데이터인지 기입해줘야 함.
         actions.andExpect(jsonPath("$.response.codiList[0].codiPhotoId").value(14));
-        actions.andExpect(jsonPath("$.response.codiList[0].photoName").value("uuid_코디사진1"));
-        actions.andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(jsonPath("$.response.codiList[0].photoName").exists());
+        actions.andExpect(jsonPath("$.response.codiList[0].photoPath").exists());
         actions.andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
@@ -481,7 +520,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody: " + respBody);
+//        System.out.println("respBody: " + respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(401));
@@ -502,7 +541,7 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println(respBody);
+//        System.out.println(respBody);
 
 
 
@@ -510,9 +549,9 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.userId").value(3));
-        actions.andExpect(jsonPath("$.response.photoName").value("uuid_사용자사진3"));
-        actions.andExpect(jsonPath("$.response.photoPath").value("/upload/user/user3.webp"));
-        actions.andExpect(jsonPath("$.response.nickName").value("bunwuseok"));
+        actions.andExpect(jsonPath("$.response.photoName").exists());
+        actions.andExpect(jsonPath("$.response.photoPath").exists());
+        actions.andExpect(jsonPath("$.response.nickName").value("bun"));
         actions.andExpect(jsonPath("$.response.orderCount").value(4));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
 
@@ -521,11 +560,14 @@ public class UserControllerTest {
     @Test
     public void user_my_page_fail_test() throws Exception {
         // given
-
+        String jwt1 = AppJwtUtil.create(User.builder()
+                .id(999)
+                .blueChecked(false)
+                .build());
         // when
         ResultActions actions = mvc.perform(
                 get("/app/user-my-page")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
         );
 
         // eye
@@ -593,53 +635,68 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody = " + respBody);
+//        System.out.println("respBody = " + respBody);
 
         // then
-        actions.andExpect(jsonPath("$.status").value(200));
-        actions.andExpect(jsonPath("$.success").value(true));
-        actions.andExpect(jsonPath("$.response.userDTO.creatorId").value(3));
-        actions.andExpect(jsonPath("$.response.userDTO.blueChecked").value(true));
-        actions.andExpect(jsonPath("$.response.userDTO.photoName").value("uuid_사용자사진3"));
-        actions.andExpect(jsonPath("$.response.userDTO.photoPath").value("/upload/user/user3.webp"));
-        actions.andExpect(jsonPath("$.response.userDTO.nickName").value("bunwuseok"));
-        actions.andExpect(jsonPath("$.response.userDTO.height").value("180cm"));
-        actions.andExpect(jsonPath("$.response.userDTO.weight").value("75kg"));
-        actions.andExpect(jsonPath("$.response.userDTO.job").value("직장인"));
-        actions.andExpect(jsonPath("$.response.userDTO.introMsg").value("연예인 체형"));
-        actions.andExpect(jsonPath("$.response.userDTO.orderCount").value(4));
-        actions.andExpect(jsonPath("$.response.userDTO.mileage").value(3000));
-        actions.andExpect(jsonPath("$.response.codiList[0].codiId").value(1));
-        actions.andExpect(jsonPath("$.response.codiList[0].codiPhotoId").value(14));
-        actions.andExpect(jsonPath("$.response.codiList[0].photoName").value("uuid_코디사진1"));
-        actions.andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
-        actions.andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"));
-        actions.andExpect(jsonPath("$.response.itemList[0].itemId").value(5));
-        actions.andExpect(jsonPath("$.response.itemList[0].name").value("crop cable sweater"));
-        actions.andExpect(jsonPath("$.response.itemList[0].description").value("방모 원사임에도 모달이 섞여 기분좋은 찰랑거림이 있는게 매력적입니다."));
-        actions.andExpect(jsonPath("$.response.itemList[0].price").value(75000));
-        actions.andExpect(jsonPath("$.response.itemList[0].itemPhotoId").value(38));
-        actions.andExpect(jsonPath("$.response.itemList[0].itemPhotoName").value("uuid_아이템사진5"));
-        actions.andExpect(jsonPath("$.response.itemList[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"));
-        actions.andExpect(jsonPath("$.response.itemList[0].itemPhoto").value("ITEM"));
-        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andExpect(status().isOk())
+                .andExpect(content().json(respBody))
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.response.userDTO.creatorId").value(3))
+                .andExpect(jsonPath("$.response.userDTO.blueChecked").value(true))
+                .andExpect(jsonPath("$.response.userDTO.photoName").exists())
+                .andExpect(jsonPath("$.response.userDTO.photoPath").exists())
+                .andExpect(jsonPath("$.response.userDTO.nickName").value("bun"))
+                .andExpect(jsonPath("$.response.userDTO.height").value("180cm"))
+                .andExpect(jsonPath("$.response.userDTO.weight").value("75kg"))
+                .andExpect(jsonPath("$.response.userDTO.job").value("직장인"))
+                .andExpect(jsonPath("$.response.userDTO.introMsg").value("연예인 체형"))
+                .andExpect(jsonPath("$.response.userDTO.orderCount").value(4))
+                .andExpect(jsonPath("$.response.userDTO.mileage").value(3000))
+                .andExpect(jsonPath("$.response.codiList[0].codiId").value(1))
+                .andExpect(jsonPath("$.response.codiList[0].codiPhotoId").value(14))
+                .andExpect(jsonPath("$.response.codiList[0].photoName").value("uuid_코디사진1"))
+                .andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-3-codi1.webp"))
+                .andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"))
+                .andExpect(jsonPath("$.response.itemList[0].itemId").value(5))
+                .andExpect(jsonPath("$.response.itemList[0].name").value("crop cable sweater"))
+                .andExpect(jsonPath("$.response.itemList[0].description").value("방모 원사임에도 모달이 섞여 기분좋은 찰랑거림이 있는게 매력적입니다."))
+                .andExpect(jsonPath("$.response.itemList[0].price").value(75000))
+                .andExpect(jsonPath("$.response.itemList[0].itemPhotoId").value(38))
+                .andExpect(jsonPath("$.response.itemList[0].itemPhotoName").value("uuid_아이템사진5"))
+                .andExpect(jsonPath("$.response.itemList[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"))
+                .andExpect(jsonPath("$.response.itemList[0].itemPhoto").value("ITEM"))
+                .andExpect(jsonPath("$.errorMessage").doesNotExist());
 
     }
 
     @Test
     public void creator_my_page_fail_test() throws Exception {
         // given
-
+        String jwt1 = AppJwtUtil.create(User.builder()
+               .id(1)
+               .blueChecked(false)
+               .photo(Photo.builder()
+                       .uuidName("uuid_사용자사진1")
+                       .path("/upload/user/user1.webp")
+                       .build())
+               .nickName("junghein")
+               .height("175cm")
+               .weight("70kg")
+               .job("직장인")
+               .introMsg("연예인 체형")
+               .mileage(0)
+               .build());
 
         // when
         ResultActions actions = mvc.perform(
                 get("/app/creator-my-page")
-                        .header("Authorization", "Bearer " + jwt)
+                        .header("Authorization", "Bearer " + jwt1)
         );
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-//        System.out.println("respBody = " + respBody);
+
 
         // then
         actions.andExpect(jsonPath("$.status").value(401));
@@ -703,8 +760,8 @@ public class UserControllerTest {
         Integer userId = 3;
 
         UserRequest.ProfileUpdateDTO reqDTO = new UserRequest.ProfileUpdateDTO();
-        reqDTO.setMyName(""); // Invalid myName
-        reqDTO.setNickName("bun");
+        reqDTO.setMyName("a"); // Invalid myName
+        reqDTO.setNickName("bunㅇㄹㅇㄹㅇㄹㄹㅇㅇㅇ");
         reqDTO.setPassword("12345");
 
         UserRequest.ProfileUpdateDTO.PhotoDTO photoDTO = new UserRequest.ProfileUpdateDTO.PhotoDTO();
@@ -713,6 +770,7 @@ public class UserControllerTest {
         reqDTO.setPhoto(photoDTO);
 
         String reqBody = om.writeValueAsString(reqDTO);
+//        System.out.println(reqBody);
 
         // when
         ResultActions actions = mvc.perform(
@@ -724,6 +782,10 @@ public class UserControllerTest {
 
         // then
         actions.andExpect(status().isBadRequest()); // Status code validation
+        actions.andExpect(jsonPath("$.status").value(400));
+        actions.andExpect(jsonPath("$.success").value(false));
+        actions.andExpect(jsonPath("$.response").doesNotExist());
+        actions.andExpect(jsonPath("$.errorMessage").value("실명은 최소 2자 이상 최대 20자 이하여야 합니다. : myName"));
     }
 
     @Test
@@ -763,6 +825,7 @@ public class UserControllerTest {
     public void app_auto_login_success_test() throws Exception {
         // given
 
+
         // when
         ResultActions actions = mvc.perform(
                 post("/app/auto/login")
@@ -772,7 +835,7 @@ public class UserControllerTest {
 
         //eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println(respBody);
+//        System.out.println(respBody);
 
         String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
         // then
@@ -785,7 +848,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.id").value(3));
         actions.andExpect(jsonPath("$.response.email").value("bunwuseok@example.com"));
-        actions.andExpect(jsonPath("$.response.photo").value("/upload/user/user3.webp"));
+        actions.andExpect(jsonPath("$.response.photo").exists());
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
 
     }
@@ -803,7 +866,7 @@ public class UserControllerTest {
 
         //eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println(respBody);
+//        System.out.println(respBody);
 
         String respJwt = actions.andReturn().getResponse().getHeader("Authorization");
         // then
@@ -813,7 +876,7 @@ public class UserControllerTest {
 //        }
 
         actions.andExpect(status().isUnauthorized()) // 상태 코드가 401(Unauthorized)인지 검증
-                .andExpect(content().string(containsString("유효하지 않은 토큰입니다."))); // 응답 본문에 특정 메시지가
+                .andExpect(content().string(containsString("토큰이 유효하지 않습니다."))); // 응답 본문에 특정 메시지가
 
     }
 

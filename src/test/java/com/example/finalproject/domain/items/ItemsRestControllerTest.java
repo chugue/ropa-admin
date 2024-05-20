@@ -1,4 +1,4 @@
-package com.example.finalproject.items;
+package com.example.finalproject.domain.items;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.user.User;
@@ -12,12 +12,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class ItemsControllerTest {
+public class ItemsRestControllerTest {
     @Autowired
     private MockMvc mvc;
     private ObjectMapper om = new ObjectMapper();

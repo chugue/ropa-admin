@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class InquiryRestControllerTest {
+class InquiryControllerTest {
 
     private ObjectMapper om = new ObjectMapper();
 

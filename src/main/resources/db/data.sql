@@ -11,7 +11,7 @@ INSERT INTO user_tb (email, password, nick_name, my_name, address, mobile, heigh
                      status, blue_checked, mileage)
 VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별시 강남구', '010-1234-5678', '175cm', '70kg', '직장인',
         '어깨 넓은 보통 체형',
-        'holyhaein', '신청 전', FALSE, 2000),
+        'holyhaein', '신청 전', FALSE, 0),
        ('limsiwan@example.com', '1234', 'limsiwan', '임시완', '경기도 분당구', '010-9876-5432', '168cm', '56kg', '학생',
         '키작고 마른 체형', 'yim_siwang',
         '승인 대기', FALSE, 0),
@@ -23,7 +23,7 @@ VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별�
         '신청 전', FALSE, 0),
        ('kimsuhyun@example.com', '1234', 'kimsuhyun', '김수현', '인천광역시 남동구', '010-6666-6666', '180cm', '85kg', '학생',
         '키크고 덩치가 있는 체형', 'soohyun_k216',
-        '신청 전', FALSE, 5000),
+        '신청 전', FALSE, 0),
        ('wehajun@example.com', '1234', 'wehajun', '위하준', '서울특별시 강남구', '010-7777-7777', '180cm', '75kg', '직장인',
         '연예인 체형', 'wi__wi__wi',
         '승인', TRUE, 3000),
@@ -42,23 +42,23 @@ VALUES ('junghein@example.com', '1234', 'junghein', '정해인', '서울특별�
 
 -- 카테고리 테이블 더미
 INSERT INTO category_tb (main, sub)
-VALUES ('상의', '반팔'),
-       ('하의', '청바지'),
-       ('상의', '반팔 셔츠'),
-       ('하의', '카고 팬츠'),
-       ('상의', '니트'),
-       ('하의', '청바지'),
-       ('상의', '니트 집업'),
-       ('하의', '청바지'),
-       ('상의', '크롭 숏 가디건 자켓'),
-       ('하의', '슬랙스'),
-       ('상의', '셔츠'),
-       ('상의', '티셔츠'),
-       ('하의', '슬랙스'),
-       ('상의', '반팔 니트 가디건'),
-       ('하의', '슬랙스'),
-       ('상의', '라운드 니트'),
-       ('하의', '슬랙스');
+VALUES ('top', '반팔'),
+       ('bottom', '청바지'),
+       ('top', '반팔 셔츠'),
+       ('bottom', '카고 팬츠'),
+       ('top', '니트'),
+       ('bottom', '청바지'),
+       ('top', '니트 집업'),
+       ('bottom', '청바지'),
+       ('top', '크롭 숏 가디건 자켓'),
+       ('bottom', '슬랙스'),
+       ('top', '셔츠'),
+       ('top', '티셔츠'),
+       ('bottom', '슬랙스'),
+       ('top', '반팔 니트 가디건'),
+       ('bottom', '슬랙스'),
+       ('top', '라운드 니트'),
+       ('bottom', '슬랙스');
 
 
 -- 아이템(Items) 더미 데이터 삽입

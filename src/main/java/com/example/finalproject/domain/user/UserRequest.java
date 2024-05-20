@@ -14,7 +14,7 @@ public class UserRequest {
     @Data
     public static class ProfileUpdateDTO {
         @NotEmpty(message = "실명이 공백일 수 없습니다.")
-        @Size(min = 1, max = 20, message = "닉네임은 최소 1자 이상 최대 20자 이하여야 합니다.")
+        @Size(min = 2, max = 20, message = "실명은 최소 2자 이상 최대 20자 이하여야 합니다.")
         private String myName;
         @NotEmpty(message = "닉네임이 공백일 수 없습니다.")
         @Size(min = 1, max = 20, message = "닉네임은 최소 1자 이상 최대 20자 이하여야 합니다.")
@@ -50,7 +50,7 @@ public class UserRequest {
     @Data
     public static class JoinDTO {
         @NotEmpty(message = "이메일이 공백일 수 없습니다.")
-        @Size(min = 1, max = 20, message = "이메일은 최소 1자 이상 최대 20자 이하여야 합니다.")
+        @Size(min = 3, max = 20, message = "이메일은 최소 3자 이상 최대 20자 이하여야 합니다.")
         private String email;
 
         @NotEmpty(message = "닉네임이 공백일 수 없습니다.")

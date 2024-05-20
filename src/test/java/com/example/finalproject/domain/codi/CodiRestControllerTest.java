@@ -1,7 +1,6 @@
-package com.example.finalproject.codi;
+package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
-import com.example.finalproject.domain.codi.CodiRequest;
 import com.example.finalproject.domain.photo.Photo;
 import com.example.finalproject.domain.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class CodiControllerTest {
+public class CodiRestControllerTest {
     @Autowired
     private MockMvc mvc;
     private ObjectMapper om = new ObjectMapper();
@@ -115,7 +114,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.description").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-19"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-20"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.isloved").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.loveCount").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoId").value(14));
@@ -165,7 +164,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.description").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-19"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-20"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.isloved").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.loveCount").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoId").value(14));

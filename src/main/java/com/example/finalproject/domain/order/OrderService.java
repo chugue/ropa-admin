@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.order;
 
+import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.cart.Cart;
@@ -56,7 +57,7 @@ public class OrderService {
     public OrderResponse.SaveOrder saveOrder(OrderRequest.SaveOrder reqDTO, Integer userId) {
         // 사용자 정보 찾기
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new Exception404("사용자 정보를 찾을 수 없습니다."));
+                new Exception401("사용자 정보를 찾을 수 없습니다."));
         // 사용자 아이디로 모든 카트 찾기
         List<Cart> carts = cartRepository.findAllByUserIdWithAdmin(userId);
 
@@ -91,12 +92,12 @@ public class OrderService {
             // 카트에 있는 아이템의 아이디 값과 코디에 등록된 아이템의 아이디 값을 비교하여 처리
 
             User creator;
-            Admin brandAdmin;
+            Admin admin;
 
             if (cart.getCodi() != null) {
                 // 연동된 코디가 있을경우
                 creator = cart.getCodi().getUser();
-                brandAdmin = cart.getItems().getAdmin();
+                admin = cart.getItems().getAdmin();
 
                 int creatorMileage = (int) (cart.getTotalAmount() * 0.05);
                 int brandMileage = (int) (cart.getTotalAmount() * 0.05);
@@ -106,20 +107,20 @@ public class OrderService {
                 }
                 creator.setMileage(creator.getMileage() + creatorMileage);
 
-                if (brandAdmin.getMileage() == null) {
-                    brandAdmin.setMileage(0);
+                if (admin.getMileage() == null) {
+                    admin.setMileage(0);
                 }
-                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+                admin.setMileage(admin.getMileage() + brandMileage);
             } else {
                 // 코디 아이템이 아닌 경우
-                brandAdmin = cart.getItems().getAdmin();
+                admin = cart.getItems().getAdmin();
 
                 int brandMileage = (int) (cart.getTotalAmount() * 0.1);
 
-                if (brandAdmin.getMileage() == null) {
-                    brandAdmin.setMileage(0);
+                if (admin.getMileage() == null) {
+                    admin.setMileage(0);
                 }
-                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+                admin.setMileage(admin.getMileage() + brandMileage);
             }
 
             // OrderHistory 테이블에 저장

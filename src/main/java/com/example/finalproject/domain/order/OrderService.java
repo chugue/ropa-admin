@@ -44,37 +44,6 @@ public class OrderService {
         return new OrderResponse.PageView(order, cartList);
     }
 
-    // 주문하기
-    @Transactional
-    public void saveOrder(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new Exception401("사용자 정보를 찾을 수 없습니다."));
-        // 사용자의 장바구니에서 아이템들을 가져옴
-        List<Cart> cartItems = cartRepository.findAllByUserId(userId);
-
-        // 주문 생성
-        Order order = OrderRequest.SaveDTO.toEntity(user, cartItems);
-
-        // 장바구니에서 주문내역으로 이동
-        for (Cart cartItem : cartItems) {
-            OrderHistory orderHistory = OrderHistory.builder()
-                    .admin(cartItem.getItems().getAdmin())
-                    .order(order)
-                    .items(cartItem.getItems())
-                    .orderItemQty(cartItem.getQuantity())
-                    .orderItemPrice(cartItem.getTotalAmount())
-                    .build();
-            // 주문 내역 저장
-            orderHistoryRepository.save(orderHistory);
-        }
-
-        // 주문 저장
-        orderRepository.save(order);
-
-        // 장바구니 비우기
-        cartRepository.deleteAll(cartItems);
-    }
-
     // 주문 + 배송지 + 결제 정보 저장
     @Transactional
     public OrderResponse.SaveOrder saveOrder(OrderRequest.SaveOrder reqDTO, Integer userId) {
@@ -114,15 +83,13 @@ public class OrderService {
         carts.forEach(cart -> {
             // 카트에 있는 아이템의 아이디 값과 코디에 등록된 아이템의 아이디 값을 비교하여 처리
             Integer cartItemId = cart.getItems().getId();
-            boolean isCodiItem = codiItemsRepository.existsByItemId(cartItemId);
 
             User creator;
             Admin brandAdmin;
 
-            if (isCodiItem) {
-                // 코디 아이템인 경우
-                CodiItems codiItems = codiItemsRepository.findByItemId(cartItemId);
-                creator = codiItems.getCodi().getUser();
+            if (cart.getCodi() != null) {
+                // 연동된 코디가 있을경우
+                creator = cart.getCodi().getUser();
                 brandAdmin = cart.getItems().getAdmin();
 
                 int creatorMileage = (int) (cart.getTotalAmount() * 0.05);

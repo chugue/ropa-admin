@@ -1,4 +1,4 @@
-package com.example.finalproject.photo;
+package com.example.finalproject.domain.photo;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.codi.CodiRequest;

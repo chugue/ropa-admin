@@ -1,4 +1,4 @@
-package com.example.finalproject.order;
+package com.example.finalproject.domain.order;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.admin.Admin;
@@ -94,69 +94,58 @@ public class OrderControllerTest {
     }
 
     //주문
-//    @Test
-//    public void order_success_test() throws Exception {
-//        // given
-//        OrderRequest.SaveOrder.PurchaseInfo purchaseInfo = new OrderRequest.SaveOrder.PurchaseInfo(
-//                10000, // orderAmount
-//                Order.DeliveryType.FREE, // deliveryType
-//                1000, // deliveryFee
-//                0, // discount
-//                10000, // purchaseAmount
-//                Order.PayMethod.KAKAO, // payMethod
-//                true // savedPayMethod
-//        );
-//
-//        OrderRequest.SaveOrder reqDTO = new OrderRequest.SaveOrder(
-//                "정해인", "010-1234-5678",
-//                "junghein@example.com",
-//                "1234",
-//                "서울특별시 강남구",
-//                "테헤란로 123길",
-//                "문 앞에 놓아주세요",
-//                true,
-//                purchaseInfo
-//        );
-//
-//        OrderResponse.SaveOrder respDTO = new OrderResponse.SaveOrder(
-//                "order123", "정해인", 10000, Order.DeliveryType.FREE, Order.PayMethod.KAKAO, true
-//        );
-//
-//        Admin admin = Admin.builder()
-//                .id(1)
-//                .email("admin@example.com")
-//                .password("password")
-//                .mileage(1000)
-//                .build();
-//
-//        // Mocking Admin repository
-//        when(adminRepository.findById(anyInt())).thenReturn(Optional.of(admin));
-//
-//        // Mocking session attribute and service method
-//        SessionUser sessionUser = new SessionUser("user123", "정해인");
-//        when(session.getAttribute("sessionUser")).thenReturn(sessionUser);
-//        when(orderService.saveOrder(any(OrderRequest.SaveOrder.class), anyInt()))
-//                .thenReturn(respDTO);
-//
-//        // when
-//        ResultActions actions = mvc.perform(
-//                post("/app/order")
-//                        .header("Authorization", "Bearer " + jwt)
-//                        .content(om.writeValueAsString(reqDTO))
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .sessionAttr("sessionUser", sessionUser)
-//        );
-//
-//        // then
-//        actions.andExpect(status().isOk());
-//        actions.andExpect(jsonPath("$.data.orderId").value("order123"));
-//        actions.andExpect(jsonPath("$.data.name").value("정해인"));
-//        actions.andExpect(jsonPath("$.data.amount").value(10000));
-//        actions.andExpect(jsonPath("$.data.deliveryType").value(Order.DeliveryType.FREE.toString()));
-//        actions.andExpect(jsonPath("$.data.payMethod").value(Order.PayMethod.KAKAO.toString()));
-//        actions.andExpect(jsonPath("$.data.savedPayMethod").value(true));
-//
-//    }
+    @Test
+    public void order_success_test() throws Exception {
+        // given
+        OrderRequest.SaveOrder.PurchaseInfo purchaseInfo = new OrderRequest.SaveOrder.PurchaseInfo(
+                10000, // orderAmount
+                Order.DeliveryType.FREE, // deliveryType
+                1000, // deliveryFee
+                0, // discount
+                10000, // purchaseAmount
+                Order.PayMethod.KAKAO, // payMethod
+                true // savedPayMethod
+        );
+
+        OrderRequest.SaveOrder reqDTO = new OrderRequest.SaveOrder(
+                "정해인", "010-1234-5678",
+                "junghein@example.com",
+                "1234",
+                "서울특별시 강남구",
+                "테헤란로 123길",
+                "문 앞에 놓아주세요",
+                true,
+                purchaseInfo
+        );
+
+
+        Admin admin = Admin.builder()
+                .id(1)
+                .email("admin@example.com")
+                .password("password")
+                .mileage(1000)
+                .build();
+
+        // Mocking Admin repository
+
+        // when
+        ResultActions actions = mvc.perform(
+                post("/app/order")
+                        .header("Authorization", "Bearer " + jwt)
+                        .content(om.writeValueAsString(reqDTO))
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        actions.andExpect(status().isOk());
+        actions.andExpect(jsonPath("$.data.orderId").value("order123"));
+        actions.andExpect(jsonPath("$.data.name").value("정해인"));
+        actions.andExpect(jsonPath("$.data.amount").value(10000));
+        actions.andExpect(jsonPath("$.data.deliveryType").value(Order.DeliveryType.FREE.toString()));
+        actions.andExpect(jsonPath("$.data.payMethod").value(Order.PayMethod.KAKAO.toString()));
+        actions.andExpect(jsonPath("$.data.savedPayMethod").value(true));
+
+    }
 
 
 

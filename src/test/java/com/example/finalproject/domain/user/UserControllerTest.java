@@ -1,4 +1,4 @@
-package com.example.finalproject.user;
+package com.example.finalproject.domain.user;
 
 
 import com.example.finalproject._core.utils.AppJwtUtil;

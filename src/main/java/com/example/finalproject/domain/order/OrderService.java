@@ -95,23 +95,23 @@ public class OrderService {
             // 카트에 있는 아이템의 아이디 값과 코디에 등록된 아이템의 아이디 값을 비교하여 처리
 
             User creator;
-            Admin brandAdmin;
+            Admin admin;
 
             if (cart.getCodi() != null) {
                 // 연동된 코디가 있을경우
                 creator = cart.getCodi().getUser();
-                brandAdmin = cart.getItems().getAdmin();
+                admin = cart.getItems().getAdmin();
 
                 int creatorMileage = (int) (cart.getTotalAmount() * 0.05);
                 int brandMileage = (int) (cart.getTotalAmount() * 0.05);
 
                 creator.setMileage(creator.getMileage() + creatorMileage);
-                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+                admin.setMileage(admin.getMileage() + brandMileage);
             } else {
                 // 코디 아이템이 아닌 경우
-                brandAdmin = cart.getItems().getAdmin();
+                admin = cart.getItems().getAdmin();
                 int brandMileage = (int) (cart.getTotalAmount() * 0.1);
-                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+                admin.setMileage(admin.getMileage() + brandMileage);
             }
 
             // OrderHistory 테이블에 저장

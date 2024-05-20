@@ -1,4 +1,4 @@
-package com.example.finalproject.items;
+package com.example.finalproject.domain.items;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.user.User;

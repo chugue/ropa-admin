@@ -1,4 +1,4 @@
-package com.example.finalproject.codi;
+package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.codi.CodiRequest;

@@ -66,13 +66,14 @@ public class UserControllerTest {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-        System.out.println("respBody: " + respBody);
+//        System.out.println("respBody: " + respBody);
 
         // then
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.email").value("p4rk@naver.com"));
         actions.andExpect(jsonPath("$.response.nickName").value("cat"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
     //아이디 중복체크
@@ -161,6 +162,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
     //로그인 실패 테스트
@@ -235,6 +237,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.email").value("junghein@example.com"));
         actions.andExpect(jsonPath("$.response.nickName").value("junghein"));
         actions.andExpect(jsonPath("$.response.mobile").value("010-1234-5678"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
     @Test
@@ -284,6 +287,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.photoDTO.id").value(4));
         actions.andExpect(jsonPath("$.response.photoDTO.name").value("uuid_사용자사진1"));
         actions.andExpect(jsonPath("$.response.photoDTO.photoPath").value("/upload/user/user1.webp"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
 
@@ -328,6 +332,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.instagram").value("holyhaein"));
         actions.andExpect(jsonPath("$.response.blueChecked").value("false"));
         actions.andExpect(jsonPath("$.response.status").value("신청 전"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
     @Test
@@ -388,6 +393,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.instagram").value("abc@naver.com"));
         actions.andExpect(jsonPath("$.response.blueChecked").value(false));
         actions.andExpect(jsonPath("$.response.status").value("승인 대기"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
     @Test
@@ -459,6 +465,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.codiList[0].photoName").value("uuid_코디사진1"));
         actions.andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
         actions.andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
     }
 
     @Test
@@ -507,6 +514,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.photoPath").value("/upload/user/user3.webp"));
         actions.andExpect(jsonPath("$.response.nickName").value("bunwuseok"));
         actions.andExpect(jsonPath("$.response.orderCount").value(4));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
 
     }
 
@@ -568,6 +576,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoId").value(30));
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoName").value("uuid_아이템사진1"));
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].photoPath").value("/upload/items/item01/mainItemPhoto.jpg"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
 
     }
 
@@ -613,6 +622,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.itemList[0].itemPhotoName").value("uuid_아이템사진5"));
         actions.andExpect(jsonPath("$.response.itemList[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"));
         actions.andExpect(jsonPath("$.response.itemList[0].itemPhoto").value("ITEM"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
 
     }
 
@@ -674,6 +684,7 @@ public class UserControllerTest {
             assertTrue(respJwt.contains("Bearer "));
         }
 
+
         actions.andExpect(jsonPath("$.status").value(200));
         actions.andExpect(jsonPath("$.success").value(true));
         actions.andExpect(jsonPath("$.response.userId").value(3));
@@ -681,7 +692,8 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.myName").value("변우식"));
         actions.andExpect(jsonPath("$.response.nickName").value("bun"));
         actions.andExpect(jsonPath("$.response.photo.photoId").value(6));
-        actions.andExpect(jsonPath("$.response.photo.photoPath").value("/upload/user/3/98b27ce9-d3ac-4b59-9da8-4575243177d8_uuid_사용자사진3"));
+        actions.andExpect(jsonPath("$.response.photo.photoPath").exists());//uuid같은 경우 값이 계속 바뀌기 때문에 존재하는지만 체크
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
 
     }
 
@@ -774,6 +786,7 @@ public class UserControllerTest {
         actions.andExpect(jsonPath("$.response.id").value(3));
         actions.andExpect(jsonPath("$.response.email").value("bunwuseok@example.com"));
         actions.andExpect(jsonPath("$.response.photo").value("/upload/user/user3.webp"));
+        actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
 
     }
 

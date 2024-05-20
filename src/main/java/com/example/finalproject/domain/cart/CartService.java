@@ -55,13 +55,14 @@ public class CartService {
             // 장바구니에 있는 아이템 업데이트
             Cart cart = cartRepository.save(IsCartItem);
             return new CartResponse.Saved(cart, photo.get());
+
         } else {
             // 새로운 아이템을 장바구니에 추가
             User user = userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
             Items items = itemsRepository.findById(reqDTO.getItemId()).orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
             Codi codi = null;
             if (reqDTO.getCodiId() != null) {
-                codi = (codiRepository.findById(reqDTO.getCodiId()).orElse(null));
+                codi = codiRepository.findById(reqDTO.getCodiId()).orElse(null);
             }
             Cart cart = cartRepository.save(Cart.builder()
                     .user(user)

@@ -1,8 +1,12 @@
 package com.example.finalproject.domain.user;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiRepository;
 import com.example.finalproject.domain.codi.CodiResponse;
@@ -39,6 +43,30 @@ public class UserService {
     private final PhotoRepository photoRepository;
     private final String uploadPath = "./upload/";
 
+
+    // 토큰을 돌려줄 필요가 없다.
+    public UserResponse.AutoLoginDTO autoLogin(String accessToken) {
+        Optional.ofNullable(accessToken).orElseThrow(() -> new Exception401("토큰을 찾을 수 없습니다."));
+        try {
+            if (accessToken.startsWith("Bearer ")) {
+                accessToken = accessToken.substring(7);
+            }
+            System.out.println("accessToken = " + accessToken);
+            SessionUser user = AppJwtUtil.verify(accessToken);
+
+            User userPS = userRepository.findByEmail(user.getEmail()).orElseThrow(
+                    ()-> new Exception401("이메일을 찾을 수 없습니다.")
+            );
+            Photo photo = photoRepository.findByOneUserId(user.getId()).orElseThrow(
+                    () -> new Exception401("사진을 찾을 수 없습니다.")
+            );
+            return new UserResponse.AutoLoginDTO(userPS,photo);
+        }catch (SignatureVerificationException | JWTDecodeException e1) {
+            throw new Exception401("유효하지 않은 토큰입니다.");
+        } catch (TokenExpiredException e2){
+            throw new Exception401("토큰 시간이 만료되었습니다.");
+        }
+    }
 
     // 프로필 변경
     @Transactional
@@ -224,7 +252,7 @@ public class UserService {
     public UserResponse.UserMyPage userMyPage(SessionUser sessionUser) {
         // 1. 유저 정보 불러오기
         User user = userRepository.findByUserIdWithPhoto(sessionUser.getId())
-                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
         // 2. 주문 총 량 찾아오기
         Integer sumOrderItemQty = orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));

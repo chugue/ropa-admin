@@ -186,13 +186,13 @@ public class OrderResponse {
             public class ItemPhoto {
                 private Integer photoId;
                 private String uuidName;
-                private String base64;
+                private String photoPath;
                 private Boolean isMainPhoto;
 
                 public ItemPhoto(Photo photo) {
                     this.photoId = photo.getId();
                     this.uuidName = photo.getUuidName();
-                    this.base64 = photo.toBase64(photo);
+                    this.photoPath = photo.getPath();
                     this.isMainPhoto = photo.getIsMainPhoto();
                 }
             }

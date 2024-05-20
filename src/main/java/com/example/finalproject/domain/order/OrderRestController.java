@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ public class OrderRestController {
 
     // 주문하기 + 배송지 정보까지 세이브
     @PostMapping("/app/order")
-    public ResponseEntity<?> OrderSave(@Valid @RequestBody OrderRequest.SaveOrder reqDTO) {
+    public ResponseEntity<?> OrderSave(@Valid @RequestBody OrderRequest.SaveOrder reqDTO, Errors errors) {
         SessionUser sessionUser = (SessionUser) session.getAttribute("sessionUser");
         OrderResponse.SaveOrder respDTO = orderService.saveOrder(reqDTO, sessionUser.getId());
         return ResponseEntity.ok(new ApiUtil<>(respDTO));

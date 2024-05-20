@@ -1,9 +1,9 @@
 package com.example.finalproject.domain.codi;
 
+import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
 import com.example.finalproject.domain.admin.Admin;
-import com.example.finalproject.domain.admin.AdminRepository;
 import com.example.finalproject.domain.codiItems.CodiItems;
 import com.example.finalproject.domain.codiItems.CodiItemsRepository;
 import com.example.finalproject.domain.items.Items;
@@ -34,16 +34,19 @@ public class CodiService {
     private final PhotoRepository photoRepository;
     private final LoveRepository loveRepository;
     private final ItemsRepository itemsRepository;
-    private final AdminRepository adminRepository;
     private final UserRepository userRepository;
     private final CodiRepository codiRepository;
     private final String uploadPath = "./upload/";
 
     //코디 등록 페이지 - 아이템 연결
     public List<CodiResponse.BrandInfo> addItemPage(String category) {
+        // 카테고리 이름 유효성 검사
+        if (!category.equals("top") && !category.equals("bottom")) {
+            throw new Exception400("유효한 카테고리 이름이 아닙니다.");
+        }
         //모든 브랜드 정보 불러오기
-
         List<Items> itemsList = itemsRepository.findTopItemsWithAdminAndPhoto(category);
+
         // Admin 별로 Items 리스트를 그룹화
         Map<Integer, List<Items>> adminItemMap = itemsList.stream()
                 .collect(Collectors.groupingBy(item -> Integer.valueOf(item.getAdmin().getId())));
@@ -61,14 +64,17 @@ public class CodiService {
 
     // 로그인 안한 사용자용 코디보기 페이지 - 공개된 페이지
     public CodiResponse.OpenMainView codiOpenPage(Integer codiId) {
+
+        Codi foundCodi = codiRepository.findById(codiId).orElseThrow(() -> new Exception404("정보를 찾을 수 없습니다."));
+
         // codiId로 코디 메인 사진 조회
-        List<Photo> mainCodiPhotos = photoRepository.findByCodiId(codiId);
+        List<Photo> mainCodiPhotos = photoRepository.findByCodiId(foundCodi.getId());
 
         // 코디에 대한 좋아요 갯수 조회
-        Long totalLove = loveRepository.countTotalLove(codiId);
+        Long totalLove = loveRepository.countTotalLove(foundCodi.getId());
 
         // codiItems로 조회해서 Codi 정보랑 연계된 Items조회후 사진 가져오기
-        List<CodiItems> codiItemsList = codiItemsRepository.findByCodiWithItems(codiId);
+        List<CodiItems> codiItemsList = codiItemsRepository.findByCodiWithItems(foundCodi.getId());
         List<Integer> itemsIdList = codiItemsList.stream().map(codiItems -> codiItems.getItems().getId()).toList();
         List<Photo> codiItemPhotos = photoRepository.findByItemsIds(itemsIdList);
 
@@ -84,15 +90,16 @@ public class CodiService {
     // 코디 보기 페이지 요청 - 페이지 내 아이템 목록, 크리에이터 코디목록 포함
     public CodiResponse.MainView codiPage(Integer codiId, Integer userId) {
 
+        Codi foundCodi = codiRepository.findById(codiId).orElseThrow(() -> new Exception404("정보를 찾을 수 없습니다."));
         // codiId로 코디 메인 사진들 조회
-        List<Photo> mainCodiPhotos = photoRepository.findByCodiId(codiId);
+        List<Photo> mainCodiPhotos = photoRepository.findByCodiId(foundCodi.getId());
 
         // 해당 코디에 대한 사용자의 좋아요 상태 확인 + 해당 코디의 전체 좋아요 갯수
-        Optional<Love> loveStatus = loveRepository.findByCodiIdAndUserLoveStatus(codiId, userId);
-        Long totalLove = loveRepository.countTotalLove(codiId);
+        Optional<Love> loveStatus = loveRepository.findByCodiIdAndUserLoveStatus(foundCodi.getId(), userId);
+        Long totalLove = loveRepository.countTotalLove(foundCodi.getId());
 
         // codiItems로 조회해서 Codi 정보랑 연계된 Items조회후 사진 가져오기
-        List<CodiItems> codiItemsList = codiItemsRepository.findByCodiWithItems(codiId);
+        List<CodiItems> codiItemsList = codiItemsRepository.findByCodiWithItems(foundCodi.getId());
         List<Integer> itemsIdList = codiItemsList.stream().map(codiItems -> codiItems.getItems().getId()).toList();
         List<Photo> codiItemPhotos = photoRepository.findByItemsIds(itemsIdList);
 
@@ -107,7 +114,7 @@ public class CodiService {
 
     // 앱에서 코디저장 요청과 아이템 연결
     @Transactional
-    public CodiResponse.NewLinkItems saveCodiAndItems(CodiRequest.SaveDTO reqDTO) {
+    public CodiResponse.SavedCodi saveCodiAndItems(CodiRequest.SaveDTO reqDTO) {
         // 요청된 데이터에서 items Id를 추출 후 영속객체 찾기
         List<Integer> reqItemsIds = reqDTO.getItems().stream().map(itemCodiDTO ->
                 itemCodiDTO.getItemsId()).toList();
@@ -119,7 +126,6 @@ public class CodiService {
 
         // 새로운 코디 객체 생성
         Codi savedCodi = codiRepository.save(Codi.builder()
-                .title(reqDTO.getTitle())
                 .description(reqDTO.getDescription())
                 .user(user).build());
 
@@ -128,12 +134,16 @@ public class CodiService {
         reqDTO.getCodiPhotos().forEach(appSaveDTO ->
                 savedPhotos.add(uploadCodiImage(appSaveDTO, savedCodi)));
 
+        // isMainPhoto가 true인 것만 필터링
+        List<Photo> mainPhotos = savedPhotos.stream()
+                .filter(Photo::getIsMainPhoto).toList();
+
         // 새로 생성된 코디와 기존의 영속화된 아이템들을 연결
-        List<CodiItems> linkedCodiItems = linkItems.stream().map(items -> new CodiItems().builder()
+        linkItems.stream().map(items -> new CodiItems().builder()
                 .codi(savedCodi)
                 .items(items).build()).toList();
 
-        return new CodiResponse.NewLinkItems(savedCodi, savedPhotos, linkedCodiItems);
+        return new CodiResponse.SavedCodi(savedCodi, mainPhotos.getFirst());
 
     }
 
@@ -235,7 +245,8 @@ public class CodiService {
             return codiList.stream().map(CodiResponse.CodiListDTO::new).collect(Collectors.toList());
         }
 
-        codiList = codiRepository.findItemsByCodiTitle(keyword);
+        System.out.println("✅✅✅✅✅"+ keyword.trim());
+        codiList = codiRepository.findByDescriptionContaining(keyword);
         return codiList.stream().map(CodiResponse.CodiListDTO::new).collect(Collectors.toList());
     }
 }

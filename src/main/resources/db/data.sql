@@ -99,15 +99,15 @@ VALUES (1, 1, 2, 90000), -- 정해인이 1번 반팔을 2개를 장바구니에 
 
 
 -- 코디 테이블 더미
-insert into codi_tb (user_id, title, description, created_at)
-values (3, '잘생긴 연하남룩', '톤온톤 매치로 보편적이지 않은 매치지만 기본 디자인으로 꾸안꾸 느낌의 룩입니다.', NOW()),
-       (3, '집 앞 꾸안꾸 룩', '집 앞 카페에 갈 때 꾸민듯 안꾸민듯의 정석인 룩입니다.', NOW()),
-       (6, '남친룩의 정석', '전형적인 봄의 남자의 정석 룩 입니다.', NOW()),
-       (7, '간절기 바캉스룩', '선선하니 바닷가에 놀러갈 때 입기 좋은 룩입니다.', NOW()),
-       (8, '톤온톤 남친룩', '부담스럽지 않게 자연스럽게 스며 들 수 있는 꾸안 꾸 룩입니다.', NOW()),
-       (9, '잘생긴 복학생 룩', '복학생 선배가 트랜드에 뒤쳐지지 않아 보이는 룩 입니다.', NOW()),
-       (10, '바캉스룩', '여름 바캉스 갈때 입기 좋은 룩입니다.', NOW()),
-       (10, '시크한 대학 선배 룩', '힙하게 이미지가 강렬하게 보이고 싶을 때 추천드리는 룩입니다.', NOW());
+insert into codi_tb (user_id, description, created_at)
+values (3, '톤온톤 매치로 보편적이지 않은 매치지만 기본 디자인으로 꾸안꾸 느낌의 룩입니다.', NOW()),
+       (3, '집 앞 카페에 갈 때 꾸민듯 안꾸민듯의 정석인 룩입니다.', NOW()),
+       (6, '전형적인 봄의 남자의 정석 룩 입니다.', NOW()),
+       (7, '선선하니 바닷가에 놀러갈 때 입기 좋은 룩입니다.', NOW()),
+       (8, '부담스럽지 않게 자연스럽게 스며 들 수 있는 꾸안 꾸 룩입니다.', NOW()),
+       (9, '복학생 선배가 트랜드에 뒤쳐지지 않아 보이는 룩 입니다.', NOW()),
+       (10, '여름 바캉스 갈때 입기 좋은 룩입니다.', NOW()),
+       (10, '힙하게 이미지가 강렬하게 보이고 싶을 때 추천드리는 룩입니다.', NOW());
 
 
 -- 코디랑 아이템을 연결해주는 테이블
@@ -169,7 +169,7 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_아이템사진3', '아이템사진사진3', '/upload/items/item03/mainItemPhoto.jpg', 'ITEM', null, null, null, 3, NOW(), true),
        ('uuid_아이템사진3서브', '아이템사진서브사진3', '/upload/items/item03/detail01.jpg', 'ITEM', null, null, null, 3, NOW(), false),
        ('uuid_아이템사진4', '아이템사진사진4', '/upload/items/item04/mainItemPhoto.jpg', 'ITEM', null, null, null, 4, NOW(), true),
-       ('uuid_아이템사진4서브', '아이템사진서브사진4', '/upload/items/item04/detail01.jpg', 'ITEM', null, null, null, 4, NOW(), false),
+       ('uuid_아이템사진4서브', '아이템사진서브사진4', '/upload/items/item04/detail01.jApg', 'ITEM', null, null, null, 4, NOW(), false),
        ('uuid_아이템사진5', '아이템사진사진5', '/upload/items/item05/mainItemPhoto.jpg', 'ITEM', null, null, null, 5, NOW(), true),
        ('uuid_아이템사진5서브', '아이템사진서브사진5', '/upload/items/item05/detail01.jpg', 'ITEM', null, null, null, 5, NOW(), false),
        ('uuid_아이템사진6', '아이템사진사진6', '/upload/items/item06/mainItemPhoto.jpg', 'ITEM', null, null, null, 6, NOW(), true),

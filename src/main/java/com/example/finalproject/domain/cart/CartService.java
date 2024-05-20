@@ -1,6 +1,8 @@
 package com.example.finalproject.domain.cart;
 
 import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject.domain.codi.Codi;
+import com.example.finalproject.domain.codi.CodiRepository;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.photo.Photo;
@@ -24,6 +26,7 @@ public class CartService {
     private final ItemsRepository itemsRepository;
     private final UserRepository userRepository;
     private final PhotoRepository photoRepository;
+    private final CodiRepository codiRepository;
 
     // 사용자 장바구니 목록 보기
     public CartResponse.CartInfo getCartByUserId(Integer userId) {
@@ -46,6 +49,9 @@ public class CartService {
             IsCartItem.setQuantity(IsCartItem.getQuantity() + reqDTO.getQuantity());
             // 총 금액 업데이트
             IsCartItem.setTotalAmount((IsCartItem.getItems().getPrice() * IsCartItem.getQuantity()));
+            if (reqDTO.getCodiId() != null) {
+                IsCartItem.setCodi(codiRepository.findById(reqDTO.getCodiId()).orElse(null));
+            }
             // 장바구니에 있는 아이템 업데이트
             Cart cart = cartRepository.save(IsCartItem);
             return new CartResponse.Saved(cart, photo.get());
@@ -53,9 +59,14 @@ public class CartService {
             // 새로운 아이템을 장바구니에 추가
             User user = userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
             Items items = itemsRepository.findById(reqDTO.getItemId()).orElseThrow(() -> new Exception404("아이템을 찾을 수 없습니다."));
-            Cart cart =  cartRepository.save(Cart.builder()
+            Codi codi = null;
+            if (reqDTO.getCodiId() != null) {
+                codi = (codiRepository.findById(reqDTO.getCodiId()).orElse(null));
+            }
+            Cart cart = cartRepository.save(Cart.builder()
                     .user(user)
                     .items(items)
+                    .codi(codi)
                     .quantity(reqDTO.getQuantity())
                     .totalAmount(items.getPrice() * reqDTO.getQuantity())
                     .createdAt(Timestamp.from(Instant.now())).build());

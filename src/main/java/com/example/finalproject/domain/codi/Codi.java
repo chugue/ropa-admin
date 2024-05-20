@@ -26,9 +26,9 @@ public class Codi {
     @JoinColumn(name = "user_id", nullable = false)
     private User user; // 사용자 고유번호
 
-    @Column(nullable = false)
     private String title; // 코디 제목
 
+    @Column(nullable = false)
     private String description; // 코디 설명
 
     @OneToMany(mappedBy = "codi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

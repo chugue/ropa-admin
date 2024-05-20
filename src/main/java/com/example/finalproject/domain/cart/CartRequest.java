@@ -1,13 +1,14 @@
 package com.example.finalproject.domain.cart;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 public class CartRequest {
 
     @Data
+    @NoArgsConstructor
     public static class SaveDTO {
         @NotNull(message = "상품을 정해 주셔야 합니다.")
         private Integer itemId;
@@ -15,21 +16,13 @@ public class CartRequest {
         @NotNull(message = "수량을 정해 주셔야 합니다.")
         private Integer quantity;
 
-        public SaveDTO(Integer itemId, Integer quantity) {
+        private Integer codiId;
+
+        public SaveDTO(Integer itemId, Integer quantity, Integer codiId) {
             this.itemId = itemId;
             this.quantity = quantity;
+            this.codiId = codiId;
         }
-
-//        public Cart toEntity() {
-//            User user = new User();
-//            user.setId(userId);
-//            return Cart.builder()
-//                    .user(user)
-//                    .items(items)
-//                    .quantity(quantity)
-//                    .totalAmount(items.getPrice() * quantity)
-//                    .build();
-//        }
     }
 }
 

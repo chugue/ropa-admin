@@ -1,5 +1,6 @@
 package com.example.finalproject.domain.cart;
 
+import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.user.User;
 import jakarta.persistence.*;
@@ -27,6 +28,10 @@ public class Cart {
     @JoinColumn(name = "items_id", nullable = false)
     private Items items; // 아이템 고유번호
 
+    @ManyToOne
+    @JoinColumn(name = "codi_id")
+    private Codi codi; // 이 코디아이디를 가지고 크리에이터에게 수수료를 지급 할 수 있다.
+
     @Column(nullable = false)
     private Integer quantity; // 아이템 개수
 
@@ -37,10 +42,11 @@ public class Cart {
     private Timestamp createdAt;
 
     @Builder
-    public Cart(Integer id, User user, Items items, Integer totalAmount, Integer quantity, Timestamp createdAt) {
+    public Cart(Integer id, User user, Items items, Codi codi, Integer quantity, Integer totalAmount, Timestamp createdAt) {
         this.id = id;
         this.user = user;
         this.items = items;
+        this.codi = codi;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
         this.createdAt = createdAt;

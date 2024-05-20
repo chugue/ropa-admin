@@ -1,23 +1,36 @@
 package com.example.finalproject.domain.user;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.example.finalproject._core.error.exception.Exception400;
 import com.example.finalproject._core.error.exception.Exception401;
 import com.example.finalproject._core.error.exception.Exception404;
+import com.example.finalproject._core.utils.AppJwtUtil;
 import com.example.finalproject.domain.codi.Codi;
 import com.example.finalproject.domain.codi.CodiRepository;
 import com.example.finalproject.domain.codi.CodiResponse;
 import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.items.ItemsResponse;
-import com.example.finalproject.domain.order.OrderRepository;
-import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
+import com.example.finalproject.domain.photo.Photo;
+import com.example.finalproject.domain.photo.PhotoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,10 +40,128 @@ public class UserService {
     private final CodiRepository codiRepository;
     private final ItemsRepository itemsRepository;
     private final OrderHistoryRepository orderHistoryRepository;
+    private final PhotoRepository photoRepository;
+    private final String uploadPath = "./upload/";
+
+
+    // 토큰을 돌려줄 필요가 없다.
+    public UserResponse.AutoLoginDTO autoLogin(String accessToken) {
+        Optional.ofNullable(accessToken).orElseThrow(() -> new Exception401("토큰을 찾을 수 없습니다."));
+        try {
+            if (accessToken.startsWith("Bearer ")) {
+                accessToken = accessToken.substring(7);
+            }
+            System.out.println("accessToken = " + accessToken);
+            SessionUser user = AppJwtUtil.verify(accessToken);
+
+            User userPS = userRepository.findByEmail(user.getEmail()).orElseThrow(
+                    ()-> new Exception401("이메일을 찾을 수 없습니다.")
+            );
+            Photo photo = photoRepository.findByOneUserId(user.getId()).orElseThrow(
+                    () -> new Exception401("사진을 찾을 수 없습니다.")
+            );
+            return new UserResponse.AutoLoginDTO(userPS,photo);
+        }catch (SignatureVerificationException | JWTDecodeException e1) {
+            throw new Exception401("유효하지 않은 토큰입니다.");
+        } catch (TokenExpiredException e2){
+            throw new Exception401("토큰 시간이 만료되었습니다.");
+        }
+    }
+
+    // 프로필 변경
+    @Transactional
+    public UserResponse.ProfileUpdate updateProfile(UserRequest.ProfileUpdateDTO reqDTO, Integer userId) {
+        User user = userRepository.findById(userId).
+                orElseThrow(() -> new Exception404("사용자를 찾을 수 없습니다."));
+
+        User newUser = user.toUpdate(reqDTO);
+        Photo photo = null;
+        // 사진을 보냈을을 경우에만 로직 실행
+        if (reqDTO.getPhoto() != null) {
+            Optional<Photo> photoOp = photoRepository.findById(user.getPhoto().getId());
+
+            // 사진이 있으면 업데이트 없으면 사진 새로저장
+            if (photoOp.isPresent()) {
+                photo = updateUserImage(photoOp.get(), reqDTO.getPhoto(), newUser);
+            } else {
+                photo = saveUserImage(reqDTO.getPhoto(), newUser);
+            }
+        }
+        User updatedUser = userRepository.save(newUser);
+        return new UserResponse.ProfileUpdate(updatedUser, photo);
+    }
+
+    // 사용자 프로필 사진 저장
+    @Transactional
+    public Photo saveUserImage(UserRequest.ProfileUpdateDTO.PhotoDTO photo, User updatedUser) {
+
+        String userPath = "user/" + updatedUser.getId();
+
+        // 파일명 중복 방지를 위해 UUID 사용
+        String imgFilename = UUID.randomUUID() + "_" + photo.getName();
+
+        // 파일이름이랑 개방된 폴더를 조합해서 경로 생성
+        Path imgPath = Paths.get(uploadPath, userPath, imgFilename);
+
+        //파일 저장 (fileWrite)
+        //파일 저장 로직 매개변수로 경로와 사진의 바이트 정보를 요구한다.
+        validationCheckAndSave(photo.getBase64(), imgPath);
+
+        //DB저장 전 DB전용으로 경로 수정
+        String dbPath = "/upload/" + userPath + "/" + imgFilename;
+
+        // Base64는 디코딩해서 던져주고, MultiPartForm은 getBytes로 꺼냄
+        return photoRepository.save(Photo.builder()
+                .user(updatedUser)
+                .path(dbPath)
+                .uuidName(imgFilename)
+                .originalFileName(photo.getName())
+                .sort(Photo.Sort.USER)
+                .isMainPhoto(true)  // 대표사진이라면 꼭 true 남겨주기
+                .createdAt(Timestamp.from(Instant.now())).build());
+    }
+
+
+    // 브랜드 회원 정보 업데이트
+    @Transactional
+    public Photo updateUserImage(Photo oldPhoto, UserRequest.ProfileUpdateDTO.PhotoDTO newPhoto, User user) {
+
+        // userId로 폴더 만들어서 경로 저장
+        String userPath = "user/" + user.getId();
+        String newUuidName = UUID.randomUUID() + "_" + newPhoto.getName();
+        Path newImgPath = Paths.get(uploadPath, userPath, newUuidName);
+
+        if (!Files.exists(newImgPath)) { //파일이 없다면 저장
+            validationCheckAndSave(newPhoto.getBase64(), newImgPath);
+        } else {
+            System.out.println("파일이 이미 존재합니다: " + newImgPath);
+        }
+        // 경로 업데이트
+        return updateUserPhoto(oldPhoto, newUuidName, userPath, newPhoto.getName());
+
+    }
+
+    @Transactional
+    public Photo updateUserPhoto(Photo oldPhoto, String newUuidName, String userPath, String originalFileName) {
+        String dbPath = "/upload/" + userPath + "/" + newUuidName;
+
+        oldPhoto.setPath(dbPath);
+        oldPhoto.setUuidName(newUuidName);
+        oldPhoto.setOriginalFileName(originalFileName);
+        oldPhoto.setUpdateAt(Timestamp.from(Instant.now())); // update 시간을 기록하려면 이 필드가 필요함
+
+        return photoRepository.save(oldPhoto);
+    }
 
     //회원가입
     @Transactional
     public User join(UserRequest.JoinDTO reqDTO) {
+        Optional<User> userOp = userRepository.findByEmail(reqDTO.getEmail());
+
+        if (userOp.isPresent()) {
+            throw new Exception400("중복된 이메일이 있습니다.");
+        }
+
         User user = userRepository.save(User.builder()
                 .email(reqDTO.getEmail())
                 .password(reqDTO.getPassword())
@@ -44,7 +175,7 @@ public class UserService {
     // 앱 사용자 로그인
     public User login(UserRequest.LoginDTO reqDTO) {
         User user = userRepository.findByEmailAndPassword(reqDTO.getEmail(), reqDTO.getPassword())
-                .orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception401("사용자 정보를 찾을 수 없습니다."));
         return user;
     }
 
@@ -93,7 +224,7 @@ public class UserService {
     public UserResponse.CreatorViewDTO creatorView(Integer userId) {
         // 1. 크리에이터 정보 불러오기
         User user = userRepository.findUsersByBlueCheckedAndPhoto(userId)
-                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
+                .orElseThrow(() -> new Exception401("크리에이터가 아닙니다."));
 
         // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
         List<Codi> codis = codiRepository.findCodiByUserId(userId);
@@ -121,10 +252,10 @@ public class UserService {
     public UserResponse.UserMyPage userMyPage(SessionUser sessionUser) {
         // 1. 유저 정보 불러오기
         User user = userRepository.findByUserIdWithPhoto(sessionUser.getId())
-                .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
+                .orElseThrow(() -> new Exception401("인증되지 않았습니다."));
 
         // 2. 주문 총 량 찾아오기
-        Integer sumOrderItemQty =  orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));
+        Integer sumOrderItemQty = orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));
 
         // 3. UserResponse.UserMyPage 객체 생성 및 반환
         return new UserResponse.UserMyPage(user, sumOrderItemQty);
@@ -137,7 +268,7 @@ public class UserService {
                 .orElseThrow(() -> new Exception401("인증 되지 않았습니다."));
 
         // 2. 주문 총 량 찾아오기
-        Integer sumOrderItemQty =  orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));
+        Integer sumOrderItemQty = orderHistoryRepository.getTotalOrderItemQtyByUserId(Long.valueOf(sessionUser.getId()));
 
         // 2. 선택된 크리에이터의 정보와 관련된 코디 목록 가져오기
         List<Codi> codis = codiRepository.findCodiByUserId(sessionUser.getId());
@@ -156,10 +287,10 @@ public class UserService {
                 .distinct()
                 .collect(Collectors.toList());
 
-        UserResponse.CreatorMyInfo creatorInfoDTO = new UserResponse.CreatorMyInfo(user,sumOrderItemQty);
+        UserResponse.CreatorMyInfo creatorInfoDTO = new UserResponse.CreatorMyInfo(user, sumOrderItemQty);
 
         // 3. UserResponse.UserMyPage 객체 생성 및 반환
-        return new UserResponse.CreatorMyPage(creatorInfoDTO,codiDTOs,itemDTOs);
+        return new UserResponse.CreatorMyPage(creatorInfoDTO, codiDTOs, itemDTOs);
     }
 
     // 유저 아이템, 코디 통합 검색
@@ -181,7 +312,8 @@ public class UserService {
         }
 
         items = itemsRepository.findItemsByItemName(keyword);
-        codiList = codiRepository.findItemsByCodiTitle(keyword);
+        // TODO
+        codiList = codiRepository.findByDescriptionContaining(keyword);
 
         codiListDTO = codiList.stream()
                 .map(CodiResponse.CodiListDTO::new).toList();
@@ -191,6 +323,18 @@ public class UserService {
         return new UserResponse.SearchPage(codiListDTO, itemListDTO);
     }
 
+
+    // 파일로 저장 + 예외처리
+    @org.springframework.transaction.annotation.Transactional
+    protected void validationCheckAndSave(String base64, Path imgPath) {
+        try {
+            byte[] photoBytes = Base64.decodeBase64(base64);
+            Files.createDirectories(imgPath.getParent());
+            Files.write(imgPath, photoBytes);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 

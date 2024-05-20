@@ -34,10 +34,28 @@ public class ItemsControllerTest {
                         .build());
     }
 
+    @Test
+    public void searchItems_fail_test() throws Exception {
+        // given
+        String keyword = "청바지없어asdfasdfasdf요";
+        // when
+        ResultActions actions = mvc.perform(MockMvcRequestBuilders.get("/app/search-items")
+                .param("keyword", keyword)
+                .header("Authorization", "Bearer " + jwt));
+        // eye
+        String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
+        // then
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(400));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("검색어는 10글자 이하로 입력해주세요."));
+
+    }
+
 
     @Test
     public void searchItems_success_test() throws Exception {
-//    @GetMapping("/app/search-items")
         // given
         String keyword = "청바지";
         // when
@@ -50,15 +68,14 @@ public class ItemsControllerTest {
         // then
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemId").value(2));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.brandName").value("SALOMON"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.brandName").value("SALOMON"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.brandName").value("SALOMON"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.brandName").value("SALOMON"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.brandName").value("SALOMON"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.brandName").value("SALOMON"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("SALOMON"));
-
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].itemId").value(2));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].name").value("scratch 블루 청바지"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].description").value("봄, 여름, 가을 까지 계절 상관없이 힙한 룩에 잘어울리는 청바지입니다."));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].price").value(32000));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].itemPhotoId").value(32));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].itemPhotoName").exists());
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoPath").value("/upload/items/item02/mainItemPhoto.jpg"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
     }
 
 

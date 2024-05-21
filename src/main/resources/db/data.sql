@@ -58,6 +58,9 @@ VALUES ('top', '반팔'),
        ('top', '반팔 니트 가디건'),
        ('bottom', '슬랙스'),
        ('top', '라운드 니트'),
+       ('bottom', '슬랙스'),
+
+       ('top', '반팔'),
        ('bottom', '슬랙스');
 
 
@@ -79,7 +82,10 @@ VALUES (1, 'SCRAPPED 티셔츠(WHITE)', '힙하고 유니크한 반팔로 어느
        (1, '반팔 니트 가디건', '여름에 입을 수 있는 가디건으로 이너와 아우터로 착용 가능합니다.', 'L', 75000, 0, 50, 14, true),
        (1, '핀턱 와이드 슬랙스 팬츠', '핀턱이 잡혀있고 재질이 얇아 여름에 입기 좋은 상품입니다.', 'L', 50000, 0, 200, 15, true),
        (2, '긴팔 라운드 니트', '간절기에 입기 좋은 재질로 구성됐습니다.', 'L', 50000, 0, 100, 16, true),
-       (2, '다리가 길어보이는 투턱 세미 와이드 슬랙스 팬츠', '다리가 길어보이는 투턱 세미 와이드 팬츠로 어느룩에든 잘 어울립니다.', 'L', 75000, 0, 50, 17, true);
+       (2, '다리가 길어보이는 투턱 세미 와이드 슬랙스 팬츠', '다리가 길어보이는 투턱 세미 와이드 팬츠로 어느룩에든 잘 어울립니다.', 'L', 75000, 0, 50, 17, true),
+
+       (4, '린넨 쿨링 3버튼 카라 반팔', '시원한 린넨 쿨링 3버튼 카라 반팔, 여름에 딱!', 'M', 29000, 0, 100, 18, true),
+       (4, '[비침 X] 2TYPE 린넨 쿨링 밴딩 팬츠', '비침 없는 쿨링 린넨 팬츠, 여름 필수템!', 'M', 35000, 0, 100, 19, true);
 
 
 -- 장바구니 더미데이터
@@ -103,11 +109,24 @@ insert into codi_tb (user_id, description, created_at)
 values (3, '톤온톤 매치로 보편적이지 않은 매치지만 기본 디자인으로 꾸안꾸 느낌의 룩입니다.', NOW()),
        (3, '집 앞 카페에 갈 때 꾸민듯 안꾸민듯의 정석인 룩입니다.', NOW()),
        (6, '전형적인 봄의 남자의 정석 룩 입니다.', NOW()),
-       (7, '선선하니 바닷가에 놀러갈 때 입기 좋은 룩입니다.', NOW()),
-       (8, '부담스럽지 않게 자연스럽게 스며 들 수 있는 꾸안 꾸 룩입니다.', NOW()),
-       (9, '복학생 선배가 트랜드에 뒤쳐지지 않아 보이는 룩 입니다.', NOW()),
+       (6, '선선하니 바닷가에 놀러갈 때 입기 좋은 룩입니다.', NOW()),
+       (6, '부담스럽지 않게 자연스럽게 스며 들 수 있는 꾸안 꾸 룩입니다.', NOW()),
+       (6, '복학생 선배가 트랜드에 뒤쳐지지 않아 보이는 룩 입니다.', NOW()),
        (10, '여름 바캉스 갈때 입기 좋은 룩입니다.', NOW()),
-       (10, '힙하게 이미지가 강렬하게 보이고 싶을 때 추천드리는 룩입니다.', NOW());
+       (10, '힙하게 이미지가 강렬하게 보이고 싶을 때 추천드리는 룩입니다.', NOW()),
+       (7, '여름철 발을 시원하게 해줄 슬리퍼는 필수 아이템입니다. 가볍고 편안한 디자인으로 일상에서도, 해변에서도 활용하기 좋습니다.', NOW()),
+       (7, '통기성이 좋은 린넨 셔츠는 여름철 더위를 식혀줄 최고의 선택입니다. 다양한 색상으로 스타일링하기도 좋아요! ', NOW()),
+       (7, '기본 아이템인 반팔 티셔츠는 여름에 필수입니다. 밝은 색상이나 그래픽 디자인으로 포인트를 주면 더욱 멋스럽습니다.', NOW()),
+       (7, '면이나 린넨 소재의 쇼츠는 시원하면서도 활동성을 높여줍니다. 티셔츠와 매치하면 간편하고 멋스러운 여름 스타일을 완성할 수 있습니다.', NOW()),
+       (7, '아침저녁으로 선선한 날씨에 대비해 가벼운 재킷을 준비하세요. 얇고 통기성이 좋은 소재로 선택하면 스타일과 실용성을 동시에 잡을 수 있습니다.', NOW()),
+       (7, '여름에도 스타일리시하게 입을 수 있는 슬림 핏 치노 팬츠는 다양한 상의와 잘 어울립니다. 밝은 색상으로 시원한 느낌을 더해보세요.', NOW()),
+       (8, '깔끔한 셔츠와 슬랙스로 완성한 프로페셔널 룩', NOW()),
+       (8, '포멀하지만 편안한 스타일의 정장 셋업', NOW()),
+       (9, '가벼운 면 티셔츠와 데님 쇼츠로 캐주얼한 여름 스타일', NOW()),
+       (9, '편안한 폴로 셔츠와 치노 팬츠로 세련된 일상 룩', NOW()),
+       (9, '통기성 좋은 린넨 셔츠와 슬랙스로 시원하게', NOW()),
+       (9, '스포티한 반팔 티셔츠와 조거 팬츠로 활동성을 높이세요', NOW()),
+       (9, '심플한 라운드넥 티셔츠와 면 반바지로 편안한 하루를', NOW());
 
 
 -- 코디랑 아이템을 연결해주는 테이블
@@ -128,7 +147,9 @@ values (5, 1),
        (1, 7),
        (2, 7),
        (3, 8),
-       (4, 8);
+       (4, 8),
+       (18, 9),
+       (19, 9);
 
 -- 사진 테이블 더미
 insert into photo_tb (uuid_name, original_file_name, path, sort, admin_id, user_id, codi_id, items_id, created_at,
@@ -146,22 +167,55 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_사용자사진8', '사용자사진8', '/upload/user/user8.webp', 'USER', null, 8, null, null, NOW(), true),
        ('uuid_사용자사진9', '사용자사진9', '/upload/user/user9.webp', 'USER', null, 9, null, null, NOW(), true),
        ('uuid_사용자사진10', '사용자사진10', '/upload/user/user10.webp', 'USER', null, 10, null, null, NOW(), true),
-       ('uuid_코디사진1', '코디사진1', '/upload/codi/user-3-codi1.webp', 'CODI', null, null, 1, null, NOW(), true),
-       ('uuid_코디사진1서브', '코디사진1서브', '/upload/codi/user-3-codi1-detail.webp', 'CODI', null, null, 1, null, NOW(), false),
-       ('uuid_코디사진2', '코디사진2', '/upload/codi/user-3-codi2.webp', 'CODI', null, null, 2, null, NOW(), true),
-       ('uuid_코디사진2서브', '코디사진2서브', '/upload/codi/user-3-codi2-detail.webp', 'CODI', null, null, 2, null, NOW(), false),
-       ('uuid_코디사진3', '코디사진3', '/upload/codi/user-6-codi.jpg', 'CODI', null, null, 3, null, NOW(), true),
-       ('uuid_코디서브사진3', '코디서브사진3', '/upload/codi/user-6-codi-detail.jpg', 'CODI', null, null, 3, null, NOW(), false),
-       ('uuid_코디사진4', '코디사진4', '/upload/codi/user-7-codi.jpg', 'CODI', null, null, 4, null, NOW(), true),
-       ('uuid_코디서브사진4', '코디서브사진4', '/upload/codi/user-7-codi-detail.jpg', 'CODI', null, null, 4, null, NOW(), false),
-       ('uuid_코디사진5', '코디사진5', '/upload/codi/user-8-codi.jpg', 'CODI', null, null, 5, null, NOW(), true),
-       ('uuid_코디서브사진5', '코디서브사진5', '/upload/codi/user-8-codi-detail.jpg', 'CODI', null, null, 5, null, NOW(), false),
-       ('uuid_코디사진6', '코디사진6', '/upload/codi/user-9-codi.jpg', 'CODI', null, null, 6, null, NOW(), true),
-       ('uuid_코디서브사진6', '코디서브사진6', '/upload/codi/user-9-codi-detail.jpg', 'CODI', null, null, 6, null, NOW(), false),
-       ('uuid_코디사진7', '코디사진7', '/upload/codi/user-10-codi1.jpg', 'CODI', null, null, 7, null, NOW(), true),
-       ('uuid_코디사진7서브', '코디사진7서브', '/upload/codi/user-10-codi1-detail.jpg', 'CODI', null, null, 7, null, NOW(), false),
-       ('uuid_코디사진8', '코디사진8', '/upload/codi/user-10-codi2.jpg', 'CODI', null, null, 8, null, NOW(), true),
-       ('uuid_코디사진8서브', '코디사진8서브', '/upload/codi/user-10-codi2-detail.jpg', 'CODI', null, null, 8, null, NOW(), false),
+
+-- 코디 수정 (user_id)
+       ('uuid_코디사진1', '코디사진1', '/upload/codi/user-03-codi01.webp', 'CODI', null, null, 1, null, NOW(), true),
+       ('uuid_코디사진1서브', '코디사진1서브', '/upload/codi/user-03-codi01-detail.webp', 'CODI', null, null, 1, null, NOW(), false),
+       ('uuid_코디사진2', '코디사진2', '/upload/codi/user-03-codi02.webp', 'CODI', null, null, 2, null, NOW(), true),
+       ('uuid_코디사진2서브', '코디사진2서브', '/upload/codi/user-03-codi02-detail.webp', 'CODI', null, null, 2, null, NOW(), false),
+       ('uuid_코디사진3', '코디사진3', '/upload/codi/user-06-codi01.jpg', 'CODI', null, null, 3, null, NOW(), true),
+       ('uuid_코디서브사진3', '코디서브사진3', '/upload/codi/user-06-codi01-detail.jpg', 'CODI', null, null, 3, null, NOW(), false),
+       ('uuid_코디사진4', '코디사진4', '/upload/codi/user-06-codi02.jpg', 'CODI', null, null, 4, null, NOW(), true),
+       ('uuid_코디서브사진4', '코디서브사진4', '/upload/codi/user-06-codi02-detail.jpg', 'CODI', null, null, 4, null, NOW(), false),
+       ('uuid_코디사진5', '코디사진5', '/upload/codi/user-06-codi03.jpg', 'CODI', null, null, 5, null, NOW(), true),
+       ('uuid_코디서브사진5', '코디서브사진5', '/upload/codi/user-06-codi03-detail.jpg', 'CODI', null, null, 5, null, NOW(), false),
+       ('uuid_코디사진6', '코디사진6', '/upload/codi/user-06-codi04.jpg', 'CODI', null, null, 6, null, NOW(), true),
+       ('uuid_코디서브사진6', '코디서브사진6', '/upload/codi/user-06-codi04-detail.jpg', 'CODI', null, null, 6, null, NOW(), false),
+       ('uuid_코디사진7', '코디사진7', '/upload/codi/user-10-codi01.jpg', 'CODI', null, null, 7, null, NOW(), true),
+       ('uuid_코디사진7서브', '코디사진7서브', '/upload/codi/user-10-codi01-detail.jpg', 'CODI', null, null, 7, null, NOW(), false),
+       ('uuid_코디사진8', '코디사진8', '/upload/codi/user-10-codi02.jpg', 'CODI', null, null, 8, null, NOW(), true),
+       ('uuid_코디사진8서브', '코디사진8서브', '/upload/codi/user-10-codi02-detail.jpg', 'CODI', null, null, 8, null, NOW(), false),
+       -- 코디 추가
+       -- user 07
+       ('uuid_코디사진9', '코디사진9', '/upload/codi/user-07-codi01.jpg', 'CODI', null, null, 9, null, NOW(), true),
+       ('uuid_코디사진9서브', '코디사진9서브', '/upload/codi/user-07-codi01-detail.jpg', 'CODI', null, null, 9, null, NOW(), false),
+       ('uuid_코디사진10', '코디사진10', '/upload/codi/user-07-codi02.jpg', 'CODI', null, null, 10, null, NOW(), true),
+       ('uuid_코디사진10서브', '코디사진10서브', '/upload/codi/user-07-codi02-detail.jpg', 'CODI', null, null, 10, null, NOW(), false),
+       ('uuid_코디사진11', '코디사진11', '/upload/codi/user-07-codi03.jpg', 'CODI', null, null, 11, null, NOW(), true),
+       ('uuid_코디사진11서브', '코디사진11서브', '/upload/codi/user-07-codi03-detail.jpg', 'CODI', null, null, 11, null, NOW(), false),
+       ('uuid_코디사진12', '코디사진12', '/upload/codi/user-07-codi04.jpg', 'CODI', null, null, 12, null, NOW(), true),
+       ('uuid_코디사진12서브', '코디사진12서브', '/upload/codi/user-07-codi04-detail.jpg', 'CODI', null, null, 12, null, NOW(), false),
+       ('uuid_코디사진13', '코디사진13', '/upload/codi/user-07-codi05.jpg', 'CODI', null, null, 13, null, NOW(), true),
+       ('uuid_코디사진13서브', '코디사진13서브', '/upload/codi/user-07-codi05-detail.jpg', 'CODI', null, null, 13, null, NOW(), false),
+       ('uuid_코디사진14', '코디사진14', '/upload/codi/user-07-codi06.jpg', 'CODI', null, null, 14, null, NOW(), true),
+       ('uuid_코디사진14서브', '코디사진14서브', '/upload/codi/user-07-codi06-detail.jpg', 'CODI', null, null, 14, null, NOW(), false),
+       -- user08
+       ('uuid_코디사진15', '코디사진15', '/upload/codi/user-08-codi01.jpg', 'CODI', null, null, 15, null, NOW(), true),
+       ('uuid_코디사진15서브', '코디사진15서브', '/upload/codi/user-08-codi01-detail.jpg', 'CODI', null, null, 15, null, NOW(), false),
+       ('uuid_코디사진16', '코디사진16', '/upload/codi/user-08-codi02.jpg', 'CODI', null, null, 16, null, NOW(), true),
+       ('uuid_코디사진16서브', '코디사진16서브', '/upload/codi/user-08-codi02-detail.jpg', 'CODI', null, null, 16, null, NOW(), false),
+       -- user09
+       ('uuid_코디사진17', '코디사진17', '/upload/codi/user-09-codi01.jpg', 'CODI', null, null, 17, null, NOW(), true),
+       ('uuid_코디사진17서브', '코디사진17서브', '/upload/codi/user-09-codi01-detail.jpg', 'CODI', null, null, 17, null, NOW(), false),
+       ('uuid_코디사진18', '코디사진18', '/upload/codi/user-09-codi02.jpg', 'CODI', null, null, 18, null, NOW(), true),
+       ('uuid_코디사진18서브', '코디사진18서브', '/upload/codi/user-09-codi02-detail.jpg', 'CODI', null, null, 18, null, NOW(), false),
+       ('uuid_코디사진19', '코디사진19', '/upload/codi/user-09-codi03.jpg', 'CODI', null, null, 19, null, NOW(), true),
+       ('uuid_코디사진19서브', '코디사진19서브', '/upload/codi/user-09-codi03-detail.jpg', 'CODI', null, null, 19, null, NOW(), false),
+       ('uuid_코디사진20', '코디사진20', '/upload/codi/user-09-codi04.jpg', 'CODI', null, null, 20, null, NOW(), true),
+       ('uuid_코디사진20서브', '코디사진20서브', '/upload/codi/user-09-codi04-detail.jpg', 'CODI', null, null, 20, null, NOW(), false),
+       ('uuid_코디사진21', '코디사진21', '/upload/codi/user-09-codi05.jpg', 'CODI', null, null, 21, null, NOW(), true),
+       ('uuid_코디사진21서브', '코디사진21서브', '/upload/codi/user-09-codi05-detail.jpg', 'CODI', null, null, 21, null, NOW(), false),
+
        ('uuid_아이템사진1', '아이템사진1', '/upload/items/item01/mainItemPhoto.jpg', 'ITEM', null, null, null, 1, NOW(), true),
        ('uuid_아이템사진1서브', '아이템서브사진1', '/upload/items/item01/detail01.jpg', 'ITEM', null, null, null, 1, NOW(), false),
        ('uuid_아이템사진2', '아이템사진2', '/upload/items/item02/mainItemPhoto.jpg', 'ITEM', null, null, null, 2, NOW(), true),
@@ -198,7 +252,12 @@ values ('uuid_브랜드사진1', 'salomon', '/upload/brand/salomon.jpg', 'BRAND'
        ('uuid_아이템사진16', '아이템사진16', '/upload/items/item16/mainItemPhoto.jpg', 'ITEM', null, null, null, 16, NOW(), true),
        ('uuid_아이템사진16서브', '아이템서브사진16', '/upload/items/item16/detail01.jpg', 'ITEM', null, null, null, 16, NOW(), false),
        ('uuid_아이템사진17', '아이템사진17', '/upload/items/item17/mainItemPhoto.jpg', 'ITEM', null, null, null, 17, NOW(), true),
-       ('uuid_아이템사진17서브', '아이템서브사진17', '/upload/items/item17/detail01.jpg', 'ITEM', null, null, null, 17, NOW(), false);
+       ('uuid_아이템사진17서브', '아이템서브사진17', '/upload/items/item17/detail01.jpg', 'ITEM', null, null, null, 17, NOW(), false),
+        -- user-07-codi01
+       ('uuid_아이템사진18', '아이템사진18', '/upload/items/item18/mainItemPhoto.jpg', 'ITEM', null, null, null, 18, NOW(), true),
+       ('uuid_아이템사진18서브', '아이템서브사진18', '/upload/items/item18/detail01.jpg', 'ITEM', null, null, null, 18, NOW(), false),
+       ('uuid_아이템사진19', '아이템사진19', '/upload/items/item19/mainItemPhoto.jpg', 'ITEM', null, null, null, 19, NOW(), true),
+       ('uuid_아이템사진19서브', '아이템서브사진19', '/upload/items/item19/detail01.jpg', 'ITEM', null, null, null, 19, NOW(), false);
 
 -- 좋아요 기능
 insert into love_tb (user_id, codi_id, is_loved)
@@ -209,7 +268,20 @@ values (1, 2, true),
        (5, 6, true),
        (6, 7, true),
        (7, 8, true),
-       (8, 1, true);
+       (8, 1, true),
+       (10, 9, true),
+       (10, 10, true),
+       (9, 11, true),
+       (8, 12, true),
+       (7, 13, true),
+       (6, 14, true),
+       (5, 15, true),
+       (4, 16, true),
+       (3, 17, true),
+       (2, 18, true),
+       (1, 19, true),
+       (2, 20, true),
+       (3, 21, true);
 
 
 -- 배송(Delivery) 더미 데이터 삽입

@@ -6,11 +6,8 @@ import com.example.finalproject.domain.admin.Admin;
 import com.example.finalproject.domain.cart.Cart;
 import com.example.finalproject.domain.cart.CartRepository;
 import com.example.finalproject.domain.codi.CodiRepository;
-import com.example.finalproject.domain.codiItems.CodiItems;
-import com.example.finalproject.domain.codiItems.CodiItemsRepository;
 import com.example.finalproject.domain.delivery.Delivery;
 import com.example.finalproject.domain.delivery.DeliveryRepository;
-import com.example.finalproject.domain.items.Items;
 import com.example.finalproject.domain.items.ItemsRepository;
 import com.example.finalproject.domain.orderHistory.OrderHistory;
 import com.example.finalproject.domain.orderHistory.OrderHistoryRepository;
@@ -37,12 +34,12 @@ public class OrderService {
     private final CodiRepository codiRepository;
 
 
-    // 주문 + 배송지 + 결제 설정 페이지 = TODO : 이거 테스트 코드 다시 짜기
+    // 주문 + 배송지 + 결제 설정 페이지
     public OrderResponse.PageView orderPage(Integer userId, OrderRequest.OrderPage reqDTO) {
         Cart cart = Cart.builder()
-                    .items(itemsRepository.findById(reqDTO.getItemId()).orElseThrow(() -> new Exception404("해당 아이템을 찾을 수 없습니다.")))
-                    .user(userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다.")))
-                    .build();
+                .items(itemsRepository.findById(reqDTO.getItemId()).orElseThrow(() -> new Exception404("해당 아이템을 찾을 수 없습니다.")))
+                .user(userRepository.findById(userId).orElseThrow(() -> new Exception404("사용자 정보를 찾을 수 없습니다.")))
+                .build();
         if (reqDTO.getCodiId() != null) {
             cart.setCodi(codiRepository.findById(reqDTO.getCodiId()).orElse(null));
         }
@@ -60,7 +57,7 @@ public class OrderService {
     public OrderResponse.SaveOrder saveOrder(OrderRequest.SaveOrder reqDTO, Integer userId) {
         // 사용자 정보 찾기
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new Exception404("사용자 정보를 찾을 수 없습니다."));
+                new Exception401("사용자 정보를 찾을 수 없습니다."));
         // 사용자 아이디로 모든 카트 찾기
         List<Cart> carts = cartRepository.findAllByUserIdWithAdmin(userId);
 
@@ -95,23 +92,35 @@ public class OrderService {
             // 카트에 있는 아이템의 아이디 값과 코디에 등록된 아이템의 아이디 값을 비교하여 처리
 
             User creator;
-            Admin brandAdmin;
+            Admin admin;
 
             if (cart.getCodi() != null) {
                 // 연동된 코디가 있을경우
                 creator = cart.getCodi().getUser();
-                brandAdmin = cart.getItems().getAdmin();
+                admin = cart.getItems().getAdmin();
 
                 int creatorMileage = (int) (cart.getTotalAmount() * 0.05);
                 int brandMileage = (int) (cart.getTotalAmount() * 0.05);
 
+                if (creator.getMileage() == null) {
+                    creator.setMileage(0);
+                }
                 creator.setMileage(creator.getMileage() + creatorMileage);
-                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+
+                if (admin.getMileage() == null) {
+                    admin.setMileage(0);
+                }
+                admin.setMileage(admin.getMileage() + brandMileage);
             } else {
                 // 코디 아이템이 아닌 경우
-                brandAdmin = cart.getItems().getAdmin();
+                admin = cart.getItems().getAdmin();
+
                 int brandMileage = (int) (cart.getTotalAmount() * 0.1);
-                brandAdmin.setMileage(brandAdmin.getMileage() + brandMileage);
+
+                if (admin.getMileage() == null) {
+                    admin.setMileage(0);
+                }
+                admin.setMileage(admin.getMileage() + brandMileage);
             }
 
             // OrderHistory 테이블에 저장

@@ -27,12 +27,7 @@ public class UserRestController {
     }
 
 
-    // 프로필 변경
-    @PutMapping("/user/profile/{userId}")
-    public ResponseEntity<?> profileUpdate(@Valid @RequestBody UserRequest.ProfileUpdateDTO reqDTO, Errors errors, @PathVariable(name = "userId") Integer userId) {
-        UserResponse.ProfileUpdate respDTO = userService.updateProfile(reqDTO, userId);
-        return ResponseEntity.ok(new ApiUtil(respDTO));
-    }
+
 
     // 앱 프로필 화면
     @GetMapping("/app/profile")
@@ -119,5 +114,12 @@ public class UserRestController {
     public ResponseEntity<?> searchPage(@RequestParam(defaultValue = "") String keyword) {
         UserResponse.SearchPage respDTO = userService.searchPage(keyword);
         return ResponseEntity.ok(new ApiUtil<>(respDTO));
+    }
+
+    // 프로필 변경
+    @PutMapping("/user/profile/{userId}")
+    public ResponseEntity<?> profileUpdate(@Valid @RequestBody UserRequest.ProfileUpdateDTO reqDTO, Errors errors, @PathVariable(name = "userId") Integer userId) {
+        UserResponse.ProfileUpdate respDTO = userService.updateProfile(reqDTO, userId);
+        return ResponseEntity.ok(new ApiUtil(respDTO));
     }
 }

@@ -1,19 +1,18 @@
-package com.example.finalproject.codi;
+package com.example.finalproject.domain.codi;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
-import com.example.finalproject.domain.codi.CodiRequest;
+import com.example.finalproject.domain.MyRestDoc;
 import com.example.finalproject.domain.photo.Photo;
 import com.example.finalproject.domain.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
@@ -22,11 +21,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class CodiControllerTest {
-    @Autowired
-    private MockMvc mvc;
-    private ObjectMapper om = new ObjectMapper();
+public class CodiRestControllerTest extends MyRestDoc {
     private static String jwt;
+
+    private ObjectMapper om = new ObjectMapper();
 
     @BeforeAll
     public static void setUp() {
@@ -56,6 +54,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("검색어는 10글자 이하로 입력해주세요."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -81,6 +80,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -99,6 +99,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("정보를 찾을 수 없습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -115,7 +116,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.description").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-19"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-21"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.isloved").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.loveCount").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoId").value(14));
@@ -132,6 +133,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].isMainPhoto").value(true));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -149,6 +151,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("정보를 찾을 수 없습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -165,7 +168,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.description").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-19"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.createdAt").value("2024-05-21"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.isloved").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.loveCount").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoId").value(14));
@@ -197,6 +200,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].photoPath").value("/upload/codi/user-3-codi2.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].isMainPhoto").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
 
     }
@@ -215,6 +219,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("유효한 카테고리 이름이 아닙니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -265,6 +270,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[2].itemInfo[1].itemName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[2].itemInfo[1].photoPath").value("/upload/items/item12/mainItemPhoto.jpg"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 
@@ -282,6 +288,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("인증된 사용자가 아닙니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -320,6 +327,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiItemPhotos[1].categoryName").value("bottom"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiItemPhotos[1].sort").value("ITEM"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
 
@@ -355,6 +363,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(false));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response").isEmpty());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("설명은 최소 10자 최대 150자 이어야 합니다.  : description"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -392,6 +401,7 @@ public class CodiControllerTest {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.photoId").value(67));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.photoPath").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
     }
 }

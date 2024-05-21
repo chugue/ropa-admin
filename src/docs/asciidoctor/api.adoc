@@ -1,0 +1,642 @@
+= Ropa RestAPI
+
+
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+
+
+:cart: cart-rest-controller-test
+:codi: codi-rest-controller-test
+:inquiry: inquiry-controller-test
+:items: items-rest-controller-test
+:love: love-rest-controller-test
+:orderhistory: order-history-rest-controller-test
+:order: order-rest-controller-test
+:photo: photo-rest-controller-test
+:user: user-rest-controller-test
+
+
+
+:toc: left
+:toclevels: 2
+:source-highlighter: highlightjs
+
+== 장바구니
+
+=== 장바구니 비우기
+
+==== 요청 예시
+include::{snippets}/{cart}/cart-delete_-success_test/http-request.adoc[]
+
+
+==== 응답 예시
+include::{snippets}/{cart}/cart-delete_-success_test/http-response.adoc[]
+
+==== 요청 예시
+include::{snippets}/{cart}/cart-delete_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{cart}/cart-delete_fail_test/http-response.adoc[]
+
+=== 장바구니 상품 추가하기
+
+==== 요청 예시
+include::{snippets}/{cart}/cart-save_-success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{cart}/cart-save_-success_test/curl-request.adoc[]
+
+
+==== 응답 예시
+include::{snippets}/{cart}/cart-save_-success_test/http-response.adoc[]
+
+==== 요청 예시
+include::{snippets}/{cart}/cart-save_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{cart}/cart-save_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{cart}/cart-save_fail_test/http-response.adoc[]
+
+=== 장바구니 페이지
+
+==== 요청 예시
+include::{snippets}/{cart}/get-cart-list_-success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{cart}/get-cart-list_-success_test/http-response.adoc[]
+
+== 코디
+
+=== 코디 페이지
+
+==== 요청 예시
+include::{snippets}/{codi}/app-codi-page_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/app-codi-page_success_test/http-response.adoc[]
+
+==== 요청 예시
+include::{snippets}/{codi}/app-codi-page_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/app-codi-page_fail_test/http-response.adoc[]
+
+=== 코디 등록
+
+==== 요청 예시
+include::{snippets}/{codi}/codi-register_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/codi-register_success_test/http-response.adoc[]
+
+==== 요청 예시
+include::{snippets}/{codi}/codi-register_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/codi-register_fail_test/http-response.adoc[]
+
+=== 공개된 코디 페이지
+
+==== 요청 예시
+include::{snippets}/{codi}/open-codi-page_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/open-codi-page_success_test/http-response.adoc[]
+
+==== 요청 예시
+include::{snippets}/{codi}/open-codi-page_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/open-codi-page_fail_test/http-response.adoc[]
+
+=== 코디 검색
+
+==== 요청 예시
+include::{snippets}/{codi}/search-codi_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/search-codi_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{codi}/search-codi_fail_test/http-request.adoc[]
+
+==== 실패 응답 예시
+include::{snippets}/{codi}/search-codi_fail_test/http-response.adoc[]
+
+=== 코디 등록 연결 페이지
+
+==== 요청 예시
+include::{snippets}/{codi}/top-item-save_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/top-item-save_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{codi}/top-item-save_fail_test/http-request.adoc[]
+
+==== 실패 응답 예시
+include::{snippets}/{codi}/top-item-save_fail_test/http-response.adoc[]
+
+=== 코디 수정 페이지
+
+==== 요청 예시
+include::{snippets}/{codi}/update_page_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{codi}/update_page_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{codi}/update_page_fail_test/http-request.adoc[]
+
+==== 실패 응답 예시
+include::{snippets}/{codi}/update_page_fail_test/http-response.adoc[]
+
+== 문의
+
+=== 문의 상세보기
+
+==== 요청 예시
+include::{snippets}/{inquiry}/inquiry-detail_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{inquiry}/inquiry-detail_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{inquiry}/inquiry-detail_fail_test/http-request.adoc[]
+
+==== 실패 응답 예시
+include::{snippets}/{inquiry}/inquiry-detail_fail_test/http-response.adoc[]
+
+=== 문의 목록
+
+==== 요청 예시
+include::{snippets}/{inquiry}/inquiry-page_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{inquiry}/inquiry-page_success_test/http-response.adoc[]
+
+=== 문의하기
+
+==== 요청 예시
+include::{snippets}/{inquiry}/inquiry-save_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{inquiry}/inquiry-save_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{inquiry}/inquiry-save_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{inquiry}/inquiry-save_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{inquiry}/inquiry-save_fail_test/curl-request.adoc[]
+
+==== 실패 응답 예시
+include::{snippets}/{inquiry}/inquiry-save_fail_test/http-response.adoc[]
+
+== 상품
+
+=== 상품 목록
+
+==== 요청 예시
+include::{snippets}/{items}/creator-view_success_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{items}/creator-view_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{items}/creator-view_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{items}/creator-view_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{items}/creator-view_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{items}/creator-view_fail_test/http-response.adoc[]
+
+=== 상품 검색
+
+==== 요청 예시
+include::{snippets}/{items}/search-items_success_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{items}/search-items_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{items}/search-items_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{items}/search-items_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{items}/search-items_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{items}/search-items_fail_test/http-response.adoc[]
+
+== 좋아요
+
+=== 좋아요 추가
+
+==== 요청 예시
+include::{snippets}/{love}/love_save_success_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{love}/love_save_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{love}/love_save_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{love}/love_save_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{love}/love_save_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{love}/love_save_fail_test/http-response.adoc[]
+
+=== 좋아요 취소
+
+==== 요청 예시
+include::{snippets}/{love}/love_delete_success_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{love}/love_delete_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{love}/love_delete_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{love}/love_delete_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{love}/love_delete_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{love}/love_delete_fail_test/http-response.adoc[]
+
+
+
+
+== 주문내역
+
+
+
+
+== 주문
+
+=== 주문 페이지
+
+==== 요청 예시
+include::{snippets}/{order}/order_page_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{order}/order_page_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{order}/order_page_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{order}/order_page_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{order}/order_page_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{order}/order_page_fail_test/http-response.adoc[]
+
+=== 주문하기
+
+==== 요청 예시
+include::{snippets}/{order}/order_success_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{order}/order_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{order}/order_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{order}/order_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{order}/order_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{order}/order_fail_test/http-response.adoc[]
+
+
+
+== 사진
+
+=== 메인 화면
+
+==== 요청 예시
+include::{snippets}/{photo}/get-home-lists_success_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{photo}/get-home-lists_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{photo}/get-home-lists_success_test/http-response.adoc[]
+
+=== 검색 페이지
+
+==== 요청 예시
+include::{snippets}/{photo}/search-page_success_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{photo}/search-page_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{photo}/search-page_success_test/http-response.adoc[]
+
+
+
+== 유저
+
+=== 회원가입
+
+==== 요청 예시
+include::{snippets}/{user}/join_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/join_test/http-response.adoc[]
+
+==== 실패(아이디 중복체크) 요청 예시
+include::{snippets}/{user}/join_username_same_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/join_username_same_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/join_username_same_fail_test/http-response.adoc[]
+
+==== 실패(유효성검사) 요청 예시
+include::{snippets}/{user}/join_username_valid_fail_test/http-response.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/join_username_valid_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/join_username_valid_fail_test/http-response.adoc[]
+
+=== 로그인
+
+==== 요청 예시
+include::{snippets}/{user}/login_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/login_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/login_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/login_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/login_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/login_fail_test/http-response.adoc[]
+
+==== 실패(validation) 요청 예시
+include::{snippets}/{user}/login_username_valid_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/login_username_valid_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/login_username_valid_fail_test/http-response.adoc[]
+
+=== 자동로그인
+
+==== 요청 예시
+include::{snippets}/{user}/app_auto_login_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/app_auto_login_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/app_auto_login_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/app_auto_login_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/app_auto_login_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/app_auto_login_fail_test/http-response.adoc[]
+
+
+
+=== 크레이터 지원하기
+
+==== 요청 예시
+include::{snippets}/{user}/creator_apply_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_apply_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_apply_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/creator_apply_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_apply_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_apply_fail_test/http-response.adoc[]
+
+
+
+
+=== 크레이터 지원하기 페이지
+
+==== 요청 예시
+include::{snippets}/{user}/creator_apply_form_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_apply_form_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_apply_form_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/creator_apply_form_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_apply_form_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_apply_form_fail_test/http-response.adoc[]
+
+
+
+=== 크레이터 마이 페이지
+
+==== 요청 예시
+include::{snippets}/{user}/creator_my_page_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_my_page_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_my_page_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/creator_my_page_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_my_page_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_my_page_fail_test/http-response.adoc[]
+
+
+
+=== 크레이터 뷰 페이지
+
+==== 요청 예시
+include::{snippets}/{user}/creator_view_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_view_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_view_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/creator_view_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/creator_view_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/creator_view_fail_test/http-response.adoc[]
+
+
+=== 프로필 페이지
+
+==== 요청 예시
+include::{snippets}/{user}/profile_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/profile_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/profile_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/profile_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/profile_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/profile_fail_test/http-response.adoc[]
+
+
+=== 아이템 코디 통합 검색
+
+==== 요청 예시
+include::{snippets}/{user}/search_all_multiple_results_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/search_all_multiple_results_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/search_all_multiple_results_success_test/http-response.adoc[]
+
+
+=== 세팅 페이지
+
+==== 요청 예시
+include::{snippets}/{user}/setting_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/setting_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/setting_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/setting_fail_test/http-response.adoc[]
+
+
+=== 유저마이페이지
+
+==== 요청 예시
+include::{snippets}/{user}/user_my_page_success_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/user_my_page_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/user_my_page_fail_test/http-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/user_my_page_fail_test/http-response.adoc[]
+
+
+=== 유저 프로필 수정
+
+==== 요청 예시
+include::{snippets}/{user}/user_profile_update_success_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/user_profile_update_success_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/user_profile_update_success_test/http-response.adoc[]
+
+==== 실패 요청 예시
+include::{snippets}/{user}/user_profile_update_fail_test/http-request.adoc[]
+
+==== 요청 헤더
+include::{snippets}/{user}/user_profile_update_fail_test/curl-request.adoc[]
+
+==== 응답 예시
+include::{snippets}/{user}/user_profile_update_fail_test/http-response.adoc[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

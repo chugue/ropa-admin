@@ -68,6 +68,7 @@ public class InquiryResponse {
         private Integer userId;
         private Integer brandId;
         private String title;
+        private String content;
         private Timestamp createdAt;
 
         public Save(Inquiry inquiry) {
@@ -75,6 +76,7 @@ public class InquiryResponse {
             this.userId = inquiry.getUser().getId();
             this.brandId = inquiry.getAdmin().getId();
             this.title = inquiry.getTitle();
+            this.content = inquiry.getContent();
             this.createdAt = inquiry.getCreatedAt();
         }
     }

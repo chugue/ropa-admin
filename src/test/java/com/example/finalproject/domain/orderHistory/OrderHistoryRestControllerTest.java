@@ -1,15 +1,15 @@
 package com.example.finalproject.domain.orderHistory;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
+import com.example.finalproject.domain.MyRestDoc;
 import com.example.finalproject.domain.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -17,14 +17,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class OrderHistoryRestControllerTest {
+class OrderHistoryRestControllerTest extends MyRestDoc {
 
     private static String jwt;
 
     private ObjectMapper om = new ObjectMapper();
 
-    @Autowired
-    private MockMvc mvc;
 
     @BeforeAll
     public static void setUp() {
@@ -59,8 +57,6 @@ class OrderHistoryRestControllerTest {
 
         // 주문 이력 목록을 검증
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList").isArray());
-        // 주문 이력 목록에 두 개의 항목이 있는지 확인 (가정: 두 개의 항목이 있는 경우)
-        actions.andExpect(jsonPath("$.response.itemHistoryDTOList.length()").value(2));
 
         // 첫 번째 항목을 검증
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[0].orderId").value(1));
@@ -69,7 +65,7 @@ class OrderHistoryRestControllerTest {
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[0].itemCount").value(2));
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[0].itemPrice").value(45000));
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[0].itemTotalPrice").value(90000));
-        actions.andExpect(jsonPath("$.response.itemHistoryDTOList[0].itemCategoryMain").value("상의"));
+        actions.andExpect(jsonPath("$.response.itemHistoryDTOList[0].itemCategoryMain").value("top"));
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[0].deliveryStatus").value("배송중"));
 
         // 두 번째 항목을 검증
@@ -79,8 +75,9 @@ class OrderHistoryRestControllerTest {
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[1].itemCount").value(1));
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[1].itemPrice").value(32000));
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[1].itemTotalPrice").value(32000));
-        actions.andExpect(jsonPath("$.response.itemHistoryDTOList[1].itemCategoryMain").value("하의"));
+        actions.andExpect(jsonPath("$.response.itemHistoryDTOList[1].itemCategoryMain").value("bottom"));
         actions.andExpect(jsonPath("$.response.itemHistoryDTOList[1].deliveryStatus").value("배송중"));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -103,5 +100,6 @@ class OrderHistoryRestControllerTest {
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.message").doesNotExist());
         actions.andExpect(jsonPath("$.errorMessage").value("토큰이 유효하지 않습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

@@ -1,16 +1,16 @@
 package com.example.finalproject.domain.love;
 
 import com.example.finalproject._core.utils.AppJwtUtil;
+import com.example.finalproject.domain.MyRestDoc;
 import com.example.finalproject.domain.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -19,12 +19,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-class LoveRestControllerTest {
+class LoveRestControllerTest extends MyRestDoc {
 
     private static String jwt;
     private ObjectMapper om = new ObjectMapper();
-    @Autowired
-    private MockMvc mvc;
+
 
     @BeforeAll
     public static void setUp() {
@@ -65,6 +64,7 @@ class LoveRestControllerTest {
         actions.andExpect(jsonPath("$.response.isLoved").value(true));
         actions.andExpect(jsonPath("$.response.loveCount").value(2));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -90,6 +90,7 @@ class LoveRestControllerTest {
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.response").doesNotExist());
         actions.andExpect(jsonPath("$.errorMessage").value("해당 게시물을 찾을 수 없습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     //좋아요 삭제
@@ -118,6 +119,7 @@ class LoveRestControllerTest {
         actions.andExpect(jsonPath("$.response.isLoved").value(false));
         actions.andExpect(jsonPath("$.response.loveCount").value(1));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
     @Test
@@ -143,5 +145,6 @@ class LoveRestControllerTest {
         actions.andExpect(jsonPath("$.success").value(false));
         actions.andExpect(jsonPath("$.response").doesNotExist());
         actions.andExpect(jsonPath("$.errorMessage").value("해당 게시물을 찾을 수 없습니다."));
+        actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 }

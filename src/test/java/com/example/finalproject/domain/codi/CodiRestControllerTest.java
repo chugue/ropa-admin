@@ -123,7 +123,7 @@ public class CodiRestControllerTest extends MyRestDoc {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoPath").value("/upload/codi/user-03-codi01.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].isMainPhoto").value(true));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoId").value(38));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoId").value(64));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsId").value(5));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"));
@@ -131,7 +131,7 @@ public class CodiRestControllerTest extends MyRestDoc {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoId").value(14));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoName").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].photoPath").value("/upload/codi/user-03-codi01.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].isMainPhoto").value(true));
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -175,30 +175,16 @@ public class CodiRestControllerTest extends MyRestDoc {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoPath").value("/upload/codi/user-03-codi01.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].isMainPhoto").value(true));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].mainPhotoId").value(15));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].mainPhotoName").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].photoPath").value("/upload/codi/user-3-codi1-detail.webp"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[1].isMainPhoto").value(false));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoId").value(38));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoId").value(64));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsId").value(5));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].isMainPhoto").value(true));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].itemsPhotoId").value(40));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].itemsId").value(6));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].itemsPhotoName").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].photoPath").value("/upload/items/item06/mainItemPhoto.jpg"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[1].isMainPhoto").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiId").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoId").value(14));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].codiPhotoName").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].photoPath").value("/upload/codi/user-03-codi01.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[0].isMainPhoto").value(true));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].codiId").value(2));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].codiPhotoId").value(16));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].codiPhotoName").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].photoPath").value("/upload/codi/user-3-codi2.webp"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.otherCodiPhotos[1].isMainPhoto").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 

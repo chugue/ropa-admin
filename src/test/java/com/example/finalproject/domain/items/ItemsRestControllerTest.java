@@ -70,7 +70,7 @@ public class ItemsRestControllerTest extends MyRestDoc {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].name").value("scratch 블루 청바지"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].description").value("봄, 여름, 가을 까지 계절 상관없이 힙한 룩에 잘어울리는 청바지입니다."));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].price").value(32000));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].itemPhotoId").value(32));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].itemPhotoId").value(58));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].itemPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response[0].photoPath").value("/upload/items/item02/mainItemPhoto.jpg"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
@@ -112,11 +112,11 @@ public class ItemsRestControllerTest extends MyRestDoc {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.price").value(45000));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.discountPrice").value(0));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.finalPrice").value(45000));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoId").value(30));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoId").value(56));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoPath").value("/upload/items/item01/mainItemPhoto.jpg"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].sort").value("ITEM"));
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.detailPhotos[0].itemPhotoId").value(31));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.detailPhotos[0].itemPhotoId").value(57));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.detailPhotos[0].subPhotoName").exists());
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.detailPhotos[0].photoPath").value("/upload/items/item01/detail01.jpg"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.detailPhotos[0].isMainPhoto").value(false));

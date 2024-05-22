@@ -204,10 +204,9 @@ public class PhotoService {
         List<Photo> popularUserPhotos = photoRepository.findByUserId(popularCreators);
 
         // 인기 아이템의 id 조회 (총 판매량 순으로 아이템을 나열) + 사진 가져오기
-//        List<Integer> itemsId = orderHistoryRepository.findItemsIdByTotalSales();
-//        List<Photo> popularItemsPhotos = photoRepository.findByItemsIds(itemsId);
+        List<Integer> itemsId = orderHistoryRepository.findItemsIdByTotalSales();
+        List<Photo> popularItemsPhotos = photoRepository.findByItemsIds(itemsId);
 
-        List<Photo> popularItemsPhotos = photoRepository.findAllWithItems();
         List<LoveResponse.CodiLoveCount> popularCodies = loveRepository.findCodiIdsSortedByLoveCount();
         List<Integer> popularCodiIdes = popularCodies.stream().map(codiLoveCount -> codiLoveCount.getCodiId()).toList();
         List<Photo> popularCodiPhotos = photoRepository.findByCodiIds(popularCodiIdes);

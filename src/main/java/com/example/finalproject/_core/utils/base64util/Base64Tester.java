@@ -11,7 +11,6 @@ public class Base64Tester implements ConstraintValidator<Base64Validator, String
         if (value == null || value.isEmpty()) {
             return true; // @NotNull 어노테이션을 추가하여 null 검사를 따로 수행
         }
-
         try {
             Base64.getDecoder().decode(value);
             return true;

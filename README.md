@@ -38,14 +38,13 @@
 
 
 <div style="display: flex; flex-direction: row; gap: 10px;">
-  <div style="width: 20%; height: 20%; ">
+  <div style="width: 20%;">
     <img src="https://github.com/chugue/ropa-admin/assets/30003848/be6278ad-77fc-4cc7-8d8f-f4e735ce2a2f" alt="시연01" style="width: 100%; height: auto;"/>
   </div>
-  <div style="width: 80%; height: 20%; ">
+  <div style="width: 80%;">
     <img src="https://github.com/chugue/ropa-admin/assets/30003848/014532ae-1d72-4dcd-b99d-a6fc5dbccb51" alt="시연02" style="width: 100%; height: auto;"/>
   </div>
 </div>
-
 <br>
 
 #  👉 Stacks

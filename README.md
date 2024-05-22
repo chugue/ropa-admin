@@ -39,9 +39,6 @@
 
 <div style="display: grid; grid-template-columns: 1fr 3fr; gap: 10px;">
   <div>
-    <img src="https://github.com/chugue/ropa-admin/assets/30003848/be6278ad-77fc-4cc7-8d8f-f4e735ce2a2f" alt="시연01" style="width: 100%; height: auto;"/>
-  </div>
-  <div>
     <img src="https://github.com/chugue/ropa-admin/assets/30003848/014532ae-1d72-4dcd-b99d-a6fc5dbccb51" alt="시연02" style="width: 100%; height: auto;"/>
   </div>
 </div>

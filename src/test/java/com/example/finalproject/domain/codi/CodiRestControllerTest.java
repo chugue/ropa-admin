@@ -121,7 +121,7 @@ public class CodiRestControllerTest extends MyRestDoc {
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.loveCount").value(1));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoId").value(14));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].mainPhotoName").exists());
-        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].photoPath").value("/upload/codi/user-03-codi1.webp"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.mainPhotos[0].isMainPhoto").value(true));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsPhotoId").value(38));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsId").value(5));

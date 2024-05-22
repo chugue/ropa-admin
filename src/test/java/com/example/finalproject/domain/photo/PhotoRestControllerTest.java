@@ -56,15 +56,15 @@ public class PhotoRestControllerTest extends MyRestDoc {
         // then
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.status").value(200));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.success").value(true));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiPhotos[0].photoId").value(14));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiPhotos[0].codiId").value(1));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiPhotos[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsId").value(17));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemName").value("다리가 길어보이는 투턱 세미 와이드 슬랙스 팬츠"));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemDescription").value("다리가 길어보이는 투턱 세미 와이드 팬츠로 어느룩에든 잘 어울립니다."));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemPrice").value(75000));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoId").value(65));
-//        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoPath").value("/upload/items/item17/mainItemPhoto.jpg"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiPhotos[0].photoId").value(14));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiPhotos[0].codiId").value(1));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.codiPhotos[0].photoPath").value("/upload/codi/user-03-codi01.webp"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemsId").value(19));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemName").value("[비침 X] 2TYPE 린넨 쿨링 밴딩 팬츠"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemDescription").value("비침 없는 쿨링 린넨 팬츠, 여름 필수템!"));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].itemPrice").value(35000));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoId").value(95));
+        actions.andExpect(MockMvcResultMatchers.jsonPath("$.response.itemPhotos[0].photoPath").value("/upload/items/item19/mainItemPhoto.jpg"));
         actions.andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").doesNotExist());
         actions.andDo(MockMvcResultHandlers.print()).andDo(document);
 

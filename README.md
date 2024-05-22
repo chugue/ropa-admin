@@ -1,7 +1,10 @@
 # 🚀 "ROPA" - 2조 파이널 프로젝트
 
-
-![image](https://github.com/chugue/ropa-admin/assets/30003848/70af4146-2333-412b-b2fd-8eb1be45f8e7)
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; ">
+  <div style="width: 400px; height: auto; display: flex; justify-content: center; align-items: center;">
+    <img src="https://github.com/chugue/ropa-admin/assets/30003848/70af4146-2333-412b-b2fd-8eb1be45f8e7" alt="시연01" style="width: 100%; height: auto;"/>
+  </div>
+</div>
 
 <br>
 
@@ -11,8 +14,8 @@
 > ### 개발기간: 2024.04.17 ~ 2024.05.22
 
 ## 배포 주소
-> ####  프론트 서버 : [https://github.com/chugue/ropa-admin](https://github.com/chugue/ropa-admin)<br>
-> #### 백엔드 서버 : [http://voluntain.cs.skku.edu:2223/](http://voluntain.cs.skku.edu:2223/)<br>
+> ####  프론트 서버 : [https://github.com/chugue/ropa-flutter-project](https://github.com/chugue/ropa-admin)<br>
+> #### 백엔드 서버 : [https://github.com/chugue/ropa-admin](http://voluntain.cs.skku.edu:2223/)<br>
 <br>
 
 # 👉 개발팀 소개
@@ -129,16 +132,37 @@ dependencies {
 * #### 🟦 Exception Handler 구현
 * #### 🟦 AOP 구현 
 * #### 🟨 장바구니 CRUD 구현
-* #### 🟨 통신 
+* #### 🟨 ImagePicker 적용
+* #### 🟨 Dio 데이터 송수신 & 바인딩  
 * #### 🟨 RiverPod을 활용한 MVVM패턴 적용
 * #### 🟨 Splash Screen / 자동로그인 구현
 
 > ### 3단계 (🟦: WEB,  🟨:APP)
-* #### JWT 구현
+* #### 🟦 단위 테스트 적용 
+* #### 🟦 RestDoc API 문서 작성
+* #### 🟦 통합 테스트
+* #### 🟦 CI / CD 배포
+* #### 🟨 CopyWith 적용으로 코드 가독성 향상 
+* #### 🟨 CopyWith 적용으로 코드 가독성 향상
+* #### 웹] MultiPartFile 사진 업로드 구현
+* #### Resource Handler 구축
+
+> ### 4단계 (🟦: WEB,  🟨:APP)
+* #### 🟦 단위 테스트 적용
+* #### 🟦 RestDoc API 문서 작성
+* #### 🟦 통합 테스트
+* #### 🟦 CI / CD 배포
 * #### 웹] 로그인 / 회원 가입 구현
 * #### 웹] 아이템 등록 구현
 * #### 웹] MultiPartFile 사진 업로드 구현
 * #### Resource Handler 구축
+
+
+# 👉 API 문서 
+
+---
+
+
 
 
 ## 시작 가이드

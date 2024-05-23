@@ -38,8 +38,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          application_name: blog
-          environment_name: Blog-env
+          application_name: ropa
+          environment_name: Ropa-env
           version_label: ${{ github.run_number }}
           region: ap-northeast-2
           deployment_package: deploy/deploy.zip

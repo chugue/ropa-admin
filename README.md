@@ -1,77 +1,4 @@
-<style>
-body {
-  font-family: 'Open Sans', arial, sans-serif;
-  color: #ffffff;
-  font-size: 14px;
-}
-a {
-  text-decoration: none; /* 링크의 밑줄 제거 */
-  color: inherit; /* 링크의 색상을 부모 요소와 동일하게 설정 */
-  display: block; /* 링크를 블록 요소로 설정하여 카드 전체를 감쌀 수 있도록 함 */
-}
 
-.projcard {
-  position: relative;
-  width: 100%;
-  height: 100px;
-  border-radius: 10px;
-  background-color: #fff;
-  border: 2px solid #ddd;
-  font-size: 18px;
-  overflow: hidden;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-.projcard:hover {
-  box-shadow: 0 34px 32px -33px rgba(0, 0, 0, .18);
-  transform: translate(0px, -3px);
-}
-
-.projcard-innerbox {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-height: 100%;
-align-items: center;
-}
-.projcard-img {
-  height: 100%;
-  width: 100%;
-  flex: 0 0 auto;
-  object-fit: cover;
-object-position: center;
-  transition: transform 0.2s ease;
-}
-.projcard-textbox {
-  display: flex; /* 플렉스 레이아웃 사용 */
-  align-items: center; /* 텍스트 박스 세로 중앙 정렬 */
-  padding-left: 50px; /* 이미지와 텍스트 사이의 간격 */
-}
-.projcard:hover .projcard-img {
-  transform: scale(1.05) rotate(1deg);
-}
-.projcard:hover .projcard-bar {
-  width: 70px;
-}
-
-.projcard-textbox * {
-  position: relative;
-}
-.projcard-subtitle {
-  font-family: 'Voces', 'Open Sans', arial, sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  color: #333333;
-}
-.projcard-bar {
-  left: 0;
-  width: 50px;
-  height: 5px;
-  margin: 10px 0;
-  border-radius: 5px;
-  background-color: #424242;
-  transition: width 0.2s ease;
-}
-
-</style>
 
 # 🚀 "ROPA" - 2조 파이널 프로젝트
 
@@ -248,7 +175,7 @@ dependencies {
 <br>
 
 
-# 👉 팀 블로깅  
+# 👉 팀 블로그 
 
 ---
 
@@ -256,7 +183,7 @@ dependencies {
   <div class="projcard">
     <div class="projcard-innerbox">
       <div style="display: flex; justify-content: center; align-items: center; height: 100%; overflow: hidden;">
-        <img class="projcard-img" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fb4216657-966f-4c29-ae8c-42f6c4adb66d%2F5def9ba4-9876-49d4-b8c2-c550078c638e%2F%25EC%25A0%259C%25EB%25AA%25A9%25EC%259D%2584_%25EC%259E%2585%25EB%25A0%25A5%25ED%2595%25B4%25EC%25A3%25BC%25EC%2584%25B8%25EC%259A%2594_-001_(2).png?table=block&id=23dafc6d-ac16-4931-8bc1-bc1ece61c2fd&spaceId=b4216657-966f-4c29-ae8c-42f6c4adb66d&width=2000&userId=869b81e9-1584-40c0-9d5f-ef8cd70fdfbf&cache=v2" />
+        <img class="projcard-img" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fb4216657-966f-4c29-ae8c-42f6c4adb66d%2F3a4a0f5d-28ae-4f41-af42-85310be00962%2F%25EC%25A0%259C%25EB%25AA%25A9%25EC%259D%2584_%25EC%259E%2585%25EB%25A0%25A5%25ED%2595%25B4%25EC%25A3%25BC%25EC%2584%25B8%25EC%259A%2594_-001_(3).png?table=block&id=23dafc6d-ac16-4931-8bc1-bc1ece61c2fd&spaceId=b4216657-966f-4c29-ae8c-42f6c4adb66d&width=2000&userId=869b81e9-1584-40c0-9d5f-ef8cd70fdfbf&cache=v2" />
       </div>
       <div class="projcard-textbox">
             <div style="display: flex; flex-direction: column; height: 100%">

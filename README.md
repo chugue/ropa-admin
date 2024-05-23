@@ -155,7 +155,7 @@ dependencies {
 
 <br>
 
-![코드 컨벤션 정리 링크](https://www.notion.so/stephenkiim/137f2114decc444bbf308520a340238e)
+[코드 컨벤션 정리 링크](https://www.notion.so/stephenkiim/137f2114decc444bbf308520a340238e)
 
 <br>
 
@@ -163,4 +163,4 @@ dependencies {
 # 👉 팀 블로깅  
 
 ---
-![팀 블로그 링크](https://www.notion.so/stephenkiim/23dafc6dac1649318bc1bc1ece61c2fd)
+[팀 블로그 링크](https://www.notion.so/stephenkiim/23dafc6dac1649318bc1bc1ece61c2fd)

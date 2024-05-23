@@ -230,41 +230,12 @@ dependencies {
 
 <br>
 
-<a href="https://www.notion.so/stephenkiim/137f2114decc444bbf308520a340238e">
-  <div class="projcard">
-    <div class="projcard-innerbox">
-      <div style="display: flex; justify-content: center; align-items: center; height: 100%; overflow: hidden;">
-        <img class="projcard-img" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fb4216657-966f-4c29-ae8c-42f6c4adb66d%2F58ef7120-c904-4cfb-a667-2b491d6bc172%2F%25EC%25A0%259C%25EB%25AA%25A9%25EC%259D%2584_%25EC%259E%2585%25EB%25A0%25A5%25ED%2595%25B4%25EC%25A3%25BC%25EC%2584%25B8%25EC%259A%2594_-001_(4).png?table=block&id=137f2114-decc-444b-bf30-8520a340238e&spaceId=b4216657-966f-4c29-ae8c-42f6c4adb66d&width=2000&userId=869b81e9-1584-40c0-9d5f-ef8cd70fdfbf&cache=v2" />
-      </div>
-      <div class="projcard-textbox">
-            <div style="display: flex; flex-direction: column; height: 100%">
-               <div class="projcard-subtitle">코드 컨벤션 정리 블로그 링크</div>
-                <div class="projcard-bar"></div>
-            </div>
-      </div>
-    </div>
-  </div>
-</a>
+![코드 컨벤션 정리 링크](https://www.notion.so/stephenkiim/137f2114decc444bbf308520a340238e)
+
 <br>
 
 
 # 👉 팀 블로깅  
 
 ---
-
-<a href="https://www.notion.so/stephenkiim/23dafc6dac1649318bc1bc1ece61c2fd">
-  <div class="projcard">
-    <div class="projcard-innerbox">
-      <div style="display: flex; justify-content: center; align-items: center; height: 100%; overflow: hidden;">
-        <img class="projcard-img" src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fb4216657-966f-4c29-ae8c-42f6c4adb66d%2F5def9ba4-9876-49d4-b8c2-c550078c638e%2F%25EC%25A0%259C%25EB%25AA%25A9%25EC%259D%2584_%25EC%259E%2585%25EB%25A0%25A5%25ED%2595%25B4%25EC%25A3%25BC%25EC%2584%25B8%25EC%259A%2594_-001_(2).png?table=block&id=23dafc6d-ac16-4931-8bc1-bc1ece61c2fd&spaceId=b4216657-966f-4c29-ae8c-42f6c4adb66d&width=2000&userId=869b81e9-1584-40c0-9d5f-ef8cd70fdfbf&cache=v2" />
-      </div>
-      <div class="projcard-textbox">
-            <div style="display: flex; flex-direction: column; height: 100%">
-               <div class="projcard-subtitle">프로젝트 기능 팀 블로그 링크</div>
-                <div class="projcard-bar"></div>
-            </div>
-      </div>
-    </div>
-  </div>
-</a>
-<br>
+![팀 블로그 링크](https://www.notion.so/stephenkiim/23dafc6dac1649318bc1bc1ece61c2fd)

@@ -23,6 +23,7 @@ public class MyExceptionHandler {
     @ExceptionHandler(Exception401.class)
     public ResponseEntity<?> ex401(Exception401 e){
         ApiUtil<?> apiUtil = new ApiUtil<>(401, e.getMessage());
+
         return new ResponseEntity<>(apiUtil, HttpStatus.UNAUTHORIZED);
     }
 

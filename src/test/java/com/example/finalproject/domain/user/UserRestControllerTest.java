@@ -607,6 +607,7 @@ public class UserRestControllerTest extends MyRestDoc {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
+        System.out.println("respBody = " + respBody);
 
         // then
         actions.andExpect(status().isOk());
@@ -618,7 +619,7 @@ public class UserRestControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.response.codiListDTOS[0].codiId").value(1));
         actions.andExpect(jsonPath("$.response.codiListDTOS[0].codiPhotoId").value(14));
         actions.andExpect(jsonPath("$.response.codiListDTOS[0].photoName").value("uuid_코디사진1"));
-        actions.andExpect(jsonPath("$.response.codiListDTOS[0].photoPath").value("/upload/codi/user-3-codi1.webp"));
+        actions.andExpect(jsonPath("$.response.codiListDTOS[0].photoPath").value("/upload/codi/user-03-codi01.webp"));
 
 
         // 첫번째 아이템
@@ -627,7 +628,7 @@ public class UserRestControllerTest extends MyRestDoc {
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].name").value("SCRAPPED 티셔츠(WHITE)"));
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].description").value("힙하고 유니크한 반팔로 어느 코디에도 잘 어울립니다."));
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].price").value(45000));
-        actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoId").value(30));
+        actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoId").value(56));
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].itemPhotoName").value("uuid_아이템사진1"));
         actions.andExpect(jsonPath("$.response.itemListDTOS[0].photoPath").value("/upload/items/item01/mainItemPhoto.jpg"));
         actions.andExpect(jsonPath("$.errorMessage").doesNotExist());
@@ -648,7 +649,7 @@ public class UserRestControllerTest extends MyRestDoc {
 
         // eye
         String respBody = actions.andReturn().getResponse().getContentAsString();
-//        System.out.println("respBody = " + respBody);
+        System.out.println("respBody = " + respBody);
 
         // then
         actions.andExpect(status().isOk())
@@ -669,13 +670,13 @@ public class UserRestControllerTest extends MyRestDoc {
                 .andExpect(jsonPath("$.response.codiList[0].codiId").value(1))
                 .andExpect(jsonPath("$.response.codiList[0].codiPhotoId").value(14))
                 .andExpect(jsonPath("$.response.codiList[0].photoName").value("uuid_코디사진1"))
-                .andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-3-codi1.webp"))
+                .andExpect(jsonPath("$.response.codiList[0].photoPath").value("/upload/codi/user-03-codi01.webp"))
                 .andExpect(jsonPath("$.response.codiList[0].codiPhoto").value("CODI"))
                 .andExpect(jsonPath("$.response.itemList[0].itemId").value(5))
                 .andExpect(jsonPath("$.response.itemList[0].name").value("crop cable sweater"))
                 .andExpect(jsonPath("$.response.itemList[0].description").value("방모 원사임에도 모달이 섞여 기분좋은 찰랑거림이 있는게 매력적입니다."))
                 .andExpect(jsonPath("$.response.itemList[0].price").value(75000))
-                .andExpect(jsonPath("$.response.itemList[0].itemPhotoId").value(38))
+                .andExpect(jsonPath("$.response.itemList[0].itemPhotoId").value(64))
                 .andExpect(jsonPath("$.response.itemList[0].itemPhotoName").value("uuid_아이템사진5"))
                 .andExpect(jsonPath("$.response.itemList[0].photoPath").value("/upload/items/item05/mainItemPhoto.jpg"))
                 .andExpect(jsonPath("$.response.itemList[0].itemPhoto").value("ITEM"))

@@ -122,15 +122,30 @@ dependencies {
 * #### 🟨 API 문서 작성 GitBook 활용
 * #### 🟦 검색어 검색 구현
 * #### 🟦 날짜 기간 검색 구현
+* #### 🟦 좋아요 기능 구현
 * #### 🟦 Exception Handler 구현
 * #### 🟦 AOP 구현 
-* #### 🟨 장바구니 CRUD 구현
-* #### 🟨 통신 
+* #### 🟦 장바구니 CRUD 구현
+* #### 🟨 ImagePicker 적용
+* #### 🟨 Dio 데이터 송수신 & 바인딩  
 * #### 🟨 RiverPod을 활용한 MVVM패턴 적용
 * #### 🟨 Splash Screen / 자동로그인 구현
 
 > ### 3단계 (🟦: WEB,  🟨:APP)
-* #### JWT 구현
+* #### 🟦 단위 테스트 적용 
+* #### 🟦 RestDoc API 문서 작성
+* #### 🟦 통합 테스트
+* #### 🟦 CI / CD 배포
+* #### 🟨 CopyWith 적용으로 코드 가독성 향상 
+* #### 🟨 CopyWith 적용으로 코드 가독성 향상 
+* #### 웹] MultiPartFile 사진 업로드 구현
+* #### Resource Handler 구축
+
+> ### 4단계 (🟦: WEB,  🟨:APP)
+* #### 🟦 단위 테스트 적용
+* #### 🟦 RestDoc API 문서 작성
+* #### 🟦 통합 테스트
+* #### 🟦 CI / CD 배포
 * #### 웹] 로그인 / 회원 가입 구현
 * #### 웹] 아이템 등록 구현
 * #### 웹] MultiPartFile 사진 업로드 구현

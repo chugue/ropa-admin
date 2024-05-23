@@ -15,14 +15,14 @@ public class MyExceptionHandler {
 
     @ExceptionHandler(Exception400.class)
     public ResponseEntity<?> ex400(Exception400 e, HttpServletRequest request){
-        log.error("400 Error: {}, Request URI: {}", e.getMessage(), request.getRequestURI(), e);
+        log.warn("400 Error: {}, Request URI: {}", e.getMessage(), request.getRequestURI(), e);
         ApiUtil<?> apiUtil = new ApiUtil<>(400, e.getMessage());
         return new ResponseEntity<>(apiUtil, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception401.class)
     public ResponseEntity<?> ex401(Exception401 e, HttpServletRequest request){
-        log.error("401 Error: {}, Request URI: {}", e.getMessage(), request.getRequestURI(), e);
+        log.warn("401 Error: {}, Request URI: {}", e.getMessage(), request.getRequestURI(), e);
         ApiUtil<?> apiUtil = new ApiUtil<>(401, e.getMessage());
         return new ResponseEntity<>(apiUtil, HttpStatus.UNAUTHORIZED);
     }
@@ -36,7 +36,7 @@ public class MyExceptionHandler {
 
     @ExceptionHandler(Exception404.class)
     public ResponseEntity<?> ex404(Exception404 e, HttpServletRequest request){
-        log.error("404 Error: {}, Request URI: {}", e.getMessage(), request.getRequestURI(), e);
+        log.warn("404 Error: {}, Request URI: {}", e.getMessage(), request.getRequestURI(), e);
         ApiUtil<?> apiUtil = new ApiUtil<>(404, e.getMessage());
         return new ResponseEntity<>(apiUtil, HttpStatus.NOT_FOUND);
     }

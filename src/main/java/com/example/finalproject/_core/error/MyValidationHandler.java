@@ -31,25 +31,20 @@ public class MyValidationHandler {
     // Advice (부가 로직 메서드)
     // Advice가 수행될 위치 == PointCut
     @Before("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.PutMapping)")
-    // PointCut
-    public void hello(JoinPoint jp) {
-        Object[] args = jp.getArgs(); // Args: 파라미터 -> object를 리턴
-        System.out.println("크기 : " + args.length);
+    public void validCheck(JoinPoint jp){
+        Object[] args = jp.getArgs(); // 파라메터(매개변수)
 
-        for (Object arg : args) {
+        for(Object arg : args){
+            if(arg instanceof Errors){
+                Errors errors = (Errors) arg;
 
-            if (arg instanceof Errors) {
-                Errors errors = (Errors) arg; // 에러스타입의 arg를 다운캐스팅
-
-                if (errors.hasErrors()) {
-                    for (FieldError error : errors.getFieldErrors()) {
-                        System.out.println(error.getField());
-                        System.out.println(error.getDefaultMessage());
-                        throw new Exception400(error.getDefaultMessage() + " : " + error.getField());
+                if(errors.hasErrors()){
+                    for (FieldError error : errors.getFieldErrors()){
+                        throw new Exception400(error.getDefaultMessage()+" : "+error.getField());
                     }
                 }
             }
+
         }
-        System.out.println("MyValidationHandler: hello____________________");
     }
 }

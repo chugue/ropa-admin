@@ -1,18 +1,20 @@
 # 🚀 "ROPA" - 2조 파이널 프로젝트
 
-<div style="display: flex; justify-content: center;">
-  <img src="https://github.com/chugue/ropa-admin/assets/30003848/70af4146-2333-412b-b2fd-8eb1be45f8e7" style="width: 50%; height: auto;"/>
-</div>
+
+<p align="center">
+  <img src="https://github.com/chugue/ropa-admin/assets/30003848/70af4146-2333-412b-b2fd-8eb1be45f8e7"  style="width: 50%; height: auto;"/>
+</p>
 
 
+
+<br>
 
 # 👉 코디 아이템 중개 플랫폼
----
 > ### 개발기간: 2024.04.17 ~ 2024.05.22
 
 <br>
 
-## 배포 주소
+# 👉 배포 주소
   
 > #### 프론트 서버 : [https://github.com/chugue/ropa-admin](https://github.com/chugue/ropa-admin)<br>
 > #### 백엔드 서버 : [https://github.com/chugue/ropa-flutter-project](https://github.com/chugue/ropa-flutter-project)<br>
@@ -20,24 +22,41 @@
 
 # 👉 개발팀 소개
 
----
 
-|                                     김성훈(팀장)                                      |                                     김주혁(프론트)                                      |                                    양승호(프론트)                                     |                                     김완준(백엔드)                                     |                                     박선규(백엔드)                                      |
-|:--------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
-| <img width="160px" src="https://avatars.githubusercontent.com/u/30003848?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/153582123?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/97007464?v=4"/> | <img width="160px" src="https://avatars.githubusercontent.com/u/81667935?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/153582360?v=4" /> |
-|                       [@chugue](https://github.com/chugue)                       |                      [@kjh5848](https://github.com/kjh5848)                       |                   [@LifeIsOne](https://github.com/LifeIsOne)                    |                   [@tkffkels93](https://github.com/tkffkels93)                   |                       [@p4rksk](https://github.com/p4rksk)                        |
+<table style="width:100%; text-align:center;">
+  <tr>
+    <th style="text-align:center;">김성훈(팀장)</th>
+    <th style="text-align:center;">김주혁(프론트)</th>
+    <th style="text-align:center;">양승호(프론트)</th>
+    <th style="text-align:center;">김완준(백엔드)</th>
+    <th style="text-align:center;">박선규(백엔드)</th>
+  </tr>
+  <tr>
+    <td style="text-align:center; vertical-align:middle;"><img width="160px" src="https://avatars.githubusercontent.com/u/30003848?v=4" /></td>
+    <td style="text-align:center; vertical-align:middle;"><img width="160px" src="https://avatars.githubusercontent.com/u/153582123?v=4" /></td>
+    <td style="text-align:center; vertical-align:middle;"><img width="160px" src="https://avatars.githubusercontent.com/u/97007464?v=4"/></td>
+    <td style="text-align:center; vertical-align:middle;"><img width="160px" src="https://avatars.githubusercontent.com/u/81667935?v=4" /></td>
+    <td style="text-align:center; vertical-align:middle;"><img width="160px" src="https://avatars.githubusercontent.com/u/153582360?v=4" /></td>
+  </tr>
+  <tr>
+    <td style="text-align:center; vertical-align:middle;"><a href="https://github.com/chugue">@chugue</a></td>
+    <td style="text-align:center; vertical-align:middle;"><a href="https://github.com/kjh5848">@kjh5848</a></td>
+    <td style="text-align:center; vertical-align:middle;"><a href="https://github.com/LifeIsOne">@LifeIsOne</a></td>
+    <td style="text-align:center; vertical-align:middle;"><a href="https://github.com/tkffkels93">@tkffkels93</a></td>
+    <td style="text-align:center; vertical-align:middle;"><a href="https://github.com/p4rksk">@p4rksk</a></td>
+  </tr>
+</table>
+
 
 <br>
 
 # 👉프로젝트 소개 (핵심로직 설명)
-
----
 > #### 로파는 의류를 판매하는 쇼핑몰 앱입니다.
 > #### 브랜드는 로파 플랫폼에 입점을 하여서 상품을 등록하고
 > #### 개성있는 크리에이터들은 자신의 코디를 자랑하며 보다 활용성 있게 브랜드 제품을 홍보하고,
 > #### 사용자는 맘에 드는 코디를 발견하면 해당 아이템을 바로 구매 할 수 있습니다.
 > #### 코디를 통해 판매된 제품은 해당 브랜드가 크리에이터와 플랫폼에게 수수료를 지불합니다.
-> #### 때문에 브랜드는 홍보비를 아낄 수 있고, 크리에이터에겐 자신의 표현과 수익을 얻을 수 있는 환경을 제공합니다.
+> #### 때문에 브랜드는 홍보비를 아낄 수 있고, 크리에이터에겐 자신의 표현과 수익을 얻을 수 있는 `환경을` 제공합니다.
 
 
 <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
@@ -48,8 +67,6 @@
 <br>
 
 # 👉 Stacks
-
----
 
 ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
@@ -70,9 +87,6 @@
 <br>
 
 # 👉 Dependencies
-
----
-
 ```
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
@@ -97,8 +111,6 @@ dependencies {
 <br>
 
 # 👉 테이블 설계
-
----
 ![테이블 소개](https://github.com/chugue/ropa-admin/assets/30003848/275af45f-d141-44cb-a0dd-8cb45488dd8a)
 
 
@@ -106,8 +118,6 @@ dependencies {
 <br>
 
 # 👉 프로젝트 기능 정리
-
----
 
 > ### 1단계   (🟦: WEB, 🟨:APP)
 
@@ -122,6 +132,8 @@ dependencies {
 * #### 🟨 크리에이터 코디 - 아이템 연결
 * #### 🟨 일반사용자 아이템 상세보기 / 구매
 * #### 🟦 브랜드 수수료 지급 로직 구현
+<br>
+
 
 > ### 2단계   (🟦: WEB, 🟨:APP)
 
@@ -138,6 +150,8 @@ dependencies {
 * #### 🟨 Dio 데이터 송수신 & 바인딩
 * #### 🟨 RiverPod을 활용한 MVVM패턴 적용
 * #### 🟨 Splash Screen / 자동로그인 구현
+<br>
+
 
 > ### 3단계 (🟦: WEB, 🟨:APP)
 
@@ -146,20 +160,62 @@ dependencies {
 * #### 🟦 통합 테스트
 * #### 🟦 CI / CD 배포
 * #### 🟨 CopyWith 적용으로 코드 가독성 관리
+
 <br>
 
 # 👉 컨벤션 정리
-
----
-
-<br>
-
 [코드 컨벤션 정리 링크](https://www.notion.so/stephenkiim/137f2114decc444bbf308520a340238e)
 
 <br>
 
 
 # 👉 팀 블로깅  
-
----
 [팀 블로그 링크](https://www.notion.so/stephenkiim/23dafc6dac1649318bc1bc1ece61c2fd)
+
+<br>
+
+# 👉 핵심 시나리오 시연
+### 🔹브랜드 아이템 등록
+
+![브랜드 아이템 등록](https://github.com/chugue/ropa-admin/assets/30003848/acd9e3df-5eee-44b7-b831-b508baeef10d)
+
+<br>
+
+### 🔹 목록 보기
+![홈 목록보기](https://github.com/chugue/ropa-admin/assets/30003848/dd09bfc5-c139-400c-a23e-13713717d937)
+
+<br>
+
+### 🔹 아이템 상세보기
+![녹화_2024_05_24_10_57_37_548](https://github.com/chugue/ropa-admin/assets/30003848/6ce1593a-a75f-40c7-87de-4216d558b71a)
+
+<br>
+
+### 🔹 장바구니 추가
+![녹화_2024_05_24_10_59_38_776](https://github.com/chugue/ropa-admin/assets/30003848/dcb75176-c179-43e4-9536-f1fdb0408040)
+
+<br>
+
+### 🔹 배송지 입력 / 결제
+![녹화_2024_05_24_11_01_15_270](https://github.com/chugue/ropa-admin/assets/30003848/6eacc1fe-a391-450d-8efd-3f30a64faa83)
+
+<br>
+
+### 🔹 크리에이터 지원하기 
+![녹화_2024_05_24_11_05_38_97](https://github.com/chugue/ropa-admin/assets/30003848/78555567-da40-4b26-a99a-66291fcc11d3)
+
+<br>
+
+### 🔹 크리에이터 승인하기
+![녹화_2024_05_24_11_09_41_220](https://github.com/chugue/ropa-admin/assets/30003848/f487a0fe-7ba2-4444-b6f4-915612222410)
+
+<br>
+
+### 🔹 크리에이터 코디 메인사진 등록하기
+![녹화_2024_05_24_11_11_54_847](https://github.com/chugue/ropa-admin/assets/30003848/a5a2596a-29bf-4d38-a36e-99c4a6a123cb)
+
+<br>
+
+### 🔹 크리에이터 코디에 아이템 연결하기
+![녹화_2024_05_24_11_12_24_872](https://github.com/chugue/ropa-admin/assets/30003848/71935699-78e8-4b78-a86e-4fe234dd5f20)
+

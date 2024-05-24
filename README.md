@@ -1,10 +1,9 @@
 # 🚀 "ROPA" - 2조 파이널 프로젝트
 
-<div style="display: grid; grid-template-columns: 1fr; gap: 10px; text-align: center;">
-  <div>
-    <img src="https://github.com/chugue/ropa-admin/assets/30003848/70af4146-2333-412b-b2fd-8eb1be45f8e7" style="width: 50%; height: auto;"/>
-  </div>
+<div style="display: flex; justify-content: center;">
+  <img src="https://github.com/chugue/ropa-admin/assets/30003848/70af4146-2333-412b-b2fd-8eb1be45f8e7" style="width: 50%; height: auto;"/>
 </div>
+
 
 
 # 👉 코디 아이템 중개 플랫폼
@@ -14,9 +13,9 @@
 <br>
 
 ## 배포 주소
-
+  
 > #### 프론트 서버 : [https://github.com/chugue/ropa-admin](https://github.com/chugue/ropa-admin)<br>
-> #### 백엔드 서버 : [http://voluntain.cs.skku.edu:2223/](http://voluntain.cs.skku.edu:2223/)<br>
+> #### 백엔드 서버 : [https://github.com/chugue/ropa-flutter-project](https://github.com/chugue/ropa-flutter-project)<br>
 <br>
 
 # 👉 개발팀 소개
@@ -155,7 +154,7 @@ dependencies {
 
 <br>
 
-![코드 컨벤션 정리 링크](https://www.notion.so/stephenkiim/137f2114decc444bbf308520a340238e)
+[코드 컨벤션 정리 링크](https://www.notion.so/stephenkiim/137f2114decc444bbf308520a340238e)
 
 <br>
 
@@ -163,4 +162,4 @@ dependencies {
 # 👉 팀 블로깅  
 
 ---
-![팀 블로그 링크](https://www.notion.so/stephenkiim/23dafc6dac1649318bc1bc1ece61c2fd)
+[팀 블로그 링크](https://www.notion.so/stephenkiim/23dafc6dac1649318bc1bc1ece61c2fd)
